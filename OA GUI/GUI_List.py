@@ -46,6 +46,10 @@ def destroy_Toplevel1():
     w.destroy()
     w = None
 
+def buildList(archType):
+    global w
+    GUI_List_support.buildList(archType)
+
 class Toplevel1:
     def __init__(self, top=None):
         '''This class configures and populates the toplevel window.
@@ -53,13 +57,13 @@ class Toplevel1:
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
         _compcolor = '#d9d9d9' # X11 color: 'gray85'
-        _ana1color = '#d9d9d9' # X11 color: 'gray85' 
-        _ana2color = '#d9d9d9' # X11 color: 'gray85' 
+        _ana1color = '#d9d9d9' # X11 color: 'gray85'
+        _ana2color = '#d9d9d9' # X11 color: 'gray85'
         font9 = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
             " -underline 0 -overstrike 0"
 
         top.geometry("543x922+406+107")
-        top.title("New Toplevel")
+        top.title("OA Manager")
         top.configure(background="#d9d9d9")
 
         self.lblTitle = tk.Label(top)
@@ -182,8 +186,3 @@ class Toplevel1:
 
 if __name__ == '__main__':
     vp_start_gui()
-
-
-
-
-
