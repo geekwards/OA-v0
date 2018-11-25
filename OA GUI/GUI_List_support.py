@@ -20,6 +20,11 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = True
 
+import sys, os.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Objects'))
+
+import ListObject
+
 def set_Tk_var():
     global che47
     che47 = tk.StringVar()
@@ -39,12 +44,32 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
-def buildList(listType, listItems):
+def buildList(listType, listItems, editcall):
     # Function to fill in  List management GUI_List
     global w
+    global top_level
+
     top_level.title("OA Manager - " + listType)
     w.lblTitle.config(text=listType)
-    w.chkListItem.config(text=listItems[0].name)
+
+    idx=0
+
+    for listItem in listItems:
+        addListItem(idx,listItem.name, listItem.shortDescription, editcall)
+        idx+=1
+
+def addListItem(idx,name, shortDescr, editcall):
+    global w
+    global top_level
+
+    x = 10
+    y = (idx*30)+80
+
+    w.EditListItem = tk.Button(top_level, text ="Edit" + str(idx), command=lambda: editcall(idx))
+    w.EditListItem.place(x=x, y=y, height=25, width=50)
+
+    w.lblListItem = tk.Label(top_level, text=name + ' - ' + shortDescr)
+    w.lblListItem.place(x=x+60, y=y, height=30, width=400)
 
 if __name__ == '__main__':
     import GUI_List

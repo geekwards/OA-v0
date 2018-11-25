@@ -11,6 +11,9 @@ class Archtypes:
     def GetList(current):
         return current.listOfArchtypes
 
+    def __getitem__(current,idx):
+        return current.archtypes[idx]
+
     def __init__(self):
         self.archtypes = []
 

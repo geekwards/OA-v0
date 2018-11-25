@@ -41,9 +41,9 @@ def create_Toplevel1(root, *args, **kwargs):
     GUI_List_support.init(w, top, *args, **kwargs)
     return (w, top)
 
-def buildList(listType, listItems):
+def buildList(listType, listItems, editcall):
     global w
-    GUI_List_support.buildList(listType, listItems)
+    GUI_List_support.buildList(listType, listItems, editcall)
 
 def destroy_Toplevel1():
     global w
@@ -79,56 +79,6 @@ class Toplevel1:
         self.lblTitle.configure(highlightbackground="#d9d9d9")
         self.lblTitle.configure(highlightcolor="black")
         self.lblTitle.configure(text='''List Title''')
-
-        self.lblListItem = tk.Label(top)
-        self.lblListItem.place(relx=0.018, rely=0.179, height=30, width=400)
-        self.lblListItem.configure(activebackground="#f9f9f9")
-        self.lblListItem.configure(activeforeground="black")
-        self.lblListItem.configure(background="#d9d9d9")
-        self.lblListItem.configure(disabledforeground="#a3a3a3")
-        self.lblListItem.configure(foreground="#000000")
-        self.lblListItem.configure(highlightbackground="#d9d9d9")
-        self.lblListItem.configure(highlightcolor="black")
-        self.lblListItem.configure(justify='left')
-        self.lblListItem.configure(text='''List Item''')
-
-        self.EditListItem = tk.Button(top)
-        self.EditListItem.place(relx=0.773, rely=0.187, height=25, width=50)
-        self.EditListItem.configure(activebackground="#d9d9d9")
-        self.EditListItem.configure(activeforeground="#000000")
-        self.EditListItem.configure(background="#d9d9d9")
-        self.EditListItem.configure(disabledforeground="#a3a3a3")
-        self.EditListItem.configure(foreground="#000000")
-        self.EditListItem.configure(highlightbackground="#d9d9d9")
-        self.EditListItem.configure(highlightcolor="black")
-        self.EditListItem.configure(pady="0")
-        self.EditListItem.configure(text='''Edit''')
-
-        self.RemoveListItem = tk.Button(top)
-        self.RemoveListItem.place(relx=0.866, rely=0.187, height=25, width=50)
-        self.RemoveListItem.configure(activebackground="#d9d9d9")
-        self.RemoveListItem.configure(activeforeground="#000000")
-        self.RemoveListItem.configure(background="#d9d9d9")
-        self.RemoveListItem.configure(disabledforeground="#a3a3a3")
-        self.RemoveListItem.configure(foreground="#000000")
-        self.RemoveListItem.configure(highlightbackground="#d9d9d9")
-        self.RemoveListItem.configure(highlightcolor="black")
-        self.RemoveListItem.configure(pady="0")
-        self.RemoveListItem.configure(text='''Remove''')
-
-        self.chkListItem = tk.Checkbutton(top)
-        self.chkListItem.place(relx=0.018, rely=0.179, relheight=0.049
-                , relwidth=0.737)
-        self.chkListItem.configure(activebackground="#d9d9d9")
-        self.chkListItem.configure(activeforeground="#000000")
-        self.chkListItem.configure(background="#d9d9d9")
-        self.chkListItem.configure(disabledforeground="#a3a3a3")
-        self.chkListItem.configure(foreground="#000000")
-        self.chkListItem.configure(highlightbackground="#d9d9d9")
-        self.chkListItem.configure(highlightcolor="black")
-        self.chkListItem.configure(justify='left')
-        self.chkListItem.configure(text='''Check''')
-        self.chkListItem.configure(variable=GUI_List_support.che47)
 
         self.Return = tk.Button(top)
         self.Return.place(relx=0.755, rely=0.893, height=64, width=107)
