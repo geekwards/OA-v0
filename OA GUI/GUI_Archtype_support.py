@@ -36,6 +36,9 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
+def btnClose_Click():
+    destroy_window()
+
 def loadForm(archtype):
     global w
     global top_level
