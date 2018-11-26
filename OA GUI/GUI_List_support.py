@@ -65,7 +65,7 @@ def addListItem(idx,name, shortDescr, editcall):
     x = 10
     y = (idx*30)+80
 
-    w.EditListItem = tk.Button(top_level, text ="Edit" + str(idx), command=lambda: editcall(idx))
+    w.EditListItem = tk.Button(top_level, text ="Edit" + str(idx), command=lambda: editcall(top_level, idx))
     w.EditListItem.place(x=x, y=y, height=25, width=50)
 
     w.lblListItem = tk.Label(top_level, text=name + ' - ' + shortDescr)

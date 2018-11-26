@@ -30,6 +30,13 @@ def vp_start_gui():
     root.mainloop()
 
 w = None
+def create_Root():
+    global val, w, root
+    root = tk.Tk()
+    top = Toplevel1 (root)
+    GUI_Archtype_support.init(root, top)
+    return (root, top)
+
 def create_Toplevel1(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
@@ -59,7 +66,7 @@ class Toplevel1:
         font9 = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
             " -underline 0 -overstrike 0"
 
-        top.geometry("944x1048+-1474+119")
+        top.geometry("543x616+407+109")
         top.title("ARCHTYPE NOT LOADED")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")

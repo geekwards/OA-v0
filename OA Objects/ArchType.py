@@ -18,6 +18,7 @@ class Archtypes:
         self.archtypes = []
 
 class Archtype:
+    description = ""
     proficiency = ""
     strBonus = 0
     perBonus = 0

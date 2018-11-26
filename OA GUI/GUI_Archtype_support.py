@@ -33,8 +33,10 @@ def init(top, gui, *args, **kwargs):
 def destroy_window():
     # Function which closes the window.
     global top_level
+    global w
+
     top_level.destroy()
-    top_level = None
+    w = None
 
 def btnClose_Click():
     destroy_window()
@@ -46,7 +48,22 @@ def loadForm(archtype):
     top_level.title("Archtype - " + archtype.name)
     w.lblTitle.config(text="Archtype - " + archtype.name)
     w.roName.config(text=archtype.name)
-    w.txtDescription.insert('end',archtype.shortDescription)
+    w.txtDescription.insert('end',archtype.description)
+    w.roProficiency.config(text=archtype.proficiency)
+    w.roSTR.config(text=str(archtype.strBonus))
+    w.roPER.config(text=str(archtype.perBonus))
+    w.roINT.config(text=str(archtype.intBonus))
+    w.roDEX.config(text=str(archtype.dexBonus))
+    w.roCHA.config(text=str(archtype.chaBonus))
+    w.roVIT.config(text=str(archtype.vitBonus))
+    w.roMAG.config(text=str(archtype.magBonus))
+    w.roStamina.config(text=str(archtype.staminaBonus))
+    w.roAttack.config(text=str(archtype.attackBonus))
+    w.roReflex.config(text=str(archtype.reflexBonus))
+    w.roFeats.config(text=archtype.feats)
+    w.roMvmt.config(text=str(archtype.movement))
+    w.roSkillPts.config(text=str(archtype.skillPoints))
+    w.roLvlHealth.config(text=archtype.levelHealth)
 
 if __name__ == '__main__':
     import GUI_Archtype.py
