@@ -48,6 +48,7 @@ def loadForm(archtype):
     top_level.title("Archtype - " + archtype.name)
     w.lblTitle.config(text="Archtype - " + archtype.name)
     w.roName.config(text=archtype.name)
+    w.txtDescription.delete("1.0",'end')
     w.txtDescription.insert('end',archtype.description)
     w.roProficiency.config(text=archtype.proficiency)
     w.roSTR.config(text=str(archtype.strBonus))

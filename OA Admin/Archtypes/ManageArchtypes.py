@@ -10,15 +10,20 @@ import ArchType
 
 def EditArchtype(top, idx):
     global mySet
+    global editWindow
 
-    editRoot, top = GUI_Archtype.create_Toplevel1(top)
+    if editWindow == None or not Toplevel.winfo_exists(editWindow):
+        editWindow, top = GUI_Archtype.create_Toplevel1(top)
 
     GUI_Archtype.loadForm(mySet[idx])
 
-    editRoot.mainloop()
+    editWindow.mainloop()
 
 def ArchtypeList():
     global mySet
+    global editWindow
+
+    editWindow = None
 
     root, top = GUI_List.create_Root()
 
