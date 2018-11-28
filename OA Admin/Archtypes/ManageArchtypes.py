@@ -3,10 +3,12 @@ from Tkinter import *
 import sys, os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA GUI'))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Objects'))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files'))
 
 import GUI_List
 import GUI_Archtype
 import ArchType
+import xml.etree.ElementTree as ET
 
 def EditArchtype(top, idx):
     global mySet
@@ -32,42 +34,32 @@ def ArchtypeList():
     root.mainloop()
 
 def LoadArchtypes():
-    global mySet
+    mySet = ArchType.Archtypes()
 
-    mySet.AddNew(ArchType.Archtype("TestArch", "TestDesc"))
-    mySet[0].description = "Description12"
-    mySet[0].proficiency = "TestProf"
-    mySet[0].strBonus = 1
-    mySet[0].perBonus = 2
-    mySet[0].intBonus = 3
-    mySet[0].dexBonus = -1
-    mySet[0].chaBonus = -2
-    mySet[0].vitBonus = -3
-    mySet[0].magBonus = -5
-    mySet[0].staminaBonus = 5
-    mySet[0].attackBonus = 2
-    mySet[0].reflexBonus = 1
-    mySet[0].feats = []
-    mySet[0].movement = 8
-    mySet[0].skillPoints = 12
-    mySet[0].levelHealth = "more health"
-    mySet.AddNew(ArchType.Archtype("TestArch2", "TestDesc2"))
-    mySet[1].description = "Description34"
-    mySet[1].proficiency = "TestProf2"
-    mySet[1].strBonus = 1
-    mySet[1].perBonus = 2
-    mySet[1].intBonus = 3
-    mySet[1].dexBonus = -1
-    mySet[1].chaBonus = -2
-    mySet[1].vitBonus = -3
-    mySet[1].magBonus = -5
-    mySet[1].staminaBonus = 5
-    mySet[1].attackBonus = 2
-    mySet[1].reflexBonus = 1
-    mySet[1].feats = []
-    mySet[1].movement = 8
-    mySet[1].skillPoints = 12
-    mySet[1].levelHealth = "less health"
+    tree = ET.parse("C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat")
+
+    dataRoot = tree.getroot()
+
+    for archtype in dataRoot:
+        currArchType = ArchType.Archtype(archtype.find('name').text, archtype.find('shortdesc').text)
+        currArchType.description = archtype.find('description').text
+        currArchType.proficiency = archtype.find('proficiency').text
+        currArchType.strBonus = archtype.find('strBonus').text
+        currArchType.perBonus = archtype.find('perBonus').text
+        currArchType.intBonus = archtype.find('intBonus').text
+        currArchType.dexBonus = archtype.find('dexBonus').text
+        currArchType.chaBonus = archtype.find('chaBonus').text
+        currArchType.vitBonus = archtype.find('vitBonus').text
+        currArchType.magBonus = archtype.find('magBonus').text
+        currArchType.staminaBonus = archtype.find('staminaBonus').text
+        currArchType.attackBonus = archtype.find('attackBonus').text
+        currArchType.reflexBonus = archtype.find('reflexBonus').text
+        currArchType.feats = archtype.find('feats').text
+        currArchType.movement = archtype.find('movement').text
+        currArchType.skillPoints = archtype.find('skillPoints').text
+        currArchType.levelHealth = archtype.find('levelHealth').text
+
+        mySet.AddNew(currArchType)
 
 if __name__ == '__main__':
     global mySet
