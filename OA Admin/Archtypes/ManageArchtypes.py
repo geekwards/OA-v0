@@ -34,6 +34,8 @@ def ArchtypeList():
     root.mainloop()
 
 def LoadArchtypes():
+    global mySet
+    
     mySet = ArchType.Archtypes()
 
     tree = ET.parse("C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat")
