@@ -11,8 +11,16 @@ import ArchType
 import xml.etree.ElementTree as ET
 
 def SaveArchtype(archtype):
-    print "Manage Save"
-    print archtype.name
+    global mySet
+
+    mySet.Update(archtype)
+
+    # data = ET.Element('archtypes')
+    #
+    # for at
+    #
+    # arch = ET.SubElement(data, 'archtype')
+
 
 def EditArchtype(top, idx):
     global mySet
