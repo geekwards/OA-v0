@@ -12,17 +12,20 @@ class Archtypes:
         return current.listOfArchtypes
 
     def Update(current,archtype):
+
+        found = False
+
         for idx, at in enumerate(current.archtypes):
             if at.name == archtype.name:
+                found = True
                 current.archtypes[idx] = archtype
 
-        for idx, lo in enumerate(current.listOfArchtypes):
-            if lo.name == archtype.name:
-                current.listOfArchtypes[idx].shortDescription = archtype.shortDescription
-
-        for temp in current.archtypes:
-            print temp.name
-            print temp.shortDescription
+        if found:
+            for idx, lo in enumerate(current.listOfArchtypes):
+                if lo.name == archtype.name:
+                    current.listOfArchtypes[idx].shortDescription = archtype.shortDescription
+        else:
+            current.AddNew(archtype)
 
     def __getitem__(current,idx):
         return current.archtypes[idx]

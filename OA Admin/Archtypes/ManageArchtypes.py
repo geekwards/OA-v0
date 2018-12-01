@@ -9,18 +9,43 @@ import GUI_List
 import GUI_Archtype
 import ArchType
 import xml.etree.ElementTree as ET
+from time import gmtime, strftime
+from shutil import copy2
+
+filename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat"
+backupFilename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
 
 def SaveArchtype(archtype):
     global mySet
+    global filename
 
     mySet.Update(archtype)
 
-    # data = ET.Element('archtypes')
-    #
-    # for at
-    #
-    # arch = ET.SubElement(data, 'archtype')
+    data = ET.Element('archtypes')
 
+    for at in mySet:
+        arch = ET.SubElement(data, 'archtype')
+        ET.SubElement(arch, 'name').text = at.name
+        ET.SubElement(arch, 'shortDescription').text = at.shortDescription
+        ET.SubElement(arch, 'description').text = at.description
+        ET.SubElement(arch, 'proficiency').text = at.proficiency
+        ET.SubElement(arch, 'strBonus').text = at.strBonus
+        ET.SubElement(arch, 'perBonus').text = at.perBonus
+        ET.SubElement(arch, 'intBonus').text = at.intBonus
+        ET.SubElement(arch, 'dexBonus').text = at.dexBonus
+        ET.SubElement(arch, 'chaBonus').text = at.chaBonus
+        ET.SubElement(arch, 'vitBonus').text = at.vitBonus
+        ET.SubElement(arch, 'magBonus').text = at.magBonus
+        ET.SubElement(arch, 'staminaBonus').text = at.staminaBonus
+        ET.SubElement(arch, 'attackBonus').text = at.attackBonus
+        ET.SubElement(arch, 'reflexBonus').text = at.reflexBonus
+        ET.SubElement(arch, 'feats').text = at.feats
+        ET.SubElement(arch, 'movement').text = at.movement
+        ET.SubElement(arch, 'skillPoints').text = at.skillPoints
+        ET.SubElement(arch, 'levelHealth').text = at.levelHealth
+
+    copy2(filename, backupFilename)
+    open(filename, 'w').write(ET.tostring(data))
 
 def EditArchtype(top, idx):
     global mySet
@@ -47,15 +72,16 @@ def ArchtypeList():
 
 def LoadArchtypes():
     global mySet
+    global filename
 
     mySet = ArchType.Archtypes()
 
-    tree = ET.parse("C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat")
+    tree = ET.parse(filename)
 
     dataRoot = tree.getroot()
 
     for archtype in dataRoot:
-        currArchType = ArchType.Archtype(archtype.find('name').text, archtype.find('shortdesc').text)
+        currArchType = ArchType.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
         currArchType.description = archtype.find('description').text
         currArchType.proficiency = archtype.find('proficiency').text
         currArchType.strBonus = archtype.find('strBonus').text

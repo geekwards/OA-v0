@@ -77,7 +77,7 @@ def btnSave_Click():
     newArchtype = currArchtype
 
     newArchtype.name = w.eName.get()
-    newArchtype.shortdesc = w.eShortDescription.get()
+    newArchtype.shortDescription = w.eShortDescription.get()
     newArchtype.description = w.txtDescription.get("1.0",'end-1c')
     newArchtype.proficiency = w.eProficiency.get()
     newArchtype.strBonus = w.eSTR.get()
@@ -150,6 +150,9 @@ def disableForm():
 
 def loadForm(archtype, savecall):
     global saveCall
+    global prevArchtype
+
+    prevArchtype = archtype
 
     saveCall = savecall
 
@@ -162,64 +165,64 @@ def loadData(archtype):
 
     currArchtype = archtype
 
-    top_level.title("Archtype - " + archtype.name)
-    w.lblTitle.config(text="Archtype - " + archtype.name)
+    top_level.title("Archtype - " + currArchtype.name)
+    w.lblTitle.config(text="Archtype - " + currArchtype.name)
 
     enableForm()
 
     w.eName.delete(0, 'end')
-    w.eName.insert(0, archtype.name)
+    w.eName.insert(0, currArchtype.name)
 
     w.eShortDescription.delete(0, 'end')
-    w.eShortDescription.insert(0, archtype.shortDescription)
+    w.eShortDescription.insert(0, currArchtype.shortDescription)
 
     w.txtDescription.delete("1.0",'end')
-    w.txtDescription.insert('end',archtype.description)
+    w.txtDescription.insert('end',currArchtype.description)
 
     w.eProficiency.delete(0, 'end')
-    w.eProficiency.insert(0, archtype.proficiency)
+    w.eProficiency.insert(0, currArchtype.proficiency)
 
     w.eSTR.delete(0, 'end')
-    w.eSTR.insert(0, archtype.strBonus)
+    w.eSTR.insert(0, currArchtype.strBonus)
 
     w.ePER.delete(0, 'end')
-    w.ePER.insert(0, archtype.perBonus)
+    w.ePER.insert(0, currArchtype.perBonus)
 
     w.eINT.delete(0, 'end')
-    w.eINT.insert(0, archtype.intBonus)
+    w.eINT.insert(0, currArchtype.intBonus)
 
     w.eDEX.delete(0, 'end')
-    w.eDEX.insert(0, archtype.dexBonus)
+    w.eDEX.insert(0, currArchtype.dexBonus)
 
     w.eCHA.delete(0, 'end')
-    w.eCHA.insert(0, archtype.chaBonus)
+    w.eCHA.insert(0, currArchtype.chaBonus)
 
     w.eVIT.delete(0, 'end')
-    w.eVIT.insert(0, archtype.vitBonus)
+    w.eVIT.insert(0, currArchtype.vitBonus)
 
     w.eMAG.delete(0, 'end')
-    w.eMAG.insert(0, archtype.magBonus)
+    w.eMAG.insert(0, currArchtype.magBonus)
 
     w.eStamina.delete(0, 'end')
-    w.eStamina.insert(0, archtype.staminaBonus)
+    w.eStamina.insert(0, currArchtype.staminaBonus)
 
     w.eAttack.delete(0, 'end')
-    w.eAttack.insert(0, archtype.attackBonus)
+    w.eAttack.insert(0, currArchtype.attackBonus)
 
     w.eReflex.delete(0, 'end')
-    w.eReflex.insert(0, archtype.reflexBonus)
+    w.eReflex.insert(0, currArchtype.reflexBonus)
 
     w.eFeats.delete(0, 'end')
-    w.eFeats.insert(0, archtype.feats)
+    w.eFeats.insert(0, currArchtype.feats)
 
     w.eMvmt.delete(0, 'end')
-    w.eMvmt.insert(0, archtype.movement)
+    w.eMvmt.insert(0, currArchtype.movement)
 
     w.eSkillPts.delete(0, 'end')
-    w.eSkillPts.insert(0, archtype.skillPoints)
+    w.eSkillPts.insert(0, currArchtype.skillPoints)
 
     w.eLvlHealth.delete(0, 'end')
-    w.eLvlHealth.insert(0, archtype.levelHealth)
+    w.eLvlHealth.insert(0, currArchtype.levelHealth)
 
     disableForm()
 
