@@ -41,30 +41,187 @@ def destroy_window():
 def btnClose_Click():
     destroy_window()
 
-def loadForm(archtype):
+def btnEdit_Click():
+    global w
+    global currArchtype
+    global rollbackArchtype
+
+    rollbackArchtype = currArchtype
+
+    enableForm()
+
+    w.Left.config(text='Cancel')
+    w.Left.configure(command=btnCancel_Click)
+
+    w.Right.config(text='Save')
+    w.Right.configure(command=btnSave_Click)
+
+def btnCancel_Click():
+    global w
+    global rollbackArchtype
+
+    loadData(rollbackArchtype)
+
+    disableForm()
+
+    w.Left.config(text='Close')
+    w.Left.configure(command=btnClose_Click)
+
+    w.Right.config(text='Edit')
+    w.Right.configure(command=btnEdit_Click)
+
+def btnSave_Click():
+    global saveCall
+    global currArchtype
+
+    newArchtype = currArchtype
+
+    newArchtype.name = w.eName.get()
+    newArchtype.shortdesc = w.eShortDescription.get()
+    newArchtype.description = w.txtDescription.get("1.0",'end-1c')
+    newArchtype.proficiency = w.eProficiency.get()
+    newArchtype.strBonus = w.eSTR.get()
+    newArchtype.perBonus = w.ePER.get()
+    newArchtype.intBonus = w.eINT.get()
+    newArchtype.dexBonus = w.eDEX.get()
+    newArchtype.chaBonus = w.eCHA.get()
+    newArchtype.vitBonus = w.eVIT.get()
+    newArchtype.magBonus = w.eMAG.get()
+    newArchtype.staminaBonus = w.eStamina.get()
+    newArchtype.attackBonus = w.eAttack.get()
+    newArchtype.reflexBonus = w.eReflex.get()
+    newArchtype.feats = w.eFeats.get()
+    newArchtype.movement = w.eMvmt.get()
+    newArchtype.skillPoints = w.eSkillPts.get()
+    newArchtype.levelHealth = w.eLvlHealth.get()
+
+    saveCall(newArchtype)
+    loadData(newArchtype)
+
+    disableForm()
+
+    w.Left.config(text='Close')
+    w.Left.configure(command=btnClose_Click)
+
+    w.Right.config(text='Edit')
+    w.Right.configure(command=btnEdit_Click)
+
+def enableForm():
+    global w
+
+    w.eName.config(state='normal')
+    w.eShortDescription.config(state='normal')
+    w.eProficiency.config(state='normal')
+    w.eSTR.config(state='normal')
+    w.ePER.config(state='normal')
+    w.eINT.config(state='normal')
+    w.eDEX.config(state='normal')
+    w.eCHA.config(state='normal')
+    w.eVIT.config(state='normal')
+    w.eMAG.config(state='normal')
+    w.eStamina.config(state='normal')
+    w.eAttack.config(state='normal')
+    w.eReflex.config(state='normal')
+    w.eFeats.config(state='normal')
+    w.eMvmt.config(state='normal')
+    w.eSkillPts.config(state='normal')
+    w.eLvlHealth.config(state='normal')
+
+def disableForm():
+    global w
+
+    w.eName.config(state='disabled')
+    w.eShortDescription.config(state='disabled')
+    w.eProficiency.config(state='disabled')
+    w.eSTR.config(state='disabled')
+    w.ePER.config(state='disabled')
+    w.eINT.config(state='disabled')
+    w.eDEX.config(state='disabled')
+    w.eCHA.config(state='disabled')
+    w.eVIT.config(state='disabled')
+    w.eMAG.config(state='disabled')
+    w.eStamina.config(state='disabled')
+    w.eAttack.config(state='disabled')
+    w.eReflex.config(state='disabled')
+    w.eFeats.config(state='disabled')
+    w.eMvmt.config(state='disabled')
+    w.eSkillPts.config(state='disabled')
+    w.eLvlHealth.config(state='disabled')
+
+def loadForm(archtype, savecall):
+    global saveCall
+
+    saveCall = savecall
+
+    loadData(archtype)
+
+def loadData(archtype):
     global w
     global top_level
+    global currArchtype
+
+    currArchtype = archtype
 
     top_level.title("Archtype - " + archtype.name)
     w.lblTitle.config(text="Archtype - " + archtype.name)
-    w.roName.config(text=archtype.name)
+
+    enableForm()
+
+    w.eName.delete(0, 'end')
+    w.eName.insert(0, archtype.name)
+
+    w.eShortDescription.delete(0, 'end')
+    w.eShortDescription.insert(0, archtype.shortDescription)
+
     w.txtDescription.delete("1.0",'end')
     w.txtDescription.insert('end',archtype.description)
-    w.roProficiency.config(text=archtype.proficiency)
-    w.roSTR.config(text=str(archtype.strBonus))
-    w.roPER.config(text=str(archtype.perBonus))
-    w.roINT.config(text=str(archtype.intBonus))
-    w.roDEX.config(text=str(archtype.dexBonus))
-    w.roCHA.config(text=str(archtype.chaBonus))
-    w.roVIT.config(text=str(archtype.vitBonus))
-    w.roMAG.config(text=str(archtype.magBonus))
-    w.roStamina.config(text=str(archtype.staminaBonus))
-    w.roAttack.config(text=str(archtype.attackBonus))
-    w.roReflex.config(text=str(archtype.reflexBonus))
-    w.roFeats.config(text=archtype.feats)
-    w.roMvmt.config(text=str(archtype.movement))
-    w.roSkillPts.config(text=str(archtype.skillPoints))
-    w.roLvlHealth.config(text=archtype.levelHealth)
+
+    w.eProficiency.delete(0, 'end')
+    w.eProficiency.insert(0, archtype.proficiency)
+
+    w.eSTR.delete(0, 'end')
+    w.eSTR.insert(0, archtype.strBonus)
+
+    w.ePER.delete(0, 'end')
+    w.ePER.insert(0, archtype.perBonus)
+
+    w.eINT.delete(0, 'end')
+    w.eINT.insert(0, archtype.intBonus)
+
+    w.eDEX.delete(0, 'end')
+    w.eDEX.insert(0, archtype.dexBonus)
+
+    w.eCHA.delete(0, 'end')
+    w.eCHA.insert(0, archtype.chaBonus)
+
+    w.eVIT.delete(0, 'end')
+    w.eVIT.insert(0, archtype.vitBonus)
+
+    w.eMAG.delete(0, 'end')
+    w.eMAG.insert(0, archtype.magBonus)
+
+    w.eStamina.delete(0, 'end')
+    w.eStamina.insert(0, archtype.staminaBonus)
+
+    w.eAttack.delete(0, 'end')
+    w.eAttack.insert(0, archtype.attackBonus)
+
+    w.eReflex.delete(0, 'end')
+    w.eReflex.insert(0, archtype.reflexBonus)
+
+    w.eFeats.delete(0, 'end')
+    w.eFeats.insert(0, archtype.feats)
+
+    w.eMvmt.delete(0, 'end')
+    w.eMvmt.insert(0, archtype.movement)
+
+    w.eSkillPts.delete(0, 'end')
+    w.eSkillPts.insert(0, archtype.skillPoints)
+
+    w.eLvlHealth.delete(0, 'end')
+    w.eLvlHealth.insert(0, archtype.levelHealth)
+
+    disableForm()
 
 if __name__ == '__main__':
     import GUI_Archtype.py

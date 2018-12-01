@@ -10,6 +10,10 @@ import GUI_Archtype
 import ArchType
 import xml.etree.ElementTree as ET
 
+def SaveArchtype(archtype):
+    print "Manage Save"
+    print archtype.name
+
 def EditArchtype(top, idx):
     global mySet
     global editWindow
@@ -17,7 +21,7 @@ def EditArchtype(top, idx):
     if editWindow == None or not Toplevel.winfo_exists(editWindow):
         editWindow, top = GUI_Archtype.create_Toplevel1(top)
 
-    GUI_Archtype.loadForm(mySet[idx])
+    GUI_Archtype.loadForm(mySet[idx], SaveArchtype)
 
     editWindow.mainloop()
 
@@ -35,7 +39,7 @@ def ArchtypeList():
 
 def LoadArchtypes():
     global mySet
-    
+
     mySet = ArchType.Archtypes()
 
     tree = ET.parse("C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat")

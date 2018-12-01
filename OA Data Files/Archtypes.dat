@@ -12,18 +12,18 @@ dodging traps, attacks and other dangers requiring
 lightning-fast reflexes.</description>
 		<proficiency>Unarmed Combat</proficiency>
 		<strBonus>6</strBonus>
-		<perBonus></perBonus>
+		<perBonus> </perBonus>
 		<intBonus>4</intBonus>
 		<dexBonus>6</dexBonus>
-		<chaBonus></chaBonus>
+		<chaBonus> </chaBonus>
 		<vitBonus>4</vitBonus>
-		<magBonus></magBonus>
-		<staminaBonus></staminaBonus>
-		<attackBonus></attackBonus>
-		<reflexBonus></reflexBonus>
+		<magBonus> </magBonus>
+		<staminaBonus> </staminaBonus>
+		<attackBonus> </attackBonus>
+		<reflexBonus> </reflexBonus>
 		<feats>4</feats>
 		<movement>5</movement>
-		<skillPoints></skillPoints>
+		<skillPoints> </skillPoints>
 		<levelHealth>1d6+1</levelHealth>
 	</archtype>
 	<archtype>
@@ -42,14 +42,14 @@ the other side of death.</description>
 		<proficiency>Healing and Support</proficiency>
 		<strBonus>4</strBonus>
 		<perBonus>4</perBonus>
-		<intBonus></intBonus>
-		<dexBonus></dexBonus>
+		<intBonus> </intBonus>
+		<dexBonus> </dexBonus>
 		<chaBonus>6</chaBonus>
 		<vitBonus>6</vitBonus>
-		<magBonus></magBonus>
-		<staminaBonus></staminaBonus>
-		<attackBonus></attackBonus>
-		<reflexBonus></reflexBonus>
+		<magBonus> </magBonus>
+		<staminaBonus> </staminaBonus>
+		<attackBonus> </attackBonus>
+		<reflexBonus> </reflexBonus>
 		<feats>4</feats>
 		<movement>4</movement>
 		<skillPoints>+2</skillPoints>

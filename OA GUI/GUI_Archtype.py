@@ -51,8 +51,8 @@ def destroy_Toplevel1():
     w.destroy()
     w = None
 
-def loadForm(archType):
-    GUI_Archtype_support.loadForm(archType)
+def loadForm(archType, savecall):
+    GUI_Archtype_support.loadForm(archType, savecall)
 
 class Toplevel1:
     def __init__(self, top=None):
@@ -76,122 +76,162 @@ class Toplevel1:
         self.lblTitle.grid(sticky='nsew', row=0, column=0, columnspan=6, rowspan=2)
 
         self.lblName = tk.Label(top, text='Name')
-        self.lblName.grid(sticky='w', row=2, column=1)
+        self.lblName.grid(sticky='e', row=2, column=1)
 
-        self.roName = tk.Label(top, text='<NAME>')
-        self.roName.grid(sticky='w', row=2, column=2, columnspan=3)
+        self.eName = tk.Entry(top)
+        self.eName.insert(0,'<NAME>')
+        self.eName.config(state='disabled')
+        self.eName.grid(sticky='w', row=2, column=2, columnspan=3)
 
         self.lblProficiency = tk.Label(top, text='Proficiency')
-        self.lblProficiency.grid(sticky='w', row=3, column=1)
+        self.lblProficiency.grid(sticky='e', row=3, column=1)
 
-        self.roProficiency = tk.Label(top, text='<PROFICIENCY>')
-        self.roProficiency.grid(sticky='w', row=3, column=2, columnspan=3)
+        self.eProficiency = tk.Entry(top)
+        self.eProficiency.insert(0,'<PROFICIENCY>')
+        self.eProficiency.config(state='disabled')
+        self.eProficiency.grid(sticky='w', row=3, column=2, columnspan=3)
 
         self.lblShortDescription = tk.Label(top, text='Short Description')
-        self.lblShortDescription.grid(sticky='w', row=4, column=1)
+        self.lblShortDescription.grid(sticky='e', row=4, column=1)
 
-        self.roShortDescription = tk.Label(top, text='<SHORT DESCR>')
-        self.roShortDescription.grid(sticky='w', row=4, column=2, columnspan=3)
+        self.eShortDescription = tk.Entry(top)
+        self.eShortDescription.insert(0,'<SHORT DESCR>')
+        self.eShortDescription.config(state='disabled')
+        self.eShortDescription.grid(sticky='w', row=4, column=2, columnspan=3)
 
         self.lblDescription = tk.Label(top, text='Description')
-        self.lblDescription.grid(sticky='nw', row=5, column=1)
+        self.lblDescription.grid(sticky='ne', row=5, column=1)
 
         self.txtDescription = tk.Text(top)
         self.txtDescription.grid(sticky='w', row=5, column=2, columnspan=3)
-        self.txtDescription.config(width=50)
+        self.txtDescription.config(width=60)
         self.txtDescription.config(height=20)
         self.txtDescription.configure(wrap='word')
 
         self.lblBonuses = tk.Label(top, text='Bonuses')
-        self.lblBonuses.grid(sticky='sw', row=7, column=1, rowspan=2)
+        self.lblBonuses.grid(sticky='se', row=7, column=1, rowspan=2)
 
         self.lblSTR = tk.Label(top, text='STR')
-        self.lblSTR.grid(sticky='w', row=9, column=1)
+        self.lblSTR.grid(sticky='e', row=9, column=1)
 
-        self.roSTR = tk.Label(top, text='<STR>')
-        self.roSTR.grid(sticky='w', row=9, column=2)
+        self.eSTR = tk.Entry(top)
+        self.eSTR.insert(0,'<STR>')
+        self.eSTR.config(state='disabled')
+        self.eSTR.grid(sticky='w', row=9, column=2)
 
         self.lblPER = tk.Label(top, text='PER')
-        self.lblPER.grid(sticky='w', row=10, column=1)
+        self.lblPER.grid(sticky='e', row=10, column=1)
 
-        self.roPER = tk.Label(top, text='<PER>')
-        self.roPER.grid(sticky='w', row=10, column=2)
+        self.ePER = tk.Entry(top)
+        self.ePER.insert(0,'<PER>')
+        self.ePER.config(state='disabled')
+        self.ePER.grid(sticky='w', row=10, column=2)
 
         self.lblINT = tk.Label(top, text='INT')
-        self.lblINT.grid(sticky='w', row=11, column=1)
+        self.lblINT.grid(sticky='e', row=11, column=1)
 
-        self.roINT = tk.Label(top, text='<INT>')
-        self.roINT.grid(sticky='w', row=11, column=2)
+        self.eINT = tk.Entry(top)
+        self.eINT.insert(0,'<INT>')
+        self.eINT.config(state='disabled')
+        self.eINT.grid(sticky='w', row=11, column=2)
 
         self.lblDEX = tk.Label(top, text='DEX')
-        self.lblDEX.grid(sticky='w', row=12, column=1)
+        self.lblDEX.grid(sticky='e', row=12, column=1)
 
         self.lblCHA = tk.Label(top, text='CHA')
-        self.lblCHA.grid(sticky='w', row=13, column=1)
+        self.lblCHA.grid(sticky='e', row=13, column=1)
 
         self.lblVIT = tk.Label(top, text='VIT')
-        self.lblVIT.grid(sticky='w', row=14, column=1)
+        self.lblVIT.grid(sticky='e', row=14, column=1)
 
         self.lblMAG = tk.Label(top, text='MAG')
-        self.lblMAG.grid(sticky='w', row=15, column=1)
+        self.lblMAG.grid(sticky='e', row=15, column=1)
 
-        self.roDEX = tk.Label(top, text='<DEX>')
-        self.roDEX.grid(sticky='w', row=12, column=2)
+        self.eDEX = tk.Entry(top)
+        self.eDEX.insert(0,'<DEX>')
+        self.eDEX.config(state='disabled')
+        self.eDEX.grid(sticky='w', row=12, column=2)
 
-        self.roCHA = tk.Label(top, text='<CHA>')
-        self.roCHA.grid(sticky='w', row=13, column=2)
+        self.eCHA = tk.Entry(top)
+        self.eCHA.insert(0,'<CHA>')
+        self.eCHA.config(state='disabled')
+        self.eCHA.grid(sticky='w', row=13, column=2)
 
-        self.roVIT = tk.Label(top, text='<VIT>')
-        self.roVIT.grid(sticky='w', row=14, column=2)
+        self.eVIT = tk.Entry(top)
+        self.eVIT.insert(0,'<VIT>')
+        self.eVIT.config(state='disabled')
+        self.eVIT.grid(sticky='w', row=14, column=2)
 
-        self.roMAG = tk.Label(top, text='<MAG>')
-        self.roMAG.grid(sticky='w', row=15, column=2)
+        self.eMAG = tk.Entry(top)
+        self.eMAG.insert(0,'<MAG>')
+        self.eMAG.config(state='disabled')
+        self.eMAG.grid(sticky='w', row=15, column=2)
 
         self.lblFeats = tk.Label(top, text='Feats')
-        self.lblFeats.grid(sticky='w', row=9, column=4)
+        self.lblFeats.grid(sticky='e', row=9, column=3)
 
         self.lblMvmt = tk.Label(top, text='Mvmt')
-        self.lblMvmt.grid(sticky='w', row=10, column=4)
+        self.lblMvmt.grid(sticky='e', row=10, column=3)
 
         self.lblSkillPts = tk.Label(top, text='Skill Pts')
-        self.lblSkillPts.grid(sticky='w', row=11, column=4)
+        self.lblSkillPts.grid(sticky='e', row=11, column=3)
 
         self.lblLvlHealth = tk.Label(top, text='Lvl Health')
-        self.lblLvlHealth.grid(sticky='w', row=12, column=4)
+        self.lblLvlHealth.grid(sticky='e', row=12, column=3)
 
-        self.roFeats = tk.Label(top, text='<FEATS>')
-        self.roFeats.grid(sticky='w', row=9, column=5)
+        self.eFeats = tk.Entry(top)
+        self.eFeats.insert(0,'<FEATS>')
+        self.eFeats.config(state='disabled')
+        self.eFeats.grid(sticky='w', row=9, column=4)
 
-        self.roMvmt = tk.Label(top, text='<MVMT>')
-        self.roMvmt.grid(sticky='w', row=10, column=5)
+        self.eMvmt = tk.Entry(top)
+        self.eMvmt.insert(0,'<MVMT>')
+        self.eMvmt.config(state='disabled')
+        self.eMvmt.grid(sticky='w', row=10, column=4)
 
-        self.roSkillPts = tk.Label(top, text='<SKILL PTS>')
-        self.roSkillPts.grid(sticky='w', row=11, column=5)
+        self.eSkillPts = tk.Entry(top)
+        self.eSkillPts.insert(0,'<SKILL PTS>')
+        self.eSkillPts.config(state='disabled')
+        self.eSkillPts.grid(sticky='w', row=11, column=4)
 
-        self.roLvlHealth = tk.Label(top, text='<LVL HEALTH>')
-        self.roLvlHealth.grid(sticky='w', row=12, column=5)
+        self.eLvlHealth = tk.Entry(top)
+        self.eLvlHealth.insert(0,'<LVL HEALTH>')
+        self.eLvlHealth.config(state='disabled')
+        self.eLvlHealth.grid(sticky='w', row=12, column=4)
 
         self.lblStamina = tk.Label(top, text='Stamina')
-        self.lblStamina.grid(sticky='w', row=13, column=4)
+        self.lblStamina.grid(sticky='e', row=13, column=3)
 
-        self.roStamina = tk.Label(top, text='<STAMINA>')
-        self.roStamina.grid(sticky='w', row=13, column=5)
+        self.eStamina = tk.Entry(top)
+        self.eStamina.insert(0,'<STAMINA>')
+        self.eStamina.config(state='disabled')
+        self.eStamina.grid(sticky='w', row=13, column=4)
 
         self.lblAttack = tk.Label(top, text='Attack')
-        self.lblAttack.grid(sticky='w', row=14, column=4)
+        self.lblAttack.grid(sticky='e', row=14, column=3)
 
         self.lblReflex = tk.Label(top, text='Reflex')
-        self.lblReflex.grid(sticky='w', row=15, column=4)
+        self.lblReflex.grid(sticky='e', row=15, column=3)
 
-        self.roAttack = tk.Label(top, text='<ATTACK>')
-        self.roAttack.grid(sticky='w', row=14, column=5)
+        self.eAttack = tk.Entry(top)
+        self.eAttack.insert(0,'<ATTACK>')
+        self.eAttack.config(state='disabled')
+        self.eAttack.grid(sticky='w', row=14, column=4)
 
-        self.roReflex = tk.Label(top, text='<REFLEX>')
-        self.roReflex.grid(sticky='w', row=15, column=5)
+        self.eReflex = tk.Entry(top)
+        self.eReflex.insert(0,'<REFLEX>')
+        self.eReflex.config(state='disabled')
+        self.eReflex.grid(sticky='w', row=15, column=4)
 
-        self.Close = tk.Button(top, text='Close')
-        self.Close.configure(command=GUI_Archtype_support.btnClose_Click)
-        self.Close.grid(sticky='w', row=16, column=2)
+        self.Left = tk.Button(top, text='Close')
+        self.Left.config(width=10, height=2)
+        self.Left.configure(command=GUI_Archtype_support.btnClose_Click)
+        self.Left.grid(sticky='w', row=16, column=2, columnspan=4)
+
+        self.Right = tk.Button(top, text='Edit')
+        self.Right.config(width=10, height=2)
+        self.Right.configure(command=GUI_Archtype_support.btnEdit_Click)
+        self.Right.grid(sticky='w', row=16, column=3, columnspan=4)
 
 if __name__ == '__main__':
     vp_start_gui()
