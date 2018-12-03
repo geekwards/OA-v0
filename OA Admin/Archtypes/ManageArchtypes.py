@@ -13,99 +13,99 @@ from time import gmtime, strftime
 from shutil import copy2
 
 filename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat"
-backupFilename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
+backup_filename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
 
-def SaveArchtype(archtype):
-    global mySet
+def save_archtype(archtype):
+    global current_set
     global filename
 
-    mySet.Update(archtype)
+    current_set.update(archtype)
 
     data = ET.Element('archtypes')
 
-    for at in mySet:
+    for item in current_set:
         arch = ET.SubElement(data, 'archtype')
-        ET.SubElement(arch, 'name').text = at.name
-        ET.SubElement(arch, 'shortDescription').text = at.shortDescription
-        ET.SubElement(arch, 'description').text = at.description
-        ET.SubElement(arch, 'proficiency').text = at.proficiency
-        ET.SubElement(arch, 'strBonus').text = at.strBonus
-        ET.SubElement(arch, 'perBonus').text = at.perBonus
-        ET.SubElement(arch, 'intBonus').text = at.intBonus
-        ET.SubElement(arch, 'dexBonus').text = at.dexBonus
-        ET.SubElement(arch, 'chaBonus').text = at.chaBonus
-        ET.SubElement(arch, 'vitBonus').text = at.vitBonus
-        ET.SubElement(arch, 'magBonus').text = at.magBonus
-        ET.SubElement(arch, 'staminaBonus').text = at.staminaBonus
-        ET.SubElement(arch, 'attackBonus').text = at.attackBonus
-        ET.SubElement(arch, 'reflexBonus').text = at.reflexBonus
-        ET.SubElement(arch, 'feats').text = at.feats
-        ET.SubElement(arch, 'movement').text = at.movement
-        ET.SubElement(arch, 'skillPoints').text = at.skillPoints
-        ET.SubElement(arch, 'levelHealth').text = at.levelHealth
+        ET.SubElement(arch, 'name').text = item.name
+        ET.SubElement(arch, 'shortDescription').text = item.shortDescription
+        ET.SubElement(arch, 'description').text = item.description
+        ET.SubElement(arch, 'proficiency').text = item.proficiency
+        ET.SubElement(arch, 'strBonus').text = item.strBonus
+        ET.SubElement(arch, 'perBonus').text = item.perBonus
+        ET.SubElement(arch, 'intBonus').text = item.intBonus
+        ET.SubElement(arch, 'dexBonus').text = item.dexBonus
+        ET.SubElement(arch, 'chaBonus').text = item.chaBonus
+        ET.SubElement(arch, 'vitBonus').text = item.vitBonus
+        ET.SubElement(arch, 'magBonus').text = item.magBonus
+        ET.SubElement(arch, 'staminaBonus').text = item.staminaBonus
+        ET.SubElement(arch, 'attackBonus').text = item.attackBonus
+        ET.SubElement(arch, 'reflexBonus').text = item.reflexBonus
+        ET.SubElement(arch, 'feats').text = item.feats
+        ET.SubElement(arch, 'movement').text = item.movement
+        ET.SubElement(arch, 'skillPoints').text = item.skillPoints
+        ET.SubElement(arch, 'levelHealth').text = item.levelHealth
 
-    copy2(filename, backupFilename)
+    copy2(filename, backup_filename)
     open(filename, 'w').write(ET.tostring(data))
 
-def EditArchtype(top, idx):
-    global mySet
-    global editWindow
+def edit_archtype(top, idx):
+    global current_set
+    global edit_window
 
-    if editWindow == None or not Toplevel.winfo_exists(editWindow):
-        editWindow, top = GUI_Archtype.create_Toplevel1(top)
+    edit_window = None
 
-    GUI_Archtype.loadForm(mySet[idx], SaveArchtype)
+    if edit_window == None or not Toplevel.winfo_exists(edit_window):
+        edit_window, top = GUI_Archtype.create_toplevel1(top)
 
-    editWindow.mainloop()
+    GUI_Archtype.load_form(current_set[idx], save_archtype)
 
-def ArchtypeList():
-    global mySet
-    global editWindow
+    edit_window.mainloop()
 
-    editWindow = None
+def archtype_list():
+    global current_set
 
-    root, top = GUI_List.create_Root()
+    root, top = GUI_List.create_root()
 
-    GUI_List.buildList("ArchTypes", mySet.GetList(), EditArchtype)
+    GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype)
 
     root.mainloop()
 
-def LoadArchtypes():
-    global mySet
+def load_archtypes():
+    global current_set
     global filename
+    global current_archtype
 
-    mySet = ArchType.Archtypes()
+    current_set = ArchType.Archtypes()
 
     tree = ET.parse(filename)
 
-    dataRoot = tree.getroot()
+    data_root = tree.getroot()
 
-    for archtype in dataRoot:
-        currArchType = ArchType.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
-        currArchType.description = archtype.find('description').text
-        currArchType.proficiency = archtype.find('proficiency').text
-        currArchType.strBonus = archtype.find('strBonus').text
-        currArchType.perBonus = archtype.find('perBonus').text
-        currArchType.intBonus = archtype.find('intBonus').text
-        currArchType.dexBonus = archtype.find('dexBonus').text
-        currArchType.chaBonus = archtype.find('chaBonus').text
-        currArchType.vitBonus = archtype.find('vitBonus').text
-        currArchType.magBonus = archtype.find('magBonus').text
-        currArchType.staminaBonus = archtype.find('staminaBonus').text
-        currArchType.attackBonus = archtype.find('attackBonus').text
-        currArchType.reflexBonus = archtype.find('reflexBonus').text
-        currArchType.feats = archtype.find('feats').text
-        currArchType.movement = archtype.find('movement').text
-        currArchType.skillPoints = archtype.find('skillPoints').text
-        currArchType.levelHealth = archtype.find('levelHealth').text
+    for archtype in data_root:
+        current_archtype = ArchType.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
+        current_archtype.description = archtype.find('description').text
+        current_archtype.proficiency = archtype.find('proficiency').text
+        current_archtype.strBonus = archtype.find('strBonus').text
+        current_archtype.perBonus = archtype.find('perBonus').text
+        current_archtype.intBonus = archtype.find('intBonus').text
+        current_archtype.dexBonus = archtype.find('dexBonus').text
+        current_archtype.chaBonus = archtype.find('chaBonus').text
+        current_archtype.vitBonus = archtype.find('vitBonus').text
+        current_archtype.magBonus = archtype.find('magBonus').text
+        current_archtype.staminaBonus = archtype.find('staminaBonus').text
+        current_archtype.attackBonus = archtype.find('attackBonus').text
+        current_archtype.reflexBonus = archtype.find('reflexBonus').text
+        current_archtype.feats = archtype.find('feats').text
+        current_archtype.movement = archtype.find('movement').text
+        current_archtype.skillPoints = archtype.find('skillPoints').text
+        current_archtype.levelHealth = archtype.find('levelHealth').text
 
-        mySet.AddNew(currArchType)
+        current_set.add_new(current_archtype)
 
 if __name__ == '__main__':
-    global mySet
+    global myset
 
-    mySet = ArchType.Archtypes()
+    myset = ArchType.Archtypes()
 
-    LoadArchtypes()
+    load_archtypes()
 
-    ArchtypeList()
+    archtype_list()

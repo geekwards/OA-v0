@@ -25,11 +25,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 import ListObject
 
-def set_Tk_var():
+def set_tk_var():
     global che47
     che47 = tk.StringVar()
 
-def btnCancel_Click():
+def cancel_click():
     destroy_window()
 
 def init(top, gui, *args, **kwargs):
@@ -44,32 +44,32 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
-def buildList(listType, listItems, editcall):
+def build_list(list_type, list_items, editcall):
     # Function to fill in  List management GUI_List
     global w
     global top_level
 
-    top_level.title("OA Manager - " + listType)
-    w.lblTitle.config(text=listType)
+    top_level.title("OA Manager - " + list_type)
+    w.lbltitle.config(text=list_type)
 
     idx=0
 
-    for listItem in listItems:
-        addListItem(idx,listItem.name, listItem.shortDescription, editcall)
+    for list_item in list_items:
+        add_list_item(idx,list_item.name, list_item.short_description, editcall)
         idx+=1
 
-def addListItem(idx,name, shortDescr, editcall):
+def add_list_item(idx,name, short_description, editcall):
     global w
     global top_level
 
     x = 10
     y = (idx*30)+80
 
-    w.EditListItem = tk.Button(top_level, text ="Edit" + str(idx), command=lambda: editcall(top_level, idx))
-    w.EditListItem.place(x=x, y=y, height=25, width=50)
+    w.edit_list_item = tk.Button(top_level, text ="Edit" + str(idx), command=lambda: editcall(top_level, idx))
+    w.edit_list_item.place(x=x, y=y, height=25, width=50)
 
-    w.lblListItem = tk.Label(top_level, text=name + ' - ' + shortDescr)
-    w.lblListItem.place(x=x+60, y=y, height=30, width=400)
+    w.lbl_list_item = tk.Label(top_level, text=name + ' - ' + short_description)
+    w.lbl_list_item.place(x=x+60, y=y, height=30, width=400)
 
 if __name__ == '__main__':
     import GUI_List

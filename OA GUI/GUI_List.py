@@ -31,14 +31,14 @@ def vp_start_gui():
     root.mainloop()
 
 w = None
-def create_Root():
+def create_root():
     global val, w, root
     root = tk.Tk()
     top = Toplevel1 (root)
     GUI_List_support.init(root, top)
     return (root, top)
 
-def create_Toplevel1(root, *args, **kwargs):
+def create_toplevel1(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
     rt = root
@@ -48,24 +48,18 @@ def create_Toplevel1(root, *args, **kwargs):
     GUI_List_support.init(w, top, *args, **kwargs)
     return (w, top)
 
-def buildList(listType, listItems, editcall):
+def build_list(list_type, list_items, editcall):
     global w
-    GUI_List_support.buildList(listType, listItems, editcall)
+    GUI_List_support.build_list(list_type, list_items, editcall)
 
-def destroy_Toplevel1():
+def destroy_toplevel1():
     global w
     w.destroy()
     w = None
 
 class Toplevel1:
     def __init__(self, top=None):
-        '''This class configures and populates the toplevel window.
-           top is the toplevel containing window.'''
-        _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
-        _fgcolor = '#000000'  # X11 color: 'black'
-        _compcolor = '#d9d9d9' # X11 color: 'gray85'
-        _ana1color = '#d9d9d9' # X11 color: 'gray85'
-        _ana2color = '#d9d9d9' # X11 color: 'gray85'
+
         font9 = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
             " -underline 0 -overstrike 0"
 
@@ -75,25 +69,25 @@ class Toplevel1:
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
 
-        self.lblTitle = tk.Label(top)
-        self.lblTitle.place(relx=0.018, rely=0.032, height=51, width=514)
-        self.lblTitle.configure(background="#d9d9d9")
-        self.lblTitle.configure(font=font9)
-        self.lblTitle.configure(foreground="#000000")
-        self.lblTitle.configure(text='''LIST NOT LOADED''')
+        self.lbltitle = tk.Label(top)
+        self.lbltitle.place(relx=0.018, rely=0.032, height=51, width=514)
+        self.lbltitle.configure(background="#d9d9d9")
+        self.lbltitle.configure(font=font9)
+        self.lbltitle.configure(foreground="#000000")
+        self.lbltitle.configure(text='''LIST NOT LOADED''')
 
-        self.Cancel = tk.Button(top)
-        self.Cancel.place(relx=0.018, rely=0.893, height=64, width=107)
-        self.Cancel.configure(activebackground="#d9d9d9")
-        self.Cancel.configure(activeforeground="#000000")
-        self.Cancel.configure(background="#d9d9d9")
-        self.Cancel.configure(command=GUI_List_support.btnCancel_Click)
-        self.Cancel.configure(disabledforeground="#a3a3a3")
-        self.Cancel.configure(foreground="#000000")
-        self.Cancel.configure(highlightbackground="#d9d9d9")
-        self.Cancel.configure(highlightcolor="black")
-        self.Cancel.configure(pady="0")
-        self.Cancel.configure(text='''Cancel''')
+        self.cancel = tk.Button(top)
+        self.cancel.place(relx=0.018, rely=0.893, height=64, width=107)
+        self.cancel.configure(activebackground="#d9d9d9")
+        self.cancel.configure(activeforeground="#000000")
+        self.cancel.configure(background="#d9d9d9")
+        self.cancel.configure(command=GUI_List_support.cancel_click)
+        self.cancel.configure(disabledforeground="#a3a3a3")
+        self.cancel.configure(foreground="#000000")
+        self.cancel.configure(highlightbackground="#d9d9d9")
+        self.cancel.configure(highlightcolor="black")
+        self.cancel.configure(pady="0")
+        self.cancel.configure(text='''Cancel''')
 
 if __name__ == '__main__':
     vp_start_gui()

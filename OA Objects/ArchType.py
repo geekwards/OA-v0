@@ -2,62 +2,55 @@ import ListObject
 import copy
 
 class Archtypes:
-    listOfArchtypes = []
-    archtypes = []
+    list_of_archtypes = []
+    all_archtypes = []
 
-    def AddNew(current,archtype):
-        current.archtypes.append(archtype)
-        current.listOfArchtypes.append(ListObject.Listobject(archtype.name,archtype.shortDescription))
+    def add_new(current,archtype):
+        current.all_archtypes.append(archtype)
+        current.list_of_archtypes.append(ListObject.Listobject(archtype.name,archtype.short_description))
 
-    def GetList(current):
-        return current.listOfArchtypes
+    def get_list(current):
+        return current.all_archtypes
 
-    def Clone(current):
+    def clone(current):
         return copy.copy(current)
 
-    def Update(current,archtype):
+    def update(current,archtype):
 
-        found = False
-
-        for idx, at in enumerate(current.archtypes):
+        for idx, at in enumerate(current.all_archtypes):
             if at.name == archtype.name:
-                found = True
-                current.archtypes[idx] = archtype
-
-        if found:
-            for idx, lo in enumerate(current.listOfArchtypes):
-                if lo.name == archtype.name:
-                    current.listOfArchtypes[idx].shortDescription = archtype.shortDescription
+                current.all_archtypes[idx] = archtype
+                current.all_archtypes[idx].short_description = archtype.short_description
         else:
-            current.AddNew(archtype)
+            current.add_new(archtype)
 
     def __getitem__(current,idx):
-        return current.archtypes[idx]
+        return current.all_archtypes[idx]
 
     def __init__(self):
-        self.archtypes = []
+        self.all_archtypes = []
 
 class Archtype:
     description = ""
     proficiency = ""
-    strBonus = 0
-    perBonus = 0
-    intBonus = 0
-    dexBonus = 0
-    chaBonus = 0
-    vitBonus = 0
-    magBonus = 0
-    staminaBonus = 0
-    attackBonus = 0
-    reflexBonus = 0
+    str_bonus = 0
+    per_bonus = 0
+    int_bonus = 0
+    dex_bonus = 0
+    cha_bonus = 0
+    vit_bonus = 0
+    mag_bonus = 0
+    stamina_bonus = 0
+    attack_bonus = 0
+    reflex_bonus = 0
     feats = 0
     movement = 0
-    skillPoints = 0
-    levelHealth = ""
+    skill_points = 0
+    level_health = ""
 
-    def Clone(current):
+    def clone(current):
         return copy.copy(current)
 
-    def __init__(self, name, shortDescr):
+    def __init__(self, name, short_description):
         self.name = name
-        self.shortDescription = shortDescr
+        self.short_description = short_description
