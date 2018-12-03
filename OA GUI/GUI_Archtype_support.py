@@ -74,29 +74,26 @@ def btnSave_Click():
     global saveCall
     global currArchtype
 
-    newArchtype = currArchtype
+    currArchtype.name = w.eName.get()
+    currArchtype.shortDescription = w.eShortDescription.get()
+    currArchtype.description = w.txtDescription.get("1.0",'end-1c')
+    currArchtype.proficiency = w.eProficiency.get()
+    currArchtype.strBonus = w.eSTR.get()
+    currArchtype.perBonus = w.ePER.get()
+    currArchtype.intBonus = w.eINT.get()
+    currArchtype.dexBonus = w.eDEX.get()
+    currArchtype.chaBonus = w.eCHA.get()
+    currArchtype.vitBonus = w.eVIT.get()
+    currArchtype.magBonus = w.eMAG.get()
+    currArchtype.staminaBonus = w.eStamina.get()
+    currArchtype.attackBonus = w.eAttack.get()
+    currArchtype.reflexBonus = w.eReflex.get()
+    currArchtype.feats = w.eFeats.get()
+    currArchtype.movement = w.eMvmt.get()
+    currArchtype.skillPoints = w.eSkillPts.get()
+    currArchtype.levelHealth = w.eLvlHealth.get()
 
-    newArchtype.name = w.eName.get()
-    newArchtype.shortDescription = w.eShortDescription.get()
-    newArchtype.description = w.txtDescription.get("1.0",'end-1c')
-    newArchtype.proficiency = w.eProficiency.get()
-    newArchtype.strBonus = w.eSTR.get()
-    newArchtype.perBonus = w.ePER.get()
-    newArchtype.intBonus = w.eINT.get()
-    newArchtype.dexBonus = w.eDEX.get()
-    newArchtype.chaBonus = w.eCHA.get()
-    newArchtype.vitBonus = w.eVIT.get()
-    newArchtype.magBonus = w.eMAG.get()
-    newArchtype.staminaBonus = w.eStamina.get()
-    newArchtype.attackBonus = w.eAttack.get()
-    newArchtype.reflexBonus = w.eReflex.get()
-    newArchtype.feats = w.eFeats.get()
-    newArchtype.movement = w.eMvmt.get()
-    newArchtype.skillPoints = w.eSkillPts.get()
-    newArchtype.levelHealth = w.eLvlHealth.get()
-
-    saveCall(newArchtype)
-    loadData(newArchtype)
+    saveCall(currArchtype)
 
     disableForm()
 
@@ -150,9 +147,9 @@ def disableForm():
 
 def loadForm(archtype, savecall):
     global saveCall
-    global prevArchtype
+    global originalArchtype
 
-    prevArchtype = archtype
+    originalArchtype = archtype.Clone()
 
     saveCall = savecall
 
@@ -163,7 +160,7 @@ def loadData(archtype):
     global top_level
     global currArchtype
 
-    currArchtype = archtype
+    currArchtype = archtype.Clone()
 
     top_level.title("Archtype - " + currArchtype.name)
     w.lblTitle.config(text="Archtype - " + currArchtype.name)

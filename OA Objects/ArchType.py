@@ -1,4 +1,5 @@
 import ListObject
+import copy
 
 class Archtypes:
     listOfArchtypes = []
@@ -10,6 +11,9 @@ class Archtypes:
 
     def GetList(current):
         return current.listOfArchtypes
+
+    def Clone(current):
+        return copy.copy(current)
 
     def Update(current,archtype):
 
@@ -50,6 +54,9 @@ class Archtype:
     movement = 0
     skillPoints = 0
     levelHealth = ""
+
+    def Clone(current):
+        return copy.copy(current)
 
     def __init__(self, name, shortDescr):
         self.name = name
