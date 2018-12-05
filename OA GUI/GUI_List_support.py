@@ -6,28 +6,16 @@
 #    Nov 24, 2018 07:20:13 AM EST  platform: Windows NT
 #    Nov 24, 2018 09:36:47 PM EST  platform: Windows NT
 
-import sys
-
 try:
     import Tkinter as tk
 except ImportError:
     import tkinter as tk
 
-try:
-    import ttk
-    py3 = False
-except ImportError:
-    import tkinter.ttk as ttk
-    py3 = True
-
 import sys, os.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Objects'))
+datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
+import app_config
 
 import ListObject
-
-def set_tk_var():
-    global che47
-    che47 = tk.StringVar()
 
 def cancel_click():
     destroy_window()

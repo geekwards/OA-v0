@@ -1,23 +1,16 @@
 from Tkinter import *
 
-import sys, os.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA GUI'))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Objects'))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files'))
-
 import GUI_List
 import GUI_Archtype
 import ArchType
 import xml.etree.ElementTree as ET
-from time import gmtime, strftime
 from shutil import copy2
-
-filename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes.dat"
-backup_filename = "C:\Projects\OA Manager v0\OA Data Files\Archtypes" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
+import app_config
+import sys, os.path
+datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
 
 def save_archtype(archtype):
     global current_set
-    global filename
 
     current_set.update(archtype)
 
@@ -43,6 +36,9 @@ def save_archtype(archtype):
         ET.SubElement(arch, 'movement').text = item.movement
         ET.SubElement(arch, 'skillPoints').text = item.skillPoints
         ET.SubElement(arch, 'levelHealth').text = item.levelHealth
+
+    filename = app_config.filepath + app_config.filename
+    backup_filename = app_config.backup_filepath + app_config.backup_filename
 
     copy2(filename, backup_filename)
     open(filename, 'w').write(ET.tostring(data))
@@ -71,11 +67,10 @@ def archtype_list():
 
 def load_archtypes():
     global current_set
-    global filename
-    global current_archtype
 
     current_set = ArchType.Archtypes()
 
+    filename = app_config.filepath + app_config.filename
     tree = ET.parse(filename)
 
     data_root = tree.getroot()
@@ -102,9 +97,6 @@ def load_archtypes():
         current_set.add_new(current_archtype)
 
 if __name__ == '__main__':
-    global myset
-
-    myset = ArchType.Archtypes()
 
     load_archtypes()
 

@@ -1,4 +1,7 @@
 class Listobject:
-    def __init__(self, name, shortDescr):
+    name = ""
+    short_description = ""
+
+    def __init__(self, name, short_description):
         self.name = name
-        self.shortDescription = shortDescr
+        self.short_description = short_description
