@@ -53,12 +53,12 @@ class Toplevel1:
 
         top.title("ARCHTYPE NOT LOADED")
 
-        self.f1 = tk.Frame(top)
+        self.f1 = tk.Frame(top, padx=20, pady=20)
         self.f1.grid(sticky='nsew')
 
         self.f1.lbltitle = tk.Label(self.f1, text='ARCHTYPE NOT LOADED')
         self.f1.lbltitle.config(font=font9)
-        self.f1.lbltitle.grid(sticky='nsew', row=0, column=0, columnspan=7, rowspan=2)
+        self.f1.lbltitle.grid(sticky='nsew', row=0, column=0, columnspan=6, rowspan=2)
 
         self.f1.lblname = tk.Label(self.f1, text='Name')
         self.f1.lblname.grid(sticky='e', row=2, column=1)
@@ -84,7 +84,7 @@ class Toplevel1:
         self.f1.lbldescription = tk.Label(self.f1, text='Description')
         self.f1.lbldescription.grid(sticky='ne', row=5, column=1)
 
-        self.f1.txtdescription = tk.Text(self.f1)
+        self.f1.txtdescription = tk.Text(self.f1, height=20, width=40)
         self.f1.txtdescription.grid(sticky='w', row=5, column=2, columnspan=3)
         self.f1.txtdescription.configure(wrap='word')
 
@@ -197,15 +197,15 @@ class Toplevel1:
         self.f1.right_button = tk.Button(self.f1, text='Edit')
         self.f1.right_button.config(width=10, height=2)
         self.f1.right_button.configure(command=GUI_Archtype_support.edit_click)
-        self.f1.right_button.grid(sticky='e', row=16, column=4)
+        self.f1.right_button.grid(sticky='w', row=16, column=4)
 
-        self.f1.grid_columnconfigure(0, weight=3)
-        self.f1.grid_columnconfigure(1, weight=1)
-        self.f1.grid_columnconfigure(2, weight=1)
-        self.f1.grid_columnconfigure(3, weight=3)
-        self.f1.grid_columnconfigure(4, weight=1)
-        self.f1.grid_columnconfigure(5, weight=1)
-        self.f1.grid_columnconfigure(6, weight=3)
+        self.f1.grid_columnconfigure(0, weight=1)
+        self.f1.grid_columnconfigure(1, weight=3)
+        self.f1.grid_columnconfigure(2, weight=3)
+        self.f1.grid_columnconfigure(3, weight=1)
+        self.f1.grid_columnconfigure(4, weight=3)
+        self.f1.grid_columnconfigure(5, weight=3)
+        self.f1.grid_columnconfigure(6, weight=1)
 
 if __name__ == '__main__':
     vp_start_gui()
