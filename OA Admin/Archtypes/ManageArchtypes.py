@@ -1,13 +1,17 @@
 from Tkinter import *
 
+import xml.etree.ElementTree as ET
+from shutil import copy2
+
+import sys, os.path
+datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
+sys.path.append(datapath)
+
+import app_config
+
 import GUI_List
 import GUI_Archtype
 import ArchType
-import xml.etree.ElementTree as ET
-from shutil import copy2
-import app_config
-import sys, os.path
-datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
 
 def save_archtype(archtype):
     global current_set
@@ -59,7 +63,7 @@ def edit_archtype(top, idx):
 def archtype_list():
     global current_set
 
-    root, top = GUI_List.create_root()
+    root, top = GUI_List.create_toplevel1(None)
 
     GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype)
 

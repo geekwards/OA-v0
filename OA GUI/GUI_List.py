@@ -28,19 +28,19 @@ def vp_start_gui():
     root.mainloop()
 
 w = None
-def create_root():
-    global val, w, root
-    root = tk.Tk()
-    top = Toplevel1 (root)
-    GUI_List_support.init(root, top)
-    return (root, top)
 
 def create_toplevel1(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
-    global w, w_win, rt
-    rt = root
-    w = tk.Toplevel (root)
-    GUI_List_support.set_Tk_var()
+    global w, w_win
+    #, rt
+    #rt = root
+
+    if root == None:
+        w = tk.Tk()
+    else:
+        w = tk.Toplevel (root)
+
+#    GUI_List_support.set_Tk_var()
     top = Toplevel1 (w)
     GUI_List_support.init(w, top, *args, **kwargs)
     return (w, top)
