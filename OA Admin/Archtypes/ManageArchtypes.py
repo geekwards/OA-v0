@@ -59,9 +59,6 @@ def save_archtypes():
 def remove_archtype(idx):
     global current_set
 
-    print idx
-    print current_set[idx].name
-
     current_set.remove(current_set[idx])
 
     save_archtypes()

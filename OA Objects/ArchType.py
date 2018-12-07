@@ -24,11 +24,16 @@ class Archtypes:
 
     def update(current,archtype):
 
+        found = False
+
         for idx, at in enumerate(current.all_archtypes):
             if at.name == archtype.name:
                 current.all_archtypes[idx] = archtype
-                current.all_archtypes[idx].short_description = archtype.short_description
-        else:
+                current.list_of_archtypes[idx].short_description = archtype.short_description
+                found = True
+                break
+
+        if not found:
             current.add_new(archtype)
 
     def __getitem__(current,idx):
