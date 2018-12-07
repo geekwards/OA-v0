@@ -9,8 +9,15 @@ class Archtypes:
         current.all_archtypes.append(archtype)
         current.list_of_archtypes.append(ListObject.Listobject(archtype.name,archtype.short_description))
 
+    def remove(current,archtype):
+        current.list_of_archtypes.remove(current.get_list_item(current.all_archtypes.index(archtype)))
+        current.all_archtypes.remove(archtype)
+
     def get_list(current):
         return current.all_archtypes
+
+    def get_list_item(current, idx):
+        return current.list_of_archtypes[idx]
 
     def clone(current):
         return copy.copy(current)

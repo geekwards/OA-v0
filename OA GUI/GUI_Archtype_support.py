@@ -69,23 +69,23 @@ def save_click():
     global current_archtype
 
     current_archtype.name = w.f1.ename.get()
-    current_archtype.shortDescription = w.f1.eshortdescription.get()
+    current_archtype.short_Description = w.f1.eshortdescription.get()
     current_archtype.description = w.f1.txtdescription.get("1.0",'end-1c')
     current_archtype.proficiency = w.f1.eproficiency.get()
-    current_archtype.strBonus = w.f1.estr.get()
-    current_archtype.perBonus = w.f1.eper.get()
-    current_archtype.intBonus = w.f1.eint.get()
-    current_archtype.dexBonus = w.f1.edex.get()
-    current_archtype.chaBonus = w.f1.echa.get()
-    current_archtype.vitBonus = w.f1.evit.get()
-    current_archtype.magBonus = w.f1.emag.get()
-    current_archtype.staminaBonus = w.f1.estamina.get()
-    current_archtype.attackBonus = w.f1.eattack.get()
-    current_archtype.reflexBonus = w.f1.ereflex.get()
+    current_archtype.str_Bonus = w.f1.estr.get()
+    current_archtype.per_Bonus = w.f1.eper.get()
+    current_archtype.int_Bonus = w.f1.eint.get()
+    current_archtype.dex_Bonus = w.f1.edex.get()
+    current_archtype.cha_Bonus = w.f1.echa.get()
+    current_archtype.vit_Bonus = w.f1.evit.get()
+    current_archtype.mag_Bonus = w.f1.emag.get()
+    current_archtype.stamina_Bonus = w.f1.estamina.get()
+    current_archtype.attack_Bonus = w.f1.eattack.get()
+    current_archtype.reflex_Bonus = w.f1.ereflex.get()
     current_archtype.feats = w.f1.efeats.get()
     current_archtype.movement = w.f1.emvmt.get()
-    current_archtype.skillPoints = w.f1.eskillpts.get()
-    current_archtype.levelHealth = w.f1.elvlhealth.get()
+    current_archtype.skill_Points = w.f1.eskillpts.get()
+    current_archtype.level_Health = w.f1.elvlhealth.get()
 
     save_callback(current_archtype)
 
@@ -157,7 +157,7 @@ def load_data(archtype):
     current_archtype = archtype.clone()
 
     top_level.title("Archtype - " + current_archtype.name)
-    w.f1.lbltitle.config(text="Archtype - " + current_archtype.name)
+    w.lbltitle.config(text="Archtype - " + current_archtype.name)
 
     enable_form()
 

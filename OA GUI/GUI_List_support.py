@@ -32,7 +32,20 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
-def build_list(list_type, list_items, editcall):
+def refresh_frame():
+    global w
+    global top_level
+
+    w.f1.destroy()
+
+    w.f1 = tk.Frame(top_level)
+    w.f1.grid(sticky='nsew', row=2, column=0, padx=20, pady=20)
+
+    w.f1.grid_columnconfigure(0, weight=1)
+    w.f1.grid_columnconfigure(1, weight=3)
+    w.f1.grid_columnconfigure(2, weight=1)
+
+def build_list(list_type, list_items, editcall, removecall):
     # Function to fill in  List management GUI_List
     global w
     global top_level
@@ -40,24 +53,26 @@ def build_list(list_type, list_items, editcall):
     top_level.title("OA Manager - " + list_type)
     w.lbltitle.config(text=list_type)
 
+    refresh_frame()
+
     idx=0
 
     for list_item in list_items:
-        add_list_item(idx,list_item.name, list_item.short_description, editcall)
+        add_list_item(idx,list_item.name, list_item.short_description, editcall, removecall)
         idx+=1
 
-def add_list_item(idx,name, short_description, editcall):
+def add_list_item(idx,name, short_description, editcall, removecall):
     global w
     global top_level
 
-    x = 10
-    y = (idx*30)+80
+    w.f1.edit_list_item = tk.Button(w.f1, text ="Edit" + str(idx), command=lambda: editcall(top_level, idx))
+    w.f1.edit_list_item.grid(sticky='nsew', row=idx+2, column=0, padx=5, pady=5)
 
-    w.edit_list_item = tk.Button(top_level, text ="Edit" + str(idx), command=lambda: editcall(top_level, idx))
-    w.edit_list_item.place(x=x, y=y, height=25, width=50)
+    w.f1.lbl_list_item = tk.Label(w.f1, text=name + ' - ' + short_description)
+    w.f1.lbl_list_item.grid(sticky='w', row=idx+2, column=1, padx=5, pady=5)
 
-    w.lbl_list_item = tk.Label(top_level, text=name + ' - ' + short_description)
-    w.lbl_list_item.place(x=x+60, y=y, height=30, width=400)
+    w.f1.edit_list_item = tk.Button(w.f1, text ="Remove" + str(idx), command=lambda: removecall(idx))
+    w.f1.edit_list_item.grid(sticky='nsew', row=idx+2, column=2, padx=5, pady=5)
 
 if __name__ == '__main__':
     import GUI_List

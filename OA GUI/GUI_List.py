@@ -45,8 +45,8 @@ def create_toplevel1(root, *args, **kwargs):
     GUI_List_support.init(w, top, *args, **kwargs)
     return (w, top)
 
-def build_list(list_type, list_items, editcall):
-    GUI_List_support.build_list(list_type, list_items, editcall)
+def build_list(list_type, list_items, editcall, removecall):
+    GUI_List_support.build_list(list_type, list_items, editcall, removecall)
 
 def destroy_toplevel1():
     global w
@@ -59,31 +59,22 @@ class Toplevel1:
         font9 = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
             " -underline 0 -overstrike 0"
 
-        top.geometry("543x616+407+109")
         top.title("LIST NOT LOADED")
-        top.configure(background="#d9d9d9")
-        top.configure(highlightbackground="#d9d9d9")
-        top.configure(highlightcolor="black")
 
-        self.lbltitle = tk.Label(top)
-        self.lbltitle.place(relx=0.018, rely=0.032, height=51, width=514)
-        self.lbltitle.configure(background="#d9d9d9")
+        self.f1 = tk.Frame(top)
+        self.f1.grid(sticky='nsew', row=2, column=0, padx=20, pady=20)
+
+        self.lbltitle = tk.Label(top, text='LIST NOT LOADED')
         self.lbltitle.configure(font=font9)
-        self.lbltitle.configure(foreground="#000000")
-        self.lbltitle.configure(text='''LIST NOT LOADED''')
+        self.lbltitle.grid(sticky='nsew', row=0, column=0, columnspan=3, rowspan=2, pady=20)
 
-        self.cancel = tk.Button(top)
-        self.cancel.place(relx=0.018, rely=0.893, height=64, width=107)
-        self.cancel.configure(activebackground="#d9d9d9")
-        self.cancel.configure(activeforeground="#000000")
-        self.cancel.configure(background="#d9d9d9")
-        self.cancel.configure(command=GUI_List_support.cancel_click)
-        self.cancel.configure(disabledforeground="#a3a3a3")
-        self.cancel.configure(foreground="#000000")
-        self.cancel.configure(highlightbackground="#d9d9d9")
-        self.cancel.configure(highlightcolor="black")
-        self.cancel.configure(pady="0")
-        self.cancel.configure(text='''Cancel''')
+        self.cancel = tk.Button(top, text='Cancel', command=GUI_List_support.cancel_click)
+        self.cancel.config(width=10, height=2)
+        self.cancel.grid(sticky='sw', row=3, column=0, padx=20, pady=20)
+
+        self.f1.grid_columnconfigure(0, weight=1)
+        self.f1.grid_columnconfigure(1, weight=3)
+        self.f1.grid_columnconfigure(2, weight=1)
 
 if __name__ == '__main__':
     vp_start_gui()
