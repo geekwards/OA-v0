@@ -11,7 +11,7 @@ import app_config
 
 import GUI_List
 import GUI_Archtype
-import ArchType
+import Arch_Type
 
 def save_archtype(archtype):
     global current_set
@@ -54,8 +54,6 @@ def save_archtypes():
 
     GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype, remove_archtype)
 
-    list_window.mainloop()
-
 def remove_archtype(idx):
     global current_set
 
@@ -72,7 +70,10 @@ def edit_archtype(top, idx):
     if edit_window == None or not Toplevel.winfo_exists(edit_window):
         edit_window, top = GUI_Archtype.create_toplevel1(top)
 
-    GUI_Archtype.load_form(current_set[idx], save_archtype)
+    if idx == None:
+        GUI_Archtype.load_form(Arch_Type.Archtype('',''), save_archtype)
+    else:
+        GUI_Archtype.load_form(current_set[idx], save_archtype)
 
     edit_window.mainloop()
 
@@ -89,7 +90,7 @@ def archtype_list():
 def load_archtypes():
     global current_set
 
-    current_set = ArchType.Archtypes()
+    current_set = Arch_Type.Archtypes()
 
     filename = app_config.filepath + app_config.filename
     tree = ET.parse(filename)
@@ -97,7 +98,7 @@ def load_archtypes():
     data_root = tree.getroot()
 
     for archtype in data_root:
-        current_archtype = ArchType.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
+        current_archtype = Arch_Type.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
         current_archtype.description = archtype.find('description').text
         current_archtype.proficiency = archtype.find('proficiency').text
         current_archtype.str_bonus = archtype.find('strBonus').text

@@ -16,7 +16,7 @@ import sys, os.path
 datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
 import app_config
 
-import ArchType
+import Arch_Type
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
