@@ -72,6 +72,10 @@ class Toplevel1:
         self.cancel.config(width=10, height=2)
         self.cancel.grid(sticky='sw', row=3, column=0, padx=20, pady=20)
 
+        self.cancel = tk.Button(top, text='NEW', command=GUI_List_support.new_click)
+        self.cancel.config(width=10, height=2)
+        self.cancel.grid(sticky='sw', row=3, column=2, padx=20, pady=20)
+
         self.f1.grid_columnconfigure(0, weight=1)
         self.f1.grid_columnconfigure(1, weight=3)
         self.f1.grid_columnconfigure(2, weight=1)

@@ -20,6 +20,11 @@ import ListObject
 def cancel_click():
     destroy_window()
 
+def new_click():
+    global edit_call
+    global top_level
+    edit_call(top_level, None)
+
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
     w = gui
@@ -49,6 +54,11 @@ def build_list(list_type, list_items, editcall, removecall):
     # Function to fill in  List management GUI_List
     global w
     global top_level
+    global edit_call
+    global remove_call
+
+    edit_call = editcall
+    remove_call = removecall
 
     top_level.title("OA Manager - " + list_type)
     w.lbltitle.config(text=list_type)

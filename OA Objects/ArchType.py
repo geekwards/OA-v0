@@ -60,6 +60,9 @@ class Archtype:
     skill_points = 0
     level_health = ""
 
+    def empty(current):
+        return (current.name == '' and current.short_description == '')
+
     def clone(current):
         return copy.copy(current)
 

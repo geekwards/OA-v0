@@ -54,7 +54,6 @@ def save_archtypes():
 
     GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype, remove_archtype)
 
-
 def remove_archtype(idx):
     global current_set
 
@@ -71,7 +70,10 @@ def edit_archtype(top, idx):
     if edit_window == None or not Toplevel.winfo_exists(edit_window):
         edit_window, top = GUI_Archtype.create_toplevel1(top)
 
-    GUI_Archtype.load_form(current_set[idx], save_archtype)
+    if idx == None:
+        GUI_Archtype.load_form(ArchType.Archtype('',''), save_archtype)
+    else:
+        GUI_Archtype.load_form(current_set[idx], save_archtype)
 
     edit_window.mainloop()
 

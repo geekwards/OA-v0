@@ -150,6 +150,9 @@ def load_form(archtype, savecall):
 
     load_data(archtype)
 
+    if archtype.empty():
+        edit_click()
+
 def load_data(archtype):
     global w
     global top_level
