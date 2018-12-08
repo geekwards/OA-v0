@@ -65,41 +65,38 @@ def cancel_click():
     w.f1.right_button.configure(command=edit_click)
 
 def save_click():
+    global w
     global save_callback
     global current_archtype
 
-    new_archtype = current_archtype.clone()
+    current_archtype.name = w.f1.ename.get()
+    current_archtype.short_description = w.f1.eshortdescription.get()
+    current_archtype.description = w.f1.txtdescription.get("1.0",'end-1c')
+    current_archtype.proficiency = w.f1.eproficiency.get()
+    current_archtype.str_bonus = w.f1.estr.get()
+    current_archtype.per_bonus = w.f1.eper.get()
+    current_archtype.int_bonus = w.f1.eint.get()
+    current_archtype.dex_bonus = w.f1.edex.get()
+    current_archtype.cha_bonus = w.f1.echa.get()
+    current_archtype.vit_bonus = w.f1.evit.get()
+    current_archtype.mag_bonus = w.f1.emag.get()
+    current_archtype.stamina_bonus = w.f1.estamina.get()
+    current_archtype.attack_bonus = w.f1.eattack.get()
+    current_archtype.reflex_bonus = w.f1.ereflex.get()
+    current_archtype.feats = w.f1.efeats.get()
+    current_archtype.movement = w.f1.emvmt.get()
+    current_archtype.skill_points = w.f1.eskillpts.get()
+    current_archtype.level_health = w.f1.elvlhealth.get()
 
-    new_archtype.name = w.f1.ename.get()
-    new_archtype.short_Description = w.f1.eshortdescription.get()
-    new_archtype.description = w.f1.txtdescription.get("1.0",'end-1c')
-    new_archtype.proficiency = w.f1.eproficiency.get()
-    new_archtype.str_Bonus = w.f1.estr.get()
-    new_archtype.per_Bonus = w.f1.eper.get()
-    new_archtype.int_Bonus = w.f1.eint.get()
-    new_archtype.dex_Bonus = w.f1.edex.get()
-    new_archtype.cha_Bonus = w.f1.echa.get()
-    new_archtype.vit_Bonus = w.f1.evit.get()
-    new_archtype.mag_Bonus = w.f1.emag.get()
-    new_archtype.stamina_Bonus = w.f1.estamina.get()
-    new_archtype.attack_Bonus = w.f1.eattack.get()
-    new_archtype.reflex_Bonus = w.f1.ereflex.get()
-    new_archtype.feats = w.f1.efeats.get()
-    new_archtype.movement = w.f1.emvmt.get()
-    new_archtype.skill_Points = w.f1.eskillpts.get()
-    new_archtype.level_Health = w.f1.elvlhealth.get()
+    save_callback(current_archtype)
 
-    save_callback(new_archtype)
+    w.f1.left_button.config(text='Close')
+    w.f1.left_button.configure(command=close_click)
 
-    load_form(current_archtype, save_callback)
+    w.f1.right_button.config(text='Edit')
+    w.f1.right_button.configure(command=edit_click)
 
-    # disable_form()
-    #
-    # w.f1.left_button.config(text='Close')
-    # w.f1.left_button.configure(command=close_click)
-    #
-    # w.f1.right_button.config(text='Edit')
-    # w.f1.right_button.configure(command=edit_click)
+    disable_form()
 
 def enable_form():
     global w

@@ -54,7 +54,6 @@ def save_archtypes():
 
     GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype, remove_archtype)
 
-    list_window.mainloop()
 
 def remove_archtype(idx):
     global current_set
