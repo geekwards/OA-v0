@@ -15,7 +15,7 @@ import sys, os.path
 datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
 import app_config
 
-import ListObject
+import List_Object
 
 def cancel_click():
     destroy_window()

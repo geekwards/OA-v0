@@ -1,16 +1,16 @@
 from time import gmtime, strftime
 import sys, os.path
-datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA Data Files')
-adminpath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA ADMIN')
-guipath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA GUI')
-objectpath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA Objects')
+data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA Data Files')
+admin_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA ADMIN')
+gui_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA GUI')
+object_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA Objects')
 
-sys.path.append(adminpath)
-sys.path.append(guipath)
-sys.path.append(objectpath)
-sys.path.append(datapath)
+sys.path.append(admin_path)
+sys.path.append(gui_path)
+sys.path.append(object_path)
+sys.path.append(data_path)
 
-filepath = datapath
+file_path = data_path
 filename = "/Archtypes.dat"
-backup_filepath = datapath
+backup_file_path = data_path
 backup_filename = "/ArchtypesBackup" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"

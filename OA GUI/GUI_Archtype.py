@@ -42,8 +42,8 @@ def destroy_toplevel1():
     w.destroy()
     w = None
 
-def load_form(archtype, savecall):
-    GUI_Archtype_support.load_form(archtype, savecall)
+def load_form(archtype, savecall, idx):
+    GUI_Archtype_support.load_form(archtype, savecall, idx)
 
 class Toplevel1:
     def __init__(self, top=None):

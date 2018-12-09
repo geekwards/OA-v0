@@ -11,14 +11,15 @@ import app_config
 
 import GUI_List
 import GUI_Archtype
-import Arch_Type
+import Archtype
 
-def save_archtype(archtype):
+def save_archtype(idx, archtype):
     global current_set
 
-    current_set.update(archtype)
+    current_set.update(idx, archtype)
 
-    save_archtypes()
+    GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype, remove_archtype)
+#    list_window.mainloop()
 
 def save_archtypes():
     global current_set
@@ -46,20 +47,16 @@ def save_archtypes():
         ET.SubElement(arch, 'skillPoints').text = item.skill_points
         ET.SubElement(arch, 'levelHealth').text = item.level_health
 
-    filename = app_config.filepath + app_config.filename
-    backup_filename = app_config.backup_filepath + app_config.backup_filename
+    filename = app_config.file_path + app_config.filename
+    backup_filename = app_config.backup_file_path + app_config.backup_filename
 
     copy2(filename, backup_filename)
     open(filename, 'w').write(ET.tostring(data))
-
-    GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype, remove_archtype)
 
 def remove_archtype(idx):
     global current_set
 
     current_set.remove(current_set[idx])
-
-    save_archtypes()
 
 def edit_archtype(top, idx):
     global current_set
@@ -70,11 +67,7 @@ def edit_archtype(top, idx):
     if edit_window == None or not Toplevel.winfo_exists(edit_window):
         edit_window, top = GUI_Archtype.create_toplevel1(top)
 
-    if idx == None:
-        GUI_Archtype.load_form(Arch_Type.Archtype('',''), save_archtype)
-    else:
-        GUI_Archtype.load_form(current_set[idx], save_archtype)
-
+    GUI_Archtype.load_form(current_set[idx], save_archtype, idx)
     edit_window.mainloop()
 
 def archtype_list():
@@ -84,21 +77,20 @@ def archtype_list():
     list_window, top = GUI_List.create_toplevel1(None)
 
     GUI_List.build_list("ArchTypes", current_set.get_list(), edit_archtype, remove_archtype)
-
     list_window.mainloop()
+
+    save_archtypes()
 
 def load_archtypes():
     global current_set
 
-    current_set = Arch_Type.Archtypes()
-
-    filename = app_config.filepath + app_config.filename
+    current_set = Archtype.Archtypes()
+    filename = app_config.file_path + app_config.filename
     tree = ET.parse(filename)
-
     data_root = tree.getroot()
 
     for archtype in data_root:
-        current_archtype = Arch_Type.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
+        current_archtype = Archtype.Archtype(archtype.find('name').text, archtype.find('shortDescription').text)
         current_archtype.description = archtype.find('description').text
         current_archtype.proficiency = archtype.find('proficiency').text
         current_archtype.str_bonus = archtype.find('strBonus').text
@@ -115,7 +107,6 @@ def load_archtypes():
         current_archtype.movement = archtype.find('movement').text
         current_archtype.skill_points = archtype.find('skillPoints').text
         current_archtype.level_health = archtype.find('levelHealth').text
-
         current_set.add_new(current_archtype)
 
 if __name__ == '__main__':

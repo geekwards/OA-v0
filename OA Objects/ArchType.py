@@ -1,4 +1,4 @@
-import ListObject
+import List_Object
 import copy
 
 class Archtypes:
@@ -7,37 +7,33 @@ class Archtypes:
 
     def add_new(current,archtype):
         current.all_archtypes.append(archtype)
-        current.list_of_archtypes.append(ListObject.Listobject(archtype.name,archtype.short_description))
+        current.list_of_archtypes.append(List_Object.Listobject(archtype.name,archtype.short_description))
 
     def remove(current,archtype):
         current.list_of_archtypes.remove(current.get_list_item(current.all_archtypes.index(archtype)))
         current.all_archtypes.remove(archtype)
 
-    def get_list(current):
+    def get_all(current):
         return current.all_archtypes
 
-    def get_list_item(current, idx):
+    def get_list(current):
+        return current.list_of_archtypes
+
+    def get_list_item(current,idx):
         return current.list_of_archtypes[idx]
 
-    def clone(current):
-        return copy.copy(current)
-
-    def update(current,archtype):
-
-        found = False
-
-        for idx, at in enumerate(current.all_archtypes):
-            if at.name == archtype.name:
-                current.all_archtypes[idx] = archtype
-                current.list_of_archtypes[idx].short_description = archtype.short_description
-                found = True
-                break
-
-        if not found:
+    def update(current,idx,archtype):
+        if idx == None:
             current.add_new(archtype)
+        else:
+            current.all_archtypes[idx] = archtype
+            current.list_of_archtypes[idx].short_description = archtype.short_description
 
     def __getitem__(current,idx):
-        return current.all_archtypes[idx]
+        if idx == None:
+            return Archtype('','')
+        else:
+            return current.all_archtypes[idx]
 
     def __init__(self):
         self.all_archtypes = []
@@ -60,7 +56,7 @@ class Archtype:
     skill_points = 0
     level_health = ""
 
-    def empty(current):
+    def isempty(current):
         return (current.name == '' and current.short_description == '')
 
     def clone(current):

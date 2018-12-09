@@ -16,7 +16,7 @@ import sys, os.path
 datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
 import app_config
 
-import Arch_Type
+import Archtype
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
@@ -68,6 +68,7 @@ def save_click():
     global w
     global save_callback
     global current_archtype
+    global index
 
     current_archtype.name = w.f1.ename.get()
     current_archtype.short_description = w.f1.eshortdescription.get()
@@ -88,7 +89,7 @@ def save_click():
     current_archtype.skill_points = w.f1.eskillpts.get()
     current_archtype.level_health = w.f1.elvlhealth.get()
 
-    save_callback(current_archtype)
+    save_callback(index, current_archtype)
 
     w.f1.left_button.config(text='Close')
     w.f1.left_button.configure(command=close_click)
@@ -140,17 +141,19 @@ def disable_form():
     w.f1.eskillpts.config(state='disabled')
     w.f1.elvlhealth.config(state='disabled')
 
-def load_form(archtype, savecall):
+def load_form(archtype, savecall, idx):
     global save_callback
     global original_archtype
+    global index
 
+    index = idx
     original_archtype = archtype.clone()
 
     save_callback = savecall
 
     load_data(archtype)
 
-    if archtype.empty():
+    if archtype.isempty():
         edit_click()
 
 def load_data(archtype):
