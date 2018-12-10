@@ -65,7 +65,7 @@ def save_click():
     current_archtype.level_health = archtype_form.f1.elvlhealth.get()
 
     save_callback(index,current_archtype)
-    disable_form()
+    archtype_form.disable_form()
 
 def load_data(archtype,savecall,idx):
     global archtype_form

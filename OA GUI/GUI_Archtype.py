@@ -71,7 +71,7 @@ class ArchtypeForm:
 
     def enable_form(self):
         self.f1.ename.config(state='normal')
-        self.f1.eshortdesc.config(state='normal')
+        self.f1.eshortdescription.config(state='normal')
         self.f1.eproficiency.config(state='normal')
         self.f1.estr.config(state='normal')
         self.f1.eper.config(state='normal')
@@ -90,7 +90,7 @@ class ArchtypeForm:
 
     def disable_form(self):
         self.f1.ename.config(state='disabled')
-        self.f1.eshortdesc.config(state='disabled')
+        self.f1.eshortdescription.config(state='disabled')
         self.f1.eproficiency.config(state='disabled')
         self.f1.estr.config(state='disabled')
         self.f1.eper.config(state='disabled')
@@ -116,8 +116,8 @@ class ArchtypeForm:
         self.lbltitle.config(text="Archtype - " + archtype.name)
         self.f1.ename.delete(0,'end')
         self.f1.ename.insert(0,archtype.name)
-        self.f1.eshortdesc.delete(0,'end')
-        self.f1.eshortdesc.insert(0,archtype.short_description)
+        self.f1.eshortdescription.delete(0,'end')
+        self.f1.eshortdescription.insert(0,archtype.short_description)
         self.f1.txtdescription.delete("1.0",'end')
         self.f1.txtdescription.insert('end',archtype.description)
         self.f1.eproficiency.delete(0,'end')
@@ -172,9 +172,9 @@ class ArchtypeForm:
         self.f1.eproficiency.grid(sticky='w',row=3,column=2,columnspan=3)
         self.f1.lblshortdescription = tk.Label(self.f1,text='Short Description')
         self.f1.lblshortdescription.grid(sticky='e',row=4,column=1,padx=5)
-        self.f1.eshortdesc = tk.Entry(self.f1)
-        self.f1.eshortdesc.insert(0,'<SHORT DESCR>')
-        self.f1.eshortdesc.grid(sticky='w',row=4,column=2,columnspan=3)
+        self.f1.eshortdescription = tk.Entry(self.f1)
+        self.f1.eshortdescription.insert(0,'<SHORT DESCR>')
+        self.f1.eshortdescription.grid(sticky='w',row=4,column=2,columnspan=3)
         self.f1.lbldescription = tk.Label(self.f1,text='Description')
         self.f1.lbldescription.grid(sticky='ne',row=5,column=1,padx=5)
         self.f1.txtdescription = tk.Text(self.f1,height=20,width=40)

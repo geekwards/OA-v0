@@ -45,11 +45,11 @@ class ListForm:
         self.refresh_frame()
 
     def add_list_item(self,idx,name,short_description,editcall,removecall):
-        self.f1.edit_list_item = tk.Button(self.f1,text ="Edit" + str(idx),command=lambda: editcall(self.parent, idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text ="Edit",command=lambda: editcall(self.parent, idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
         self.f1.lbl_list_item = tk.Label(self.f1,text=name + ' - ' + short_description)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
-        self.f1.edit_list_item = tk.Button(self.f1,text ="Remove" + str(idx),command=lambda: removecall(idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: removecall(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=2,padx=5,pady=5)
 
     def refresh_frame(self):
