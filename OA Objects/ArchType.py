@@ -13,6 +13,9 @@ class Archtypes:
         current.list_of_archtypes.remove(current.get_list_item(current.all_archtypes.index(archtype)))
         current.all_archtypes.remove(archtype)
 
+    def clone(current):
+        return copy.copy(current)
+
     def get_all(current):
         return current.all_archtypes
 
@@ -62,6 +65,6 @@ class Archtype:
     def clone(current):
         return copy.copy(current)
 
-    def __init__(self, name, short_description):
+    def __init__(self,name,short_description):
         self.name = name
         self.short_description = short_description

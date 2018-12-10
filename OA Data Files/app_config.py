@@ -14,3 +14,6 @@ file_path = data_path
 filename = "/Archtypes.dat"
 backup_file_path = data_path
 backup_filename = "/ArchtypesBackup" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
+
+title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
+    " -underline 0 -overstrike 0"
