@@ -17,12 +17,21 @@ test_set = [test_list_item0,test_list_item1,test_list_item2,test_list_item3]
 
 editcalled = False
 removecalled = False
+callindex = -1
 
-def edit_item():
+def edit_item(list_window,idx):
+    global editcalled
+    global callindex
+
     editcalled = True
+    callindex = idx
 
-def remove_item():
+def remove_item(idx):
+    global removecalled
+    global callindex
+
     removecalled = True
+    callindex = idx
 
 class GUI_List_Tests(unittest.TestCase):
 
@@ -35,16 +44,82 @@ class GUI_List_Tests(unittest.TestCase):
         self.assertEqual((list_form.f1.winfo_children()[11].cget('text')),'Remove')
         self.assertEqual((list_form.f1.winfo_children()[7].cget('text')),'Testing2 - TestDesc2')
 
-    #
-    # def test_load_form_close(self):
-    #     test_archtype = Archtype.Archtype('Testing','TestDesc')
-    #
-    #     archtype_window, archtype_form = GUI_Archtype.create_archtype_form(None)
-    #     GUI_Archtype.load_data(test_archtype, save_archtype, 0)
-    #     GUI_Archtype.close_click()
-    #     self.assertFalse(archtype_window == None)
-    #
+    def test_load_form_close(self):
+        list_window,list_form = GUI_List.create_list_form(None)
+        GUI_List.build_list("TESTING",test_set,edit_item,remove_item)
 
+        GUI_List.close_click()
+        self.assertFalse(list_window == None)
+
+    def test_load_form_new(self):
+        global editcalled
+        global callindex
+
+        list_window,list_form = GUI_List.create_list_form(None)
+        GUI_List.build_list("TESTING",test_set,edit_item,remove_item)
+
+        editcalled = False
+        callindex = -1
+
+        GUI_List.new_click()
+        self.assertTrue(editcalled)
+        self.assertEqual(callindex,None)
+
+    def test_load_form_edit1(self):
+        global editcalled
+        global callindex
+
+        list_window,list_form = GUI_List.create_list_form(None)
+        GUI_List.build_list("TESTING",test_set,edit_item,remove_item)
+
+        editcalled = False
+        callindex = -1
+
+        GUI_List.edit_click(1)
+        self.assertTrue(editcalled)
+        self.assertEqual(callindex,1)
+
+    def test_load_form_edit2(self):
+        global editcalled
+        global callindex
+
+        list_window,list_form = GUI_List.create_list_form(None)
+        GUI_List.build_list("TESTING",test_set,edit_item,remove_item)
+
+        editcalled = False
+        callindex = -1
+
+        GUI_List.edit_click(2)
+        self.assertTrue(editcalled)
+        self.assertEqual(callindex,2)
+
+    def test_load_form_remove1(self):
+        global removecalled
+        global callindex
+
+        list_window,list_form = GUI_List.create_list_form(None)
+        GUI_List.build_list("TESTING",test_set,edit_item,remove_item)
+
+        removecalled = False
+        callindex = -1
+
+        GUI_List.remove_click(1)
+        self.assertTrue(removecalled)
+        self.assertEqual(callindex,1)
+
+    def test_load_form_remove1(self):
+        global removecalled
+        global callindex
+
+        list_window,list_form = GUI_List.create_list_form(None)
+        GUI_List.build_list("TESTING",test_set,edit_item,remove_item)
+
+        removecalled = False
+        callindex = -1
+
+        GUI_List.remove_click(3)
+        self.assertTrue(removecalled)
+        self.assertEqual(callindex,3)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

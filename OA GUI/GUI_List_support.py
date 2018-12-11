@@ -9,13 +9,22 @@ import app_config
 
 import List_Object
 
-def cancel_click():
+def close_click():
     destroy_window()
 
 def new_click():
+    edit_click(None)
+
+def edit_click(idx):
     global edit_call
     global list_window
-    edit_call(list_window,None)
+
+    edit_call(list_window,idx)
+
+def remove_click(idx):
+    global remove_call
+
+    remove_call(idx)
 
 def init(window,form):
     global list_form
@@ -26,6 +35,7 @@ def init(window,form):
 
 def destroy_window():
     global list_window
+
     list_window.destroy()
     list_window = None
 

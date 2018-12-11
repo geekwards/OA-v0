@@ -65,6 +65,30 @@ class Archtype:
     def clone(current):
         return copy.copy(current)
 
-    def __init__(self,name,short_description):
-        self.name = name
-        self.short_description = short_description
+    def equals(current,tocompare):
+        same = True
+
+        same = same and (current.name == tocompare.name)
+        same = same and (current.short_description == tocompare.short_description)
+        same = same and (current.description == tocompare.description)
+        same = same and (current.proficiency == tocompare.proficiency)
+        same = same and (current.str_bonus == tocompare.str_bonus)
+        same = same and (current.per_bonus == tocompare.per_bonus)
+        same = same and (current.int_bonus == tocompare.int_bonus)
+        same = same and (current.dex_bonus == tocompare.dex_bonus)
+        same = same and (current.cha_bonus == tocompare.cha_bonus)
+        same = same and (current.vit_bonus == tocompare.vit_bonus)
+        same = same and (current.mag_bonus == tocompare.mag_bonus)
+        same = same and (current.stamina_bonus == tocompare.stamina_bonus)
+        same = same and (current.attack_bonus == tocompare.attack_bonus)
+        same = same and (current.reflex_bonus == tocompare.reflex_bonus)
+        same = same and (current.feats == tocompare.feats)
+        same = same and (current.movement == tocompare.movement)
+        same = same and (current.skill_points == tocompare.skill_points)
+        same = same and (current.level_health == tocompare.level_health)
+
+        return same
+
+    def __init__(current,name,short_description):
+        current.name = name
+        current.short_description = short_description

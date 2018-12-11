@@ -34,8 +34,14 @@ def destroy_list_form():
 def new_click():
     GUI_List_support.new_click()
 
-def cancel_click():
-    GUI_List_support.cancel_click()
+def edit_click(idx):
+    GUI_List_support.edit_click(idx)
+
+def remove_click(idx):
+    GUI_List_support.remove_click(idx)
+
+def close_click():
+    GUI_List_support.close_click()
 
 class ListForm:
 
@@ -45,11 +51,11 @@ class ListForm:
         self.refresh_frame()
 
     def add_list_item(self,idx,name,short_description,editcall,removecall):
-        self.f1.edit_list_item = tk.Button(self.f1,text ="Edit",command=lambda: editcall(self.parent, idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text ="Edit",command=lambda: edit_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
         self.f1.lbl_list_item = tk.Label(self.f1,text=name + ' - ' + short_description)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
-        self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: removecall(idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: remove_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=2,padx=5,pady=5)
 
     def refresh_frame(self):
@@ -68,7 +74,7 @@ class ListForm:
         self.lbltitle = tk.Label(self.parent,text='LIST NOT LOADED')
         self.lbltitle.configure(font=app_config.title_font)
         self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=3,rowspan=2,pady=20)
-        self.left_button = tk.Button(self.parent,text='Cancel',command=cancel_click)
+        self.left_button = tk.Button(self.parent,text='Close',command=close_click)
         self.left_button.config(width=10,height=2)
         self.left_button.grid(sticky='sw',row=3,column=0,padx=20,pady=20)
         self.right_button = tk.Button(self.parent,text='NEW',command=new_click)
