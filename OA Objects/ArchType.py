@@ -16,6 +16,20 @@ class Archtypes:
     def clone(current):
         return copy.copy(current)
 
+    def equals(current,tocompare):
+        same = True
+
+        same = (len(current.get_all()) == len(tocompare.get_all()))
+
+        if same:
+            for idx,item in enumerate(tocompare.get_all()):
+                same = same and item.equals(current.get_all()[idx])
+
+        return same
+
+    def isempty(current):
+        return len(current.all_archtypes) == 0
+
     def get_all(current):
         return current.all_archtypes
 
@@ -66,28 +80,25 @@ class Archtype:
         return copy.copy(current)
 
     def equals(current,tocompare):
-        same = True
-
-        same = same and (current.name == tocompare.name)
-        same = same and (current.short_description == tocompare.short_description)
-        same = same and (current.description == tocompare.description)
-        same = same and (current.proficiency == tocompare.proficiency)
-        same = same and (current.str_bonus == tocompare.str_bonus)
-        same = same and (current.per_bonus == tocompare.per_bonus)
-        same = same and (current.int_bonus == tocompare.int_bonus)
-        same = same and (current.dex_bonus == tocompare.dex_bonus)
-        same = same and (current.cha_bonus == tocompare.cha_bonus)
-        same = same and (current.vit_bonus == tocompare.vit_bonus)
-        same = same and (current.mag_bonus == tocompare.mag_bonus)
-        same = same and (current.stamina_bonus == tocompare.stamina_bonus)
-        same = same and (current.attack_bonus == tocompare.attack_bonus)
-        same = same and (current.reflex_bonus == tocompare.reflex_bonus)
-        same = same and (current.feats == tocompare.feats)
-        same = same and (current.movement == tocompare.movement)
-        same = same and (current.skill_points == tocompare.skill_points)
-        same = same and (current.level_health == tocompare.level_health)
-
-        return same
+        return ((current.name == tocompare.name)
+            and (current.short_description == tocompare.short_description)
+            and (current.description == tocompare.description)
+            and (current.proficiency == tocompare.proficiency)
+            and (current.str_bonus == tocompare.str_bonus)
+            and (current.per_bonus == tocompare.per_bonus)
+            and (current.int_bonus == tocompare.int_bonus)
+            and (current.dex_bonus == tocompare.dex_bonus)
+            and (current.cha_bonus == tocompare.cha_bonus)
+            and (current.vit_bonus == tocompare.vit_bonus)
+            and (current.mag_bonus == tocompare.mag_bonus)
+            and (current.stamina_bonus == tocompare.stamina_bonus)
+            and (current.attack_bonus == tocompare.attack_bonus)
+            and (current.reflex_bonus == tocompare.reflex_bonus)
+            and (current.feats == tocompare.feats)
+            and (current.movement == tocompare.movement)
+            and (current.skill_points == tocompare.skill_points)
+            and (current.level_health == tocompare.level_health)
+            )
 
     def __init__(current,name,short_description):
         current.name = name

@@ -33,7 +33,7 @@ def remove_item(idx):
     removecalled = True
     callindex = idx
 
-class GUI_List_Tests(unittest.TestCase):
+class test_GUI_List(unittest.TestCase):
 
     def test_load_form(self):
         list_window,list_form = GUI_List.create_list_form(None)

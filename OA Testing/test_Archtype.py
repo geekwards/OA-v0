@@ -25,7 +25,7 @@ test_archtype.movement = 11
 test_archtype.skill_points = 12
 test_archtype.level_health = "more health"
 
-class Arch_Type_Tests(unittest.TestCase):
+class test_Archtype(unittest.TestCase):
 
     def test_archtype_create(self):
         test_archtype = Archtype.Archtype('','')

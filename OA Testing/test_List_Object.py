@@ -7,7 +7,7 @@ sys.path.append(datapath)
 import app_config
 import List_Object
 
-class List_Object_Tests(unittest.TestCase):
+class test_List_Object(unittest.TestCase):
 
     def test_create_list_object(self):
         test_object = List_Object.Listobject('Testing','Test description')

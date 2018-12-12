@@ -22,7 +22,7 @@ def save_archtype(idx,archtype):
     incomingarch = archtype
     index = idx
 
-class GUI_Archtype_Tests(unittest.TestCase):
+class test_GUI_Archtype(unittest.TestCase):
 
     def test_load_form(self):
         archtype_window,archtype_form = GUI_Archtype.create_archtype_form(None)
