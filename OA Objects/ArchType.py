@@ -5,55 +5,57 @@ class Archtypes:
     list_of_archtypes = []
     all_archtypes = []
 
-    def add_new(current,archtype):
-        current.all_archtypes.append(archtype)
-        current.list_of_archtypes.append(List_Object.Listobject(archtype.name,archtype.short_description))
+    def add_new(self,archtype):
+        self.all_archtypes.append(archtype)
+        self.list_of_archtypes.append(List_Object.Listobject(archtype.name,archtype.short_description))
 
-    def remove(current,archtype):
-        current.list_of_archtypes.remove(current.get_list_item(current.all_archtypes.index(archtype)))
-        current.all_archtypes.remove(archtype)
+    def remove(self,archtype):
+        self.list_of_archtypes.remove(self.get_list_item(self.all_archtypes.index(archtype)))
+        self.all_archtypes.remove(archtype)
 
-    def clone(current):
-        return copy.copy(current)
+    def clone(self):
+        return copy.copy(self)
 
-    def equals(current,tocompare):
+    def equals(self,tocompare):
         same = True
 
-        same = (len(current.get_all()) == len(tocompare.get_all()))
+        same = (len(self.get_all()) == len(tocompare.get_all()))
 
         if same:
             for idx,item in enumerate(tocompare.get_all()):
-                same = same and item.equals(current.get_all()[idx])
+                same = same and item.equals(self.get_all()[idx])
 
         return same
 
-    def isempty(current):
-        return len(current.all_archtypes) == 0
+    def isempty(self):
+        return len(self.all_archtypes) == 0
 
-    def get_all(current):
-        return current.all_archtypes
+    def get_all(self):
+        return self.all_archtypes
 
-    def get_list(current):
-        return current.list_of_archtypes
+    def get_list(self):
+        return self.list_of_archtypes
 
-    def get_list_item(current,idx):
-        return current.list_of_archtypes[idx]
+    def get_list_item(self,idx):
+        return self.list_of_archtypes[idx]
 
-    def update(current,idx,archtype):
-        if idx == None:
-            current.add_new(archtype)
+    def update(self,idx,archtype):
+        if (idx == None) or (idx > len(self.all_archtypes)-1):
+            self.add_new(archtype)
         else:
-            current.all_archtypes[idx] = archtype
-            current.list_of_archtypes[idx].short_description = archtype.short_description
+            self.all_archtypes[idx] = archtype
+            self.list_of_archtypes[idx].name = archtype.name
+            self.list_of_archtypes[idx].short_description = archtype.short_description
 
-    def __getitem__(current,idx):
+    def __getitem__(self,idx):
         if idx == None:
             return Archtype('','')
         else:
-            return current.all_archtypes[idx]
+            return self.all_archtypes[idx]
 
     def __init__(self):
         self.all_archtypes = []
+        self.list_of_archtypes = []
 
 class Archtype:
     description = ""
@@ -73,33 +75,33 @@ class Archtype:
     skill_points = 0
     level_health = ""
 
-    def isempty(current):
-        return (current.name == '' and current.short_description == '')
+    def isempty(self):
+        return (self.name == '' and self.short_description == '')
 
-    def clone(current):
-        return copy.copy(current)
+    def clone(self):
+        return copy.copy(self)
 
-    def equals(current,tocompare):
-        return ((current.name == tocompare.name)
-            and (current.short_description == tocompare.short_description)
-            and (current.description == tocompare.description)
-            and (current.proficiency == tocompare.proficiency)
-            and (current.str_bonus == tocompare.str_bonus)
-            and (current.per_bonus == tocompare.per_bonus)
-            and (current.int_bonus == tocompare.int_bonus)
-            and (current.dex_bonus == tocompare.dex_bonus)
-            and (current.cha_bonus == tocompare.cha_bonus)
-            and (current.vit_bonus == tocompare.vit_bonus)
-            and (current.mag_bonus == tocompare.mag_bonus)
-            and (current.stamina_bonus == tocompare.stamina_bonus)
-            and (current.attack_bonus == tocompare.attack_bonus)
-            and (current.reflex_bonus == tocompare.reflex_bonus)
-            and (current.feats == tocompare.feats)
-            and (current.movement == tocompare.movement)
-            and (current.skill_points == tocompare.skill_points)
-            and (current.level_health == tocompare.level_health)
+    def equals(self,tocompare):
+        return ((self.name == tocompare.name)
+            and (self.short_description == tocompare.short_description)
+            and (self.description == tocompare.description)
+            and (self.proficiency == tocompare.proficiency)
+            and (self.str_bonus == tocompare.str_bonus)
+            and (self.per_bonus == tocompare.per_bonus)
+            and (self.int_bonus == tocompare.int_bonus)
+            and (self.dex_bonus == tocompare.dex_bonus)
+            and (self.cha_bonus == tocompare.cha_bonus)
+            and (self.vit_bonus == tocompare.vit_bonus)
+            and (self.mag_bonus == tocompare.mag_bonus)
+            and (self.stamina_bonus == tocompare.stamina_bonus)
+            and (self.attack_bonus == tocompare.attack_bonus)
+            and (self.reflex_bonus == tocompare.reflex_bonus)
+            and (self.feats == tocompare.feats)
+            and (self.movement == tocompare.movement)
+            and (self.skill_points == tocompare.skill_points)
+            and (self.level_health == tocompare.level_health)
             )
 
-    def __init__(current,name,short_description):
-        current.name = name
-        current.short_description = short_description
+    def __init__(self,name,short_description):
+        self.name = name
+        self.short_description = short_description

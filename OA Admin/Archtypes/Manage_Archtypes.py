@@ -1,5 +1,3 @@
-from Tkinter import *
-
 import xml.etree.ElementTree as ET
 from shutil import copy2
 
@@ -19,7 +17,7 @@ def save_archtype(idx,archtype):
     current_set.update(idx,archtype)
     GUI_List.build_list("ArchTypes",current_set.get_list(),edit_archtype, remove_archtype)
 
-def save_archtypes():
+def save_archtypes(filename=None,backup_filename=None):
     global current_set
 
     data=ET.Element('archtypes')
@@ -44,8 +42,11 @@ def save_archtypes():
         ET.SubElement(arch,'skillPoints').text = item.skill_points
         ET.SubElement(arch,'levelHealth').text = item.level_health
 
-    filename = app_config.file_path + app_config.filename
-    backup_filename = app_config.backup_file_path + app_config.backup_filename
+    if filename == None:
+        filename = app_config.file_path + app_config.filename
+    if backup_filename == None:
+        backup_filename = app_config.backup_file_path + app_config.backup_filename
+
     copy2(filename,backup_filename)
     open(filename,'w').write(ET.tostring(data))
 
@@ -79,12 +80,15 @@ def archtype_list():
     if not current_set.equals(loaded_set):
         save_archtypes()
 
-def load_archtypes():
+def load_archtypes(filename=None):
     global current_set
     global loaded_set
 
     current_set = Archtype.Archtypes()
-    filename = app_config.file_path + app_config.filename
+
+    if filename == None:
+        filename = app_config.file_path + app_config.filename
+
     tree = ET.parse(filename)
     data_root = tree.getroot()
 
@@ -109,6 +113,11 @@ def load_archtypes():
         current_set.add_new(current_archtype)
 
     loaded_set = current_set.clone()
+
+def get_loaded_set():
+    global loaded_set
+
+    return loaded_set
 
 if __name__ == '__main__':
 
