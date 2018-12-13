@@ -76,7 +76,7 @@ class Archtype:
     level_health = ""
 
     def isempty(self):
-        return (self.name == '' and self.short_description == '')
+        return (self.name.strip() == '' and self.short_description.strip() == '')
 
     def clone(self):
         return copy.copy(self)

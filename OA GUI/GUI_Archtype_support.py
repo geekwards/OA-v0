@@ -37,7 +37,8 @@ def cancel_click():
     global rollback_archtype
     global archtype_form
 
-    archtype_form.load_form(rollback_archtype)
+    if not(rollback_archtype.isempty()):
+        archtype_form.load_form(rollback_archtype)
 
 def save_click():
     global archtype_form
