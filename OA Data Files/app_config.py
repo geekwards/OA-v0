@@ -20,5 +20,8 @@ test_filename = "/Archtypes_test.dat"
 test_backup_file_path = data_path + '/test_data'
 test_backup_filename = "/ArchtypesBackup_test.dat"
 
+creature_sizes = ['Small','Medium','Large']
+creature_body_types = ['Slim','Average','Stout']
+
 title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
     " -underline 0 -overstrike 0"

@@ -58,8 +58,8 @@ class Archtypes:
         self.list_of_archtypes = []
 
 class Archtype:
-    description = ""
-    proficiency = ""
+    description = ''
+    proficiency = ''
     str_bonus = 0
     per_bonus = 0
     int_bonus = 0
@@ -73,7 +73,7 @@ class Archtype:
     feats = 0
     movement = 0
     skill_points = 0
-    level_health = ""
+    level_health = ''
 
     def isempty(self):
         return (self.name.strip() == '' and self.short_description.strip() == '')

@@ -51,9 +51,14 @@ class ListForm:
         self.refresh_frame()
 
     def add_list_item(self,idx,name,short_description,editcall,removecall):
+        item_text = name
+
+        if len(short_description.strip())>0:
+            item_text += ' - ' + short_description
+                
         self.f1.edit_list_item = tk.Button(self.f1,text ="Edit",command=lambda: edit_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
-        self.f1.lbl_list_item = tk.Label(self.f1,text=name + ' - ' + short_description)
+        self.f1.lbl_list_item = tk.Label(self.f1,text=item_text)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
         self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: remove_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=2,padx=5,pady=5)
