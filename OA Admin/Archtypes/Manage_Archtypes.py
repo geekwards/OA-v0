@@ -11,8 +11,7 @@ import GUI_List
 import GUI_Archtype
 import Archtype
 
-list_gui = None
-form_gui = None
+list_window = None
 
 def set_list_gui(gui):
     global list_gui
@@ -26,11 +25,12 @@ def set_form_gui(gui):
 
 def save_archtype(idx,archtype):
     global current_set
+    global list_window
 
     current_set.update(idx,archtype)
 
-    if list_gui != None:
-        GUI_List.build_list("ArchTypes",current_set.get_list(),edit_archtype, remove_archtype)
+    if list_window != None:
+        GUI_List.build_list("ArchTypes",current_set.get_list(),launch_edit_archtype, remove_archtype)
 
 def save_archtypes(filename=None,backup_filename=None):
     global current_set
@@ -59,6 +59,7 @@ def save_archtypes(filename=None,backup_filename=None):
 
     if filename == None:
         filename = app_config.file_path + app_config.filename
+
     if backup_filename == None:
         backup_filename = app_config.backup_file_path + app_config.backup_filename
 
@@ -72,30 +73,34 @@ def remove_archtype(idx):
 
     current_set.remove(current_set[idx])
 
-def launch_edit_archtype(parent,idx):
+def launch_edit_archtype(parent,idx,supress_gui=False):
     global current_set
     global archtype_window
 
-    if form_gui !=None:
-        archtype_window = None
+    archtype_window = None
 
-        if archtype_window == None or not Toplevel.winfo_exists(archtype_window):
-            archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
+    if archtype_window == None or not Toplevel.winfo_exists(archtype_window):
+        archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
 
+    if supress_gui:
+        return archtype_window
+    else:
         GUI_Archtype.load_data(current_set[idx],save_archtype, idx)
         archtype_window.mainloop()
 
-def launch_archtype_list():
+def launch_archtype_list(supress_gui=False):
     global current_set
     global loaded_set
     global list_window
 
-    if list_gui !=None:
+    if list_window == None or not Toplevel.winfo_exists(list_window):
         list_window,list_form = GUI_List.create_list_form(None)
 
+    if supress_gui:
+        return list_window
+    else:
         GUI_List.build_list("ArchTypes",current_set.get_list(),launch_edit_archtype,remove_archtype)
         list_window.mainloop()
-
         if not current_set.equals(loaded_set):
             save_archtypes()
 
@@ -139,9 +144,6 @@ def get_loaded_set():
     return loaded_set
 
 if __name__ == '__main__':
-
-    set_form_gui(GUI_Archtype)
-    set_list_gui(GUI_List)
 
     load_archtypes()
     launch_archtype_list()

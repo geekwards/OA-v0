@@ -86,7 +86,15 @@ class test_Manage_Archtypes(unittest.TestCase):
 
     def test_launch_edit(self):
         Manage_Archtypes.load_archtypes(app_config.test_file_path + app_config.test_filename)
+        gui = Manage_Archtypes.launch_edit_archtype(None,1,True)
 
+        self.assertNotEqual(gui,None)
+
+    def test_launch_list(self):
+        Manage_Archtypes.load_archtypes(app_config.test_file_path + app_config.test_filename)
+        gui = Manage_Archtypes.launch_archtype_list(True)
+
+        self.assertNotEqual(gui,None)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
