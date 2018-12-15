@@ -1,0 +1,18 @@
+<misclists>
+  <list>
+    <name>List1</name>
+    <items>
+      <item>Item1-1</item>
+      <item>Item1-2</item>
+      <item>Item1-3</item>
+    </items>
+  </list>
+  <list>
+    <name>List2</name>
+    <items>
+      <item>Item2-1</item>
+      <item>Item2-1</item>
+      <item>Item2-1</item>
+    </items>
+  </list>
+</misclists>

@@ -1,0 +1,18 @@
+<misclists>
+  <list>
+    <name>Creature Sizes</name>
+    <items>
+      <item>Small</item>
+      <item>Medium</item>
+      <item>Large</item>
+    </items>
+  </list>
+  <list>
+    <name>Creature Body Types</name>
+    <items>
+      <item>Slim</item>
+      <item>Average</item>
+      <item>Stout</item>
+    </items>
+  </list>
+</misclists>

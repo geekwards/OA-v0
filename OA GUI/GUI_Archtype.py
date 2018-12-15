@@ -56,17 +56,17 @@ def load_data(archtype,savecall,idx):
 class ArchtypeForm:
 
     def set_for_edit(self):
-        self.f1.left_button.config(text='Cancel')
-        self.f1.left_button.config(command=cancel_click)
-        self.f1.right_button.config(text='Save')
-        self.f1.right_button.config(command=save_click)
+        self.left_button.config(text='Cancel')
+        self.left_button.config(command=cancel_click)
+        self.right_button.config(text='Save')
+        self.right_button.config(command=save_click)
         self.enable_form()
 
     def set_for_view(self):
-        self.f1.left_button.config(text='Close')
-        self.f1.left_button.config(command=close_click)
-        self.f1.right_button.config(text='Edit')
-        self.f1.right_button.config(command=edit_click)
+        self.left_button.config(text='Close')
+        self.left_button.config(command=close_click)
+        self.right_button.config(text='Edit')
+        self.right_button.config(command=edit_click)
         self.disable_form()
 
     def enable_form(self):
@@ -252,12 +252,6 @@ class ArchtypeForm:
         self.f1.ereflex = tk.Entry(self.f1)
         self.f1.ereflex.insert(0,'<REFLEX>')
         self.f1.ereflex.grid(sticky='w',row=15,column=4)
-        self.f1.left_button = tk.Button(self.f1,text='Close',command=close_click)
-        self.f1.left_button.config(width=10,height=2)
-        self.f1.left_button.grid(sticky='w',row=16,column=2,pady=10)
-        self.f1.right_button = tk.Button(self.f1,text='Edit',command=edit_click)
-        self.f1.right_button.config(width=10,height=2)
-        self.f1.right_button.grid(sticky='w',row=16,column=4,pady=10)
         self.f1.grid_columnconfigure(0,weight=1)
         self.f1.grid_columnconfigure(1,weight=3)
         self.f1.grid_columnconfigure(2,weight=3)
@@ -265,3 +259,9 @@ class ArchtypeForm:
         self.f1.grid_columnconfigure(4,weight=3)
         self.f1.grid_columnconfigure(5,weight=3)
         self.f1.grid_columnconfigure(6,weight=1)
+        self.left_button = tk.Button(self,text='Close',command=close_click)
+        self.left_button.config(width=10,height=2)
+        self.left_button.grid(sticky='w',row=16,column=2,pady=10)
+        self.right_button = tk.Button(self,text='Edit',command=edit_click)
+        self.right_button.config(width=10,height=2)
+        self.right_button.grid(sticky='w',row=16,column=4,pady=10)
