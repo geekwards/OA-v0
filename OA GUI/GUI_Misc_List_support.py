@@ -65,7 +65,18 @@ def load_data(set,savecall,idx):
 
     save_callback = savecall
 
-    list_form.load_form(set)
+    build_list()
+
+def build_list():
+    global list_form
+    global list_window
+    global current_list
+
+    idx=0
+
+    for list_item in current_list:
+        list_form.add_list_item(idx,list_item.name,list_item.short_description)
+        idx+=1
 
 if __name__ == '__main__':
     import list.py

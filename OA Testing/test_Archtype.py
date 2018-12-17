@@ -33,8 +33,6 @@ class test_Archtype(unittest.TestCase):
         self.assertTrue(test_archtype.isempty())
 
     def test_archtype_equal(self):
-        global test_archtype
-
         test_archtype2 = Archtype.Archtype('test','testdesc')
         test_archtype2.description = "This is a test description."
         test_archtype2.proficiency = "Test proficiency"
@@ -56,173 +54,130 @@ class test_Archtype(unittest.TestCase):
         self.assertTrue(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality(self):
-        global test_archtype
-
         test_archtype2 = Archtype.Archtype('','')
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_clone(self):
-        test_archtype = Archtype.Archtype('test','testdesc')
         test_archtype2 = test_archtype.clone()
 
         self.assertTrue(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality2(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.name = 'changed name'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality2(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.name = 'changed name'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality3(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.short_description = 'changed shortdesc'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality4(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.description = 'changed desc'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality5(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.proficiency = 'changed prof'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality6(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.str_bonus = 'changed STR'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality7(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.per_bonus = 'changed per'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality8(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.int_bonus = 'changed int'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality9(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.dex_bonus = 'changed dex'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality10(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.cha_bonus = 'changed cha'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality11(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.vit_bonus = 'changed vit'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality12(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.mag_bonus = 'changed mag'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality13(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.stamina_bonus = 'changed stamina'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality14(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.attack_bonus = 'changed attack'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality15(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.reflex_bonus = 'changed reflex'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality16(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.feats = 'changed feats'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality17(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.movement = 'changed movement'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality18(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.skill_points = 'changed skill pts'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_inequality19(self):
-        global test_archtype
-
         test_archtype2 = test_archtype.clone()
         test_archtype2.level_health = 'changed lvl hlth'
 
         self.assertFalse(test_archtype.equals(test_archtype2))
 
     def test_archtype_isempty_not(self):
-        global test_archtype
-
         self.assertFalse(test_archtype.isempty())
 
     def test_archtype_isempty(self):

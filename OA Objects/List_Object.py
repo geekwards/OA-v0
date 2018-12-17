@@ -1,12 +1,12 @@
 import copy
 
-class List_Objects:
+class Listobjects:
     list_of_list_objects = []
     all_list_objects = []
 
     def add_new(self,list_object):
         self.all_list_objects.append(list_object)
-        self.list_of_list_objects.append(List_Object.Listobject(list_object))
+        self.list_of_list_objects.append(Listobject(list_object.name,list_object.short_description))
 
     def remove(self,list_object):
         self.list_of_list_objects.remove(self.get_list_item(self.all_list_objects.index(list_object)))
@@ -44,10 +44,11 @@ class List_Objects:
         else:
             self.all_list_objects[idx] = list_object
             self.list_of_list_objects[idx].name = list_object.name
+            self.list_of_list_objects[idx].short_description = list_object.short_description
 
     def __getitem__(self,idx):
         if idx == None:
-            return list_object('','')
+            return Listobject('','')
         else:
             return self.all_list_objects[idx]
 
@@ -61,6 +62,10 @@ class Listobject:
 
     def clone(self):
         return copy.copy(self)
+
+    def equals(self,tocompare):
+
+        return ((self.name == tocompare.name) and (self.short_description == tocompare.short_description))
 
     def __init__(self,name,short_description):
         self.name = name

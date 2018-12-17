@@ -50,8 +50,8 @@ def save_click():
     list_form.set_for_view()
     GUI_Misc_List_support.save_click()
 
-def load_data(race,savecall,idx):
-    GUI_Misc_List_support.load_data(race,savecall,idx)
+def load_data(set,savecall,idx):
+    GUI_Misc_List_support.load_data(set,savecall,idx)
 
 class MiscListForm:
 
@@ -77,17 +77,14 @@ class MiscListForm:
         for item in self.f1.winfo_children():
             item.config(state='disabled')
 
-    def load_form(self,set):
+    def add_list_item(self,idx,name,short_description):
+        item_text = name
 
-        row = 0
-
-        for index,item in enumerate(set):
-            self.f1.elistitem = tk.Entry(self.f1)
-            self.f1.elistitem.insert(0,item.name)
-            self.f1.elistitem.grid(sticky='w',row=row)
-            row += 1
-
-        self.disable_form()
+        if len(short_description.strip())>0:
+            item_text += ' - ' + short_description
+                
+        self.f1.lbl_list_item = tk.Label(self.f1,text=item_text)
+        self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
 
     def __init__(self,parent):
         self.parent = parent
