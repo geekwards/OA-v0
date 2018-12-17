@@ -20,8 +20,8 @@ archive_filename = "/Archtypes.dat"
 backup_archive_filename = "/ArchtypesBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
 race_filename = "/Races.dat"
 backup_race_filename = "/RacesBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
-race_filename = "/MiscLists.dat"
-backup_race_filename = "/MiscListsBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
+misc_list_filename = "/MiscLists.dat"
+backup_misc_list_filename = "/MiscListsBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
 
 test_file_path = data_path + '/test_data'
 test_backup_file_path = data_path + '/test_data'
@@ -29,8 +29,8 @@ test_archive_filename = "/Archtypes_test.dat"
 test_backup_archive_filename = "/ArchtypesBackup_test.dat"
 test_race_filename = "/Archtypes_test.dat"
 test_backup_race_filename = "/ArchtypesBackup_test.dat"
-test_race_filename = "/MiscLists_test.dat"
-test_backup_race_filename = "/MiscListsBackup_test.dat"
+test_misc_list_filename = "/MiscLists_test.dat"
+test_backup_misc_list_filename = "/MiscListsBackup_test.dat"
 
 title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
     " -underline 0 -overstrike 0"

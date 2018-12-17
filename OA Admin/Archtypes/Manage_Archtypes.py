@@ -111,7 +111,7 @@ def load_archtypes(filename=None):
     current_set = Archtype.Archtypes()
 
     if filename == None:
-        filename = app_config.file_path + app_config.filename
+        filename = app_config.file_path + app_config.archive_filename
 
     tree = ET.parse(filename)
     data_root = tree.getroot()

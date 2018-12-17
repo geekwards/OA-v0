@@ -70,18 +70,20 @@ class MiscListForm:
         self.disable_form()
 
     def enable_form(self):
-        self.f1.elistitem.config(state='normal')
+        for item in self.f1.winfo_children():
+            item.config(state='normal')
 
     def disable_form(self):
-        self.f1.elistitem.config(state='disabled')
+        for item in self.f1.winfo_children():
+            item.config(state='disabled')
 
     def load_form(self,set):
 
-        row = 2
+        row = 0
 
         for index,item in enumerate(set):
             self.f1.elistitem = tk.Entry(self.f1)
-            self.f1.elistitem.insert(0,'<NAME>')
+            self.f1.elistitem.insert(0,item.name)
             self.f1.elistitem.grid(sticky='w',row=row)
             row += 1
 
@@ -95,9 +97,9 @@ class MiscListForm:
         self.lbltitle.grid(sticky='nsew',row=0,column=0,rowspan=2,pady=20)
         self.f1 = tk.Frame(self.parent)
         self.f1.grid(sticky='nsew',row=2,padx=20,pady=20)
-        self.left_button = tk.Button(self,text='Close',command=close_click)
+        self.left_button = tk.Button(self.parent,text='Close',command=close_click)
         self.left_button.config(width=10,height=2)
         self.left_button.grid(sticky='w',row=16,column=2,pady=10)
-        self.right_button = tk.Button(self,text='Edit',command=edit_click)
+        self.right_button = tk.Button(self.parent,text='Edit',command=edit_click)
         self.right_button.config(width=10,height=2)
         self.right_button.grid(sticky='w',row=16,column=4,pady=10)

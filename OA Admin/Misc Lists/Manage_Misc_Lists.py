@@ -88,7 +88,7 @@ def launch_misc_list_list(supress_gui=False):
     if supress_gui:
         return list_window
     else:
-        GUI_List.build_list("Misc Lists",current_set.get_list(),launch_edit_misc_list,remove_misc_list)
+        GUI_List.build_list("Misc Lists",current_set,launch_edit_misc_list,remove_misc_list)
         list_window.mainloop()
         if not current_set.equals(loaded_set):
             save_misc_list()
@@ -100,32 +100,15 @@ def load_misc_list(filename=None):
     current_set = []
 
     if filename == None:
-        filename = app_config.file_path + app_config.filename
+        filename = app_config.file_path + app_config.misc_list_filename
 
     tree = ET.parse(filename)
     data_root = tree.getroot()
 
     for misc_list in data_root:
-        current_race = Race.Race(race.find('name').text)
-        current_race.description = race.find('description').text
-        current_race.proficiency = race.find('proficiency').text
-        current_race.str_bonus = race.find('strBonus').text
-        current_race.per_bonus = race.find('perBonus').text
-        current_race.int_bonus = race.find('intBonus').text
-        current_race.dex_bonus = race.find('dexBonus').text
-        current_race.cha_bonus = race.find('chaBonus').text
-        current_race.vit_bonus = race.find('vitBonus').text
-        current_race.mag_bonus = race.find('magBonus').text
-        current_race.stamina_bonus = race.find('staminaBonus').text
-        current_race.attack_bonus = race.find('attackBonus').text
-        current_race.reflex_bonus = race.find('reflexBonus').text
-        current_race.feats = race.find('feats').text
-        current_race.movement = race.find('movement').text
-        current_race.skill_points = race.find('skillPoints').text
-        current_race.level_health = race.find('levelHealth').text
-        current_set.add_new(current_race)
+        current_set.append(misc_list)
 
-    loaded_set = current_set.clone()
+    loaded_set = current_set.copy()
 
 def get_loaded_set():
     global loaded_set

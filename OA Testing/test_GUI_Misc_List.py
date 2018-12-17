@@ -30,7 +30,7 @@ class test_GUI_Misc_List(unittest.TestCase):
         list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
         GUI_Misc_List.load_data(test_misc_list, save_misc_list, 0)
 
-        self.assertEqual(misc_list_form.f1.ename.get(),'Testing')
+        self.assertEqual((list_form.f1.winfo_children()[0].cget('text')),'Testing')
 
     def test_load_form_close(self):
         list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
@@ -54,12 +54,8 @@ class test_GUI_Misc_List(unittest.TestCase):
         list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
         GUI_Misc_List.load_data(test_misc_list, save_misc_list, 0)
         GUI_Misc_List.edit_click()
-        list_form.f1.eshortdescription.delete(0,'end')
-        list_form.f1.eshortdescription.insert(0,'Modified Description')
-        self.assertEqual(list_form.f1.eshortdescription.get(),'Modified Description')
-        GUI_Archtype.cancel_click()
+        GUI_Misc_List.cancel_click()
 
-        self.assertEqual(list_form.f1.eshortdescription.get(),'TestDesc')
         self.assertEqual(list_form.left_button.cget('text'),'Close')
         self.assertEqual(list_form.right_button.cget('text'),'Edit')
 
@@ -77,13 +73,9 @@ class test_GUI_Misc_List(unittest.TestCase):
         list_window, list_form = GUI_Misc_List.create_misc_list_form(None)
         GUI_Misc_List.load_data(test_misc_list, save_misc_list, 2)
         GUI_Misc_List.edit_click()
-        list_form.f1.eshortdescription.delete(0,'end')
-        list_form.f1.eshortdescription.insert(0,'Modified Description')
-        self.assertEqual(list_form.f1.eshortdescription.get(),'Modified Description')
         GUI_Misc_List.save_click()
 
         self.assertTrue(listsaved)
-        self.assertEqual(list_form.f1.eshortdescription.get(),'Modified Description')
         self.assertEqual(list_form.left_button.cget('text'),'Close')
         self.assertEqual(list_form.right_button.cget('text'),'Edit')
 
