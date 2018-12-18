@@ -5,20 +5,20 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import List_Object
+import Misc_List
 
-test_objects = List_Object.Listobjects()
-test_object1 = List_Object.Listobject('Test1','TestDesc1')
-test_object2 = List_Object.Listobject('Test2','TestDesc2')
-test_object3 = List_Object.Listobject('Test3','TestDesc3')
-
-
-class test_objects(unittest.TestCase):
+class test_Misc_Lists(unittest.TestCase):
 
     def test_objects_create(self):
+        test_objects = Misc_List.Misclists()
+
         self.assertTrue(test_objects.isempty())
 
     def test_objects_add_and_get(self):
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
 
@@ -29,6 +29,10 @@ class test_objects(unittest.TestCase):
         self.assertEqual(test_objects.get_all()[1].name,'Test2')
 
     def test_objects_get_list(self):
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
 
@@ -37,6 +41,10 @@ class test_objects(unittest.TestCase):
         self.assertEqual(test_objects.get_list()[1].name,'Test2')
 
     def test_objects_get_list_item(self):
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
 
@@ -44,9 +52,15 @@ class test_objects(unittest.TestCase):
         self.assertEqual(test_objects.get_list_item(0).name,'Test1')
         self.assertEqual(test_objects.get_list_item(1).name,'Test2')
 
-    def test_objects_get_list_item(self):
+    def test_objects_get_list_item2(self):
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+        test_object3 = Misc_List.Misclist('Test3')
+
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
+
         self.assertEqual(len(test_objects.get_list()),2)
         self.assertEqual(test_objects.get_list_item(0).name,'Test1')
         self.assertEqual(test_objects.get_list_item(1).name,'Test2')
@@ -56,8 +70,14 @@ class test_objects(unittest.TestCase):
         self.assertEqual(test_objects.get_list_item(1).name,'Test3')
 
     def test_objects_get_list_item_fail(self):
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+        test_object3 = Misc_List.Misclist('Test3')
+
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
+
         self.assertEqual(len(test_objects.get_list()),2)
         self.assertEqual(test_objects.get_list_item(0).name,'Test1')
         self.assertEqual(test_objects.get_list_item(1).name,'Test2')
@@ -70,6 +90,11 @@ class test_objects(unittest.TestCase):
 
 
     def test_objects_remove(self):
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+        test_object3 = Misc_List.Misclist('Test3')
+
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
         test_objects.add_new(test_object3)
@@ -80,7 +105,10 @@ class test_objects(unittest.TestCase):
         self.assertEqual(test_objects.get_all()[1].name,'Test3')
 
     def test_objects_equals(self):
-        test_objects2 = Archtype.Archtypes()
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+        test_objects2 = Misc_List.Misclists()
 
         test_objects.add_new(test_object1)
         test_objects.add_new(test_object2)
@@ -90,22 +118,30 @@ class test_objects(unittest.TestCase):
         self.assertTrue(test_objects.equals(test_objects2))
 
     def test_objects_notequals(self):
-        test_objects2 = Archtype.Archtypes()
-        
-        test_objects1.add_new(test_object1)
-        test_objects1.add_new(test_object2)
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
+        test_object3 = Misc_List.Misclist('Test3')
+        test_objects2 = Misc_List.Misclists()
+       
+        test_objects.add_new(test_object1)
+        test_objects.add_new(test_object2)
         test_objects2.add_new(test_object1)
         test_objects2.add_new(test_object2)
         test_objects2.add_new(test_object3)
         
-        self.assertFalse(test_objects1.equals(test_objects2))
+        self.assertFalse(test_objects.equals(test_objects2))
 
     def test_objects_clone(self):
-        test_objects1.add_new(test_object1)
-        test_objects1.add_new(test_object2)
-        test_objects2 = test_objects1.clone()
+        test_objects = Misc_List.Misclists()
+        test_object1 = Misc_List.Misclist('Test1')
+        test_object2 = Misc_List.Misclist('Test2')
 
-        self.assertTrue(test_objects1.equals(test_objects2))
+        test_objects.add_new(test_object1)
+        test_objects.add_new(test_object2)
+        test_objects2 = test_objects.clone()
+
+        self.assertTrue(test_objects.equals(test_objects2))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

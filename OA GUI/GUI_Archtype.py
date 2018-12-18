@@ -70,42 +70,12 @@ class ArchtypeForm:
         self.disable_form()
 
     def enable_form(self):
-        self.f1.ename.config(state='normal')
-        self.f1.eshortdescription.config(state='normal')
-        self.f1.eproficiency.config(state='normal')
-        self.f1.estr.config(state='normal')
-        self.f1.eper.config(state='normal')
-        self.f1.eint.config(state='normal')
-        self.f1.edex.config(state='normal')
-        self.f1.echa.config(state='normal')
-        self.f1.evit.config(state='normal')
-        self.f1.emag.config(state='normal')
-        self.f1.estamina.config(state='normal')
-        self.f1.eattack.config(state='normal')
-        self.f1.ereflex.config(state='normal')
-        self.f1.efeats.config(state='normal')
-        self.f1.emvmt.config(state='normal')
-        self.f1.eskillpts.config(state='normal')
-        self.f1.elvlhealth.config(state='normal')
+        for item in self.f1.winfo_children():
+            item.config(state='normal')
 
     def disable_form(self):
-        self.f1.ename.config(state='disabled')
-        self.f1.eshortdescription.config(state='disabled')
-        self.f1.eproficiency.config(state='disabled')
-        self.f1.estr.config(state='disabled')
-        self.f1.eper.config(state='disabled')
-        self.f1.eint.config(state='disabled')
-        self.f1.edex.config(state='disabled')
-        self.f1.echa.config(state='disabled')
-        self.f1.evit.config(state='disabled')
-        self.f1.emag.config(state='disabled')
-        self.f1.estamina.config(state='disabled')
-        self.f1.eattack.config(state='disabled')
-        self.f1.ereflex.config(state='disabled')
-        self.f1.efeats.config(state='disabled')
-        self.f1.emvmt.config(state='disabled')
-        self.f1.eskillpts.config(state='disabled')
-        self.f1.elvlhealth.config(state='disabled')
+        for item in self.f1.winfo_children():
+            item.config(state='disabled')
 
     def load_form(self,archtype):
         if archtype.isempty():

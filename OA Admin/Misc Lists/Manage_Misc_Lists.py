@@ -22,29 +22,13 @@ def save_misc_list(idx,misc_list):
     if list_window != None:
         GUI_List.build_list("Misc Lists",current_set.get_list(),launch_edit_misc_list, remove_misc_list)
 
-def save_misc_list(filename=None,backup_filename=None):
+def save_misc_lists(filename=None,backup_filename=None):
     global current_set
 
     data=ET.Element('misc_lists')
     for item in current_set:
         r=ET.SubElement(data,'misc_list')
         ET.SubElement(r,'name').text = item.name
-        ET.SubElement(r,'description').text = item.description
-        ET.SubElement(r,'proficiency').text = item.proficiency
-        ET.SubElement(r,'strBonus').text = item.str_bonus
-        ET.SubElement(r,'perBonus').text = item.per_bonus
-        ET.SubElement(r,'intBonus').text = item.int_bonus
-        ET.SubElement(r,'dexBonus').text = item.dex_bonus
-        ET.SubElement(r,'chaBonus').text = item.cha_bonus
-        ET.SubElement(r,'vitBonus').text = item.vit_bonus
-        ET.SubElement(r,'magBonus').text = item.mag_bonus
-        ET.SubElement(r,'staminaBonus').text = item.stamina_bonus
-        ET.SubElement(r,'attackBonus').text = item.attack_bonus
-        ET.SubElement(r,'reflexBonus').text = item.reflex_bonus
-        ET.SubElement(r,'feats').text = item.feats
-        ET.SubElement(r,'movement').text = item.movement
-        ET.SubElement(r,'skillPoints').text = item.skill_points
-        ET.SubElement(r,'levelHealth').text = item.level_health
 
     if filename == None:
         filename = app_config.file_path + app_config.filename
@@ -93,7 +77,7 @@ def launch_misc_list_list(supress_gui=False):
         if not current_set.equals(loaded_set):
             save_misc_list()
 
-def load_misc_list(filename=None):
+def load_misc_lists(filename=None):
     global current_set
     global loaded_set
 
@@ -117,5 +101,5 @@ def get_loaded_set():
 
 if __name__ == '__main__':
 
-    load_misc_list()
-    launch_misc_list_list()
+    load_misc_lists()
+    launch_misc_list_lists()

@@ -38,7 +38,7 @@ def cancel_click():
     global list_form
 
     if len(rollback_list) > 0:
-        list_form.load_form(rollback_list)
+        build_list(rollback_list)
 
 def save_click():
     global rollback_list
@@ -65,19 +65,20 @@ def load_data(set,savecall,idx):
 
     save_callback = savecall
 
-    build_list()
+    build_list(current_list)
 
-def build_list():
+def build_list(set):
     global list_form
     global list_window
-    global current_list
 
     idx=0
 
-    for list_item in current_list:
+    for list_item in set:
         list_form.add_list_item(idx,list_item.name,list_item.short_description)
         idx+=1
 
+    list_form.disable_form()
+
 if __name__ == '__main__':
-    import list.py
-    GUI_Archtype.py.vp_start_gui()
+    import GUI_Misc_List.py
+    GUI_Misc_List.vp_start_gui()
