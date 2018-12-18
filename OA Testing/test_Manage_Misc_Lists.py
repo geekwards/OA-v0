@@ -17,7 +17,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
 
         self.assertTrue(len(loaded.get_all())>0)
 
-    def test_save_misc_lists(self):
+    def test_save_misc_list(self):
 
         Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
         loaded = Manage_Misc_Lists.get_loaded_set()

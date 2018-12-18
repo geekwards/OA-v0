@@ -1,3 +1,4 @@
+import List_Object
 import copy
 
 class Misclists:
@@ -6,10 +7,10 @@ class Misclists:
 
     def add_new(self,misc_list):
         self.all_misc_lists.append(misc_list)
-        self.list_of_misc_lists.append(Misclist(misc_list.name))
+        self.list_of_misc_lists.append(List_Object.Listobject(misc_list.name,''))
 
     def remove(self,misc_list):
-        self.list_of_misc_lists.remove(self.get_list_item(self.all_misc_lists.index(misc_list)))
+        self.list_of_misc_lists.remove(List_Object.Listobject(misc_list.name,''))
         self.all_misc_lists.remove(misc_list)
 
     def clone(self):
@@ -32,10 +33,10 @@ class Misclists:
     def get_all(self):
         return self.all_misc_lists
 
-    def get_list(self):
+    def get_picklist(self):
         return self.list_of_misc_lists
 
-    def get_list_item(self,idx):
+    def get_picklist_item(self,idx):
         return self.list_of_misc_lists[idx]
 
     def update(self,idx,misc_list):
@@ -47,7 +48,7 @@ class Misclists:
 
     def __getitem__(self,idx):
         if idx == None:
-            return Misclist('')
+            return Misclist('',[])
         else:
             return self.all_misc_lists[idx]
 
