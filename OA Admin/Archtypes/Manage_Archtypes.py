@@ -79,8 +79,8 @@ def launch_edit_archtype(parent,idx,supress_gui=False):
 
     archtype_window = None
 
-    if archtype_window == None or not Toplevel.winfo_exists(archtype_window):
-        archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
+    #if archtype_window == None or not Toplevel.winfo_exists(archtype_window):
+    archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
 
     if supress_gui:
         return archtype_window

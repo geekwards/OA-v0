@@ -10,6 +10,7 @@ import app_config
 import GUI_List
 import GUI_Misc_List
 import List_Object
+import Misc_List
 
 list_window = None
 
@@ -20,7 +21,7 @@ def save_misc_list(idx,misc_list):
     current_set.update(idx,misc_list)
 
     if list_window != None:
-        GUI_List.build_list("Misc Lists",current_set.get_list(),launch_edit_misc_list, remove_misc_list)
+        GUI_List.build_list("Misc Lists",current_set.get_picklist(),launch_edit_misc_list, remove_misc_list)
 
 def save_misc_lists(filename=None,backup_filename=None):
     global current_set
@@ -52,8 +53,8 @@ def launch_edit_misc_list(parent,idx,supress_gui=False):
 
     misc_list_window = None
 
-    if misc_list_window == None or not Toplevel.winfo_exists(misc_list_window):
-        misc_list_window,misc_list_form = GUI_Misc_List.create_misc_list_form(parent)
+    #if misc_list_window == None or not Toplevel.winfo_exists(misc_list_window):
+    misc_list_window,misc_list_form = GUI_Misc_List.create_misc_list_form(parent)
 
     if supress_gui:
         return misc_list_window
@@ -75,13 +76,13 @@ def launch_misc_list_list(supress_gui=False):
         GUI_List.build_list("Misc Lists",current_set,launch_edit_misc_list,remove_misc_list)
         list_window.mainloop()
         if not current_set.equals(loaded_set):
-            save_misc_list()
+            save_misc_lists()
 
 def load_misc_lists(filename=None):
     global current_set
     global loaded_set
 
-    current_set = []
+    current_set = Misc_List.Misclists()   
 
     if filename == None:
         filename = app_config.file_path + app_config.misc_list_filename
@@ -90,9 +91,17 @@ def load_misc_lists(filename=None):
     data_root = tree.getroot()
 
     for misc_list in data_root:
-        current_set.append(misc_list)
+        new_list_name = misc_list.find('name').text
 
-    loaded_set = current_set.copy()
+        new_list_items = []
+
+        for misc_list_item in misc_list.findall('items/item'):
+            new_list_items.append(misc_list_item.text)
+
+        new_list = Misc_List.Misclist(new_list_name,new_list_items)
+        current_set.add_new(new_list)
+
+    loaded_set = current_set.clone()
 
 def get_loaded_set():
     global loaded_set
@@ -102,4 +111,4 @@ def get_loaded_set():
 if __name__ == '__main__':
 
     load_misc_lists()
-    launch_misc_list_lists()
+    launch_misc_list_list()

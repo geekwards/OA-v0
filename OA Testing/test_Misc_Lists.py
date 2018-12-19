@@ -27,6 +27,7 @@ class test_Misc_Lists(unittest.TestCase):
         self.assertEqual(test_objects[1].name,'Test2')
         self.assertEqual(test_objects.get_all()[0].name,'Test1')
         self.assertEqual(test_objects.get_all()[1].name,'Test2')
+        self.assertEqual(test_objects.get_list('Test1').get_list()[0],'Testlist 1.1')
 
     def test_objects_get_list(self):
         test_objects = Misc_List.Misclists()

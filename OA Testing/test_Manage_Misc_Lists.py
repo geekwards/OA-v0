@@ -23,11 +23,11 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         loaded = Manage_Misc_Lists.get_loaded_set()
         num_list = len(loaded.get_all())
 
-        self.assertEqual(loaded[1].name,'Test2')
+        self.assertEqual(loaded[1].name,'List2')
         clone = loaded[1].clone()
 
         clone.name = 'MODIFIED TEST'
-        Manage_Misc_Lists.save_misc_lists(1,clone)
+        Manage_Misc_Lists.save_misc_list(1,clone)
         loaded2 = Manage_Misc_Lists.get_loaded_set()
 
         self.assertEqual(loaded2[1].name,'MODIFIED TEST')
@@ -39,14 +39,14 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         loaded = Manage_Misc_Lists.get_loaded_set()
         num_list = len(loaded.get_all())
 
-        self.assertEqual(loaded[1].name,'Test2')
+        self.assertEqual(loaded[1].name,'List2')
         clone = loaded[1].clone()
 
         clone.name = 'MODIFIED TEST'
-        Manage_Misc_Lists.save_num_list(5,clone)
+        Manage_Misc_Lists.save_misc_list(5,clone)
         loaded2 = Manage_Misc_Lists.get_loaded_set()
 
-        self.assertEqual(loaded2[4].name,'Test2')
+        self.assertEqual(loaded2[4].name,'MODIFIED TEST')
         self.assertEqual(len(loaded.get_all()),num_list + 1)
 
     def test_save_misc_lists(self):
@@ -59,10 +59,10 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         loaded[2].name = 'updated name 3'
         loaded[3].name = 'updated name 4'
 
-        Manage_Misc_Lists.save_misc_list(0,loaded[0])
-        Manage_Misc_Lists.save_misc_list(1,loaded[1])
-        Manage_Misc_Lists.save_misc_list(2,loaded[2])
-        Manage_Misc_Lists.save_misc_list(3,loaded[3])
+        Manage_Misc_Lists.save_misc_list(0,loaded.get_all()[0])
+        Manage_Misc_Lists.save_misc_list(1,loaded.get_all()[1])
+        Manage_Misc_Lists.save_misc_list(2,loaded.get_all()[2])
+        Manage_Misc_Lists.save_misc_list(3,loaded.get_all()[3])
 
         Manage_Misc_Lists.save_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2',app_config.test_file_path + app_config.test_backup_archive_filename)
 
@@ -76,11 +76,11 @@ class test_Manage_Misc_Lists(unittest.TestCase):
 
     def test_remove_misc_list(self):
         Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        num_list = len(Manage_Misc_Lists.get_loaded_set().get_all())
+        num_list = len(Manage_Misc_Lists.get_loaded_set())
 
         Manage_Misc_Lists.remove_misc_list(1)
 
-        self.assertEqual(len(Manage_Misc_Lists.get_loaded_set().get_all()),num_list - 1)
+        self.assertEqual(len(Manage_Misc_Lists.get_loaded_set()),num_list - 1)
 
     def test_launch_edit(self):
         Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)

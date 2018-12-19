@@ -10,7 +10,7 @@ class Misclists:
         self.list_of_misc_lists.append(List_Object.Listobject(misc_list.name,''))
 
     def remove(self,misc_list):
-        self.list_of_misc_lists.remove(List_Object.Listobject(misc_list.name,''))
+        self.list_of_misc_lists.remove(self.get_picklist_item(self.all_misc_lists.index(misc_list)))
         self.all_misc_lists.remove(misc_list)
 
     def clone(self):
@@ -46,11 +46,19 @@ class Misclists:
             self.all_misc_lists[idx] = misc_list
             self.list_of_misc_lists[idx].name = misc_list.name
 
+    def get_list(self,name):
+        for item in self.all_misc_lists:
+            if item.name == name:
+                return item
+
     def __getitem__(self,idx):
         if idx == None:
             return Misclist('',[])
         else:
             return self.all_misc_lists[idx]
+
+    def __len__(self):
+        return len(self.all_misc_lists)
 
     def __init__(self):
         self.all_misc_lists = []
