@@ -31,7 +31,14 @@ def edit_click():
     global current_list
     global rollback_list
 
-    rollback_list = current_list.copy()
+    rollback_list = current_list.clone()
+
+def remove_click(idx):
+    global remove_callback
+
+    remove_callback(current_list.name,idx)
+    current_list.remove(current_list.get_list()[idx])
+    build_list(current_list)
 
 def cancel_click():
     global rollback_list
@@ -46,24 +53,29 @@ def save_click():
     global current_list
     global index
 
+    if index == 0:
+        current_list.name = list_form.etitle.get('')
+
     for item in list_form.f1.winfo_children():
         current_list.append(item)
 
     save_callback(index,current_list)
     list_form.disable_form()
 
-def load_data(set,savecall,idx):
+def load_data(set,savecall,removecall,idx):
     global list_form
     global save_callback
+    global remove_callback
     global original_list
     global current_list
     global index
 
     index = idx
-    original_list = set.copy()
-    current_list = set.copy()
+    original_list = set.clone()
+    current_list = set.clone()
 
     save_callback = savecall
+    remove_callback = removecall
 
     build_list(current_list)
 
@@ -73,8 +85,10 @@ def build_list(set):
 
     idx=0
 
-    for list_item in set:
-        list_form.add_list_item(idx,list_item.name,list_item.short_description)
+    list_form.set_form_title(set.name)
+
+    for list_item in set.get_list():
+        list_form.add_list_item(idx,list_item)
         idx+=1
 
     list_form.disable_form()

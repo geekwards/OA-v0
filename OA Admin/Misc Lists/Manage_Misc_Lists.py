@@ -13,6 +13,7 @@ import List_Object
 import Misc_List
 
 list_window = None
+current_list_idx = 0
 
 def save_misc_list(idx,misc_list):
     global current_set
@@ -42,14 +43,18 @@ def save_misc_lists(filename=None,backup_filename=None):
     f.write(ET.tostring(data, encoding="unicode"))
     f.close()
 
-def remove_misc_list(idx):
+def remove_misc_list(list_item_idx):
     global current_set
+    global current_list_idx
 
-    current_set.remove(current_set[idx])
+    current_set[current_list_idx].remove(current_set[current_list_idx].get_list()[list_item_idx])
 
-def launch_edit_misc_list(parent,idx,supress_gui=False):
+def launch_edit_misc_list(parent,list_idx,supress_gui=False):
     global current_set
     global misc_list_window
+    global current_list_idx
+
+    current_list_idx = list_idx
 
     misc_list_window = None
 
@@ -59,7 +64,7 @@ def launch_edit_misc_list(parent,idx,supress_gui=False):
     if supress_gui:
         return misc_list_window
     else:
-        GUI_Misc_List.load_data(current_set[idx],save_misc_list, idx)
+        GUI_Misc_List.load_data(current_set[list_idx],save_misc_list,remove_misc_list,list_idx)
         misc_list_window.mainloop()
 
 def launch_misc_list_list(supress_gui=False):
@@ -73,7 +78,7 @@ def launch_misc_list_list(supress_gui=False):
     if supress_gui:
         return list_window
     else:
-        GUI_List.build_list("Misc Lists",current_set,launch_edit_misc_list,remove_misc_list)
+        GUI_List.build_list("Misc Lists",current_set.get_picklist(),launch_edit_misc_list,remove_misc_list)
         list_window.mainloop()
         if not current_set.equals(loaded_set):
             save_misc_lists()

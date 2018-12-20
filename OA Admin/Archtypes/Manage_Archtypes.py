@@ -12,6 +12,7 @@ import GUI_Archtype
 import Archtype
 
 list_window = None
+list_form = None
 
 def set_list_gui(gui):
     global list_gui
@@ -72,6 +73,7 @@ def remove_archtype(idx):
     global current_set
 
     current_set.remove(current_set[idx])
+    launch_archtype_list()
 
 def launch_edit_archtype(parent,idx,supress_gui=False):
     global current_set
@@ -92,8 +94,9 @@ def launch_archtype_list(supress_gui=False):
     global current_set
     global loaded_set
     global list_window
+    global list_form
 
-    if list_window == None or not Toplevel.winfo_exists(list_window):
+    if list_window == None or list_form == None:
         list_window,list_form = GUI_List.create_list_form(None)
 
     if supress_gui:
