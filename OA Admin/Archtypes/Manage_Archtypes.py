@@ -13,16 +13,7 @@ import Archtype
 
 list_window = None
 list_form = None
-
-def set_list_gui(gui):
-    global list_gui
-
-    list_gui = gui
-
-def set_form_gui(gui):
-    global form_gui
-
-    form_gui = gui
+archtype_form = None
 
 def save_archtype(idx,archtype):
     global current_set
@@ -69,20 +60,21 @@ def save_archtypes(filename=None,backup_filename=None):
     f.write(ET.tostring(data, encoding="unicode"))
     f.close()
 
-def remove_archtype(idx):
+def remove_archtype(idx,supress_gui=False):
     global current_set
 
     current_set.remove(current_set[idx])
-    launch_archtype_list()
+    launch_archtype_list(supress_gui)
 
 def launch_edit_archtype(parent,idx,supress_gui=False):
     global current_set
     global archtype_window
+    global archtype_form
 
     archtype_window = None
 
-    #if archtype_window == None or not Toplevel.winfo_exists(archtype_window):
-    archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
+    if archtype_window == None or archtype_form == None:
+        archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
 
     if supress_gui:
         return archtype_window

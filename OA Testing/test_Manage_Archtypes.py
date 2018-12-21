@@ -80,7 +80,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         Manage_Archtypes.load_archtypes(app_config.test_file_path + app_config.test_archive_filename)
         num_Arch = len(Manage_Archtypes.get_loaded_set().get_all())
 
-        Manage_Archtypes.remove_archtype(1)
+        Manage_Archtypes.remove_archtype(1,True)
 
         self.assertEqual(len(Manage_Archtypes.get_loaded_set().get_all()),num_Arch - 1)
 

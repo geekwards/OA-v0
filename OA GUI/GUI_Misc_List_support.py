@@ -44,7 +44,7 @@ def cancel_click():
     global rollback_list
     global list_form
 
-    if len(rollback_list) > 0:
+    if rollback_list.name > '':
         build_list(rollback_list)
 
 def save_click():
@@ -57,7 +57,7 @@ def save_click():
         current_list.name = list_form.etitle.get('')
 
     for item in list_form.f1.winfo_children():
-        current_list.append(item)
+        current_list.add_new(item)
 
     save_callback(index,current_list)
     list_form.disable_form()
@@ -86,6 +86,8 @@ def build_list(set):
     idx=0
 
     list_form.set_form_title(set.name)
+
+    list_form.enable_form()
 
     for list_item in set.get_list():
         list_form.add_list_item(idx,list_item)

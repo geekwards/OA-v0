@@ -104,7 +104,7 @@ class MiscListForm:
 
     def add_list_item(self,idx,item):
         self.f1.eitem = tk.Entry(self.f1)
-        self.f1.eitem.insert(0,item)
+        self.f1.eitem.config(text=item)
         self.f1.eitem.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
         self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: remove_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=2,padx=5,pady=5)
