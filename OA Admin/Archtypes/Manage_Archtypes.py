@@ -7,138 +7,114 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List
-import GUI_Archtype
+import GUI_List_Controller
+import GUI_Archtype_Controller
 import Archtype
 
-list_window = None
-list_form = None
-archtype_form = None
+class Manage_archtypes:
+    def save_archtype(self,archtype,fullsave=False):
+        global current_set
 
-def save_archtype(idx,archtype):
-    global current_set
-    global list_window
+        current_set.update(archtype)
+        if fullsave:
+            self.save_archtypes()
 
-    current_set.update(idx,archtype)
+    def save_archtypes(self,filename=None,backup_filename=None):
+        global current_set
 
-    if list_window != None:
-        GUI_List.build_list("ArchTypes",current_set.get_list(),launch_edit_archtype, remove_archtype)
+        data=ET.Element('archtypes')
+        for item in current_set:
+            arch=ET.SubElement(data,'archtype')
+            ET.SubElement(arch,'name').text = item.name
+            ET.SubElement(arch,'shortDescription').text = item.short_description
+            ET.SubElement(arch,'description').text = item.description
+            ET.SubElement(arch,'proficiency').text = item.proficiency
+            ET.SubElement(arch,'strBonus').text = item.str_bonus
+            ET.SubElement(arch,'perBonus').text = item.per_bonus
+            ET.SubElement(arch,'intBonus').text = item.int_bonus
+            ET.SubElement(arch,'dexBonus').text = item.dex_bonus
+            ET.SubElement(arch,'chaBonus').text = item.cha_bonus
+            ET.SubElement(arch,'vitBonus').text = item.vit_bonus
+            ET.SubElement(arch,'magBonus').text = item.mag_bonus
+            ET.SubElement(arch,'staminaBonus').text = item.stamina_bonus
+            ET.SubElement(arch,'attackBonus').text = item.attack_bonus
+            ET.SubElement(arch,'reflexBonus').text = item.reflex_bonus
+            ET.SubElement(arch,'feats').text = item.feats
+            ET.SubElement(arch,'movement').text = item.movement
+            ET.SubElement(arch,'skillPoints').text = item.skill_points
+            ET.SubElement(arch,'levelHealth').text = item.level_health
 
-def save_archtypes(filename=None,backup_filename=None):
-    global current_set
+        if filename == None:
+            filename = app_config.file_path + app_config.filename
 
-    data=ET.Element('archtypes')
-    for item in current_set:
-        arch=ET.SubElement(data,'archtype')
-        ET.SubElement(arch,'name').text = item.name
-        ET.SubElement(arch,'shortDescription').text = item.short_description
-        ET.SubElement(arch,'description').text = item.description
-        ET.SubElement(arch,'proficiency').text = item.proficiency
-        ET.SubElement(arch,'strBonus').text = item.str_bonus
-        ET.SubElement(arch,'perBonus').text = item.per_bonus
-        ET.SubElement(arch,'intBonus').text = item.int_bonus
-        ET.SubElement(arch,'dexBonus').text = item.dex_bonus
-        ET.SubElement(arch,'chaBonus').text = item.cha_bonus
-        ET.SubElement(arch,'vitBonus').text = item.vit_bonus
-        ET.SubElement(arch,'magBonus').text = item.mag_bonus
-        ET.SubElement(arch,'staminaBonus').text = item.stamina_bonus
-        ET.SubElement(arch,'attackBonus').text = item.attack_bonus
-        ET.SubElement(arch,'reflexBonus').text = item.reflex_bonus
-        ET.SubElement(arch,'feats').text = item.feats
-        ET.SubElement(arch,'movement').text = item.movement
-        ET.SubElement(arch,'skillPoints').text = item.skill_points
-        ET.SubElement(arch,'levelHealth').text = item.level_health
+        if backup_filename == None:
+            backup_filename = app_config.backup_file_path + app_config.backup_filename
 
-    if filename == None:
-        filename = app_config.file_path + app_config.filename
+        copy2(filename,backup_filename)
+        f = open(filename,'w')
+        f.write(ET.tostring(data, encoding="unicode"))
+        f.close()
 
-    if backup_filename == None:
-        backup_filename = app_config.backup_file_path + app_config.backup_filename
+    def remove_archtype(self,archtype):
+        global current_set
 
-    copy2(filename,backup_filename)
-    f = open(filename,'w')
-    f.write(ET.tostring(data, encoding="unicode"))
-    f.close()
+        current_set.remove(archtype)
 
-def remove_archtype(idx,supress_gui=False):
-    global current_set
+    def launch_edit_archtype(self,parent,name,supress_gui=False):
+        global current_set
 
-    current_set.remove(current_set[idx])
-    launch_archtype_list(supress_gui)
+        archtype_controller = GUI_Archtype_Controller.GUI_archtype_controller()
 
-def launch_edit_archtype(parent,idx,supress_gui=False):
-    global current_set
-    global archtype_window
-    global archtype_form
+        archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype)
 
-    archtype_window = None
+    def launch_archtype_list(self,supress_gui=False):
+        global current_set
 
-    if archtype_window == None or archtype_form == None:
-        archtype_window,archtype_form = GUI_Archtype.create_archtype_form(parent)
+        list_controller = GUI_List_Controller.GUI_list_controller()
 
-    if supress_gui:
-        return archtype_window
-    else:
-        GUI_Archtype.load_data(current_set[idx],save_archtype, idx)
-        archtype_window.mainloop()
+        list_controller.load_data('Archtypes',current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype)
 
-def launch_archtype_list(supress_gui=False):
-    global current_set
-    global loaded_set
-    global list_window
-    global list_form
+    def load_archtypes(self,filename=None):
+        global current_set
+        global loaded_set
 
-    if list_window == None or list_form == None:
-        list_window,list_form = GUI_List.create_list_form(None)
+        current_set = Archtype.Archtypes()
 
-    if supress_gui:
-        return list_window
-    else:
-        GUI_List.build_list("ArchTypes",current_set.get_list(),launch_edit_archtype,remove_archtype)
-        list_window.mainloop()
-        if not current_set.equals(loaded_set):
-            save_archtypes()
+        if filename == None:
+            filename = app_config.file_path + app_config.archive_filename
 
-def load_archtypes(filename=None):
-    global current_set
-    global loaded_set
+        tree = ET.parse(filename)
+        data_root = tree.getroot()
 
-    current_set = Archtype.Archtypes()
+        for archtype in data_root:
+            current_archtype = Archtype.Archtype(archtype.find('name').text,archtype.find('shortDescription').text)
+            current_archtype.description = archtype.find('description').text
+            current_archtype.proficiency = archtype.find('proficiency').text
+            current_archtype.str_bonus = archtype.find('strBonus').text
+            current_archtype.per_bonus = archtype.find('perBonus').text
+            current_archtype.int_bonus = archtype.find('intBonus').text
+            current_archtype.dex_bonus = archtype.find('dexBonus').text
+            current_archtype.cha_bonus = archtype.find('chaBonus').text
+            current_archtype.vit_bonus = archtype.find('vitBonus').text
+            current_archtype.mag_bonus = archtype.find('magBonus').text
+            current_archtype.stamina_bonus = archtype.find('staminaBonus').text
+            current_archtype.attack_bonus = archtype.find('attackBonus').text
+            current_archtype.reflex_bonus = archtype.find('reflexBonus').text
+            current_archtype.feats = archtype.find('feats').text
+            current_archtype.movement = archtype.find('movement').text
+            current_archtype.skill_points = archtype.find('skillPoints').text
+            current_archtype.level_health = archtype.find('levelHealth').text
+            current_set.add_new(current_archtype)
 
-    if filename == None:
-        filename = app_config.file_path + app_config.archive_filename
+        loaded_set = current_set.clone()
 
-    tree = ET.parse(filename)
-    data_root = tree.getroot()
-
-    for archtype in data_root:
-        current_archtype = Archtype.Archtype(archtype.find('name').text,archtype.find('shortDescription').text)
-        current_archtype.description = archtype.find('description').text
-        current_archtype.proficiency = archtype.find('proficiency').text
-        current_archtype.str_bonus = archtype.find('strBonus').text
-        current_archtype.per_bonus = archtype.find('perBonus').text
-        current_archtype.int_bonus = archtype.find('intBonus').text
-        current_archtype.dex_bonus = archtype.find('dexBonus').text
-        current_archtype.cha_bonus = archtype.find('chaBonus').text
-        current_archtype.vit_bonus = archtype.find('vitBonus').text
-        current_archtype.mag_bonus = archtype.find('magBonus').text
-        current_archtype.stamina_bonus = archtype.find('staminaBonus').text
-        current_archtype.attack_bonus = archtype.find('attackBonus').text
-        current_archtype.reflex_bonus = archtype.find('reflexBonus').text
-        current_archtype.feats = archtype.find('feats').text
-        current_archtype.movement = archtype.find('movement').text
-        current_archtype.skill_points = archtype.find('skillPoints').text
-        current_archtype.level_health = archtype.find('levelHealth').text
-        current_set.add_new(current_archtype)
-
-    loaded_set = current_set.clone()
-
-def get_loaded_set():
-    global loaded_set
-
-    return loaded_set
+    def __init__(self):
+        global current_set 
+        
+        current_set = None
 
 if __name__ == '__main__':
+    manager = Manage_archtypes()
 
-    load_archtypes()
-    launch_archtype_list()
+    manager.load_archtypes()
+    manager.launch_archtype_list()

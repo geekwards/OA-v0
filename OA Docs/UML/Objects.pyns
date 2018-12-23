@@ -1,0 +1,11 @@
+# PynSource Version 1.1
+{'type':'meta', 'info1':'Lorem ipsum dolor sit amet, consectetur adipiscing elit is latin.'}
+{'type':'umlshape', 'id':'Archtype', 'x':10, 'y':27, 'width':146, 'height':413, 'attrs':'description|proficiency|str_bonus|per_bonus|int_bonus|dex_bonus|cha_bonus|vit_bonus|mag_bonus|stamina_bonus|attack_bonus|reflex_bonus|feats|movement|skill_points|level_health|name|short_description', 'meths':'isempty|clone|equals|__init__'}
+{'type':'umlshape', 'id':'Archtypes', 'x':206, 'y':34, 'width':146, 'height':269, 'attrs':'list_of_archtypes|all_archtypes', 'meths':'add_new|remove|clone|equals|isempty|get_all|get_list|get_list_item|update|__getitem__|__init__'}
+{'type':'umlshape', 'id':'List_Object.Listobject', 'x':404, 'y':210, 'width':252, 'height':31, 'attrs':'', 'meths':''}
+{'type':'umlshape', 'id':'Listobject', 'x':514, 'y':10, 'width':146, 'height':141, 'attrs':'name|short_description', 'meths':'clone|equals|__init__'}
+{'type':'umlshape', 'id':'Misclist', 'x':646, 'y':341, 'width':99, 'height':189, 'attrs':'name|misc_list', 'meths':'clone|equals|add_new|remove|get_list|__init__'}
+{'type':'umlshape', 'id':'Misclists', 'x':418, 'y':330, 'width':154, 'height':301, 'attrs':'list_of_misc_lists|all_misc_lists', 'meths':'add_new|remove|clone|equals|isempty|get_all|get_picklist|get_picklist_item|update|get_list|__getitem__|__len__|__init__'}
+{'type':'edge', 'id':'Archtype_to_Archtypes', 'source':'Archtype', 'target':'Archtypes', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'List_Object.Listobject_to_Archtypes', 'source':'List_Object.Listobject', 'target':'Archtypes', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'List_Object.Listobject_to_Misclists', 'source':'List_Object.Listobject', 'target':'Misclists', 'uml_edge_type':'composition'}

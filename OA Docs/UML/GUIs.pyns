@@ -1,0 +1,22 @@
+# PynSource Version 1.1
+{'type':'meta', 'info1':'Lorem ipsum dolor sit amet, consectetur adipiscing elit is latin.'}
+{'type':'umlshape', 'id':'ArchtypeForm', 'x':124, 'y':210, 'width':144, 'height':237, 'attrs':'parent|lbltitle|f1|left_button|right_button', 'meths':'set_for_edit|set_for_view|enable_form|disable_form|load_form|__init__'}
+{'type':'umlshape', 'id':'tk.Label', 'x':240, 'y':497, 'width':98, 'height':31, 'attrs':'', 'meths':''}
+{'type':'umlshape', 'id':'tk.Frame', 'x':500, 'y':164, 'width':98, 'height':31, 'attrs':'', 'meths':''}
+{'type':'umlshape', 'id':'tk.Entry', 'x':160, 'y':10, 'width':98, 'height':31, 'attrs':'', 'meths':''}
+{'type':'umlshape', 'id':'tk.Text', 'x':10, 'y':286, 'width':87, 'height':31, 'attrs':'', 'meths':''}
+{'type':'umlshape', 'id':'tk.Button', 'x':388, 'y':352, 'width':109, 'height':31, 'attrs':'', 'meths':''}
+{'type':'umlshape', 'id':'MiscListForm', 'x':306, 'y':1, 'width':144, 'height':301, 'attrs':'center_button|etitle|lbltitle|f1|parent|left_button|right_button|list_count', 'meths':'set_for_edit|set_for_view|enable_form|disable_form|set_form_title|add_list_item|__init__'}
+{'type':'umlshape', 'id':'ListForm', 'x':513, 'y':352, 'width':115, 'height':205, 'attrs':'f1|parent|lbltitle|left_button|right_button', 'meths':'build_list|add_list_item|refresh_frame|__init__'}
+{'type':'edge', 'id':'tk.Label_to_ArchtypeForm', 'source':'tk.Label', 'target':'ArchtypeForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Frame_to_ArchtypeForm', 'source':'tk.Frame', 'target':'ArchtypeForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Entry_to_ArchtypeForm', 'source':'tk.Entry', 'target':'ArchtypeForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Text_to_ArchtypeForm', 'source':'tk.Text', 'target':'ArchtypeForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Button_to_ArchtypeForm', 'source':'tk.Button', 'target':'ArchtypeForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Button_to_MiscListForm', 'source':'tk.Button', 'target':'MiscListForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Entry_to_MiscListForm', 'source':'tk.Entry', 'target':'MiscListForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Label_to_MiscListForm', 'source':'tk.Label', 'target':'MiscListForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Frame_to_MiscListForm', 'source':'tk.Frame', 'target':'MiscListForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Button_to_ListForm', 'source':'tk.Button', 'target':'ListForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Label_to_ListForm', 'source':'tk.Label', 'target':'ListForm', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'tk.Frame_to_ListForm', 'source':'tk.Frame', 'target':'ListForm', 'uml_edge_type':'composition'}

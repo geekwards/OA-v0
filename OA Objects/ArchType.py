@@ -10,54 +10,54 @@ class Archtypes:
         self.list_of_archtypes.append(List_Object.Listobject(archtype.name,archtype.short_description))
 
     def remove(self,archtype):
-        self.list_of_archtypes.remove(self.get_list_item(self.all_archtypes.index(archtype)))
+        self.list_of_archtypes.remove(self.list_of_archtypes[self.all_archtypes.index(self.get(archtype.name))])
         self.all_archtypes.remove(archtype)
+
+    def equals(self,tocompare):
+        same = (len(self.all_archtypes) == len(tocompare.all_archtypes))
+        if same:
+            for idx,item in enumerate(tocompare.all_archtypes):
+                same = same and item.equals(self.all_archtypes[idx])
+
+        return same
 
     def clone(self):
         return copy.copy(self)
 
-    def equals(self,tocompare):
-        same = True
-
-        same = (len(self.get_all()) == len(tocompare.get_all()))
-
-        if same:
-            for idx,item in enumerate(tocompare.get_all()):
-                same = same and item.equals(self.get_all()[idx])
-
-        return same
-
     def isempty(self):
         return len(self.all_archtypes) == 0
 
-    def get_all(self):
-        return self.all_archtypes
-
-    def get_list(self):
-        return self.list_of_archtypes
-
-    def get_list_item(self,idx):
-        return self.list_of_archtypes[idx]
-
-    def update(self,idx,archtype):
-        if (idx == None) or (idx > len(self.all_archtypes)-1):
+    def update(self,archtype):
+        found = False
+        for item in self.all_archtypes:
+            if item.name == archtype.name:
+                idx = self.all_archtypes.index(item)
+                self.all_archtypes[idx] = archtype
+                self.list_of_archtypes[idx].name = archtype.name
+                self.list_of_archtypes[idx].short_description = archtype.short_description
+                found = True
+                break
+        
+        if not found:
             self.add_new(archtype)
-        else:
-            self.all_archtypes[idx] = archtype
-            self.list_of_archtypes[idx].name = archtype.name
-            self.list_of_archtypes[idx].short_description = archtype.short_description
 
-    def __getitem__(self,idx):
-        if idx == None:
-            return Archtype('','')
-        else:
-            return self.all_archtypes[idx]
+    def get_archtype(self,name):
+        for item in self.all_archtypes:
+            if item.name == name:
+                return item
+        
+        return Archtype('','')
+
+    def __len__(self):
+        return len(self.all_archtypes)
 
     def __init__(self):
         self.all_archtypes = []
         self.list_of_archtypes = []
 
 class Archtype:
+    name = ''
+    short_description = ''
     description = ''
     proficiency = ''
     str_bonus = 0
@@ -74,12 +74,6 @@ class Archtype:
     movement = 0
     skill_points = 0
     level_health = ''
-
-    def isempty(self):
-        return (self.name.strip() == '' and self.short_description.strip() == '')
-
-    def clone(self):
-        return copy.copy(self)
 
     def equals(self,tocompare):
         return ((self.name == tocompare.name)
@@ -101,6 +95,12 @@ class Archtype:
             and (self.skill_points == tocompare.skill_points)
             and (self.level_health == tocompare.level_health)
             )
+
+    def clone(self):
+        return copy.copy(self)
+
+    def isempty(self):
+        return (self.name.strip() == '' and self.short_description.strip() == '')
 
     def __init__(self,name,short_description):
         self.name = name
