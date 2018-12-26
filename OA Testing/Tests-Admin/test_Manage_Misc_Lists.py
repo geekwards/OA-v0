@@ -10,7 +10,7 @@ import Manage_Misc_Lists
 
 class test_Manage_Misc_Lists(unittest.TestCase):
 
-    def test_load_misc_lists(self):
+    def test_misc_lists_load_and_get(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
@@ -18,7 +18,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
 
         self.assertTrue(len(loaded)>0)
 
-    def test_save_misc_list(self):
+    def test_misc_list_save_modify(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
@@ -35,7 +35,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         self.assertEqual(loaded2.all_lists[1].all_items[0],'MODIFIED TEST')
         self.assertEqual(len(loaded),num_list)
 
-    def test_save_misc_lists_new(self):
+    def test_misc_list_save_new(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
@@ -52,7 +52,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         self.assertEqual(loaded2.all_lists[4].name,'MODIFIED TEST')
         self.assertEqual(len(loaded),num_list + 1)
 
-    def test_save_misc_lists(self):
+    def test_misc_lists_save(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         copy2(app_config.test_file_path + app_config.test_misc_list_filename,app_config.test_file_path + app_config.test_misc_list_filename + '2')
@@ -79,7 +79,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         self.assertEqual(loaded2.all_lists[2].name,'updated name 3')
         self.assertEqual(loaded2.all_lists[3].name,'updated name 4')
 
-    def test_remove_misc_list(self):
+    def test_misc_list_remove(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
@@ -89,7 +89,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
 
         self.assertEqual(len(misc_manager.get_current_set()),num_list - 1)
 
-    def test_launch_edit(self):
+    def test_misc_list_launch_edit(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
@@ -97,7 +97,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
 
         self.assertNotEqual(gui,None)
 
-    def test_launch_list(self):
+    def test_misc_lists_launch_list(self):
         misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
         misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
