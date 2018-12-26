@@ -7,113 +7,104 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List
-import GUI_Misc_List
-import List_Object
+import GUI_List_Controller
+import GUI_Misc_List_Controller
 import Misc_List
 
-list_window = None
-current_list_idx = 0
+class Manage_misc_lists:
+    def save_misc_list(self,misc_list,fullsave=False):
+        global current_set
 
-def save_misc_list(idx,misc_list):
-    global current_set
-    global list_window
+        current_set.update(misc_list)
+        if fullsave:
+            self.save_misc_lists
 
-    current_set.update(idx,misc_list)
+    def save_misc_lists(self,filename=None,backup_filename=None):
+        global current_set
 
-    if list_window != None:
-        GUI_List.build_list("Misc Lists",current_set.get_picklist(),launch_edit_misc_list, remove_misc_list)
+        data=ET.Element('misc_lists')
+        for item in current_set.all_lists:
+            r=ET.SubElement(data,'misc_list')
+            ET.SubElement(r,'name').text = item.name
 
-def save_misc_lists(filename=None,backup_filename=None):
-    global current_set
+        if filename == None:
+            filename = app_config.file_path + app_config.filename
 
-    data=ET.Element('misc_lists')
-    for item in current_set:
-        r=ET.SubElement(data,'misc_list')
-        ET.SubElement(r,'name').text = item.name
+        if backup_filename == None:
+            backup_filename = app_config.backup_file_path + app_config.backup_filename
 
-    if filename == None:
-        filename = app_config.file_path + app_config.filename
+        copy2(filename,backup_filename)
+        f = open(filename,'w')
+        f.write(ET.tostring(data, encoding="unicode"))
+        f.close()
 
-    if backup_filename == None:
-        backup_filename = app_config.backup_file_path + app_config.backup_filename
+    def remove_misc_list(self,misc_list):
+        global current_set
 
-    copy2(filename,backup_filename)
-    f = open(filename,'w')
-    f.write(ET.tostring(data, encoding="unicode"))
-    f.close()
+        current_set.remove(misc_list)
 
-def remove_misc_list(list_item_idx):
-    global current_set
-    global current_list_idx
+    def launch_edit_misc_list(self,parent,name,supress_gui=False):
+        global current_set
 
-    current_set[current_list_idx].remove(current_set[current_list_idx].get_list()[list_item_idx])
+        misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()            
 
-def launch_edit_misc_list(parent,list_idx,supress_gui=False):
-    global current_set
-    global misc_list_window
-    global current_list_idx
+        if supress_gui:
+            return misc_list_controller
+        else:
+            misc_list_controller.load_data(current_set.get_misc_list(name),self.save_misc_list)
+            self.launch_misc_list_list()
+    
+    def launch_misc_list_list(self,supress_gui=False):
+        global current_set
+        global list_controller
 
-    current_list_idx = list_idx
+        if list_controller == None:
+            list_controller = GUI_List_Controller.GUI_list_controller()
+        
+        if supress_gui:
+            return list_controller
+        else:
+            list_controller.load_data('Misc Lists',current_set.list_of_lists,self.launch_edit_misc_list,self.remove_misc_list)
 
-    misc_list_window = None
+    def load_misc_lists(self,filename=None):
+        global current_set
+        global loaded_set
 
-    #if misc_list_window == None or not Toplevel.winfo_exists(misc_list_window):
-    misc_list_window,misc_list_form = GUI_Misc_List.create_misc_list_form(parent)
+        current_set = Misc_List.Misc_lists()   
 
-    if supress_gui:
-        return misc_list_window
-    else:
-        GUI_Misc_List.load_data(current_set[list_idx],save_misc_list,remove_misc_list,list_idx)
-        misc_list_window.mainloop()
+        if filename == None:
+            filename = app_config.file_path + app_config.misc_list_filename
 
-def launch_misc_list_list(supress_gui=False):
-    global current_set
-    global loaded_set
-    global list_window
+        tree = ET.parse(filename)
+        data_root = tree.getroot()
 
-    if list_window == None or not Toplevel.winfo_exists(list_window):
-        list_window,list_form = GUI_List.create_list_form(None)
+        for misc_list in data_root:
+            new_list_name = misc_list.find('name').text
 
-    if supress_gui:
-        return list_window
-    else:
-        GUI_List.build_list("Misc Lists",current_set.get_picklist(),launch_edit_misc_list,remove_misc_list)
-        list_window.mainloop()
-        if not current_set.equals(loaded_set):
-            save_misc_lists()
+            new_list_items = []
 
-def load_misc_lists(filename=None):
-    global current_set
-    global loaded_set
+            for misc_list_item in misc_list.findall('items/item'):
+                new_list_items.append(misc_list_item.text)
 
-    current_set = Misc_List.Misclists()   
+            new_list = Misc_List.Misc_list(new_list_name,new_list_items)
+            current_set.add_new(new_list)
 
-    if filename == None:
-        filename = app_config.file_path + app_config.misc_list_filename
+        loaded_set = current_set.clone()
 
-    tree = ET.parse(filename)
-    data_root = tree.getroot()
+    def get_current_set(self):
+        global current_set
 
-    for misc_list in data_root:
-        new_list_name = misc_list.find('name').text
+        return current_set
 
-        new_list_items = []
+    def __init__(self):
+        global current_set
+        global list_controller
 
-        for misc_list_item in misc_list.findall('items/item'):
-            new_list_items.append(misc_list_item.text)
-
-        new_list = Misc_List.Misclist(new_list_name,new_list_items)
-        current_set.add_new(new_list)
-
-    loaded_set = current_set.clone()
-
-def get_loaded_set():
-    global loaded_set
-
-    return loaded_set
+        list_controller = None
+        current_set = None
 
 if __name__ == '__main__':
+    manager = Manage_misc_lists()
 
-    load_misc_lists()
-    launch_misc_list_list()
+    manager.load_misc_lists()
+    manager.launch_misc_list_list()

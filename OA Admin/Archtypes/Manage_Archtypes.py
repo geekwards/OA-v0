@@ -23,7 +23,7 @@ class Manage_archtypes:
         global current_set
 
         data=ET.Element('archtypes')
-        for item in current_set:
+        for item in current_set.all_archtypes:
             arch=ET.SubElement(data,'archtype')
             ET.SubElement(arch,'name').text = item.name
             ET.SubElement(arch,'shortDescription').text = item.short_description
@@ -65,14 +65,23 @@ class Manage_archtypes:
 
         archtype_controller = GUI_Archtype_Controller.GUI_archtype_controller()
 
-        archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype)
+        if supress_gui:
+            return archtype_controller
+        else:
+            archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype)
+            self.launch_archtype_list()
 
     def launch_archtype_list(self,supress_gui=False):
         global current_set
+        global list_controller
 
-        list_controller = GUI_List_Controller.GUI_list_controller()
+        if list_controller == None:
+            list_controller = GUI_List_Controller.GUI_list_controller()
 
-        list_controller.load_data('Archtypes',current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype)
+        if supress_gui:
+            return list_controller
+        else:
+            list_controller.load_data('Archtypes',current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype)
 
     def load_archtypes(self,filename=None):
         global current_set
@@ -108,9 +117,16 @@ class Manage_archtypes:
 
         loaded_set = current_set.clone()
 
+    def get_current_set(self):
+        global current_set
+
+        return current_set
+
     def __init__(self):
         global current_set 
-        
+        global list_controller
+
+        list_controller = None        
         current_set = None
 
 if __name__ == '__main__':

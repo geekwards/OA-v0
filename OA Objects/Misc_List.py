@@ -1,23 +1,23 @@
 import List_Object
 import copy
 
-class Misclists:
+class Misc_lists:
     list_of_lists = []
     all_lists = []
 
     def add_new(self,misc_list):
-        self.all_misc_lists.append(misc_list)
-        self.list_of_misc_lists.append(List_Object.Listobject(misc_list.name,''))
+        self.all_lists.append(misc_list)
+        self.list_of_lists.append(List_Object.List_object(misc_list.name,''))
 
     def remove(self,misc_list):
-        self.list_of_lists.remove(self.list_of_lists(self.all_lists.index(self(misc_list.name))))
-        self.list_of_lists.remove(misc_list)
+        self.list_of_lists.remove(self.list_of_lists[self.all_lists.index(self.get_misc_list(misc_list.name))])
+        self.all_lists.remove(misc_list)
 
     def equals(self,tocompare):
-        same = (len(self.get_all()) == len(tocompare.get_all()))
+        same = (len(self.all_lists) == len(tocompare.all_lists))
         if same:
-            for idx,item in enumerate(tocompare.get_all()):
-                same = same and item.equals(self.get_all()[idx])
+            for idx,item in enumerate(tocompare.all_lists):
+                same = same and item.equals(self.all_lists[idx])
 
         return same
 
@@ -38,34 +38,34 @@ class Misclists:
                 break
         
         if not found:
-            self.add_new(archtype)
+            self.add_new(misc_list)
+
+    def get_misc_list(self,name):
+        for item in self.all_lists:
+            if item.name == name:
+                return item
 
     def __len__(self):
         return len(self.all_lists)
-
-    def __getitem__(self,name):
-        for item in self.all_lists:
-            if item.name == misc_list.name:
-                return item
 
     def __init__(self):
         self.all_lists = []
         self.list_of_lists = []
 
-class Misclist:
+class Misc_list:
     name = ''
     all_items = []
 
     def add_new(self,list_item):
-        self.misc_list.append(list_item)
+        self.all_items.append(list_item)
 
     def remove(self,list_item):
-        self.misc_list.remove(list_item)
+        self.all_items.remove(list_item)
 
     def equals(self,tocompare):
         same = (self.name == tocompare.name)
-        for idx,item in enumerate(self.get_list()):
-            same and (item == tocompare.get_list()[idx])
+        for idx,item in enumerate(self.all_items):
+            same and (item == tocompare.all_items[idx])
 
         return same
 

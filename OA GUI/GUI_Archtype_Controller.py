@@ -12,7 +12,7 @@ class GUI_archtype_controller:
 
         archtype_form,archtype_window = GUI_Archtype_Form.create_archtype_form(parent)
 
-    def load_data(self,loaded_archtype,save_call):
+    def load_data(self,loaded_archtype,save_call,supress_gui=False):
         global current_archtype
         global rollback_archtype
         global save_callback
@@ -24,7 +24,10 @@ class GUI_archtype_controller:
         current_archtype = loaded_archtype
         rollback_archtype = loaded_archtype.clone()
         self.refresh_data()
-        archtype_window.mainloop()
+        if supress_gui:
+            return archtype_form
+        else:
+            archtype_window.mainloop()
 
     def refresh_data(self):
         global current_archtype
@@ -33,7 +36,10 @@ class GUI_archtype_controller:
 
         archtype_form.clear()
         archtype_form.add_item(current_archtype,self.close_click,self.cancel_click,self.edit_click,self.save_click)
-        archtype_form.set_view()
+        if current_archtype.isempty():
+            archtype_form.set_edit()
+        else:
+            archtype_form.set_view()
 
     def close_click(self):
         global current_archtype
@@ -71,6 +77,16 @@ class GUI_archtype_controller:
             self.refresh_data()
 
         archtype_form.set_view()
+
+    def get_current_archtype(self):
+        global current_archtype
+
+        return current_archtype
+
+    def get_archtype_form(self):
+        global archtype_form
+
+        return archtype_form
 
     def __init__(self):
         self.create_form()

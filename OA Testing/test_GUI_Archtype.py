@@ -5,7 +5,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_Archtype
+import GUI_Archtype_Controller
 import Archtype
 
 archsaved = False
@@ -13,120 +13,70 @@ incomingarch = Archtype.Archtype('','')
 index = 0
 test_archtype = Archtype.Archtype('Testing','TestDesc')
 
-def save_archtype(idx,archtype):
-    global archsaved
-    global index
-    global incomingarch
+def save_archtype():
+    global arch_saved
 
-    archsaved = True
-    incomingarch = archtype
-    index = idx
+    arch_saved = True
 
 class test_GUI_Archtype(unittest.TestCase):
 
-    def test_load_form(self):
-        archtype_window,archtype_form = GUI_Archtype.create_archtype_form(None)
-        GUI_Archtype.load_data(test_archtype, save_archtype, 0)
+    def test_archtype_controller_create(self):
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        self.assertNotEqual(arch_controller.get_archtype_form(),None)
 
-        self.assertEqual(archtype_form.f1.ename.get(),'Testing')
+    def test_archtype_controller_load(self):
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller.load_data(test_archtype,save_archtype,True)
+        self.assertEqual(arch_controller.get_current_archtype(),test_archtype)
 
-    def test_load_form_close(self):
-        archtype_window, archtype_form = GUI_Archtype.create_archtype_form(None)
-        GUI_Archtype.load_data(test_archtype, save_archtype, 0)
-        GUI_Archtype.close_click()
+    def test_archtype_controller_refresh(self):
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        test_archtype.proficiency = 'test prof'
+        arch_controller.load_data(test_archtype,save_archtype,True)
+        arch_form = arch_controller.get_archtype_form()
+        self.assertEqual(arch_form.f1.eproficiency.cget('text'),'test prof')
 
-        self.assertFalse(archtype_window == None)
+        clone = test_archtype.clone()
+        clone.proficiency = 'MODIFIED PROF'
+
+        arch_controller.load_data(clone,save_archtype,True)
+        self.assertEqual(arch_controller.get_current_archtype(),clone)
+
+    def test_archtype_controller_close(self):
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller.load_data(test_archtype,save_archtype,True)
+        self.assertNotEqual(arch_controller.get_archtype_form(),None)
+
+        arch_controller.close_click()
+        self.assertEqual(arch_controller.get_archtype_form(),None)
 
     def test_load_form_edit(self):
-        archtype_window, archtype_form = GUI_Archtype.create_archtype_form(None)
-        GUI_Archtype.load_data(test_archtype, save_archtype, 0)
-        GUI_Archtype.edit_click()
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller.load_data(test_archtype,save_archtype,True)
+        arch_form = arch_controller.get_archtype_form()
 
-        self.assertEqual(archtype_form.left_button.cget('text'),'Cancel')
-        self.assertEqual(archtype_form.right_button.cget('text'),'Save')
-        self.assertEqual(archtype_form.f1.ename.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.eshortdescription.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.estr.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.eper.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.eint.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.edex.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.echa.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.evit.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.emag.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.estamina.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.eattack.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.ereflex.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.efeats.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.emvmt.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.eskillpts.cget('state'),'normal')
-        self.assertEqual(archtype_form.f1.elvlhealth.cget('state'),'normal')
+        arch_controller.edit_click()
+        for item in arch_form.f1.winfo_children():
+            self.assertEqual(item.cget('state'),'normal')
 
     def test_edit_form_cancel(self):
-        archtype_window, archtype_form = GUI_Archtype.create_archtype_form(None)
-        GUI_Archtype.load_data(test_archtype, save_archtype, 0)
-        GUI_Archtype.edit_click()
-        archtype_form.f1.eshortdescription.delete(0,'end')
-        archtype_form.f1.eshortdescription.insert(0,'Modified Description')
-        self.assertEqual(archtype_form.f1.eshortdescription.get(),'Modified Description')
-        GUI_Archtype.cancel_click()
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller.load_data(test_archtype,save_archtype,True)
+        arch_form = arch_controller.get_archtype_form()
 
-        self.assertEqual(archtype_form.f1.eshortdescription.get(),'TestDesc')
-        self.assertEqual(archtype_form.left_button.cget('text'),'Close')
-        self.assertEqual(archtype_form.right_button.cget('text'),'Edit')
-        self.assertEqual(archtype_form.f1.ename.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eshortdescription.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.estr.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eper.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eint.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.edex.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.echa.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.evit.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.emag.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.estamina.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eattack.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.ereflex.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.efeats.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.emvmt.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eskillpts.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.elvlhealth.cget('state'),'disabled')
+        arch_controller.cancel_click()
+        for item in arch_form.f1.winfo_children():
+            self.assertEqual(item.cget('state'),'disabled')
 
     def test_edit_form_save(self):
-        global archsaved
-        global index
-        global incomingarch
+        global arch_saved
+    
+        arch_saved = False
 
-        archsaved = False
-        incomingarch = Archtype.Archtype('','')
-
-        archtype_window, archtype_form = GUI_Archtype.create_archtype_form(None)
-        GUI_Archtype.load_data(test_archtype, save_archtype, 2)
-        GUI_Archtype.edit_click()
-        archtype_form.f1.eshortdescription.delete(0,'end')
-        archtype_form.f1.eshortdescription.insert(0,'Modified Description')
-        self.assertEqual(archtype_form.f1.eshortdescription.get(),'Modified Description')
-        GUI_Archtype.save_click()
-
-        self.assertTrue(archsaved)
-        self.assertEqual(incomingarch.short_description, 'Modified Description')
-        self.assertEqual(archtype_form.f1.eshortdescription.get(),'Modified Description')
-        self.assertEqual(archtype_form.left_button.cget('text'),'Close')
-        self.assertEqual(archtype_form.right_button.cget('text'),'Edit')
-        self.assertEqual(archtype_form.f1.ename.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eshortdescription.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.estr.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eper.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eint.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.edex.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.echa.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.evit.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.emag.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.estamina.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eattack.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.ereflex.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.efeats.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.emvmt.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.eskillpts.cget('state'),'disabled')
-        self.assertEqual(archtype_form.f1.elvlhealth.cget('state'),'disabled')
+        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller.load_data(test_archtype,save_archtype,True)
+        arch_controller.save_click()
+        self.assertTrue(arch_saved)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

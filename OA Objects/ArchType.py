@@ -7,10 +7,10 @@ class Archtypes:
 
     def add_new(self,archtype):
         self.all_archtypes.append(archtype)
-        self.list_of_archtypes.append(List_Object.Listobject(archtype.name,archtype.short_description))
+        self.list_of_archtypes.append(List_Object.List_object(archtype.name,archtype.short_description))
 
     def remove(self,archtype):
-        self.list_of_archtypes.remove(self.list_of_archtypes[self.all_archtypes.index(self.get(archtype.name))])
+        self.list_of_archtypes.remove(self.list_of_archtypes[self.all_archtypes.index(self.get_archtype(archtype.name))])
         self.all_archtypes.remove(archtype)
 
     def equals(self,tocompare):

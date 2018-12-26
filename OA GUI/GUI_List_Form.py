@@ -44,7 +44,7 @@ class GUI_list_form:
 
     def clear(self):
         self.f1.destroy()
-        self.f1 = tk.Frame()
+        self.f1 = tk.Frame(self.parent)
         self.f1.grid(sticky='nsew',row=2,column=0,padx=20,pady=20)
         self.f1.grid_columnconfigure(0,weight=1)
         self.f1.grid_columnconfigure(1,weight=3)

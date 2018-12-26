@@ -11,86 +11,97 @@ import Manage_Misc_Lists
 class test_Manage_Misc_Lists(unittest.TestCase):
 
     def test_load_misc_lists(self):
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        loaded = Manage_Misc_Lists.get_loaded_set()
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
+        loaded = misc_manager.get_current_set()
 
-        self.assertTrue(len(loaded.get_all())>0)
+        self.assertTrue(len(loaded)>0)
 
     def test_save_misc_list(self):
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        loaded = Manage_Misc_Lists.get_loaded_set()
-        num_list = len(loaded.get_all())
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
+        loaded = misc_manager.get_current_set()
+        num_list = len(loaded)
 
-        self.assertEqual(loaded[1].name,'List2')
-        clone = loaded[1].clone()
+        self.assertEqual(loaded.all_lists[1].all_items[0],'Item2-1')
+        clone = loaded.all_lists[1].clone()
 
-        clone.name = 'MODIFIED TEST'
-        Manage_Misc_Lists.save_misc_list(1,clone)
-        loaded2 = Manage_Misc_Lists.get_loaded_set()
+        clone.all_items[0] = 'MODIFIED TEST'
+        misc_manager.save_misc_list(clone)
+        loaded2 = misc_manager.get_current_set()
 
-        self.assertEqual(loaded2[1].name,'MODIFIED TEST')
-        self.assertEqual(len(loaded.get_all()),num_list)
+        self.assertEqual(loaded2.all_lists[1].all_items[0],'MODIFIED TEST')
+        self.assertEqual(len(loaded),num_list)
 
     def test_save_misc_lists_new(self):
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        loaded = Manage_Misc_Lists.get_loaded_set()
-        num_list = len(loaded.get_all())
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
+        loaded = misc_manager.get_current_set()
+        num_list = len(loaded)
 
-        self.assertEqual(loaded[1].name,'List2')
-        clone = loaded[1].clone()
+        self.assertEqual(loaded.all_lists[1].name,'List2')
+        clone = loaded.all_lists[1].clone()
 
         clone.name = 'MODIFIED TEST'
-        Manage_Misc_Lists.save_misc_list(5,clone)
-        loaded2 = Manage_Misc_Lists.get_loaded_set()
+        misc_manager.save_misc_list(clone)
+        loaded2 = misc_manager.get_current_set()
 
-        self.assertEqual(loaded2[4].name,'MODIFIED TEST')
-        self.assertEqual(len(loaded.get_all()),num_list + 1)
+        self.assertEqual(loaded2.all_lists[4].name,'MODIFIED TEST')
+        self.assertEqual(len(loaded),num_list + 1)
 
     def test_save_misc_lists(self):
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
+
         copy2(app_config.test_file_path + app_config.test_misc_list_filename,app_config.test_file_path + app_config.test_misc_list_filename + '2')
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2')
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2')
 
-        loaded = Manage_Misc_Lists.get_loaded_set()
-        loaded[0].name = 'updated name 1'
-        loaded[1].name = 'updated name 2'
-        loaded[2].name = 'updated name 3'
-        loaded[3].name = 'updated name 4'
+        loaded = misc_manager.get_current_set()
+        loaded.all_lists[0].name = 'updated name 1'
+        loaded.all_lists[1].name = 'updated name 2'
+        loaded.all_lists[2].name = 'updated name 3'
+        loaded.all_lists[3].name = 'updated name 4'
 
-        Manage_Misc_Lists.save_misc_list(0,loaded.get_all()[0])
-        Manage_Misc_Lists.save_misc_list(1,loaded.get_all()[1])
-        Manage_Misc_Lists.save_misc_list(2,loaded.get_all()[2])
-        Manage_Misc_Lists.save_misc_list(3,loaded.get_all()[3])
+        misc_manager.save_misc_list(loaded.all_lists[0])
+        misc_manager.save_misc_list(loaded.all_lists[1])
+        misc_manager.save_misc_list(loaded.all_lists[2])
+        misc_manager.save_misc_list(loaded.all_lists[3])
 
-        Manage_Misc_Lists.save_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2',app_config.test_file_path + app_config.test_backup_archive_filename)
+        misc_manager.save_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2',app_config.test_file_path + app_config.test_backup_archive_filename)
 
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2')
-        loaded2 = Manage_Misc_Lists.get_loaded_set()
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename + '2')
+        loaded2 = misc_manager.get_current_set()
 
-        self.assertEqual(loaded2[0].name,'updated name 1')
-        self.assertEqual(loaded2[1].name,'updated name 2')
-        self.assertEqual(loaded2[2].name,'updated name 3')
-        self.assertEqual(loaded2[3].name,'updated name 4')
+        self.assertEqual(loaded2.all_lists[0].name,'updated name 1')
+        self.assertEqual(loaded2.all_lists[1].name,'updated name 2')
+        self.assertEqual(loaded2.all_lists[2].name,'updated name 3')
+        self.assertEqual(loaded2.all_lists[3].name,'updated name 4')
 
     def test_remove_misc_list(self):
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        num_list = len(Manage_Misc_Lists.get_loaded_set())
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
 
-        Manage_Misc_Lists.remove_misc_list(1)
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
+        num_list = len(misc_manager.get_current_set())
 
-        self.assertEqual(len(Manage_Misc_Lists.get_loaded_set()),num_list - 1)
+        misc_manager.remove_misc_list(misc_manager.get_current_set().all_lists[1])
+
+        self.assertEqual(len(misc_manager.get_current_set()),num_list - 1)
 
     def test_launch_edit(self):
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = Manage_Misc_Lists.launch_edit_misc_list(None,1,True)
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
+
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
+        gui = misc_manager.launch_edit_misc_list(None,misc_manager.get_current_set().all_lists[1].name,True)
 
         self.assertNotEqual(gui,None)
 
     def test_launch_list(self):
-        Manage_Misc_Lists.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = Manage_Misc_Lists.launch_misc_list_list(True)
+        misc_manager = Manage_Misc_Lists.Manage_misc_lists()
+
+        misc_manager.load_misc_lists(app_config.test_file_path + app_config.test_misc_list_filename)
+        gui = misc_manager.launch_misc_list_list(True)
 
         self.assertNotEqual(gui,None)
 

@@ -1,6 +1,6 @@
 import copy
 
-class Listobject:
+class List_object:
     name = ""
     short_description = ""
     list_text = ""

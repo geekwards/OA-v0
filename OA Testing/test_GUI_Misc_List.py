@@ -5,24 +5,29 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_Misc_List
+import GUI_Misc_List_Controller
 import List_Object
 import Misc_List
 
 listsaved = False
 listremoved = False
-incominglist = []
-incominglist.append(List_Object.Listobject('',''))
+listedit = False
+listnew = False
+listclose = False
+listcancel = False
 index = 0
-test_misc_list = Misc_List.Misclist('Test1',['Testlist 1.1','Testlist 1.2','Testlist 1.3'])
+test_misc_list = Misc_List.Misc_list('Test1',['Testlist 1.1','Testlist 1.2','Testlist 1.3'])
 
-def save_misc_list(idx,misc_list):
+def save_misc_list():
     global listsaved
-    global index
-    global incominglist
 
     listsaved = True
-    incominglist = misc_list
+
+def edit_misc_list(idx):
+    global listedit
+    global index
+
+    listedit = True
     index = idx
 
 def remove_misc_list(idx):
@@ -32,62 +37,80 @@ def remove_misc_list(idx):
     listremoved = True
     index = idx
 
-class test_GUI_Misc_List(unittest.TestCase):
+def new_misc_list():
+    global listnew
 
-    def test_load_form(self):
-        list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
-        GUI_Misc_List.load_data(test_misc_list,save_misc_list,remove_misc_list,0)
+    listnew = True
 
-        self.assertEqual((list_form.f1.winfo_children()[0].cget('text')),'Testlist 1.1')
+def close_misc_list():
+    global listclose
 
-    def test_load_form_close(self):
-        list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
-        GUI_Misc_List.load_data(test_misc_list,save_misc_list,remove_misc_list,0)
-        GUI_Misc_List.close_click()
+    listclose = True
 
-        self.assertFalse(list_window == None)
+def cancel_misc_list():
+    global listcancel
 
-    def test_load_form_edit(self):
-        list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
-        GUI_Misc_List.load_data(test_misc_list,save_misc_list,remove_misc_list,0)
-        GUI_Misc_List.edit_click()
+    listcancel = True
 
-        self.assertEqual(list_form.left_button.cget('text'),'Cancel')
-        self.assertEqual(list_form.right_button.cget('text'),'Save')
+class test_GUI_Misc_List_Controller(unittest.TestCase):
 
-        for item in list_form.f1.winfo_children():
+    def test_misc_controller_create_form(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        self.assertNotEqual(misc_controller.get_misc_list_form(),None)
+
+    def test_misc_controller_load(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,True)
+        self.assertEqual(misc_controller.get_current_misc_list(),test_misc_list)
+
+    def test_misc_controller_refresh(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,True)
+        misc_form = misc_controller.get_misc_list_form()
+        self.assertEqual(len(misc_form.f1.winfo_children()),3) 
+
+        misc_controller.get_current_misc_list().add_new('testingmore')
+        misc_controller.refresh_data()
+        self.assertEqual(len(misc_form.f1.winfo_children()),4)
+
+    def test_misc_controller_new(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,True)
+        self.assertFalse(misc_controller.new_click())
+
+    def test_misc_controller_close(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        self.assertNotEqual(misc_controller.get_misc_list_form(),None)
+
+        misc_controller.close_click()
+        self.assertEqual(misc_controller.get_misc_list_form(),None)
+
+    def test_misc_controller_edit(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,True)
+        misc_form = misc_controller.get_misc_list_form()
+        self.assertEqual(len(misc_form.f1.winfo_children()),3)
+
+        misc_controller.edit_click()
+        for item in misc_form.f1.winfo_children():
             self.assertEqual(item.cget('state'),'normal')
 
-    def test_edit_form_cancel(self):
-        list_window,list_form = GUI_Misc_List.create_misc_list_form(None)
-        GUI_Misc_List.load_data(test_misc_list,save_misc_list,remove_misc_list,0)
-        GUI_Misc_List.edit_click()
-        GUI_Misc_List.cancel_click()
-
-        self.assertEqual(list_form.left_button.cget('text'),'Close')
-        self.assertEqual(list_form.right_button.cget('text'),'Edit')
-
-        for item in list_form.f1.winfo_children():
-            self.assertEqual(item.cget('state'),'disabled')
-
-    def test_edit_form_save(self):
+    def test_misc_controller_save(self):
         global listsaved
-        global index
-        global incominglist
-
+    
         listsaved = False
-        incominglist = List_Object.Listobject('','')
 
-        list_window, list_form = GUI_Misc_List.create_misc_list_form(None)
-        GUI_Misc_List.load_data(test_misc_list,save_misc_list,remove_misc_list,2)
-        GUI_Misc_List.edit_click()
-        GUI_Misc_List.save_click()
-
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,True)
+        misc_controller.save_click()
         self.assertTrue(listsaved)
-        self.assertEqual(list_form.left_button.cget('text'),'Close')
-        self.assertEqual(list_form.right_button.cget('text'),'Edit')
 
-        for item in list_form.f1.winfo_children():
+    def test_misc_controller_cancel(self):
+        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,True)
+        misc_form = misc_controller.get_misc_list_form()
+        misc_controller.cancel_click()
+        for item in misc_form.f1.winfo_children():
             self.assertEqual(item.cget('state'),'disabled')
 
 if __name__ == '__main__':
