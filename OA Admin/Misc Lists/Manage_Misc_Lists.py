@@ -47,9 +47,16 @@ class Manage_misc_lists:
 
         current_set.remove(misc_list)
 
+    def close_edit_misc_list(self):
+        global sup_gui
+
+        self.launch_misc_list_list(sup_gui)
+
     def launch_edit_misc_list(self,parent,name,supress_gui=False):
         global current_set
+        global sup_gui
 
+        sup_gui = supress_gui
         misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()            
 
         if len(name) > 0:
@@ -60,8 +67,7 @@ class Manage_misc_lists:
         if supress_gui:
             return misc_list_controller
         else:
-            misc_list_controller.load_data(misc_list,self.save_misc_list)
-            self.launch_misc_list_list()
+            misc_list_controller.load_data(misc_list,self.save_misc_list,self.close_edit_misc_list)
     
     def launch_misc_list_list(self,supress_gui=False):
         global current_set

@@ -11,14 +11,16 @@ class GUI_archtype_controller:
 
         archtype_form,archtype_window = GUI_Archtype_Form.create_archtype_form(parent)
 
-    def load_data(self,loaded_archtype,save_call,supress_gui=False):
+    def load_data(self,loaded_archtype,save_call,close_call,supress_gui=False):
         global current_archtype
         global rollback_archtype
         global save_callback
         global archtype_form
         global archtype_window
+        global close_callback
     
         save_callback = save_call
+        close_callback = close_call
 
         current_archtype = loaded_archtype
         rollback_archtype = loaded_archtype.clone()
@@ -45,6 +47,7 @@ class GUI_archtype_controller:
         global rollback_archtype
         global archtype_form
         global archtype_window
+        global close_callback
 
         if not rollback_archtype.equals(current_archtype):
             #confirm save
@@ -52,6 +55,7 @@ class GUI_archtype_controller:
         
         archtype_window.destroy()
         archtype_form = None
+        close_callback()
 
     def edit_click(self):
         global archtype_form
@@ -62,6 +66,7 @@ class GUI_archtype_controller:
         global save_callback
         global archtype_form
         global current_archtype
+        global rollback_archtype
 
         current_archtype.name = archtype_form.f1.ename.get()
         current_archtype.short_description = archtype_form.f1.eshortdescription.get()

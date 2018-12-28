@@ -1,1 +1,18 @@
-<misc_lists><list><name>Creature Sizes</name><items><item>Small</item><item>Medium</item><item>Large</item></items></list><list><name>Creature Body Types</name><items><item>Slim</item><item>Average</item><item>Stoutadfadf</item><item>adffsda</item></items></list><list><name /><items><item>asdfadsf</item><item>qerqer</item></items></list><list><name>erqqcef43553</name><items><item>er3443ff</item><item>4rferf434f54242452345</item><item>asdfasdf</item></items></list></misc_lists>
+<misclists>
+  <list>
+    <name>Creature Sizes</name>
+    <items>
+      <item>Small</item>
+      <item>Medium</item>
+      <item>Large</item>
+    </items>
+  </list>
+  <list>
+    <name>Creature Body Types</name>
+    <items>
+      <item>Slim</item>
+      <item>Average</item>
+      <item>Stout</item>
+    </items>
+  </list>
+</misclists>

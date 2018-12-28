@@ -12,14 +12,16 @@ class GUI_misc_list_controller:
 
         misc_list_form,misc_list_window = GUI_Misc_List_Form.create_misc_list_form(parent)
 
-    def load_data(self,loaded_misc_list,save_call,supress_gui=False):
+    def load_data(self,loaded_misc_list,save_call,close_call,supress_gui=False):
         global current_misc_list
         global rollback_misc_list
         global save_callback
         global misc_list_form
         global misc_list_window
+        global close_callback
 
         save_callback = save_call
+        close_callback = close_call
 
         current_misc_list = loaded_misc_list
         rollback_misc_list = loaded_misc_list.clone()
@@ -54,6 +56,7 @@ class GUI_misc_list_controller:
         global rollback_misc_list
         global misc_list_form
         global misc_list_window
+        global close_callback
 
         if not rollback_misc_list.equals(current_misc_list):
             #confirm save
@@ -61,6 +64,7 @@ class GUI_misc_list_controller:
         
         misc_list_window.destroy()
         misc_list_form = None
+        close_callback()
 
     def edit_click(self):
         global misc_list_form

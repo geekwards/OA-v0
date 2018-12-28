@@ -47,10 +47,10 @@ class Manage_archtypes:
                 ET.SubElement(arch,'levelHealth').text = item.level_health
 
             if filename == None:
-                filename = app_config.file_path + app_config.archive_filename
+                filename = app_config.file_path + app_config.archtype_filename
 
             if backup_filename == None:
-                backup_filename = app_config.backup_file_path + app_config.backup_archive_filename
+                backup_filename = app_config.backup_file_path + app_config.backup_archtype_filename
 
             copy2(filename,backup_filename)
             f = open(filename,'w')
@@ -62,15 +62,22 @@ class Manage_archtypes:
 
         current_set.remove(archtype)
 
+    def close_edit_archtype(self):
+        global sup_gui
+
+        self.launch_archtype_list(sup_gui)
+
     def launch_edit_archtype(self,parent,name,supress_gui=False):
         global current_set
+        global sup_gui
 
+        sup_gui = supress_gui
         archtype_controller = GUI_Archtype_Controller.GUI_archtype_controller()
 
         if supress_gui:
             return archtype_controller
         else:
-            archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype)
+            archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype,self.close_edit_archtype)
             self.launch_archtype_list()
 
     def launch_archtype_list(self,supress_gui=False):
@@ -92,7 +99,7 @@ class Manage_archtypes:
         current_set = Archtype.Archtypes()
 
         if filename == None:
-            filename = app_config.file_path + app_config.archive_filename
+            filename = app_config.file_path + app_config.archtype_filename
 
         tree = ET.parse(filename)
         data_root = tree.getroot()
