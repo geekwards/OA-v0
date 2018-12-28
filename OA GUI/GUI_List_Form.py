@@ -14,7 +14,7 @@ def create_list_form(parent):
 
 class GUI_list_form:
     #todo: formatting
-    def setup(self,list_title,new_call,close_call,edit_call,remove_call):
+    def setup(self,list_title,new_call,edit_call,remove_call,close_call):
         global new_click
         global close_click
         global edit_click

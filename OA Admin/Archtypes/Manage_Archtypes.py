@@ -21,39 +21,41 @@ class Manage_archtypes:
 
     def save_archtypes(self,filename=None,backup_filename=None):
         global current_set
+        global loaded_set
 
-        data=ET.Element('archtypes')
-        for item in current_set.all_archtypes:
-            arch=ET.SubElement(data,'archtype')
-            ET.SubElement(arch,'name').text = item.name
-            ET.SubElement(arch,'shortDescription').text = item.short_description
-            ET.SubElement(arch,'description').text = item.description
-            ET.SubElement(arch,'proficiency').text = item.proficiency
-            ET.SubElement(arch,'strBonus').text = item.str_bonus
-            ET.SubElement(arch,'perBonus').text = item.per_bonus
-            ET.SubElement(arch,'intBonus').text = item.int_bonus
-            ET.SubElement(arch,'dexBonus').text = item.dex_bonus
-            ET.SubElement(arch,'chaBonus').text = item.cha_bonus
-            ET.SubElement(arch,'vitBonus').text = item.vit_bonus
-            ET.SubElement(arch,'magBonus').text = item.mag_bonus
-            ET.SubElement(arch,'staminaBonus').text = item.stamina_bonus
-            ET.SubElement(arch,'attackBonus').text = item.attack_bonus
-            ET.SubElement(arch,'reflexBonus').text = item.reflex_bonus
-            ET.SubElement(arch,'feats').text = item.feats
-            ET.SubElement(arch,'movement').text = item.movement
-            ET.SubElement(arch,'skillPoints').text = item.skill_points
-            ET.SubElement(arch,'levelHealth').text = item.level_health
+        if not(loaded_set.equals(current_set)):
+            data=ET.Element('archtypes')
+            for item in current_set.all_archtypes:
+                arch=ET.SubElement(data,'archtype')
+                ET.SubElement(arch,'name').text = item.name
+                ET.SubElement(arch,'shortDescription').text = item.short_description
+                ET.SubElement(arch,'description').text = item.description
+                ET.SubElement(arch,'proficiency').text = item.proficiency
+                ET.SubElement(arch,'strBonus').text = item.str_bonus
+                ET.SubElement(arch,'perBonus').text = item.per_bonus
+                ET.SubElement(arch,'intBonus').text = item.int_bonus
+                ET.SubElement(arch,'dexBonus').text = item.dex_bonus
+                ET.SubElement(arch,'chaBonus').text = item.cha_bonus
+                ET.SubElement(arch,'vitBonus').text = item.vit_bonus
+                ET.SubElement(arch,'magBonus').text = item.mag_bonus
+                ET.SubElement(arch,'staminaBonus').text = item.stamina_bonus
+                ET.SubElement(arch,'attackBonus').text = item.attack_bonus
+                ET.SubElement(arch,'reflexBonus').text = item.reflex_bonus
+                ET.SubElement(arch,'feats').text = item.feats
+                ET.SubElement(arch,'movement').text = item.movement
+                ET.SubElement(arch,'skillPoints').text = item.skill_points
+                ET.SubElement(arch,'levelHealth').text = item.level_health
 
-        if filename == None:
-            filename = app_config.file_path + app_config.filename
+            if filename == None:
+                filename = app_config.file_path + app_config.archive_filename
 
-        if backup_filename == None:
-            backup_filename = app_config.backup_file_path + app_config.backup_filename
+            if backup_filename == None:
+                backup_filename = app_config.backup_file_path + app_config.backup_archive_filename
 
-        copy2(filename,backup_filename)
-        f = open(filename,'w')
-        f.write(ET.tostring(data, encoding="unicode"))
-        f.close()
+            copy2(filename,backup_filename)
+            f = open(filename,'w')
+            f.write(ET.tostring(data, encoding="unicode"))
+            f.close()
 
     def remove_archtype(self,archtype):
         global current_set
@@ -81,7 +83,7 @@ class Manage_archtypes:
         if supress_gui:
             return list_controller
         else:
-            list_controller.load_data('Archtypes',current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype)
+            list_controller.load_data('Archtypes',current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype,self.save_archtypes)
 
     def load_archtypes(self,filename=None):
         global current_set

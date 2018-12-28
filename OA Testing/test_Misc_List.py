@@ -37,6 +37,10 @@ class test_Misc_List(unittest.TestCase):
 
         self.assertTrue(test_object1.equals(test_object2))
 
+        test_object2.all_items[1] = 'MODIFIED'
+        self.assertFalse(test_object1.equals(test_object2))
+
+
     def test_misc_list_add_new(self):
         test_object1 = Misc_List.Misc_list('Test1',['Testlist 1.1','Testlist 1.2','Testlist 1.3'])
 

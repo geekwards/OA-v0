@@ -63,6 +63,9 @@ class test_Archtype(unittest.TestCase):
 
         self.assertTrue(test_archtype.equals(test_archtype2))
 
+        test_archtype2.short_description = 'modified short desc'
+        self.assertFalse(test_archtype.equals(test_archtype2))
+
     def test_archtype_inequality2(self):
         test_archtype2 = test_archtype.clone()
         test_archtype2.name = 'changed name'

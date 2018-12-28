@@ -22,7 +22,7 @@ class Misc_lists:
         return same
 
     def clone(self):
-        return copy.copy(self)
+        return copy.deepcopy(self)
 
     def isempty(self):
         return len(self.all_lists) == 0
@@ -65,12 +65,12 @@ class Misc_list:
     def equals(self,tocompare):
         same = (self.name == tocompare.name)
         for idx,item in enumerate(self.all_items):
-            same and (item == tocompare.all_items[idx])
+            same = same and (item == tocompare.all_items[idx])
 
         return same
 
     def clone(self):
-        return copy.copy(self)
+        return copy.deepcopy(self)
 
     def __len__(self):
         return len(self.all_items)

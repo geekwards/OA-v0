@@ -123,8 +123,12 @@ class test_Archtypes(unittest.TestCase):
         test_archtypes.add_new(test_archtype1)
         test_archtypes.add_new(test_archtype2)
         test_archtypes2 = test_archtypes.clone()
-
         self.assertTrue(test_archtypes.equals(test_archtypes2))
+
+        test_archtypes2.get_archtype('Test2').short_description = 'modified short descr'
+        self.assertFalse(test_archtypes.equals(test_archtypes2))
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

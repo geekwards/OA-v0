@@ -11,7 +11,7 @@ class Archtypes:
 
     def remove(self,archtype):
         self.list_of_archtypes.remove(self.list_of_archtypes[self.all_archtypes.index(self.get_archtype(archtype.name))])
-        self.all_archtypes.remove(archtype)
+        self.all_archtypes.remove(self.get_archtype(archtype.name))
 
     def equals(self,tocompare):
         same = (len(self.all_archtypes) == len(tocompare.all_archtypes))
@@ -22,7 +22,7 @@ class Archtypes:
         return same
 
     def clone(self):
-        return copy.copy(self)
+        return copy.deepcopy(self)
 
     def isempty(self):
         return len(self.all_archtypes) == 0
@@ -97,7 +97,7 @@ class Archtype:
             )
 
     def clone(self):
-        return copy.copy(self)
+        return copy.deepcopy(self)
 
     def isempty(self):
         return (self.name.strip() == '' and self.short_description.strip() == '')

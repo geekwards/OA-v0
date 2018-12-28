@@ -86,15 +86,16 @@ class test_GUI_Archtype_Form(unittest.TestCase):
     def test_misc_form_add_item(self):
         arch_form,arch_window = GUI_Archtype_Form.create_archtype_form(None)
         arch_form.add_item(test_archtype1,close_arch,cancel_arch,edit_arch,save_arch)
-        self.assertEqual(arch_form.f1.ename.cget('text'),'Test1')
+        self.assertEqual(arch_form.f1.ename.get(),'Test1')
 
     def test_misc_form_clear(self):
         arch_form,arch_window = GUI_Archtype_Form.create_archtype_form(None)
         arch_form.add_item(test_archtype1,close_arch,cancel_arch,edit_arch,save_arch)
-        self.assertEqual(arch_form.f1.ename.cget('text'),'Test1')
+        self.assertEqual(arch_form.f1.ename.get(),'Test1')
 
+        arch_form.enable_form()
         arch_form.clear()
-        self.assertEqual(arch_form.f1.ename.cget('text'),'')
+        self.assertEqual(arch_form.f1.ename.get(),'')
 
     def test_misc_form_enable(self):
         arch_form,arch_window = GUI_Archtype_Form.create_archtype_form(None)

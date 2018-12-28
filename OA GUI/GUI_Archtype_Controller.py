@@ -2,7 +2,6 @@ import sys, os.path
 datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/OA Data Files')
 
 import app_config
-
 import GUI_Archtype_Form
 
 class GUI_archtype_controller:
@@ -62,8 +61,28 @@ class GUI_archtype_controller:
     def save_click(self):
         global save_callback
         global archtype_form
+        global current_archtype
 
-        save_callback()
+        current_archtype.short_description = archtype_form.f1.eshortdescription.get()
+        current_archtype.description = archtype_form.f1.txtdescription.get("1.0",'end-1c')
+        current_archtype.proficiency = archtype_form.f1.eproficiency.get()
+        current_archtype.str_bonus = archtype_form.f1.estr.get()
+        current_archtype.per_bonus = archtype_form.f1.eper.get()
+        current_archtype.int_bonus = archtype_form.f1.eint.get()
+        current_archtype.dex_bonus = archtype_form.f1.edex.get()
+        current_archtype.cha_bonus = archtype_form.f1.echa.get()
+        current_archtype.vit_bonus = archtype_form.f1.evit.get()
+        current_archtype.mag_bonus = archtype_form.f1.emag.get()
+        current_archtype.stamina_bonus = archtype_form.f1.estamina.get()
+        current_archtype.attack_bonus = archtype_form.f1.eattack.get()
+        current_archtype.reflex_bonus = archtype_form.f1.ereflex.get()
+        current_archtype.feats = archtype_form.f1.efeats.get()
+        current_archtype.movement = archtype_form.f1.emvmt.get()
+        current_archtype.skill_points = archtype_form.f1.eskillpts.get()
+        current_archtype.level_health = archtype_form.f1.elvlhealth.get()
+
+        rollback_archtype = current_archtype.clone()
+        save_callback(current_archtype)
         archtype_form.set_view()
 
     def cancel_click(self):

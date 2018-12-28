@@ -13,7 +13,7 @@ incomingarch = Archtype.Archtype('','')
 index = 0
 test_archtype = Archtype.Archtype('Testing','TestDesc')
 
-def save_archtype():
+def save_archtype(arch):
     global arch_saved
 
     arch_saved = True
@@ -34,7 +34,7 @@ class test_GUI_Archtype(unittest.TestCase):
         test_archtype.proficiency = 'test prof'
         arch_controller.load_data(test_archtype,save_archtype,True)
         arch_form = arch_controller.get_archtype_form()
-        self.assertEqual(arch_form.f1.eproficiency.cget('text'),'test prof')
+        self.assertEqual(arch_form.f1.eproficiency.get(),'test prof')
 
         clone = test_archtype.clone()
         clone.proficiency = 'MODIFIED PROF'

@@ -119,5 +119,8 @@ class test_Misc_Lists(unittest.TestCase):
 
         self.assertTrue(test_misc_lists.equals(test_objects2))
 
+        test_objects2.all_lists[1].all_items[1] = 'modified'
+        self.assertFalse(test_misc_lists.equals(test_objects2))
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

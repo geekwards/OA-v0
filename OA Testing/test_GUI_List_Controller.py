@@ -65,12 +65,12 @@ class test_GUI_List_Controller(unittest.TestCase):
 
     def test_list_controller_load(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test_set,edit_list,remove_list,True)
+        list_controller.load_data('list_title',test_set,edit_list,remove_list,close_list,True)
         self.assertEqual(list_controller.get_current_list(),test_set)
 
     def test_list_controller_refresh(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test_set,edit_list,remove_list,True)
+        list_controller.load_data('list_title',test_set,edit_list,remove_list,close_list,True)
         list_form = list_controller.get_list_form()
         self.assertEqual(len(list_form.f1.winfo_children()),12) 
 
@@ -90,7 +90,7 @@ class test_GUI_List_Controller(unittest.TestCase):
         test_set = [test_list_item0,test_list_item1,test_list_item2,test_list_item3]
 
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test_set,edit_list,remove_list,True)
+        list_controller.load_data('list_title',test_set,edit_list,remove_list,close_list,True)
         self.assertEqual(list_controller.get_current_list()[1].name,'Testing1')
         self.assertEqual(len(list_controller.get_current_list()),4)        
 
@@ -101,6 +101,7 @@ class test_GUI_List_Controller(unittest.TestCase):
 
     def test_list_controller_close(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
+        list_controller.load_data('list_title',test_set,edit_list,remove_list,close_list,True)
         self.assertNotEqual(list_controller.get_list_form(),None)
 
         list_controller.close_click()
@@ -118,7 +119,7 @@ class test_GUI_List_Controller(unittest.TestCase):
         test_set = [test_list_item0,test_list_item1,test_list_item2,test_list_item3]
 
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test_set,edit_list,remove_list,True)
+        list_controller.load_data('list_title',test_set,edit_list,remove_list,close_list,True)
         self.assertEqual(list_controller.get_current_list()[1].name,'Testing1')
         self.assertEqual(len(list_controller.get_current_list()),4)        
 
@@ -139,7 +140,7 @@ class test_GUI_List_Controller(unittest.TestCase):
         test_set = [test_list_item0,test_list_item1,test_list_item2,test_list_item3]
 
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test_set,edit_list,remove_list,True)
+        list_controller.load_data('list_title',test_set,edit_list,remove_list,close_list,True)
         self.assertEqual(list_controller.get_current_list()[1].name,'Testing1')
         self.assertEqual(len(list_controller.get_current_list()),4)        
 

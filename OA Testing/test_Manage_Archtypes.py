@@ -60,7 +60,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         copy2(app_config.test_file_path + app_config.test_archive_filename,app_config.test_file_path + app_config.test_archive_filename + '2')
         arch_manager.load_archtypes(app_config.test_file_path + app_config.test_archive_filename + '2')
 
-        loaded = arch_manager.get_current_set()
+        loaded = arch_manager.get_current_set().clone()
         loaded.all_archtypes[0].name = 'updated name 1'
         loaded.all_archtypes[1].name = 'updated name 2'
         loaded.all_archtypes[2].name = 'updated name 3'
