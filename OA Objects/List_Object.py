@@ -11,6 +11,7 @@ class List_object:
     def __init__(self,name,short_description):
         self.name = name
         self.short_description = short_description
-        self.list_text = name
         if len(short_description) > 0:
-            self.list_text += ' - ' + short_description
+            self.list_text = name + ' - ' + short_description
+        else:
+            self.list_text = name

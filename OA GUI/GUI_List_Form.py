@@ -35,7 +35,7 @@ class GUI_list_form:
         global edit_click
         global remove_click
 
-        self.f1.edit_list_item = tk.Button(self.f1,text ="Edit",command=lambda: edit_click(idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text ="View",command=lambda: edit_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
         self.f1.lbl_list_item = tk.Label(self.f1,text=item_text)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)

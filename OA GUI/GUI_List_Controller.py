@@ -50,7 +50,8 @@ class GUI_list_controller:
         global list_window
         global close_callback
 
-        close_callback()
+        if close_callback != None:
+            close_callback()
         list_window.destroy()
         list_form = None
 

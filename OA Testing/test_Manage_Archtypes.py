@@ -61,10 +61,10 @@ class test_Manage_Archtypes(unittest.TestCase):
         arch_manager.load_archtypes(app_config.test_file_path + app_config.test_archive_filename + '2')
 
         loaded = arch_manager.get_current_set().clone()
-        loaded.all_archtypes[0].name = 'updated name 1'
-        loaded.all_archtypes[1].name = 'updated name 2'
-        loaded.all_archtypes[2].name = 'updated name 3'
-        loaded.all_archtypes[3].name = 'updated name 4'
+        loaded.all_archtypes[0].short_description = 'updated name 1'
+        loaded.all_archtypes[1].short_description = 'updated name 2'
+        loaded.all_archtypes[2].short_description = 'updated name 3'
+        loaded.all_archtypes[3].short_description = 'updated name 4'
 
         arch_manager.save_archtype(loaded.all_archtypes[0])
         arch_manager.save_archtype(loaded.all_archtypes[1])
@@ -76,10 +76,10 @@ class test_Manage_Archtypes(unittest.TestCase):
         arch_manager.load_archtypes(app_config.test_file_path + app_config.test_archive_filename + '2')
         loaded2 = arch_manager.get_current_set()
 
-        self.assertEqual(loaded2.all_archtypes[0].name,'updated name 1')
-        self.assertEqual(loaded2.all_archtypes[1].name,'updated name 2')
-        self.assertEqual(loaded2.all_archtypes[2].name,'updated name 3')
-        self.assertEqual(loaded2.all_archtypes[3].name,'updated name 4')
+        self.assertEqual(loaded2.all_archtypes[0].short_description,'updated name 1')
+        self.assertEqual(loaded2.all_archtypes[1].short_description,'updated name 2')
+        self.assertEqual(loaded2.all_archtypes[2].short_description,'updated name 3')
+        self.assertEqual(loaded2.all_archtypes[3].short_description,'updated name 4')
 
     def test_archtype_remove(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()

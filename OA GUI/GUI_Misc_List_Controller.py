@@ -2,7 +2,7 @@ import sys, os.path
 datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/OA Data Files')
 
 import app_config
-
+import Misc_List
 import GUI_Misc_List_Form
 
 class GUI_misc_list_controller:
@@ -36,14 +36,18 @@ class GUI_misc_list_controller:
 
         misc_list_form.clear()
         index=0
-        for list_item in current_misc_list.all_items:
-            misc_list_form.add_item(index,list_item)
-            index += 1
 
-        misc_list_form.set_view()
+        if len(current_misc_list) > 0:
+            for list_item in current_misc_list.all_items:
+                misc_list_form.add_item(index,list_item)
+                index += 1
+    
+            misc_list_form.set_view()
+        else:
+            misc_list_form.set_edit(True)
 
     def new_click(self):
-        return False
+        misc_list_form.add_item(len(misc_list_form.f1.winfo_children()),'')
 
     def close_click(self):
         global current_misc_list
@@ -66,8 +70,21 @@ class GUI_misc_list_controller:
     def save_click(self):
         global save_callback
         global misc_list_form
+        global current_misc_list
+        global rollback_misc_list
+        new_misc_list = []
 
-        save_callback()
+        for item in misc_list_form.f1.winfo_children():
+            new_misc_list.append(item.get())
+
+        if len(current_misc_list.name) > 0:
+            list_name = current_misc_list.name
+        else:
+            list_name = misc_list_form.etitle.get()
+
+        current_misc_list = Misc_List.Misc_list(list_name,new_misc_list)
+        rollback_misc_list = current_misc_list.clone()
+        save_callback(current_misc_list)
         misc_list_form.set_view()
 
     def cancel_click(self):

@@ -34,9 +34,14 @@ class GUI_misc_list_form:
         self.right_button.config(command=edit_click)
         self.clear()
         
-    def set_edit(self):
+    def set_edit(self,for_new=False):
         global cancel_click
         global save_click
+
+        if for_new:
+            self.lbltitle.destroy()
+            self.etitle = tk.Entry(self.parent)
+            self.etitle.grid(sticky='w',row=0,column=1,padx=5,pady=5)
 
         self.left_button.config(text='Cancel')
         self.left_button.config(command=cancel_click)

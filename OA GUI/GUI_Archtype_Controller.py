@@ -63,6 +63,7 @@ class GUI_archtype_controller:
         global archtype_form
         global current_archtype
 
+        current_archtype.name = archtype_form.f1.ename.get()
         current_archtype.short_description = archtype_form.f1.eshortdescription.get()
         current_archtype.description = archtype_form.f1.txtdescription.get("1.0",'end-1c')
         current_archtype.proficiency = archtype_form.f1.eproficiency.get()

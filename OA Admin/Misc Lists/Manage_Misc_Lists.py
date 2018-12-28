@@ -22,21 +22,25 @@ class Manage_misc_lists:
     def save_misc_lists(self,filename=None,backup_filename=None):
         global current_set
 
-        data=ET.Element('misc_lists')
-        for item in current_set.all_lists:
-            r=ET.SubElement(data,'misc_list')
-            ET.SubElement(r,'name').text = item.name
+        if not current_set.equals(loaded_set):
+            data=ET.Element('misc_lists')
+            for mlist in current_set.all_lists:
+                l=ET.SubElement(data,'list')
+                ET.SubElement(l,'name').text = mlist.name
+                c=ET.SubElement(l,'items')
+                for item in mlist.all_items:
+                    ET.SubElement(c,'item').text = item
 
-        if filename == None:
-            filename = app_config.file_path + app_config.filename
+            if filename == None:
+                filename = app_config.file_path + app_config.misc_list_filename
 
-        if backup_filename == None:
-            backup_filename = app_config.backup_file_path + app_config.backup_filename
+            if backup_filename == None:
+                backup_filename = app_config.backup_file_path + app_config.backup_misc_list_filename
 
-        copy2(filename,backup_filename)
-        f = open(filename,'w')
-        f.write(ET.tostring(data, encoding="unicode"))
-        f.close()
+            copy2(filename,backup_filename)
+            f = open(filename,'w')
+            f.write(ET.tostring(data, encoding="unicode"))
+            f.close()
 
     def remove_misc_list(self,misc_list):
         global current_set
@@ -48,10 +52,15 @@ class Manage_misc_lists:
 
         misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()            
 
+        if len(name) > 0:
+            misc_list = current_set.get_misc_list(name)
+        else:
+            misc_list = Misc_List.Misc_list('',[])
+
         if supress_gui:
             return misc_list_controller
         else:
-            misc_list_controller.load_data(current_set.get_misc_list(name),self.save_misc_list)
+            misc_list_controller.load_data(misc_list,self.save_misc_list)
             self.launch_misc_list_list()
     
     def launch_misc_list_list(self,supress_gui=False):
@@ -64,7 +73,7 @@ class Manage_misc_lists:
         if supress_gui:
             return list_controller
         else:
-            list_controller.load_data('Misc Lists',current_set.list_of_lists,self.launch_edit_misc_list,self.remove_misc_list)
+            list_controller.load_data('Misc Lists',current_set.list_of_lists,self.launch_edit_misc_list,self.remove_misc_list,self.save_misc_lists)
 
     def load_misc_lists(self,filename=None):
         global current_set

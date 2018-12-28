@@ -16,8 +16,8 @@ sys.path.append(admin_misc_list_path)
 
 file_path = data_path
 backup_file_path = data_path
-archive_filename = "/Archtypes.dat"
-backup_archive_filename = "/ArchtypesBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
+archtype_filename = "/Archtypes.dat"
+backup_archtype_filename = "/ArchtypesBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
 race_filename = "/Races.dat"
 backup_race_filename = "/RacesBackup_" + strftime("%Y%m%d%H%M%S", gmtime()) + ".dat"
 misc_list_filename = "/MiscLists.dat"
