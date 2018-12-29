@@ -10,6 +10,7 @@ import app_config
 import GUI_List_Controller
 import GUI_Misc_List_Controller
 import Misc_List
+import List_Object
 
 class Manage_misc_lists:
     def save_misc_list(self,misc_list,fullsave=False):
@@ -26,10 +27,12 @@ class Manage_misc_lists:
             data=ET.Element('misc_lists')
             for mlist in current_set.all_lists:
                 l=ET.SubElement(data,'list')
-                ET.SubElement(l,'name').text = mlist.name
+                ET.SubElement(l,'listname').text = mlist.name
                 c=ET.SubElement(l,'items')
                 for item in mlist.all_items:
-                    ET.SubElement(c,'item').text = item
+                    i=ET.SubElement(c,'item')
+                    ET.SubElement(i,'name').text = item.name
+                    ET.SubElement(i,'description').text = item.short_description
 
             if filename == None:
                 filename = app_config.file_path + app_config.misc_list_filename
@@ -94,12 +97,14 @@ class Manage_misc_lists:
         data_root = tree.getroot()
 
         for misc_list in data_root:
-            new_list_name = misc_list.find('name').text
+            new_list_name = misc_list.find('listname').text
 
             new_list_items = []
 
             for misc_list_item in misc_list.findall('items/item'):
-                new_list_items.append(misc_list_item.text)
+                item_name = misc_list_item.find('name').text
+                item_short_desc = misc_list_item.find('description').text
+                new_list_items.append(List_Object.List_object(item_name,item_short_desc))
 
             new_list = Misc_List.Misc_list(new_list_name,new_list_items)
             current_set.add_new(new_list)

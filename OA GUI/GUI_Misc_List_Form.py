@@ -77,10 +77,14 @@ class GUI_misc_list_form:
         for item in self.f1.winfo_children():
             item.config(state='disabled')
 
-    def add_item(self,idx,item_text):
+    def add_item(self,idx,item):
         self.f1.elist_item = tk.Entry(self.f1)
         self.f1.elist_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
-        self.f1.elist_item.insert(0,item_text)
+        self.f1.elist_item.insert(0,item.name)
+        self.f1.txtdescription = tk.Text(self.f1,height=5,width=20)
+        self.f1.txtdescription.grid(sticky='w',row=idx+2,column=2,padx=5,pady=5)
+        self.f1.txtdescription.configure(wrap='word')
+        self.f1.txtdescription.insert('end',item.short_description)
 
     def __init__(self,parent):
         self.parent = parent

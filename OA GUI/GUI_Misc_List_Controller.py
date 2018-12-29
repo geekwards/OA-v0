@@ -4,6 +4,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/O
 import app_config
 import Misc_List
 import GUI_Misc_List_Form
+import List_Object
 
 class GUI_misc_list_controller:
     def create_form(self,parent=None):
@@ -49,7 +50,7 @@ class GUI_misc_list_controller:
             misc_list_form.set_edit(True)
 
     def new_click(self):
-        misc_list_form.add_item(len(misc_list_form.f1.winfo_children()),'')
+        misc_list_form.add_item(len(misc_list_form.f1.winfo_children()),List_Object.List_object('',''))
 
     def close_click(self):
         global current_misc_list
@@ -78,8 +79,16 @@ class GUI_misc_list_controller:
         global rollback_misc_list
         new_misc_list = []
 
+        index = 0
+
         for item in misc_list_form.f1.winfo_children():
-            new_misc_list.append(item.get())
+            if index%2 == 0:
+                item_name = item.get()
+            else:
+                item_desc = item.get("1.0",'end-1c')
+                new_misc_list.append(List_Object.List_object(item_name,item_desc))
+
+            index += 1
 
         if len(current_misc_list.name) > 0:
             list_name = current_misc_list.name
@@ -96,7 +105,7 @@ class GUI_misc_list_controller:
         global rollback_misc_list
         global misc_list_form
 
-        if rollback_misc_list.equals(current_misc_list):
+        if not rollback_misc_list.equals(current_misc_list):
             #confirm rollback
             current_misc_list = rollback_misc_list
             self.refresh_data()

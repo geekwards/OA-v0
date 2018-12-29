@@ -7,6 +7,7 @@ sys.path.append(datapath)
 import app_config
 import GUI_Misc_List_Form
 import Misc_List
+import List_Object
 
 listsaved = False
 listremoved = False
@@ -15,7 +16,6 @@ listnew = False
 listclose = False
 listcancel = False
 index = 0
-test_misc_list = Misc_List.Misc_list('Test1',['Testlist 1.1','Testlist 1.2','Testlist 1.3'])
 
 def save_misc_list(idx,misc_list):
     global listsaved
@@ -81,16 +81,16 @@ class test_GUI_Misc_List_Form(unittest.TestCase):
     def test_misc_form_add_item(self):
         misc_form,misc_window = GUI_Misc_List_Form.create_misc_list_form(None)
         misc_form.setup('list_title',new_misc_list,close_misc_list,edit_misc_list,save_misc_list,cancel_misc_list)
-        misc_form.add_item(0,'item1')
-        misc_form.add_item(0,'item2')
-        self.assertEqual(len(misc_form.f1.winfo_children()),2)
+        misc_form.add_item(0,List_Object.List_object('item1','short desc 1'))
+        misc_form.add_item(0,List_Object.List_object('item2','short desc 2'))
+        self.assertEqual(len(misc_form.f1.winfo_children()),4)
 
     def test_misc_form_clear(self):
         misc_form,misc_window = GUI_Misc_List_Form.create_misc_list_form(None)
         misc_form.setup('list_title',new_misc_list,close_misc_list,edit_misc_list,save_misc_list,cancel_misc_list)
-        misc_form.add_item(0,'item1')
-        misc_form.add_item(0,'item2')
-        self.assertEqual(len(misc_form.f1.winfo_children()),2)
+        misc_form.add_item(0,List_Object.List_object('item1','short desc 1'))
+        misc_form.add_item(0,List_Object.List_object('item2','short desc 2'))
+        self.assertEqual(len(misc_form.f1.winfo_children()),4)
 
         misc_form.clear()
         self.assertEqual(len(misc_form.f1.winfo_children()),0)
@@ -98,9 +98,9 @@ class test_GUI_Misc_List_Form(unittest.TestCase):
     def test_misc_form_enable(self):
         misc_form,misc_window = GUI_Misc_List_Form.create_misc_list_form(None)
         misc_form.setup('list_title',new_misc_list,close_misc_list,edit_misc_list,save_misc_list,cancel_misc_list)
-        misc_form.add_item(0,'item1')
-        misc_form.add_item(0,'item2')
-        self.assertEqual(len(misc_form.f1.winfo_children()),2)
+        misc_form.add_item(0,List_Object.List_object('item1','short desc 1'))
+        misc_form.add_item(0,List_Object.List_object('item2','short desc 2'))
+        self.assertEqual(len(misc_form.f1.winfo_children()),4)
 
         misc_form.enable_form()
         for item in misc_form.f1.winfo_children():
@@ -109,9 +109,9 @@ class test_GUI_Misc_List_Form(unittest.TestCase):
     def test_misc_form_disable(self):
         misc_form,misc_window = GUI_Misc_List_Form.create_misc_list_form(None)
         misc_form.setup('list_title',new_misc_list,close_misc_list,edit_misc_list,save_misc_list,cancel_misc_list)
-        misc_form.add_item(0,'item1')
-        misc_form.add_item(0,'item2')
-        self.assertEqual(len(misc_form.f1.winfo_children()),2)
+        misc_form.add_item(0,List_Object.List_object('item1','short desc 1'))
+        misc_form.add_item(0,List_Object.List_object('item2','short desc 2'))
+        self.assertEqual(len(misc_form.f1.winfo_children()),4)
 
         misc_form.disable_form()
         for item in misc_form.f1.winfo_children():

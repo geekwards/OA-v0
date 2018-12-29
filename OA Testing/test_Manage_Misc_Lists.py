@@ -7,6 +7,7 @@ sys.path.append(datapath)
 
 import app_config
 import Manage_Misc_Lists
+import List_Object
 
 class test_Manage_Misc_Lists(unittest.TestCase):
 
@@ -25,14 +26,14 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         loaded = misc_manager.get_current_set()
         num_list = len(loaded)
 
-        self.assertEqual(loaded.all_lists[1].all_items[0],'Item2-1')
+        self.assertEqual(loaded.all_lists[1].all_items[0].name,'Item2-1')
         clone = loaded.all_lists[1].clone()
 
-        clone.all_items[0] = 'MODIFIED TEST'
+        clone.all_items[0] = List_Object.List_object('MODIFIED TEST','')
         misc_manager.save_misc_list(clone)
         loaded2 = misc_manager.get_current_set()
 
-        self.assertEqual(loaded2.all_lists[1].all_items[0],'MODIFIED TEST')
+        self.assertEqual(loaded2.all_lists[1].all_items[0].name,'MODIFIED TEST')
         self.assertEqual(len(loaded),num_list)
 
     def test_misc_list_save_new(self):
@@ -49,7 +50,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         misc_manager.save_misc_list(clone)
         loaded2 = misc_manager.get_current_set()
 
-        self.assertEqual(loaded2.all_lists[4].name,'MODIFIED TEST')
+        self.assertEqual(loaded2.all_lists[5].name,'MODIFIED TEST')
         self.assertEqual(len(loaded),num_list + 1)
 
     def test_misc_lists_save(self):
