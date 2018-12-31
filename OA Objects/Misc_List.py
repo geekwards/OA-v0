@@ -55,17 +55,20 @@ class Misc_lists:
 class Misc_list:
     name = ''
     all_items = []
+    item_names = []
 
     def add_new(self,list_item):
         self.all_items.append(list_item)
+        self.item_names.append(list_item.name)
 
     def remove(self,list_item):
         self.all_items.remove(list_item)
 
     def equals(self,tocompare):
-        same = (self.name == tocompare.name)
-        for idx,item in enumerate(self.all_items):
-            same = same and (item == tocompare.all_items[idx])
+        same = (self.name == tocompare.name) and (len(self) == len(tocompare))
+        if same:
+            for idx,item in enumerate(self.all_items):
+                same = same and (item == tocompare.all_items[idx])
 
         return same
 
@@ -75,6 +78,10 @@ class Misc_list:
     def __len__(self):
         return len(self.all_items)
 
-    def __init__(self,name,misc_list):
+    def __init__(self,name,misc_list=[]):
         self.name = name
-        self.all_items = misc_list
+        self.all_items = []
+        self.item_names = []
+
+        for item in misc_list:
+            self.add_new(item)

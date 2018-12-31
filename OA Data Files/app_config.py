@@ -27,8 +27,8 @@ test_file_path = data_path + '/test_data'
 test_backup_file_path = data_path + '/test_data'
 test_archive_filename = "/Archtypes_test.dat"
 test_backup_archive_filename = "/ArchtypesBackup_test.dat"
-test_race_filename = "/Archtypes_test.dat"
-test_backup_race_filename = "/ArchtypesBackup_test.dat"
+test_race_filename = "/Races_test.dat"
+test_backup_race_filename = "/RacesBackup_test.dat"
 test_misc_list_filename = "/MiscLists_test.dat"
 test_backup_misc_list_filename = "/MiscListsBackup_test.dat"
 

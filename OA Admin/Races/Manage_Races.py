@@ -7,132 +7,161 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List
-import GUI_Race
+import GUI_List_Controller
+import GUI_Race_Controller
+import Manage_Misc_Lists
 import Race
+import List_Object
 
-list_window = None
+class Manage_races:
+    def save_race(self,race,fullsave=False):
+        global current_set
 
-def save_race(idx,race):
-    global current_set
-    global list_window
+        current_set.update(race)
+        if fullsave:
+            self.save_races()
 
-    current_set.update(idx,race)
+    def save_races(self,filename=None,backup_filename=None):
+        global current_set
+        global loaded_set
 
-    if list_window != None:
-        GUI_List.build_list("Races",current_set.get_list(),launch_edit_race, remove_race)
+        if not(loaded_set.equals(current_set)):
+            data=ET.Element('races')
+            for item in current_set.all_races:
+                r=ET.SubElement(data,'race')
+                ET.SubElement(r,'name').text = item.name
+                ET.SubElement(r,'shortDescription').text = item.short_description
+                ET.SubElement(r,'description').text = item.description
+                ET.SubElement(r,'size').text = item.size
+                ET.SubElement(r,'body').text = item.body
+                ET.SubElement(r,'foci').text = item.foci
+                ET.SubElement(r,'feats').text = item.feats
+                ET.SubElement(r,'strBonus').text = item.str_bonus
+                ET.SubElement(r,'perBonus').text = item.per_bonus
+                ET.SubElement(r,'intBonus').text = item.int_bonus
+                ET.SubElement(r,'dexBonus').text = item.dex_bonus
+                ET.SubElement(r,'chaBonus').text = item.cha_bonus
+                ET.SubElement(r,'vitBonus').text = item.vit_bonus
+                ET.SubElement(r,'magBonus').text = item.mag_bonus
+                ET.SubElement(r,'willBonus').text = item.will_bonus
+                ET.SubElement(r,'fortitudeBonus').text = item.fortitude_bonus
+                ET.SubElement(r,'reflexBonus').text = item.reflex_bonus
+                l=ET.SubElement(r,'languages')
+                for lang in item.languages_bonus:
+                    ET.SubElement(l,'language',name=item.name).text = item.short_description
 
-def save_races(filename=None,backup_filename=None):
-    global current_set
+            if filename == None:
+                filename = app_config.file_path + app_config.race_filename
 
-    data=ET.Element('races')
-    for item in current_set:
-        r=ET.SubElement(data,'race')
-        ET.SubElement(r,'name').text = item.name
-        ET.SubElement(r,'description').text = item.description
-        ET.SubElement(r,'proficiency').text = item.proficiency
-        ET.SubElement(r,'strBonus').text = item.str_bonus
-        ET.SubElement(r,'perBonus').text = item.per_bonus
-        ET.SubElement(r,'intBonus').text = item.int_bonus
-        ET.SubElement(r,'dexBonus').text = item.dex_bonus
-        ET.SubElement(r,'chaBonus').text = item.cha_bonus
-        ET.SubElement(r,'vitBonus').text = item.vit_bonus
-        ET.SubElement(r,'magBonus').text = item.mag_bonus
-        ET.SubElement(r,'staminaBonus').text = item.stamina_bonus
-        ET.SubElement(r,'attackBonus').text = item.attack_bonus
-        ET.SubElement(r,'reflexBonus').text = item.reflex_bonus
-        ET.SubElement(r,'feats').text = item.feats
-        ET.SubElement(r,'movement').text = item.movement
-        ET.SubElement(r,'skillPoints').text = item.skill_points
-        ET.SubElement(r,'levelHealth').text = item.level_health
+            if backup_filename == None:
+                backup_filename = app_config.backup_file_path + app_config.backup_race_filename
 
-    if filename == None:
-        filename = app_config.file_path + app_config.filename
+            copy2(filename,backup_filename)
+            f = open(filename,'w')
+            f.write(ET.tostring(data, encoding="unicode"))
+            f.close()
 
-    if backup_filename == None:
-        backup_filename = app_config.backup_file_path + app_config.backup_filename
+    def remove_race(self,race):
+        global current_set
 
-    copy2(filename,backup_filename)
-    f = open(filename,'w')
-    f.write(ET.tostring(data, encoding="unicode"))
-    f.close()
+        current_set.remove(race)
 
-def remove_race(idx):
-    global current_set
+    def close_edit_race(self):
+        global sup_gui
 
-    current_set.remove(current_set[idx])
+        self.launch_race_list(sup_gui)
 
-def launch_edit_race(parent,idx,supress_gui=False):
-    global current_set
-    global race_window
+    def launch_edit_race(self,parent,name,supress_gui=False):
+        global current_set
+        global sup_gui
+        global sizes
+        global bodies
 
-    race_window = None
+        sup_gui = supress_gui
+        race_controller = GUI_Race_Controller.GUI_race_controller()
 
-    if race_window == None or not Toplevel.winfo_exists(race_window):
-        race_window,race_form = GUI_Race.create_race_form(parent)
+        if supress_gui:
+            return race_controller
+        else:
+            race_controller.load_lookups(sizes,bodies)
+            race_controller.load_data(current_set.get_race(name),self.save_race,self.close_edit_race)
 
-    if supress_gui:
-        return race_window
-    else:
-        GUI_Race.load_data(current_set[idx],save_race, idx)
-        race_window.mainloop()
+    def launch_race_list(self,supress_gui=False):
+        global current_set
+        global list_controller  
 
-def launch_race_list(supress_gui=False):
-    global current_set
-    global loaded_set
-    global list_window
+        if list_controller == None:
+            list_controller = GUI_List_Controller.GUI_list_controller()
 
-    if list_window == None or not Toplevel.winfo_exists(list_window):
-        list_window,list_form = GUI_List.create_list_form(None)
+        if supress_gui:
+            return list_controller
+        else:
+            list_controller.load_data('Races',current_set.list_of_races,self.launch_edit_race,self.remove_race,self.save_races)
 
-    if supress_gui:
-        return list_window
-    else:
-        GUI_List.build_list("Races",current_set.get_list(),launch_edit_race,remove_race)
-        list_window.mainloop()
-        if not current_set.equals(loaded_set):
-            save_race()
+    def load_races(self,filename=None):
+        global current_set
+        global loaded_set
 
-def load_race(filename=None):
-    global current_set
-    global loaded_set
+        current_set = Race.Races()
 
-    current_set = Race.Races()
+        if filename == None:
+            filename = app_config.file_path + app_config.race_filename
 
-    if filename == None:
-        filename = app_config.file_path + app_config.filename
+        tree = ET.parse(filename)
+        data_root = tree.getroot()
 
-    tree = ET.parse(filename)
-    data_root = tree.getroot()
+        for race in data_root:
+            name = race.find('name').text or 'UNKNOWN'
+            current_race = Race.Race(name)
+            current_race.short_description = race.find('shortDescription').text or ' '
+            current_race.description = race.find('description').text or ' ' 
+            current_race.size = race.find('size').text or ' '
+            current_race.body = race.find('body').text or ' '
+            current_race.foci = race.find('foci').text or ' '
+            current_race.feats = race.find('feats').text or ' '
+            current_race.str_bonus = race.find('strBonus').text or 0
+            current_race.per_bonus = race.find('perBonus').text or 0
+            current_race.int_bonus = race.find('intBonus').text or 0
+            current_race.dex_bonus = race.find('dexBonus').text or 0
+            current_race.cha_bonus = race.find('chaBonus').text or 0
+            current_race.vit_bonus = race.find('vitBonus').text or 0
+            current_race.mag_bonus = race.find('magBonus').text or 0
+            current_race.will_bonus = race.find('willBonus').text or 0
+            current_race.fortitude_bonus = race.find('fortitudeBonus').text or 0
+            current_race.reflex_bonus = race.find('reflexBonus').text or 0
+            for language in race.findall('languagesBonus/language'):
+                lang = List_Object.List_object(language.attrib.get('name'),language.text)
+                current_race.languages_bonus.append(lang)
+            current_set.add_new(current_race)
 
-    for race in data_root:
-        current_race = Race.Race(race.find('name').text)
-        current_race.description = race.find('description').text
-        current_race.proficiency = race.find('proficiency').text
-        current_race.str_bonus = race.find('strBonus').text
-        current_race.per_bonus = race.find('perBonus').text
-        current_race.int_bonus = race.find('intBonus').text
-        current_race.dex_bonus = race.find('dexBonus').text
-        current_race.cha_bonus = race.find('chaBonus').text
-        current_race.vit_bonus = race.find('vitBonus').text
-        current_race.mag_bonus = race.find('magBonus').text
-        current_race.stamina_bonus = race.find('staminaBonus').text
-        current_race.attack_bonus = race.find('attackBonus').text
-        current_race.reflex_bonus = race.find('reflexBonus').text
-        current_race.feats = race.find('feats').text
-        current_race.movement = race.find('movement').text
-        current_race.skill_points = race.find('skillPoints').text
-        current_race.level_health = race.find('levelHealth').text
-        current_set.add_new(current_race)
+        loaded_set = current_set.clone()
 
-    loaded_set = current_set.clone()
+    def load_combo_data(self):
+        global sizes
+        global bodies
+        global languages
 
-def get_loaded_set():
-    global loaded_set
+        misc_lists = Manage_Misc_Lists.Manage_misc_lists()
+        misc_lists.load_misc_lists()
+        sizes = misc_lists.get_current_set().get_misc_list('Creature Sizes').item_names
+        bodies = misc_lists.get_current_set().get_misc_list('Creature Body Types').item_names
+        languages = misc_lists.get_current_set().get_misc_list('Languages').item_names
 
-    return loaded_set
+    def get_current_set(self):
+        global current_set
+
+        return current_set
+
+    def __init__(self):
+        global current_set 
+        global list_controller
+
+        list_controller = None        
+        current_set = None
+        self.load_combo_data()
 
 if __name__ == '__main__':
+    manager = Manage_races()
 
-    load_races()
-    launch_race_list()
+    manager.load_races()
+    manager.launch_race_list()

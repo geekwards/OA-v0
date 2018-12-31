@@ -8,7 +8,7 @@ class List_object:
     def equals(self,tocompare):
         return ((self.name == tocompare.name) and (self.short_description == tocompare.short_description))
 
-    def __init__(self,name,short_description):
+    def __init__(self,name,short_description=''):
         self.name = name
         self.short_description = short_description
         if len(short_description) > 0:

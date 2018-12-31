@@ -78,7 +78,6 @@ class Manage_archtypes:
             return archtype_controller
         else:
             archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype,self.close_edit_archtype)
-            self.launch_archtype_list()
 
     def launch_archtype_list(self,supress_gui=False):
         global current_set
@@ -105,23 +104,25 @@ class Manage_archtypes:
         data_root = tree.getroot()
 
         for archtype in data_root:
-            current_archtype = Archtype.Archtype(archtype.find('name').text,archtype.find('shortDescription').text)
-            current_archtype.description = archtype.find('description').text
-            current_archtype.proficiency = archtype.find('proficiency').text
-            current_archtype.str_bonus = archtype.find('strBonus').text
-            current_archtype.per_bonus = archtype.find('perBonus').text
-            current_archtype.int_bonus = archtype.find('intBonus').text
-            current_archtype.dex_bonus = archtype.find('dexBonus').text
-            current_archtype.cha_bonus = archtype.find('chaBonus').text
-            current_archtype.vit_bonus = archtype.find('vitBonus').text
-            current_archtype.mag_bonus = archtype.find('magBonus').text
-            current_archtype.stamina_bonus = archtype.find('staminaBonus').text
-            current_archtype.attack_bonus = archtype.find('attackBonus').text
-            current_archtype.reflex_bonus = archtype.find('reflexBonus').text
-            current_archtype.feats = archtype.find('feats').text
-            current_archtype.movement = archtype.find('movement').text
-            current_archtype.skill_points = archtype.find('skillPoints').text
-            current_archtype.level_health = archtype.find('levelHealth').text
+            name = archtype.find('name').text or 'UNKNOWN'
+            short_descrp = archtype.find('shortDescription').text or ' '
+            current_archtype = Archtype.Archtype(name,short_descrp)
+            current_archtype.description = archtype.find('description').text or ' '
+            current_archtype.proficiency = archtype.find('proficiency').text or ' '
+            current_archtype.str_bonus = archtype.find('strBonus').text or 0
+            current_archtype.per_bonus = archtype.find('perBonus').text or 0
+            current_archtype.int_bonus = archtype.find('intBonus').text or 0
+            current_archtype.dex_bonus = archtype.find('dexBonus').text or 0
+            current_archtype.cha_bonus = archtype.find('chaBonus').text or 0
+            current_archtype.vit_bonus = archtype.find('vitBonus').text or 0
+            current_archtype.mag_bonus = archtype.find('magBonus').text or 0
+            current_archtype.stamina_bonus = archtype.find('staminaBonus').text or 0
+            current_archtype.attack_bonus = archtype.find('attackBonus').text or 0
+            current_archtype.reflex_bonus = archtype.find('reflexBonus').text or 0
+            current_archtype.feats = archtype.find('feats').text or 0
+            current_archtype.movement = archtype.find('movement').text or 0
+            current_archtype.skill_points = archtype.find('skillPoints').text or 0
+            current_archtype.level_health = archtype.find('levelHealth').text or ' '
             current_set.add_new(current_archtype)
 
         loaded_set = current_set.clone()

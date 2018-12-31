@@ -97,13 +97,13 @@ class Manage_misc_lists:
         data_root = tree.getroot()
 
         for misc_list in data_root:
-            new_list_name = misc_list.find('listname').text
+            new_list_name = misc_list.find('listname').text or 'UNKNOWN'
 
             new_list_items = []
 
             for misc_list_item in misc_list.findall('items/item'):
-                item_name = misc_list_item.find('name').text
-                item_short_desc = misc_list_item.find('description').text
+                item_name = misc_list_item.find('name').text or ' ' 
+                item_short_desc = misc_list_item.find('description').text or ' '
                 new_list_items.append(List_Object.List_object(item_name,item_short_desc))
 
             new_list = Misc_List.Misc_list(new_list_name,new_list_items)

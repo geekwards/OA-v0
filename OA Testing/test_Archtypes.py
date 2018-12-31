@@ -6,6 +6,7 @@ sys.path.append(datapath)
 
 import app_config
 import Archtype
+import test__data
 
 class test_Archtypes(unittest.TestCase):
 
@@ -15,120 +16,53 @@ class test_Archtypes(unittest.TestCase):
         self.assertTrue(test_archtypes.isempty())
 
     def test_archtypes_add_and_get_and_len(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-
-        self.assertEqual(len(test_archtypes),2)
-        self.assertEqual(test_archtypes.get_archtype('Test1').short_description,'TestDesc1')
-        self.assertEqual(test_archtypes.get_archtype('Test2').short_description,'TestDesc2')
+        self.assertEqual(len(test__data.test_archtypes),4)
+        self.assertEqual(test__data.test_archtypes.get_archtype('test').short_description,'testdesc')
+        self.assertEqual(test__data.test_archtypes.get_archtype('Test2').short_description,'TestDesc2b')
 
     def test_archtypes_get_list(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-
-        self.assertEqual(len(test_archtypes),2)
-        self.assertEqual(test_archtypes.list_of_archtypes[0].name,'Test1')
-        self.assertEqual(test_archtypes.list_of_archtypes[1].name,'Test2')
+        self.assertEqual(len(test__data.test_archtypes),4)
+        self.assertEqual(test__data.test_archtypes.list_of_archtypes[0].name,'test')
+        self.assertEqual(test__data.test_archtypes.list_of_archtypes[1].name,'test')
 
     def test_archtypes_update(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-        test_archtype3 = Archtype.Archtype('Test2','TestDesc3')
+        self.assertEqual(len(test__data.test_archtypes),3)
+        self.assertEqual(test__data.test_archtypes.all_archtypes[0].name,'test')
+        self.assertEqual(test__data.test_archtypes.all_archtypes[1].name,'Test2')
 
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-        self.assertEqual(len(test_archtypes),2)
-        self.assertEqual(test_archtypes.all_archtypes[0].name,'Test1')
-        self.assertEqual(test_archtypes.all_archtypes[1].name,'Test2')
-
-        test_archtypes.update(test_archtype3)
-        self.assertEqual(test_archtypes.list_of_archtypes[1].short_description,'TestDesc3')
-        self.assertEqual(test_archtypes.all_archtypes[1].short_description,'TestDesc3')
+        test__data.test_archtypes.update(test__data.test_archtype3)
+        self.assertEqual(test__data.test_archtypes.list_of_archtypes[1].short_description,'TestDesc2b')
+        self.assertEqual(test__data.test_archtypes.all_archtypes[1].short_description,'TestDesc2b')
 
     def test_archtypes_update_new(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-        test_archtype3 = Archtype.Archtype('Test3','TestDesc3')
+        self.assertEqual(len(test__data.test_archtypes),3)
+        self.assertEqual(test__data.test_archtypes.all_archtypes[0].name,'test')
+        self.assertEqual(test__data.test_archtypes.all_archtypes[1].name,'Test2')
 
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-        self.assertEqual(len(test_archtypes),2)
-        self.assertEqual(test_archtypes.all_archtypes[0].name,'Test1')
-        self.assertEqual(test_archtypes.all_archtypes[1].name,'Test2')
-
-        test_archtypes.update(test_archtype3)
-        self.assertEqual(test_archtypes.list_of_archtypes[1].name,'Test2')
-        self.assertEqual(test_archtypes.all_archtypes[1].name,'Test2')
-        self.assertEqual(test_archtypes.list_of_archtypes[2].name,'Test3')
-        self.assertEqual(test_archtypes.all_archtypes[2].name,'Test3')
+        test__data.test_archtypes.update(test__data.test_archtype3)
+        self.assertEqual(test__data.test_archtypes.list_of_archtypes[1].name,'Test2')
+        self.assertEqual(test__data.test_archtypes.all_archtypes[1].name,'Test2')
+        self.assertEqual(test__data.test_archtypes.list_of_archtypes[2].name,'Test3')
+        self.assertEqual(test__data.test_archtypes.all_archtypes[2].name,'Test3')
 
     def test_archtypes_remove(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-        test_archtype3 = Archtype.Archtype('Test3','TestDesc3')
-
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-        test_archtypes.add_new(test_archtype3)
-
-        self.assertEqual(len(test_archtypes),3)
-        test_archtypes.remove(test_archtype2)
-        self.assertEqual(len(test_archtypes),2)
-        self.assertEqual(test_archtypes.all_archtypes[1].name,'Test3')
+        self.assertEqual(len(test__data.test_archtypes),4)
+        test__data.test_archtypes.remove(test__data.test_archtype2)
+        self.assertEqual(len(test__data.test_archtypes),3)
+        self.assertEqual(test__data.test_archtypes.all_archtypes[1].name,'Test2')
 
     def test_archtypes_equals(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-        test_archtypes2 = Archtype.Archtypes()
-
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-        test_archtypes2.add_new(test_archtype1)
-        test_archtypes2.add_new(test_archtype2)
-
-        self.assertTrue(test_archtypes.equals(test_archtypes2))
+        self.assertTrue(test__data.test_archtypes.equals(test__data.test_archtypes2))
 
     def test_archtypes_notequals(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
-        test_archtypes2 = Archtype.Archtypes()
-        test_archtype3 = Archtype.Archtype('Test3','TestDesc3')
-
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-        test_archtypes2.add_new(test_archtype1)
-        test_archtypes2.add_new(test_archtype2)
-        test_archtypes2.add_new(test_archtype3)
-
-        self.assertFalse(test_archtypes.equals(test_archtypes2))
+        self.assertFalse(test__data.test_archtypes.equals(test__data.test_archtypes3))
 
     def test_archtypes_clone(self):
-        test_archtypes = Archtype.Archtypes()
-        test_archtype1 = Archtype.Archtype('Test1','TestDesc1')
-        test_archtype2 = Archtype.Archtype('Test2','TestDesc2')
+        clone = test__data.test_archtypes.clone()
+        self.assertTrue(test__data.test_archtypes.equals(clone))
 
-        test_archtypes.add_new(test_archtype1)
-        test_archtypes.add_new(test_archtype2)
-        test_archtypes2 = test_archtypes.clone()
-        self.assertTrue(test_archtypes.equals(test_archtypes2))
-
-        test_archtypes2.get_archtype('Test2').short_description = 'modified short descr'
-        self.assertFalse(test_archtypes.equals(test_archtypes2))
-
-
+        clone.get_archtype('Test2').short_description = 'modified short descr'
+        self.assertFalse(test__data.test_archtypes.equals(clone))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
