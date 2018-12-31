@@ -46,9 +46,9 @@ class Manage_races:
                 ET.SubElement(r,'willBonus').text = item.will_bonus
                 ET.SubElement(r,'fortitudeBonus').text = item.fortitude_bonus
                 ET.SubElement(r,'reflexBonus').text = item.reflex_bonus
-                l=ET.SubElement(r,'languages')
+                l=ET.SubElement(r,'languagesBonus')
                 for lang in item.languages_bonus:
-                    ET.SubElement(l,'language',name=item.name).text = item.short_description
+                    ET.SubElement(l,'language',name=lang.name).text = lang.short_description
 
             if filename == None:
                 filename = app_config.file_path + app_config.race_filename

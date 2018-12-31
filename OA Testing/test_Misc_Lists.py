@@ -21,7 +21,7 @@ class test_Misc_Lists(unittest.TestCase):
         self.assertEqual(test__data.test_misc_lists1.all_lists[1].name,'Test2')
         self.assertEqual(test__data.test_misc_lists1.get_misc_list('Test1').name,'Test1')
         self.assertEqual(test__data.test_misc_lists1.get_misc_list('Test2').name,'Test2')
-        self.assertEqual(test__data.test_misc_lists1.get_misc_list('Test1').all_items[0],'Testlist 1.1')
+        self.assertEqual(test__data.test_misc_lists1.get_misc_list('Test1').all_items[0].name,'Testlist 1.1')
 
     def test_misc_list_update(self):
         self.assertEqual(len(test__data.test_misc_lists1),3)
@@ -29,8 +29,8 @@ class test_Misc_Lists(unittest.TestCase):
         self.assertEqual(test__data.test_misc_lists1.all_lists[1].name,'Test2')
 
         test__data.test_misc_lists1.update(test__data.test_misc_list3)
-        self.assertEqual(test__data.test_misc_lists1.all_lists[1].all_items[0],'Testlist 3.1')
-        self.assertEqual(test__data.test_misc_lists1.all_lists[1].all_items[2],'Testlist 3.3')
+        self.assertEqual(test__data.test_misc_lists1.all_lists[1].all_items[0].name,'Testlist 3.1')
+        self.assertEqual(test__data.test_misc_lists1.all_lists[1].all_items[2].name,'Testlist 3.3')
 
     def test_misc_list_get_list_item_fail(self):
         self.assertEqual(len(test__data.test_misc_lists1),4)
@@ -60,7 +60,7 @@ class test_Misc_Lists(unittest.TestCase):
         clone = test__data.test_misc_lists1.clone()
         self.assertTrue(clone.equals(test__data.test_misc_lists1))
 
-        clone.all_lists[1].all_items[1] = 'modified'
+        clone.all_lists[1].all_items[1].name = 'modified'
         self.assertFalse(clone.equals(test__data.test_misc_lists1))
 
 if __name__ == '__main__':

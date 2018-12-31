@@ -7,6 +7,7 @@ sys.path.append(datapath)
 import app_config
 import Misc_List
 import test__data
+import List_Object
 
 
 class test_Misc_List(unittest.TestCase):
@@ -28,18 +29,18 @@ class test_Misc_List(unittest.TestCase):
         clone = test__data.test_misc_list1.clone()
         self.assertTrue(test__data.test_misc_list1.equals(clone))
 
-        clone.all_items[1] = 'MODIFIED'
+        clone.all_items[1].name = 'MODIFIED'
         self.assertFalse(test__data.test_misc_list1.equals(clone))
 
     def test_misc_list_add_new(self):
-        test__data.test_misc_list2.add_new('Testlist 2.4')
+        test__data.test_misc_list2.add_new(List_Object.List_object('Testlist 2.4',''))
         self.assertTrue(test__data.test_misc_list2.all_items[0],'Testlist 2.1')
         self.assertTrue(test__data.test_misc_list2.all_items[1],'Testlist 2.2')
         self.assertTrue(test__data.test_misc_list2.all_items[2],'Testlist 2.3')
         self.assertTrue(test__data.test_misc_list2.all_items[3],'Testlist 2.4')
 
     def test_misc_list_remove(self):
-        test__data.test_misc_list1.remove('Testlist 1.2')
+        test__data.test_misc_list1.remove(test__data.test_misc_list1.all_items[1])
         self.assertTrue(test__data.test_misc_list1.all_items[0],'Testlist 1.1')
         self.assertTrue(test__data.test_misc_list1.all_items[1],'Testlist 1.3')
 

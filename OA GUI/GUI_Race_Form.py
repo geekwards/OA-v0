@@ -56,8 +56,6 @@ class GUI_race_form:
         self.f1.flangs.destroy()
         self.f1.flangs = tk.Frame(self.f1)
         self.f1.flangs.grid(sticky='nsew',row=13,column=4,padx=5,pady=5)
-        self.f1.flangs.elanguages = tk.Entry(self.f1.flangs)
-        self.f1.flangs.elanguages.grid(sticky='w',row=1, column=1)
 
     def enable_form(self):
         for item in self.f1.winfo_children():
@@ -202,8 +200,6 @@ class GUI_race_form:
         self.f1.lbllanguages.grid(sticky='e',row=13,column=3,padx=5)
         self.f1.flangs = tk.Frame(self.f1)
         self.f1.flangs.grid(sticky='nsew',row=13,column=4,padx=5,pady=5)
-        self.f1.flangs.elanguages = tk.Entry(self.f1.flangs)
-        self.f1.flangs.elanguages.grid(sticky='w',row=1, column=1)
         self.f1.grid_columnconfigure(0,weight=1)
         self.f1.grid_columnconfigure(1,weight=3)
         self.f1.grid_columnconfigure(2,weight=3)

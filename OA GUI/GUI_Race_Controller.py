@@ -89,6 +89,7 @@ class GUI_race_controller:
         current_race.will_bonus = race_form.f1.ewill.get()
         current_race.fortitude_bonus = race_form.f1.efortitude.get()
         current_race.reflex_bonus = race_form.f1.ereflex.get()
+        current_race.languages_bonus = []
         index=0
         for lang in race_form.f1.flangs.winfo_children():
             if index%2 == 0:

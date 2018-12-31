@@ -72,14 +72,14 @@ test_object1 = List_Object.List_object('Testing','Test description')
 test_object2 = List_Object.List_object('Testing','Test description')
 
 #Misc_List
-test_misc_list1 = Misc_List.Misc_list('Test1',['Testlist 1.1','Testlist 1.2','Testlist 1.3'])
-test_misc_list1b = Misc_List.Misc_list('Test1',['Testlist 1.1','Testlist 1.2','Testlist 1.3'])
-test_misc_list2 = Misc_List.Misc_list('Test2',['Testlist 2.1','Testlist 2.2','Testlist 2.3'])
+test_misc_list1 = Misc_List.Misc_list('Test1',[List_Object.List_object('Testlist 1.1',''),List_Object.List_object('Testlist 1.2',''),List_Object.List_object('Testlist 1.3','')])
+test_misc_list1b = Misc_List.Misc_list('Test1',[List_Object.List_object('Testlist 1.1',''),List_Object.List_object('Testlist 1.2',''),List_Object.List_object('Testlist 1.3','')])
+test_misc_list2 = Misc_List.Misc_list('Test2',[List_Object.List_object('Testlist 2.1',''),List_Object.List_object('Testlist 2.2',''),List_Object.List_object('Testlist 2.3','')])
 
 #Misc_Lists
 test_misc_lists1 = Misc_List.Misc_lists()
-test_misc_list2b = Misc_List.Misc_list('Test2',['Testlist 3.1','Testlist 3.2','Testlist 3.3'])
-test_misc_list3 = Misc_List.Misc_list('Test3',['Testlist 3.1','Testlist 3.2','Testlist 3.3'])
+test_misc_list2b = Misc_List.Misc_list('Test2',[List_Object.List_object('Testlist 3.1',''),List_Object.List_object('Testlist 3.2',''),List_Object.List_object('Testlist 3.3','')])
+test_misc_list3 = Misc_List.Misc_list('Test3',[List_Object.List_object('Testlist 3.1',''),List_Object.List_object('Testlist 3.2',''),List_Object.List_object('Testlist 3.3','')])
 
 test_misc_lists1.add_new(test_misc_list1)
 test_misc_lists1.add_new(test_misc_list2)

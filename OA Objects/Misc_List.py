@@ -68,7 +68,7 @@ class Misc_list:
         same = (self.name == tocompare.name) and (len(self) == len(tocompare))
         if same:
             for idx,item in enumerate(self.all_items):
-                same = same and (item == tocompare.all_items[idx])
+                same = same and (tocompare.all_items[idx].equals(item))
 
         return same
 
