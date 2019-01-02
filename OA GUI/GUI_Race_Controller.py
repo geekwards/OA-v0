@@ -4,6 +4,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/O
 import app_config
 import GUI_Race_Form
 import List_Object
+import GUI_Select_Set_Controller
 
 class GUI_race_controller:
     def create_form(self,parent=None):
@@ -12,7 +13,14 @@ class GUI_race_controller:
 
         race_form,race_window = GUI_Race_Form.create_race_form(parent)
 
-    def load_lookups(self,sizes,bodies):
+    def load_lookups(self,sizes,bodies,langs,foc,fea):
+        global languages
+        global foci
+        global feats
+
+        foci = foc
+        feats = fea
+        languages = langs
         race_form.add_lists(sizes,bodies)
 
     def load_data(self,loaded_race,save_call,close_call,supress_gui=False):
@@ -40,7 +48,7 @@ class GUI_race_controller:
         global race_form
 
         race_form.clear()
-        race_form.add_item(current_race,self.close_click,self.cancel_click,self.edit_click,self.save_click)
+        race_form.add_item(current_race,self.close_click,self.cancel_click,self.edit_click,self.save_click,self.edit_list)
         if current_race.isempty():
             race_form.set_edit()
         else:
@@ -61,6 +69,36 @@ class GUI_race_controller:
         race_form = None
         close_callback()
 
+    def edit_list(self,type):
+        global feats
+        global foci
+        global languages
+
+        select_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
+        current_list = []
+
+        if type == 'Languages':
+            source = languages
+            for lang in current_race.languages_bonus:
+                current_list.append(lang.name)
+        elif type == 'Feats':
+            source = feats
+            for feat in current_race.feats:
+                current_list.append(feat)
+        elif type == 'Foci':
+            source = foci
+            for foc in current_race.foci:
+                current_list.append(foci)
+
+        select_controller.load_sets(type,source,current_list,self.save_list)
+
+    def save_list(self,type,list):
+        global race_form
+
+        for item in list:
+            if type=='Languages':
+                race_form.f1.lstlangs.insert(item)
+
     def edit_click(self):
         global race_form
 
@@ -77,8 +115,6 @@ class GUI_race_controller:
         current_race.description = race_form.f1.txtdescription.get("1.0",'end-1c')
         current_race.size = race_form.f1.cbosize.get()
         current_race.body = race_form.f1.cbobody.get()
-        current_race.foci = race_form.f1.efoci.get()
-        current_race.feats = race_form.f1.efeats.get()
         current_race.str_bonus = race_form.f1.estr.get()
         current_race.per_bonus = race_form.f1.eper.get()
         current_race.int_bonus = race_form.f1.eint.get()
@@ -90,14 +126,11 @@ class GUI_race_controller:
         current_race.fortitude_bonus = race_form.f1.efortitude.get()
         current_race.reflex_bonus = race_form.f1.ereflex.get()
         current_race.languages_bonus = []
-        index=0
-        for lang in race_form.f1.flangs.winfo_children():
-            if index%2 == 0:
-                lang_name = lang.get()
-            else:
-                lang_score = lang.get()
-                current_race.languages_bonus.append(List_Object.List_object(lang_name,lang_score))
-            index += 1
+        for lang in race_form.f1.lstlangs.get(0,'end'):
+            lang_name,lang_score = lang.split(":",1)
+            current_race.languages_bonus.append(List_Object.List_object(lang_name,lang_score))
+        current_race.foci = race_form.f1.lstfoci.get(0,'end')
+        current_race.feats = race_form.f1.lstfeats.get(0,'end')
 
         rollback_race = current_race.clone()
         save_callback(current_race)

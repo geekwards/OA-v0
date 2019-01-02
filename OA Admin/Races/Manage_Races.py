@@ -12,6 +12,7 @@ import GUI_Race_Controller
 import Manage_Misc_Lists
 import Race
 import List_Object
+import Misc_List
 
 class Manage_races:
     def save_race(self,race,fullsave=False):
@@ -34,8 +35,12 @@ class Manage_races:
                 ET.SubElement(r,'description').text = item.description
                 ET.SubElement(r,'size').text = item.size
                 ET.SubElement(r,'body').text = item.body
-                ET.SubElement(r,'foci').text = item.foci
-                ET.SubElement(r,'feats').text = item.feats
+                fo1=ET.SubElement(r,'foci')
+                for focus in item.foci:
+                    ET.SubElement(fo1,'focus').text = focus
+                fe1=ET.SubElement(r,'feats')
+                for feat in item.feats:
+                    ET.SubElement(fe1,'feat').text = feat
                 ET.SubElement(r,'strBonus').text = item.str_bonus
                 ET.SubElement(r,'perBonus').text = item.per_bonus
                 ET.SubElement(r,'intBonus').text = item.int_bonus
@@ -76,6 +81,9 @@ class Manage_races:
         global sup_gui
         global sizes
         global bodies
+        global languages
+        global foci
+        global feats
 
         sup_gui = supress_gui
         race_controller = GUI_Race_Controller.GUI_race_controller()
@@ -83,7 +91,7 @@ class Manage_races:
         if supress_gui:
             return race_controller
         else:
-            race_controller.load_lookups(sizes,bodies)
+            race_controller.load_lookups(sizes,bodies,languages,foci,feats)
             race_controller.load_data(current_set.get_race(name),self.save_race,self.close_edit_race)
 
     def launch_race_list(self,supress_gui=False):
@@ -117,8 +125,6 @@ class Manage_races:
             current_race.description = race.find('description').text or ' ' 
             current_race.size = race.find('size').text or ' '
             current_race.body = race.find('body').text or ' '
-            current_race.foci = race.find('foci').text or ' '
-            current_race.feats = race.find('feats').text or ' '
             current_race.str_bonus = race.find('strBonus').text or 0
             current_race.per_bonus = race.find('perBonus').text or 0
             current_race.int_bonus = race.find('intBonus').text or 0
@@ -132,6 +138,10 @@ class Manage_races:
             for language in race.findall('languagesBonus/language'):
                 lang = List_Object.List_object(language.attrib.get('name'),language.text)
                 current_race.languages_bonus.append(lang)
+            for feat in race.findall('feats/feat'):
+                current_race.feats.append(feat.text)
+            for focus in race.findall('foci/focus'):
+                current_race.foci.append(focus.text)
             current_set.add_new(current_race)
 
         loaded_set = current_set.clone()
@@ -140,12 +150,19 @@ class Manage_races:
         global sizes
         global bodies
         global languages
+        global foci
+        global feats
 
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
         misc_lists.load_misc_lists()
         sizes = misc_lists.get_current_set().get_misc_list('Creature Sizes').item_names
         bodies = misc_lists.get_current_set().get_misc_list('Creature Body Types').item_names
         languages = misc_lists.get_current_set().get_misc_list('Languages').item_names
+        foci = misc_lists.get_current_set().get_misc_list('Foci').item_names
+        feat_types = misc_lists.get_current_set().get_misc_list('Feat Types').item_names
+        feats = Misc_List.Misc_lists()
+        for feat_type in feat_types:
+            feats.add_new(misc_lists.get_current_set().get_misc_list(feat_type).clone())
 
     def get_current_set(self):
         global current_set

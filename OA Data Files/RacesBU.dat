@@ -5,8 +5,14 @@
         <description>very pointy ears</description>
         <size>Medium</size>
         <body>Slim</body>
-        <foci>Elf Focus</foci>
-        <feats>Elf Feats</feats>
+        <foci>
+            <focus>Focus 1</focus>
+            <focus>Focus 2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 1</feat>
+            <feat>Feat 2</feat>
+        </feats>
         <strBonus>0</strBonus>
         <perBonus>1</perBonus>
         <intBonus>2</intBonus>
@@ -28,8 +34,14 @@
         <description>More human than the human man</description>
         <size>Medium</size>
         <body>Average</body>
-        <foci>Human Focus</foci>
-        <feats>Human feats</feats>
+        <foci>
+            <focus>Focus 1</focus>
+            <focus>Focus 2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 1</feat>
+            <feat>Feat 2</feat>
+        </feats>
         <strBonus>9</strBonus>
         <perBonus>8</perBonus>
         <intBonus>7</intBonus>
