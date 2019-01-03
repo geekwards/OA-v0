@@ -4,6 +4,7 @@ except ImportError:
     import tkinter as tk
 
 import tkinter.ttk as ttk
+import easygui
 
 def create_select_set_form(parent):
     if parent == None:
@@ -17,23 +18,39 @@ def create_select_set_form(parent):
 class GUI_select_set_form:
     def move_rt(self):
         sel = self.f1.lstsource.curselection()
-        self.f1.lstselected.insert(0,self.f1.lstsource.get(sel[0]))
+        list_item = self.f1.lstsource.get(sel[0])
+    
+        if include_score:
+            score = easygui.enterbox('Enter a score for ' + list_item + '.')
+            list_item = list_item + ': ' + score
+
+        self.f1.lstselected.insert(0,list_item)
         self.f1.lstsource.delete(sel[0])
         return False
 
     def move_lt(self):
         sel = self.f1.lstselected.curselection()
-        self.f1.lstsource.insert(0,self.f1.lstselected.get(sel[0]))
+        
+        if include_score:
+            list_item,score = self.f1.lstselected.get(sel[0]).split(":",1)
+        else:   
+            list_item = self.f1.lstselected.get(sel[0])
+
+        self.f1.lstsource.insert(0,list_item.strip())
         self.f1.lstselected.delete(sel[0])
         return False
     
-    def add_lists(self,title,source_list,selected_list,cancel_call,save_call):
+    def add_lists(self,title,source_list,selected_list,cancel_call,save_call,score=False):
+        global include_score
+
+        include_score = score
+
         self.parent.title(title)
         self.lbltitle.config(text=title)
         self.left_button.config(command=cancel_call)
         self.right_button.config(command=save_call)
         for src in source_list:
-            self.f1.lstsource.insert(0,src)
+            self.f1.lstsource.insert(0,src.name)
         for sel in selected_list:
             self.f1.lstselected.insert(0,sel)
 

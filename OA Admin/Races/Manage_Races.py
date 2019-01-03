@@ -157,8 +157,10 @@ class Manage_races:
         misc_lists.load_misc_lists()
         sizes = misc_lists.get_current_set().get_misc_list('Creature Sizes').item_names
         bodies = misc_lists.get_current_set().get_misc_list('Creature Body Types').item_names
-        languages = misc_lists.get_current_set().get_misc_list('Languages').item_names
-        foci = misc_lists.get_current_set().get_misc_list('Foci').item_names
+        languages = Misc_List.Misc_lists()
+        languages.add_new(misc_lists.get_current_set().get_misc_list('Languages').clone())
+        foci = Misc_List.Misc_lists()
+        foci.add_new(misc_lists.get_current_set().get_misc_list('Foci').clone())
         feat_types = misc_lists.get_current_set().get_misc_list('Feat Types').item_names
         feats = Misc_List.Misc_lists()
         for feat_type in feat_types:

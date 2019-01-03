@@ -94,7 +94,7 @@ class GUI_race_form:
         for feat in race.feats:
             self.f1.lstfeats.insert(0,feat)
         for lang in race.languages_bonus:
-            self.f1.lstlangs.insert(0,lang.name + ': ' + lang.short_description)
+            self.f1.lstlangs.insert(0,lang.name.strip() + ': ' + lang.short_description.strip())
         self.f1.btneditfeats.config(command=lambda: list_call('Feats'))
         self.f1.btneditfoci.config(command=lambda: list_call('Foci'))
         self.f1.btneditlang.config(command=lambda: list_call('Languages'))

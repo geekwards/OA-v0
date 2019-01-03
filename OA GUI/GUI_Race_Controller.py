@@ -73,31 +73,50 @@ class GUI_race_controller:
         global feats
         global foci
         global languages
+        global select_controller
 
         select_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
         current_list = []
 
+        include_score = False
+
         if type == 'Languages':
             source = languages
+            source = [e for e in source.all_lists[0].all_items if e.name not in [a.name for index,a in enumerate(current_race.languages_bonus)]]
             for lang in current_race.languages_bonus:
-                current_list.append(lang.name)
+                current_list.append(lang.name.strip() + ': ' + lang.short_description.strip())
+            include_score = True
         elif type == 'Feats':
             source = feats
+            source = [e for e in source.all_lists[0].all_items if e.name not in current_race.feats]
             for feat in current_race.feats:
                 current_list.append(feat)
         elif type == 'Foci':
             source = foci
+            source = [e for e in source.all_lists[0].all_items if e.name not in current_race.foci]
             for foc in current_race.foci:
-                current_list.append(foci)
+                current_list.append(foc)
 
-        select_controller.load_sets(type,source,current_list,self.save_list)
+        select_controller.load_sets(type,source,current_list,self.save_list,include_score)
 
     def save_list(self,type,list):
         global race_form
 
-        for item in list:
-            if type=='Languages':
-                race_form.f1.lstlangs.insert(item)
+        lst = None
+
+        if type=='Languages':
+            lst = race_form.f1.lstlangs
+        elif type=='Feats':
+            lst = race_form.f1.lstfeats
+        elif type=='Foci':
+            lst = race_form.f1.lstfoci
+
+        if lst != None:
+            lst.delete(0,'end')
+            for item in list:
+                lst.insert(0,item)
+
+        select_controller.destroy_select_set()
 
     def edit_click(self):
         global race_form

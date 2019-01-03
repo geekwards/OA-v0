@@ -83,5 +83,5 @@ class Misc_list:
         self.all_items = []
         self.item_names = []
 
-        for item in misc_list:
+        for idx,item in enumerate(misc_list):
             self.add_new(item)
