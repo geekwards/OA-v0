@@ -13,6 +13,7 @@ import Manage_Misc_Lists
 import Race
 import List_Object
 import Misc_List
+import Manage_Foci
 
 class Manage_races:
     def save_race(self,race,fullsave=False):
@@ -155,12 +156,14 @@ class Manage_races:
 
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
         misc_lists.load_misc_lists()
+        foci_list = Manage_Foci.Manage_foci()
+        foci_list.load_foci()
         sizes = misc_lists.get_current_set().get_misc_list('Creature Sizes').item_names
         bodies = misc_lists.get_current_set().get_misc_list('Creature Body Types').item_names
         languages = Misc_List.Misc_lists()
         languages.add_new(misc_lists.get_current_set().get_misc_list('Languages').clone())
         foci = Misc_List.Misc_lists()
-        foci.add_new(misc_lists.get_current_set().get_misc_list('Foci').clone())
+        foci.add_new(Misc_List.Misc_list('Foci',foci_list.get_current_set().list_of_foci))
         feat_types = misc_lists.get_current_set().get_misc_list('Feat Types').item_names
         feats = Misc_List.Misc_lists()
         for feat_type in feat_types:
