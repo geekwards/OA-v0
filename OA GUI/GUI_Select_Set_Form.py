@@ -50,7 +50,8 @@ class GUI_select_set_form:
         self.left_button.config(command=cancel_call)
         self.right_button.config(command=save_call)
         for src in source_list:
-            self.f1.lstsource.insert(0,src.name)
+            for item in src:
+                self.f1.lstsource.insert(0,item.name)
         for sel in selected_list:
             self.f1.lstselected.insert(0,sel)
 

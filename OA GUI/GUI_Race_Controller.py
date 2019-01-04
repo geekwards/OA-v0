@@ -80,20 +80,22 @@ class GUI_race_controller:
 
         include_score = False
 
+        source = []
+
         if type == 'Languages':
-            source = languages
-            source = [e for e in source.all_lists[0].all_items if e.name not in [a.name for index,a in enumerate(current_race.languages_bonus)]]
+            for list in languages.all_lists:
+                source.append([e for e in list.all_items if e.name not in [a.name for index,a in enumerate(current_race.languages_bonus)]])
             for lang in current_race.languages_bonus:
                 current_list.append(lang.name.strip() + ': ' + lang.short_description.strip())
             include_score = True
         elif type == 'Feats':
-            source = feats
-            source = [e for e in source.all_lists[0].all_items if e.name not in current_race.feats]
+            for list in feats.all_lists:
+                source.append([e for e in list.all_items if e.name not in current_race.feats])
             for feat in current_race.feats:
                 current_list.append(feat)
         elif type == 'Foci':
-            source = foci
-            source = [e for e in source.all_lists[0].all_items if e.name not in current_race.foci]
+            for list in foci.all_lists:
+                source.append([e for e in list.all_items if e.name not in current_race.foci])
             for foc in current_race.foci:
                 current_list.append(foc)
 
