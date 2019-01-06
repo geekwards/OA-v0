@@ -1,0 +1,32 @@
+<miscEquipment>
+	<equip>
+		<name>pencil</name>
+		<shortDecription>pencil</shortDecription>
+		<description>writing instrument</description>
+		<cost>1</cost>
+		<weight>0.25</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>take notes</special>
+	</equip>
+	<equip>
+		<name>notebook</name>
+		<shortDecription>pad of paper</shortDecription>
+		<description>100 pages</description>
+		<cost>1</cost>
+		<weight>1</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>take notes</special>
+	</equip>
+	<equip>
+		<name>cup</name>
+		<shortDecription>cup o water</shortDecription>
+		<description>drinking vessel</description>
+		<cost>1</cost>
+		<weight>0.25</weight>
+		<health>5</health>
+		<capacity>1</capacity>
+		<special>drink things</special>
+	</equip>
+</miscEquipment>

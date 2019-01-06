@@ -1,0 +1,58 @@
+<weapons>
+	<weapon>
+		<name>katana</name>
+		<shortDecription>sword</shortDecription>
+		<description>fancy sword</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<damage>5</damage>
+		<handsNeeded>2</handsNeeded>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+		<weaponType>melee</weaponType>
+		<health>5</health>
+		<range>0</range>
+		<ammoType>N/A</ammoType>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+	</weapon>
+	<weapon>
+		<name>brass knucks</name>
+		<shortDecription>metal knucks</shortDecription>
+		<description>fist enhancer</description>
+		<cost>10</cost>
+		<weight>1</weight>
+		<handsNeeded>1</handsNeeded>
+		<damageTypes>
+			<damageType name="slashing">0</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+		<weaponType>hand to hand</weaponType>
+		<health>5</health>
+		<range>0</range>
+		<ammoType>N/A</ammoType>
+		<capacity>0</capacity>
+		<special>hit stuff</special>
+	</weapon>
+	<weapon>
+		<name>short bow</name>
+		<shortDecription>short bow</shortDecription>
+		<description>archery special</description>
+		<cost>10</cost>
+		<weight>2</weight>
+		<handsNeeded>2</handsNeeded>
+		<damageTypes>
+			<damageType name="slashing">0</damageType>
+			<damageType name="bludgeoning">0</damageType>
+			<damageType name="piercing">3</damageType>
+		</damageTypes>
+		<weaponType>ranged</weaponType>
+		<health>5</health>
+		<range>20</range>
+		<ammoType>arrows</ammoType>
+		<capacity>0</capacity>
+		<special>remote kill</special>
+	</weapon>
+</weapons>

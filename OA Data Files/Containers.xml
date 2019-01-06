@@ -1,0 +1,32 @@
+<containers>
+	<container>
+		<name>backpack</name>
+		<shortDecription>jansport</shortDecription>
+		<description>backpack backpack</description>
+		<cost>5</cost>
+		<weight>1</weight>
+		<health>5</health>
+		<capacity>10</capacity>
+		<special>cary stuff</special>
+	</container>
+	<container>
+		<name>sack</name>
+		<shortDecription>sack</shortDecription>
+		<description>bag</description>
+		<cost>1</cost>
+		<weight>1</weight>
+		<health>5</health>
+		<capacity>4</capacity>
+		<special>cary stuff</special>
+	</container>
+	<container>
+		<name>magic hole</name>
+		<shortDecription>magic hole</shortDecription>
+		<description>hole in anything</description>
+		<cost>500</cost>
+		<weight>1</weight>
+		<health>5</health>
+		<capacity>1000</capacity>
+		<special>cary stuff</special>
+	</container>
+</containers>

@@ -1,0 +1,32 @@
+<clothing>
+	<clothingType>
+		<name>Bowler</name>
+		<shortDecription>hat</shortDecription>
+		<description>head cover</description>
+		<cost>1</cost>
+		<weight>0.5</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>daper</special>
+	</clothingType>
+	<clothingType>
+		<name>Blue jeans</name>
+		<shortDecription>pants</shortDecription>
+		<description>denim jeans</description>
+		<cost>1</cost>
+		<weight>1</weight>
+		<health>5</health>
+		<capacity>1</capacity>
+		<special>cool</special>
+	</clothingType>
+	<clothingType>
+		<name>Cargo Shorts</name>
+		<shortDecription>shorts</shortDecription>
+		<description>short pants with lots of pockets</description>
+		<cost>1</cost>
+		<weight>0.5</weight>
+		<health>5</health>
+		<capacity>3</capacity>
+		<special>weird dad</special>
+	</clothingType>
+</clothing>

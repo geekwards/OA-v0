@@ -1,0 +1,45 @@
+<people>
+	<person>
+		<name>pikeman</name>
+		<shortDecription>guy with pike</shortDecription>
+		<description>normal soldier with pike</description>
+		<cost>150</cost>
+		<health>5</health>
+		<damage>5</damage>
+		<damage>
+			<damageType name="slashing">2</damageType>
+			<damageType name="piercing">3</damageType>
+		</damage>
+		<defense>
+			<damageType name="slashing">1</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</defense>
+		<weaponType>melee</weaponType>
+		<range>1</range>
+		<ammoType>N/A</ammoType>
+		<ammoCapacity>0</ammoCapacity>
+		<carryCapacity>20</carryCapacity>
+		<special>fodder</special>
+	</person>
+	<person>
+		<name>archer</name>
+		<shortDecription>guy with bow</shortDecription>
+		<description>ranged soldier</description>
+		<cost>250</cost>
+		<health>5</health>
+		<damage>5</damage>
+		<damage>
+			<damageType name="piercing">3</damageType>
+		</damage>
+		<defense>
+			<damageType name="slashing">0</damageType>
+			<damageType name="bludgeoning">0</damageType>
+		</defense>
+		<weaponType>ranged</weaponType>
+		<range>50</range>
+		<ammoType>arrows</ammoType>
+		<ammoCapacity>20</ammoCapacity>
+		<carryCapacity>20</carryCapacity>
+		<special>make it rain</special>
+	</person>
+</people>

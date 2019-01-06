@@ -1,0 +1,23 @@
+<food>
+	<foodType>
+		<name>Bread</name>
+		<shortDecription>Bread</shortDecription>
+		<description>1 loaf of carbs</description>
+		<cost>0.1</cost>
+		<weight>0.5</weight>
+	</foodType>
+	<foodType>
+		<name>Meat</name>
+		<shortDecription>Meat</shortDecription>
+		<description>1 roast of protien</description>
+		<cost>1</cost>
+		<weight>1</weight>
+	</foodType>
+	<foodType>
+		<name>Ale</name>
+		<shortDecription>Ale</shortDecription>
+		<description>1 flagon of beer</description>
+		<cost>2</cost>
+		<weight>1</weight>
+	</foodType>
+</food>

@@ -12,6 +12,7 @@ class GUI_list_controller:
         global list_window
 
         list_form, list_window = GUI_List_Form.create_list_form(parent)
+        self.set_edit(True)
         
     def load_data(self,title,loaded_list,edit_call,remove_call,close_call,supress_gui=False):
         global current_list
@@ -20,6 +21,7 @@ class GUI_list_controller:
         global close_callback
         global list_form
         global list_window
+        global set_edit
 
         current_list = loaded_list
         edit_callback = edit_call
@@ -27,7 +29,7 @@ class GUI_list_controller:
         close_callback = close_call
 
         if list_form != None:
-            list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click)
+            list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click,set_edit)
             self.refresh_data()
             if supress_gui:
                 return list_form
@@ -37,11 +39,12 @@ class GUI_list_controller:
     def refresh_data(self):
         global current_list
         global list_form
+        global set_edit
 
         list_form.clear()
         index=0
         for item in current_list:
-            list_form.add_item(index,item.list_text)
+            list_form.add_item(index,item.list_text,set_edit)
             index += 1
 
     def close_click(self):
@@ -77,6 +80,11 @@ class GUI_list_controller:
         #todo: confirm remove item
         remove_callback(current_list[idx])
         self.refresh_data()
+
+    def set_edit(self,value):
+        global set_edit
+
+        set_edit = value
 
     def get_list_form(self):
         global list_form

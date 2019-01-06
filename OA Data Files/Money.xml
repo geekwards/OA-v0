@@ -1,0 +1,23 @@
+<money>
+	<moneyType>
+		<name>Copper</name>
+		<shortDescription>Copper coins</shortDescription>
+		<description>1 oz of copper</description>
+		<cost>0.1</cost>
+		<weight>0.0625</weight>
+	</moneyType>
+	<moneyType>
+		<name>Silver</name>
+		<shortDescription>Silver coins</shortDescription>
+		<description>1 oz of Silver</description>
+		<cost>1</cost>
+		<weight>0.0625</weight>
+	</moneyType>
+	<moneyType>
+		<name>Gold</name>
+		<shortDescription>Gold coins</shortDescription>
+		<description>1 oz of Gold</description>
+		<cost>10</cost>
+		<weight>0.0625</weight>
+	</moneyType>
+</money>
