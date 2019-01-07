@@ -25,7 +25,7 @@ class Manage_armor:
 
         if not current_set.equals(loaded_set):
             data=ET.Element('armor')
-            for marmor in current_set.all_clothes:
+            for marmor in current_set.all_armors:
                 l=ET.SubElement(data,'armorType')
                 ET.SubElement(l,'name').text = marmor.name
                 ET.SubElement(l,'shortDescription').text = marmor.short_description
@@ -36,8 +36,8 @@ class Manage_armor:
                 ET.SubElement(l,'capacity').text = marmor.capacity
                 ET.SubElement(l,'special').text = marmor.special
                 dt=ET.SubElement(l,'damageTypes')
-                for dt in marmor.damage_types:
-                    ET.SubElement(dt,'damageType',name=dt.name).text = dt.short_description
+                for damtyp in marmor.damage_types:
+                    ET.SubElement(dt,'damageType',name=damtyp.name).text = damtyp.short_description
  
             if filename == None:
                 filename = app_config.file_path + app_config.armor_filename
