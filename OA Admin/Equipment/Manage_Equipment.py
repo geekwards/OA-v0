@@ -30,6 +30,26 @@ class Manage_equipment:
             equip_manage = Manage_Food.Manage_food()
             equip_manage.load_food()
             equip_manage.launch_food_list()
+        elif name == 'Clothing':
+            equip_manage = Manage_Clothing.Manage_clothing()
+            equip_manage.load_clothing()
+            equip_manage.launch_clothing_list()
+        elif name == 'Misc Equipment':
+            equip_manage = Manage_MiscEquip.Manage_misc_equipment()
+            equip_manage.load_misc_equipment()
+            equip_manage.launch_misc_equipment_list()
+        elif name == 'Container':
+            container_manage = Manage_Containers.Manage_containers()
+            container_manage.load_containers()
+            container_manage.launch_container_list()
+        elif name == 'Armor':
+            armor_manage = Manage_Armor.Manage_armor()
+            armor_manage.load_armors()
+            armor_manage.launch_armor_list()
+        elif name == 'Weapon':
+            weapon_manage = Manage_Weapons.Manage_weapons()
+            weapon_manage.load_weapons()
+            weapon_manage.launch_weapon_list()
 
     def launch_equipment_list(self,supress_gui=False):
         global current_set

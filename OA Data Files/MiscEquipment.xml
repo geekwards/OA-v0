@@ -1,7 +1,7 @@
 <miscEquipment>
 	<equip>
 		<name>pencil</name>
-		<shortDecription>pencil</shortDecription>
+		<shortDescription>pencil</shortDescription>
 		<description>writing instrument</description>
 		<cost>1</cost>
 		<weight>0.25</weight>
@@ -11,7 +11,7 @@
 	</equip>
 	<equip>
 		<name>notebook</name>
-		<shortDecription>pad of paper</shortDecription>
+		<shortDescription>pad of paper</shortDescription>
 		<description>100 pages</description>
 		<cost>1</cost>
 		<weight>1</weight>
@@ -21,7 +21,7 @@
 	</equip>
 	<equip>
 		<name>cup</name>
-		<shortDecription>cup o water</shortDecription>
+		<shortDescription>cup o water</shortDescription>
 		<description>drinking vessel</description>
 		<cost>1</cost>
 		<weight>0.25</weight>

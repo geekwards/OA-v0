@@ -1,7 +1,7 @@
 <containers>
 	<container>
 		<name>backpack</name>
-		<shortDecription>jansport</shortDecription>
+		<shortDescription>jansport</shortDescription>
 		<description>backpack backpack</description>
 		<cost>5</cost>
 		<weight>1</weight>
@@ -11,7 +11,7 @@
 	</container>
 	<container>
 		<name>sack</name>
-		<shortDecription>sack</shortDecription>
+		<shortDescription>sack</shortDescription>
 		<description>bag</description>
 		<cost>1</cost>
 		<weight>1</weight>
@@ -21,7 +21,7 @@
 	</container>
 	<container>
 		<name>magic hole</name>
-		<shortDecription>magic hole</shortDecription>
+		<shortDescription>magic hole</shortDescription>
 		<description>hole in anything</description>
 		<cost>500</cost>
 		<weight>1</weight>

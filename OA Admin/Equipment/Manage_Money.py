@@ -28,7 +28,7 @@ class Manage_money:
             for mlist in current_set.all_lists:
                 l=ET.SubElement(data,'moneyType')
                 ET.SubElement(l,'name').text = mlist.name
-                ET.SubElement(l,'shortDecription').text = mlist.name
+                ET.SubElement(l,'shortDescription').text = mlist.name
                 ET.SubElement(l,'description').text = mlist.name
                 ET.SubElement(l,'cost').text = mlist.name
                 ET.SubElement(l,'weight').text = mlist.name

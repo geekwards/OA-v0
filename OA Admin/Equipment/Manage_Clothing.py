@@ -28,7 +28,7 @@ class Manage_clothing:
             for mclothing in current_set.all_clothes:
                 l=ET.SubElement(data,'clothingType')
                 ET.SubElement(l,'name').text = mclothing.name
-                ET.SubElement(l,'shortDecription').text = mclothing.short_description
+                ET.SubElement(l,'shortDescription').text = mclothing.short_description
                 ET.SubElement(l,'description').text = mclothing.description
                 ET.SubElement(l,'cost').text = mclothing.cost
                 ET.SubElement(l,'weight').text = mclothing.weight

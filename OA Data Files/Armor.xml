@@ -1,7 +1,7 @@
 <armor>
 	<armorType>
 		<name>leather</name>
-		<shortDecription>leather armor</shortDecription>
+		<shortDescription>leather armor</shortDescription>
 		<description>ranger special</description>
 		<cost>50</cost>
 		<weight>10</weight>
@@ -13,9 +13,9 @@
 		<capacity>0</capacity>
 		<special>looks cool</special>
 	</armorType>
-	<armorType>
+	<armorType> 
 		<name>plate</name>
-		<shortDecription>full plate</shortDecription>
+		<shortDescription>full plate</shortDescription>
 		<description>knight special</description>
 		<cost>500</cost>
 		<weight>100</weight>

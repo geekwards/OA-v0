@@ -1,11 +1,10 @@
 <weapons>
 	<weapon>
 		<name>katana</name>
-		<shortDecription>sword</shortDecription>
+		<shortDescription>sword</shortDescription>
 		<description>fancy sword</description>
 		<cost>50</cost>
 		<weight>10</weight>
-		<damage>5</damage>
 		<handsNeeded>2</handsNeeded>
 		<damageTypes>
 			<damageType name="slashing">3</damageType>
@@ -20,7 +19,7 @@
 	</weapon>
 	<weapon>
 		<name>brass knucks</name>
-		<shortDecription>metal knucks</shortDecription>
+		<shortDescription>metal knucks</shortDescription>
 		<description>fist enhancer</description>
 		<cost>10</cost>
 		<weight>1</weight>
@@ -38,7 +37,7 @@
 	</weapon>
 	<weapon>
 		<name>short bow</name>
-		<shortDecription>short bow</shortDecription>
+		<shortDescription>short bow</shortDescription>
 		<description>archery special</description>
 		<cost>10</cost>
 		<weight>2</weight>
