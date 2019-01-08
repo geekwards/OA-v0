@@ -19,9 +19,11 @@ import Manage_Weapons
 
 
 class Manage_equipment:
-    def launch_equipment(self,parent,name,supress_gui=False):
-        global sup_gui
+    sup_gui
+    current_set
+    list_controller
 
+    def launch_equipment(self,parent,name,supress_gui=False):
         if name == 'Money':
             equip_manage = Manage_Money.Manage_money()
             equip_manage.load_money()
@@ -52,30 +54,22 @@ class Manage_equipment:
             weapon_manage.launch_weapon_list()
 
     def launch_equipment_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
-        list_controller.set_edit(False)
+        self.list_controller.set_edit(False)
 
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Equipment',current_set.all_items,self.launch_equipment,None,None)
+            self.list_controller.load_data('Equipment',self.current_set.all_items,self.launch_equipment,None,None)
 
     def load_equipment(self,filename=None):
-        global current_set
-
         data_load = Manage_Misc_Lists.Manage_misc_lists()
         data_load.load_misc_lists()
-        current_set = data_load.get_current_set().get_misc_list('Equipment Types')
+        self.current_set = data_load.get_current_set().get_misc_list('Equipment Types')
 
     def __init__(self):
-        global current_set
-        global list_controller
-
         list_controller = None
         current_set = None
 

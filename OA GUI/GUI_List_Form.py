@@ -13,17 +13,16 @@ def create_list_form(parent):
     return list_form, list_window
 
 class GUI_list_form:
-    #todo: formatting
-    def setup(self,list_title,new_call,edit_call,remove_call,close_call,set_edit):
-        global new_click
-        global close_click
-        global edit_click
-        global remove_click
+    new_click
+    close_click
+    edit_click
+    remove_click
 
-        new_click = new_call
-        close_click = close_call
-        edit_click = edit_call
-        remove_click = remove_call
+    def setup(self,list_title,new_call,edit_call,remove_call,close_call,set_edit):
+        self.new_click = new_call
+        self.close_click = close_call
+        self.edit_click = edit_call
+        self.remove_click = remove_call
 
         self.parent.title("OA Manager - " + list_title)
         self.lbltitle.config(text=list_title)
@@ -36,10 +35,7 @@ class GUI_list_form:
         self.clear()
 
     def add_item(self,idx,item_text,set_edit):
-        global edit_click
-        global remove_click
-        
-        self.f1.edit_list_item = tk.Button(self.f1,text ="View",command=lambda: edit_click(idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text ="View",command=lambda: self.edit_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
         self.f1.lbl_list_item = tk.Label(self.f1,text=item_text)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
@@ -56,9 +52,6 @@ class GUI_list_form:
         self.f1.grid_columnconfigure(2,weight=1)
 
     def __init__(self, parent):
-        global close_click
-        global new_click
-
         self.parent = parent
         self.parent.title("LIST NOT LOADED")
         self.f1 = tk.Frame()

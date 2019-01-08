@@ -13,25 +13,26 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_food:
-    def save_food(self,food,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    list_controller
+    sup_gui
 
-        current_set.update(food)
+    def save_food(self,food,fullsave=False):
+        self.current_set.update(food)
         if fullsave:
             self.save_foods()
 
     def save_foods(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('food')
-            for mlist in current_set.all_lists:
+            for mfood in self.current_set.all_food:
                 l=ET.SubElement(data,'foodType')
-                ET.SubElement(l,'name').text = mlist.name
-                ET.SubElement(l,'shortDescription').text = mlist.name
-                ET.SubElement(l,'description').text = mlist.name
-                ET.SubElement(l,'cost').text = mlist.name
-                ET.SubElement(l,'weight').text = mlist.name
+                ET.SubElement(l,'name').text = mfood.name
+                ET.SubElement(l,'shortDescription').text = mfood.name
+                ET.SubElement(l,'description').text = mfood.name
+                ET.SubElement(l,'cost').text = mfood.name
+                ET.SubElement(l,'weight').text = mfood.name
  
             if filename == None:
                 filename = app_config.file_path + app_config.food_filename
@@ -45,24 +46,17 @@ class Manage_food:
             f.close()
 
     def remove_food(self,food):
-        global current_set
-
-        current_set.remove(food)
+        self.current_set.remove(food)
 
     def close_edit_food(self):
-        global sup_gui
-
-        self.launch_food_list(sup_gui)
+        self.launch_food_list(self.sup_gui)
 
     def launch_edit_food(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         food_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            food = current_set.get_food(name)
+            food = self.current_set.get_food(name)
         else:
             food = Food.Food('','')
 
@@ -72,22 +66,16 @@ class Manage_food:
             food_controller.load_data('Food',food,self.save_food,self.close_edit_food)
     
     def launch_food_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('food Types',current_set.list_of_food,self.launch_edit_food,self.remove_food,self.save_foods)
+            self.list_controller.load_data('food Types',self.current_set.list_of_food,self.launch_edit_food,self.remove_food,self.save_foods)
 
     def load_food(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Food.Foods()   
+        self.current_set = Food.Foods()   
 
         if filename == None:
             filename = app_config.file_path + app_config.food_filename
@@ -102,21 +90,17 @@ class Manage_food:
             new_food.description = food.find('description').text or 'UNKNOWN'
             new_food.cost = food.find('cost').text or 0
             new_food.weight = food.find('weight').text or 0
-            current_set.add_new(new_food)
+            self.current_set.add_new(new_food)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
-        list_controller = None
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_food()

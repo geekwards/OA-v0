@@ -12,20 +12,20 @@ import GUI_Archtype_Controller
 import Archtype
 
 class Manage_archtypes:
-    def save_archtype(self,archtype,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    sup_gui
+    list_controller
 
-        current_set.update(archtype)
+    def save_archtype(self,archtype,fullsave=False):
+        self.current_set.update(archtype)
         if fullsave:
             self.save_archtypes()
 
     def save_archtypes(self,filename=None,backup_filename=None):
-        global current_set
-        global loaded_set
-
-        if not(loaded_set.equals(current_set)):
+        if not(self.loaded_set.equals(self.current_set)):
             data=ET.Element('archtypes')
-            for item in current_set.all_archtypes:
+            for item in self.current_set.all_archtypes:
                 arch=ET.SubElement(data,'archtype')
                 ET.SubElement(arch,'name').text = item.name
                 ET.SubElement(arch,'shortDescription').text = item.short_description
@@ -58,44 +58,31 @@ class Manage_archtypes:
             f.close()
 
     def remove_archtype(self,archtype):
-        global current_set
-
-        current_set.remove(archtype)
+        self.current_set.remove(archtype)
 
     def close_edit_archtype(self):
-        global sup_gui
-
-        self.launch_archtype_list(sup_gui)
+        self.launch_archtype_list(self.sup_gui)
 
     def launch_edit_archtype(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         archtype_controller = GUI_Archtype_Controller.GUI_archtype_controller()
 
         if supress_gui:
             return archtype_controller
         else:
-            archtype_controller.load_data(current_set.get_archtype(name),self.save_archtype,self.close_edit_archtype)
+            archtype_controller.load_data(self.current_set.get_archtype(name),self.save_archtype,self.close_edit_archtype)
 
     def launch_archtype_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
 
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Archtypes',current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype,self.save_archtypes)
+            self.list_controller.load_data('Archtypes',self.current_set.list_of_archtypes,self.launch_edit_archtype,self.remove_archtype,self.save_archtypes)
 
     def load_archtypes(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Archtype.Archtypes()
+        self.current_set = Archtype.Archtypes()
 
         if filename == None:
             filename = app_config.file_path + app_config.archtype_filename
@@ -123,21 +110,17 @@ class Manage_archtypes:
             current_archtype.movement = archtype.find('movement').text or 0
             current_archtype.skill_points = archtype.find('skillPoints').text or 0
             current_archtype.level_health = archtype.find('levelHealth').text or ' '
-            current_set.add_new(current_archtype)
+            self.current_set.add_new(current_archtype)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set 
-        global list_controller
-
-        list_controller = None        
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_archtypes()

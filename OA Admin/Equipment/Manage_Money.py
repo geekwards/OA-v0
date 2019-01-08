@@ -13,25 +13,28 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_money:
-    def save_money(self,money,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    list_controller
+    sup_gui
 
-        current_set.update(money)
+    def save_money(self,money,fullsave=False):
+        global self.current_set
+
+        self.current_set.update(money)
         if fullsave:
             self.save_monies()
 
     def save_monies(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('money')
-            for mlist in current_set.all_lists:
+            for mmoney in self.current_set.all_lists:
                 l=ET.SubElement(data,'moneyType')
-                ET.SubElement(l,'name').text = mlist.name
-                ET.SubElement(l,'shortDescription').text = mlist.name
-                ET.SubElement(l,'description').text = mlist.name
-                ET.SubElement(l,'cost').text = mlist.name
-                ET.SubElement(l,'weight').text = mlist.name
+                ET.SubElement(l,'name').text = mmoney.name
+                ET.SubElement(l,'shortDescription').text = mmoney.name
+                ET.SubElement(l,'description').text = mmoney.name
+                ET.SubElement(l,'cost').text = mmoney.name
+                ET.SubElement(l,'weight').text = mmoney.name
  
             if filename == None:
                 filename = app_config.file_path + app_config.money_filename
@@ -45,24 +48,17 @@ class Manage_money:
             f.close()
 
     def remove_money(self,money):
-        global current_set
-
-        current_set.remove(money)
+        self.current_set.remove(money)
 
     def close_edit_money(self):
-        global sup_gui
-
-        self.launch_money_list(sup_gui)
+        self.launch_money_list(self.sup_gui)
 
     def launch_edit_money(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         money_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            money = current_set.get_money(name)
+            money = self.current_set.get_money(name)
         else:
             money = Money.Money('','')
 
@@ -72,22 +68,16 @@ class Manage_money:
             money_controller.load_data('Money',money,self.save_money,self.close_edit_money)
     
     def launch_money_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Money Types',current_set.list_of_money,self.launch_edit_money,self.remove_money,self.save_monies)
+            self.list_controller.load_data('Money Types',self.current_set.list_of_money,self.launch_edit_money,self.remove_money,self.save_monies)
 
     def load_money(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Money.Monies()   
+        self.current_set = Money.Monies()   
 
         if filename == None:
             filename = app_config.file_path + app_config.money_filename
@@ -102,21 +92,17 @@ class Manage_money:
             new_money.description = money.find('description').text or 'UNKNOWN'
             new_money.cost = money.find('cost').text or 0
             new_money.weight = money.find('weight').text or 0
-            current_set.add_new(new_money)
+            self.current_set.add_new(new_money)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
-        list_controller = None
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_money()

@@ -13,19 +13,18 @@ def create_misc_list_form(parent):
     return misc_list_form,misc_list_window
 
 class GUI_misc_list_form:
-    #todo: formatting
-    def setup(self,list_title,new_call,close_call,edit_call,save_call,cancel_call):
-        global new_click
-        global close_click
-        global edit_click
-        global save_click
-        global cancel_click
+    new_click
+    close_click
+    edit_click
+    save_click
+    cancel_click
 
-        new_click = new_call
-        close_click = close_call
-        edit_click = edit_call
-        save_click = save_call
-        cancel_click = cancel_call
+    def setup(self,list_title,new_call,close_call,edit_call,save_call,cancel_call):
+        self.new_click = new_call
+        self.close_click = close_call
+        self.edit_click = edit_call
+        self.save_click = save_call
+        self.cancel_click = cancel_call
 
         self.parent.title("OA Manager - " + list_title)
         self.lbltitle.config(text=list_title)
@@ -35,30 +34,24 @@ class GUI_misc_list_form:
         self.clear()
         
     def set_edit(self,for_new=False):
-        global cancel_click
-        global save_click
-
         if for_new:
             self.lbltitle.destroy()
             self.etitle = tk.Entry(self.parent)
             self.etitle.grid(sticky='w',row=0,column=1,padx=5,pady=5)
 
         self.left_button.config(text='Cancel')
-        self.left_button.config(command=cancel_click)
+        self.left_button.config(command=self.cancel_click)
         self.center_button.config(state='normal')
         self.right_button.config(text='Save')
-        self.right_button.config(command=save_click)
+        self.right_button.config(command=self.save_click)
         self.enable_form()
 
     def set_view(self):
-        global close_click
-        global edit_click
-
         self.left_button.config(text='Close')
-        self.left_button.config(command=close_click)
+        self.left_button.config(command=self.close_click)
         self.center_button.config(state='disabled')
         self.right_button.config(text='Edit')
-        self.right_button.config(command=edit_click)
+        self.right_button.config(command=self.edit_click)
         self.disable_form()
 
     def clear(self):

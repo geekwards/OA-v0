@@ -7,94 +7,76 @@ import List_Object
 import GUI_List_Form
 
 class GUI_list_controller:
-    def create_form(self,parent=None):
-        global list_form
-        global list_window
+    list_form
+    list_window
+    current_list
+    edit_callback
+    remove_callback
+    close_callback
+    set_edit
 
-        list_form, list_window = GUI_List_Form.create_list_form(parent)
+    def create_form(self,parent=None):
+        self.list_form = None
+        self.list_window = None
+        self.current_list = None
+        self.edit_callback = None
+        self.remove_callback = None
+        self.close_callback = None
+        self.set_edit = None
+        self.list_form, self.list_window = GUI_List_Form.create_list_form(parent)
         self.set_edit(True)
         
     def load_data(self,title,loaded_list,edit_call,remove_call,close_call,supress_gui=False):
-        global current_list
-        global edit_callback
-        global remove_callback
-        global close_callback
-        global list_form
-        global list_window
-        global set_edit
+        self.current_list = loaded_list
+        self.edit_callback = edit_call
+        self.remove_callback = remove_call
+        self.close_callback = close_call
 
-        current_list = loaded_list
-        edit_callback = edit_call
-        remove_callback = remove_call
-        close_callback = close_call
-
-        if list_form != None:
-            list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click,set_edit)
+        if self.list_form != None:
+            self.list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click,set_edit)
             self.refresh_data()
             if supress_gui:
-                return list_form
+                return self.list_form
             else:
-                list_window.mainloop()
+                self.list_window.mainloop()
 
     def refresh_data(self):
-        global current_list
-        global list_form
-        global set_edit
-
-        list_form.clear()
+        self.list_form.clear()
         index=0
-        for item in current_list:
-            list_form.add_item(index,item.list_text,set_edit)
+        for item in self.current_list:
+            self.list_form.add_item(index,item.list_text,self.set_edit)
             index += 1
 
     def close_click(self):
-        global current_list
-        global list_form
-        global list_window
-        global close_callback
-
-        if close_callback != None:
-            close_callback()
-        list_window.destroy()
-        list_form = None
+        if self.close_callback != None:
+            self.close_callback()
+        self.list_window.destroy()
+        self.list_form = None
 
     def new_click(self):
         self.edit_click(None)
 
     def edit_click(self,idx):
-        global edit_callback
-        global current_list
-        global list_window
-
         if idx==None:
             name = ''
         else:
-            name = current_list[idx].name
+            name = self.current_list[idx].name
 
-        edit_callback(list_window,name)
+        self.edit_callback(self.list_window,name)
 
     def remove_click(self,idx):
-        global remove_callback
-        global current_list
-
         #todo: confirm remove item
-        remove_callback(current_list[idx])
+        self.remove_callback(self.current_list[idx])
         self.refresh_data()
 
     def set_edit(self,value):
-        global set_edit
-
-        set_edit = value
+        self.set_edit = value
 
     def get_list_form(self):
-        global list_form
-
-        return list_form
+        return self.list_form
 
     def get_current_list(self):
-        global current_list
-
-        return current_list
+        return self.current_list
 
     def __init__(self):
         self.create_form()

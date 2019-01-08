@@ -15,24 +15,23 @@ def create_focus_form(parent):
     return focus_form,focus_window
 
 class GUI_focus_form:
+    cancel_click
+    save_click
+    close_click
+    edit_click
+    
     def set_edit(self):
-        global cancel_click
-        global save_click
-
         self.left_button.config(text='Cancel')
-        self.left_button.config(command=cancel_click)
+        self.left_button.config(command=self.cancel_click)
         self.right_button.config(text='Save')
-        self.right_button.config(command=save_click)
+        self.right_button.config(command=self.save_click)
         self.enable_form()
 
     def set_view(self):
-        global close_click
-        global edit_click
-
         self.left_button.config(text='Close')
-        self.left_button.config(command=close_click)
+        self.left_button.config(command=self.close_click)
         self.right_button.config(text='Edit')
-        self.right_button.config(command=edit_click)
+        self.right_button.config(command=self.edit_click)
         self.disable_form()
 
     def clear(self):
@@ -69,15 +68,10 @@ class GUI_focus_form:
                 item.config(state='disabled')
 
     def add_item(self,focus,close_call,cancel_call,edit_call,save_call,list_call):
-        global close_click
-        global cancel_click
-        global edit_click
-        global save_click
-
-        close_click = close_call
-        cancel_click = cancel_call
-        edit_click = edit_call
-        save_click = save_call
+        self.close_click = close_call
+        self.cancel_click = cancel_call
+        self.edit_click = edit_call
+        self.save_click = save_call
 
         self.enable_form()
         self.parent.title("Focus - " + focus.name)

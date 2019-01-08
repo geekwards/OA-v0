@@ -13,19 +13,20 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_armor:
-    def save_armor(self,armor,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    sup_gui
+    list_controller
 
-        current_set.update(armor)
+    def save_armor(self,armor,fullsave=False):
+        self.current_set.update(armor)
         if fullsave:
             self.save_armors()
 
     def save_armors(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('armor')
-            for marmor in current_set.all_armors:
+            for marmor in self.current_set.all_armors:
                 l=ET.SubElement(data,'armorType')
                 ET.SubElement(l,'name').text = marmor.name
                 ET.SubElement(l,'shortDescription').text = marmor.short_description
@@ -51,24 +52,17 @@ class Manage_armor:
             f.close()
 
     def remove_armor(self,armor):
-        global current_set
-
-        current_set.remove(armor)
+        self.current_set.remove(armor)
 
     def close_edit_armor(self):
-        global sup_gui
-
-        self.launch_armor_list(sup_gui)
+        self.launch_armor_list(self.sup_gui)
 
     def launch_edit_armor(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         armor_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            armor = current_set.get_armor(name)
+            armor = self.current_set.get_armor(name)
         else:
             armor = Armor.Armor('','')
 
@@ -78,22 +72,16 @@ class Manage_armor:
             armor_controller.load_data('Armor',armor,self.save_armor,self.close_edit_armor)
     
     def launch_armor_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Armors',current_set.list_of_armors,self.launch_edit_armor,self.remove_armor,self.save_armors)
+            self.list_controller.load_data('Armors',self.current_set.list_of_armors,self.launch_edit_armor,self.remove_armor,self.save_armors)
 
     def load_armors(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Armor.Armors()   
+        self.current_set = Armor.Armors()   
 
         if filename == None:
             filename = app_config.file_path + app_config.armor_filename
@@ -114,21 +102,17 @@ class Manage_armor:
             for dt in armor.findall('damageTypes/damageType'):
                 dmgtype = List_Object.List_object(dt.attrib.get('name'),dt.text)
                 new_armor.damage_types.append(dmgtype)
-            current_set.add_new(new_armor)
+            self.current_set.add_new(new_armor)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
-        list_controller = None
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_armor()

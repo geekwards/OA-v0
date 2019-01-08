@@ -16,6 +16,8 @@ def create_select_set_form(parent):
     return select_set_form,select_set_window
 
 class GUI_select_set_form:
+    include_score
+
     def move_rt(self):
         sel = self.f1.lstsource.curselection()
         list_item = self.f1.lstsource.get(sel[0])
@@ -41,9 +43,7 @@ class GUI_select_set_form:
         return False
     
     def add_lists(self,title,source_list,selected_list,cancel_call,save_call,score=False):
-        global include_score
-
-        include_score = score
+        self.include_score = score
 
         self.parent.title(title)
         self.lbltitle.config(text=title)

@@ -13,19 +13,20 @@ import Misc_List
 import List_Object
 
 class Manage_misc_lists:
-    def save_misc_list(self,misc_list,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    list_controller
+    sup_gui
 
-        current_set.update(misc_list)
+    def save_misc_list(self,misc_list,fullsave=False):
+        self.current_set.update(misc_list)
         if fullsave:
             self.save_misc_lists
 
     def save_misc_lists(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(loaded_set):
             data=ET.Element('misc_lists')
-            for mlist in current_set.all_lists:
+            for mlist in self.current_set.all_lists:
                 l=ET.SubElement(data,'list')
                 ET.SubElement(l,'listname').text = mlist.name
                 c=ET.SubElement(l,'items')
@@ -46,24 +47,17 @@ class Manage_misc_lists:
             f.close()
 
     def remove_misc_list(self,misc_list):
-        global current_set
-
-        current_set.remove(misc_list)
+        self.current_set.remove(misc_list)
 
     def close_edit_misc_list(self):
-        global sup_gui
-
-        self.launch_misc_list_list(sup_gui)
+        self.launch_misc_list_list(self.sup_gui)
 
     def launch_edit_misc_list(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()            
 
         if len(name) > 0:
-            misc_list = current_set.get_misc_list(name)
+            misc_list = self.current_set.get_misc_list(name)
         else:
             misc_list = Misc_List.Misc_list('',[])
 
@@ -73,22 +67,16 @@ class Manage_misc_lists:
             misc_list_controller.load_data(misc_list,self.save_misc_list,self.close_edit_misc_list)
     
     def launch_misc_list_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Misc Lists',current_set.list_of_lists,self.launch_edit_misc_list,self.remove_misc_list,self.save_misc_lists)
+            self.list_controller.load_data('Misc Lists',self.current_set.list_of_lists,self.launch_edit_misc_list,self.remove_misc_list,self.save_misc_lists)
 
     def load_misc_lists(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Misc_List.Misc_lists()   
+        self.current_set = Misc_List.Misc_lists()   
 
         if filename == None:
             filename = app_config.file_path + app_config.misc_list_filename
@@ -107,21 +95,17 @@ class Manage_misc_lists:
                 new_list_items.append(List_Object.List_object(item_name,item_short_desc))
 
             new_list = Misc_List.Misc_list(new_list_name,new_list_items)
-            current_set.add_new(new_list)
+            self.current_set.add_new(new_list)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
         list_controller = None
         current_set = None
+        loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_misc_lists()

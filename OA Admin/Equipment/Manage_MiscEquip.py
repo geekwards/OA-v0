@@ -13,28 +13,29 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_misc_equipment:
-    def save_stuff(self,stuff,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    list_controller
+    sup_gui
 
-        current_set.update(stuff)
+    def save_stuff(self,stuff,fullsave=False):
+        self.current_set.update(stuff)
         if fullsave:
             self.save_misc_equipment()
 
     def save_misc_equipment(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('miscEquipment')
-            for mclothing in current_set.all_clothes:
+            for mequip in self.current_set.all_clothes:
                 l=ET.SubElement(data,'equip')
-                ET.SubElement(l,'name').text = mclothing.name
-                ET.SubElement(l,'shortDescription').text = mclothing.short_description
-                ET.SubElement(l,'description').text = mclothing.description
-                ET.SubElement(l,'cost').text = mclothing.cost
-                ET.SubElement(l,'weight').text = mclothing.weight
-                ET.SubElement(l,'health').text = mclothing.health
-                ET.SubElement(l,'capacity').text = mclothing.capacity
-                ET.SubElement(l,'special').text = mclothing.special
+                ET.SubElement(l,'name').text = mequip.name
+                ET.SubElement(l,'shortDescription').text = mequip.short_description
+                ET.SubElement(l,'description').text = mequip.description
+                ET.SubElement(l,'cost').text = mequip.cost
+                ET.SubElement(l,'weight').text = mequip.weight
+                ET.SubElement(l,'health').text = mequip.health
+                ET.SubElement(l,'capacity').text = mequip.capacity
+                ET.SubElement(l,'special').text = mequip.special
  
             if filename == None:
                 filename = app_config.file_path + app_config.misc_equip_filename
@@ -48,24 +49,17 @@ class Manage_misc_equipment:
             f.close()
 
     def remove_stuff(self,stuff):
-        global current_set
-
-        current_set.remove(stuff)
+        self.current_set.remove(stuff)
 
     def close_edit_stuff(self):
-        global sup_gui
-
-        self.launch_misc_equipment_list(sup_gui)
+        self.launch_misc_equipment_list(self.sup_gui)
 
     def launch_edit_stuff(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         misc_equipment_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            stuff = current_set.get_stuff(name)
+            stuff = self.current_set.get_stuff(name)
         else:
             stuff = Misc_Equipment.Stuff('','')
 
@@ -75,22 +69,16 @@ class Manage_misc_equipment:
             misc_equipment_controller.load_data('Misc Equipment',stuff,self.save_stuff,self.close_edit_stuff)
     
     def launch_misc_equipment_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Misc Equipment',current_set.list_of_misc_equipment,self.launch_edit_stuff,self.remove_stuff,self.save_stuff)
+            self.list_controller.load_data('Misc Equipment',self.current_set.list_of_misc_equipment,self.launch_edit_stuff,self.remove_stuff,self.save_misc_equipment)
 
     def load_misc_equipment(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Misc_Equipment.Misc_equipment()   
+        self.current_set = Misc_Equipment.Misc_equipment()   
 
         if filename == None:
             filename = app_config.file_path + app_config.misc_equip_filename
@@ -107,22 +95,18 @@ class Manage_misc_equipment:
             new_stuff.weight = stuff.find('weight').text or 0
             new_stuff.health = stuff.find('health').text or 0
             new_stuff.capacity = stuff.find('capacity').text or 0
-            new_stuff.speical = stuff.find('special').text or 'none'
-            current_set.add_new(new_stuff)
+            new_stuff.special = stuff.find('special').text or 'none'
+            self.current_set.add_new(new_stuff)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
-        list_controller = None
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_misc_equipment()

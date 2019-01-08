@@ -87,3 +87,4 @@ class Armor:
     def __init__(self,name,short_description=''):
         self.name = name
         self.short_description = short_description
+        self.damage_types = []

@@ -13,19 +13,20 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_containers:
-    def save_container(self,container,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    sup_gui
+    list_controller
 
-        current_set.update(container)
+    def save_container(self,container,fullsave=False):
+        self.current_set.update(container)
         if fullsave:
             self.save_containers()
 
     def save_containers(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('containers')
-            for mcontainer in current_set.all_clothes:
+            for mcontainer in self.current_set.all_clothes:
                 l=ET.SubElement(data,'container')
                 ET.SubElement(l,'name').text = mcontainer.name
                 ET.SubElement(l,'shortDescription').text = mcontainer.short_description
@@ -48,24 +49,17 @@ class Manage_containers:
             f.close()
 
     def remove_container(self,container):
-        global current_set
-
-        current_set.remove(container)
+        self.current_set.remove(container)
 
     def close_edit_container(self):
-        global sup_gui
-
-        self.launch_container_list(sup_gui)
+        self.launch_container_list(self.sup_gui)
 
     def launch_edit_container(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         container_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            container = current_set.get_container(name)
+            container = self.current_set.get_container(name)
         else:
             container = Container.Container('','')
 
@@ -75,22 +69,16 @@ class Manage_containers:
             container_controller.load_data('Container',container,self.save_container,self.close_edit_container)
     
     def launch_container_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Containers',current_set.list_of_containers,self.launch_edit_container,self.remove_container,self.save_containers)
+            self.list_controller.load_data('Containers',self.current_set.list_of_containers,self.launch_edit_container,self.remove_container,self.save_containers)
 
     def load_containers(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Container.Containers()   
+        self.current_set = Container.Containers()   
 
         if filename == None:
             filename = app_config.file_path + app_config.container_filename
@@ -107,22 +95,18 @@ class Manage_containers:
             new_container.weight = container.find('weight').text or 0
             new_container.health = container.find('health').text or 0
             new_container.capacity = container.find('capacity').text or 0
-            new_container.speical = container.find('special').text or 'none'
-            current_set.add_new(new_container)
+            new_container.special = container.find('special').text or 'none'
+            self.current_set.add_new(new_container)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
-        list_controller = None
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_containers()

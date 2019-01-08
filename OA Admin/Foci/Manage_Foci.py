@@ -15,20 +15,20 @@ import List_Object
 import Misc_List
 
 class Manage_foci:
-    def save_focus(self,focus,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    list_controller
+    sup_gui
 
-        current_set.update(focus)
+    def save_focus(self,focus,fullsave=False):
+        self.current_set.update(focus)
         if fullsave:
             self.save_foci()
 
     def save_foci(self,filename=None,backup_filename=None):
-        global current_set
-        global loaded_set
-
-        if not(loaded_set.equals(current_set)):
+        if not(self.loaded_set.equals(self.current_set)):
             data=ET.Element('foci')
-            for item in current_set.all_foci:
+            for item in self.current_set.all_foci:
                 r=ET.SubElement(data,'focus')
                 ET.SubElement(r,'name').text = item.name
                 ET.SubElement(r,'shortDescription').text = item.short_description
@@ -66,46 +66,32 @@ class Manage_foci:
             f.close()
 
     def remove_focus(self,focus):
-        global current_set
-
-        current_set.remove(focus)
+        self.current_set.remove(focus)
 
     def close_edit_focus(self):
-        global sup_gui
-
-        self.launch_focus_list(sup_gui)
+        self.launch_focus_list(self.sup_gui)
 
     def launch_edit_focus(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-        global languages
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         focus_controller = GUI_Focus_Controller.GUI_focus_controller()
 
         if supress_gui:
             return focus_controller
         else:
             focus_controller.load_lookups(languages)
-            focus_controller.load_data(current_set.get_focus(name),self.save_focus,self.close_edit_focus)
+            focus_controller.load_data(self.current_set.get_focus(name),self.save_focus,self.close_edit_focus)
 
     def launch_focus_list(self,supress_gui=False):
-        global current_set
-        global list_controller  
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
 
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Foci',current_set.list_of_foci,self.launch_edit_focus,self.remove_focus,self.save_foci)
+            self.list_controller.load_data('Foci',self.current_set.list_of_foci,self.launch_edit_focus,self.remove_focus,self.save_foci)
 
     def load_foci(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Focus.Foci()
+        self.current_set = Focus.Foci()
 
         if filename == None:
             filename = app_config.file_path + app_config.focus_filename
@@ -138,29 +124,23 @@ class Manage_foci:
             for language in focus.findall('languagesBonus/language'):
                 lang = List_Object.List_object(language.attrib.get('name'),language.text)
                 current_focus.languages_bonus.append(lang)
-            current_set.add_new(current_focus)
+            self.current_set.add_new(current_focus)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def load_combo_data(self):
-        global languages
-
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
         misc_lists.load_misc_lists()
         languages = Misc_List.Misc_lists()
         languages.add_new(misc_lists.get_current_set().get_misc_list('Languages').clone())
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set 
-        global list_controller
-
         list_controller = None        
         current_set = None
+        loaded_set = None
         self.load_combo_data()
 
 if __name__ == '__main__':

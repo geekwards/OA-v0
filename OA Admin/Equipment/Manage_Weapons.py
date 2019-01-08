@@ -13,19 +13,20 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_weapons:
-    def save_weapon(self,weapon,fullsave=False):
-        global current_set
+    current_set
+    loaded_set
+    list_controller
+    sup_gui
 
-        current_set.update(weapon)
+    def save_weapon(self,weapon,fullsave=False):
+        self.current_set.update(weapon)
         if fullsave:
             self.save_weapons()
 
     def save_weapons(self,filename=None,backup_filename=None):
-        global current_set
-
-        if not current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('weapon')
-            for mweapon in current_set.all_clothes:
+            for mweapon in self.current_set.all_weapons:
                 l=ET.SubElement(data,'weapon')
                 ET.SubElement(l,'name').text = mweapon.name
                 ET.SubElement(l,'shortDescription').text = mweapon.short_description
@@ -40,8 +41,8 @@ class Manage_weapons:
                 ET.SubElement(l,'ammoType').text = mweapon.ammo_type
                 ET.SubElement(l,'special').text = mweapon.special
                 dt=ET.SubElement(l,'damageTypes')
-                for dt in mweapon.damage_types:
-                    ET.SubElement(dt,'damageType',name=dt.name).text = dt.short_description
+                for dmgtype in mweapon.damage_types:
+                    ET.SubElement(dt,'damageType',name=dmgtype.name).text = dmgtype.short_description
  
             if filename == None:
                 filename = app_config.file_path + app_config.weapon_filename
@@ -55,24 +56,17 @@ class Manage_weapons:
             f.close()
 
     def remove_weapon(self,weapon):
-        global current_set
-
-        current_set.remove(weapon)
+        self.current_set.remove(weapon)
 
     def close_edit_weapon(self):
-        global sup_gui
-
-        self.launch_weapon_list(sup_gui)
+        self.launch_weapon_list(self.sup_gui)
 
     def launch_edit_weapon(self,parent,name,supress_gui=False):
-        global current_set
-        global sup_gui
-
-        sup_gui = supress_gui
+        self.sup_gui = supress_gui
         weapon_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            weapon = current_set.get_weapon(name)
+            weapon = self.current_set.get_weapon(name)
         else:
             weapon = Weapon.Weapon('','')
 
@@ -82,22 +76,16 @@ class Manage_weapons:
             weapon_controller.load_data('Weapon',weapon,self.save_weapon,self.close_edit_weapon)
     
     def launch_weapon_list(self,supress_gui=False):
-        global current_set
-        global list_controller
-
-        if list_controller == None:
-            list_controller = GUI_List_Controller.GUI_list_controller()
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         if supress_gui:
-            return list_controller
+            return self.list_controller
         else:
-            list_controller.load_data('Weapons',current_set.list_of_weapons,self.launch_edit_weapon,self.remove_weapon,self.save_weapons)
+            self.list_controller.load_data('Weapons',self.current_set.list_of_weapons,self.launch_edit_weapon,self.remove_weapon,self.save_weapons)
 
     def load_weapons(self,filename=None):
-        global current_set
-        global loaded_set
-
-        current_set = Weapon.Weapons()   
+        self.current_set = Weapon.Weapons()   
 
         if filename == None:
             filename = app_config.file_path + app_config.weapon_filename
@@ -122,21 +110,17 @@ class Manage_weapons:
             for dt in weapon.findall('damageTypes/damageType'):
                 dmgtype = List_Object.List_object(dt.attrib.get('name'),dt.text)
                 new_weapon.damage_types.append(dmgtype)
-            current_set.add_new(new_weapon)
+            self.current_set.add_new(new_weapon)
 
-        loaded_set = current_set.clone()
+        self.loaded_set = self.current_set.clone()
 
     def get_current_set(self):
-        global current_set
-
-        return current_set
+        return self.current_set
 
     def __init__(self):
-        global current_set
-        global list_controller
-
-        list_controller = None
-        current_set = None
+        self.list_controller = None
+        self.current_set = None
+        self.loaded_set = None
 
 if __name__ == '__main__':
     manager = Manage_weapons()
