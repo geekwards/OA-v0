@@ -7,22 +7,15 @@ import List_Object
 import GUI_List_Form
 
 class GUI_list_controller:
-    list_form
-    list_window
-    current_list
-    edit_callback
-    remove_callback
-    close_callback
-    set_edit
+    list_form = None
+    list_window = None
+    current_list = None
+    edit_callback = None
+    remove_callback = None
+    close_callback = None
+    set_edit = None
 
     def create_form(self,parent=None):
-        self.list_form = None
-        self.list_window = None
-        self.current_list = None
-        self.edit_callback = None
-        self.remove_callback = None
-        self.close_callback = None
-        self.set_edit = None
         self.list_form, self.list_window = GUI_List_Form.create_list_form(parent)
         self.set_edit(True)
         
@@ -33,7 +26,7 @@ class GUI_list_controller:
         self.close_callback = close_call
 
         if self.list_form != None:
-            self.list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click,set_edit)
+            self.list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click,self.set_edit)
             self.refresh_data()
             if supress_gui:
                 return self.list_form

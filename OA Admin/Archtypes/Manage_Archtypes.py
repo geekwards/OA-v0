@@ -12,10 +12,10 @@ import GUI_Archtype_Controller
 import Archtype
 
 class Manage_archtypes:
-    current_set
-    loaded_set
-    sup_gui
-    list_controller
+    current_set = None
+    loaded_set = None
+    sup_gui = None
+    list_controller = None
 
     def save_archtype(self,archtype,fullsave=False):
         self.current_set.update(archtype)

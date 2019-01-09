@@ -13,11 +13,11 @@ def create_misc_list_form(parent):
     return misc_list_form,misc_list_window
 
 class GUI_misc_list_form:
-    new_click
-    close_click
-    edit_click
-    save_click
-    cancel_click
+    new_click = None
+    close_click = None
+    edit_click = None
+    save_click = None
+    cancel_click = None
 
     def setup(self,list_title,new_call,close_call,edit_call,save_call,cancel_call):
         self.new_click = new_call
@@ -28,9 +28,9 @@ class GUI_misc_list_form:
 
         self.parent.title("OA Manager - " + list_title)
         self.lbltitle.config(text=list_title)
-        self.left_button.config(command=close_click)
-        self.center_button.config(command=new_click)
-        self.right_button.config(command=edit_click)
+        self.left_button.config(command=self.close_click)
+        self.center_button.config(command=self.new_click)
+        self.right_button.config(command=self.edit_click)
         self.clear()
         
     def set_edit(self,for_new=False):

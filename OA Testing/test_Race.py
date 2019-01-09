@@ -43,43 +43,43 @@ class test_Race(unittest.TestCase):
 
     def test_archtype_inequality6(self):
         clone = test__data.test_race1.clone()
-        clone.str_bonus = 'changed STR'
+        clone.str_skill_bonus = 'changed STR'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 
     def test_archtype_inequality7(self):
         clone = test__data.test_race1.clone()
-        clone.per_bonus = 'changed per'
+        clone.per_skill_bonus = 'changed per'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 
     def test_archtype_inequality8(self):
         clone = test__data.test_race1.clone()
-        clone.int_bonus = 'changed int'
+        clone.int_skill_bonus = 'changed int'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 
     def test_archtype_inequality9(self):
         clone = test__data.test_race1.clone()
-        clone.dex_bonus = 'changed dex'
+        clone.dex_skill_bonus = 'changed dex'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 
     def test_archtype_inequality10(self):
         clone = test__data.test_race1.clone()
-        clone.cha_bonus = 'changed cha'
+        clone.cha_skill_bonus = 'changed cha'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 
     def test_archtype_inequality11(self):
         clone = test__data.test_race1.clone()
-        clone.vit_bonus = 'changed vit'
+        clone.vit_skill_bonus = 'changed vit'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 
     def test_archtype_inequality12(self):
         clone = test__data.test_race1.clone()
-        clone.mag_bonus = 'changed mag'
+        clone.mag_skill_bonus = 'changed mag'
 
         self.assertFalse(test__data.test_race1.equals(clone))
 

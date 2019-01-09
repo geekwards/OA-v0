@@ -5,28 +5,22 @@ import app_config
 import GUI_Archtype_Form
 
 class GUI_archtype_controller:
-    archtype_form
-    archtype_window
-    current_archtype
-    rollback_archtype
-    save_callback
-    close_callback
+    archtype_form = None
+    archtype_window = None
+    current_archtype = None
+    rollback_archtype = None
+    save_callback = None
+    close_callback = None
 
     def create_form(self,parent=None):
-        self.archtype_form = None
-        self.archtype_window = None
-        self.current_archtype = None
-        self.rollback_archtype = None
-        self.save_callback = None
-        self.close_callback = None
         self.archtype_form,self.archtype_window = GUI_Archtype_Form.create_archtype_form(parent)
 
     def load_data(self,loaded_archtype,save_call,close_call,supress_gui=False):
         self.save_callback = save_call
         self.close_callback = close_call
 
-        self.current_archtype = self.loaded_archtype
-        self.rollback_archtype = self.loaded_archtype.clone()
+        self.current_archtype = loaded_archtype
+        self.rollback_archtype = loaded_archtype.clone()
         self.refresh_data()
         if supress_gui:
             return self.archtype_form
@@ -74,7 +68,7 @@ class GUI_archtype_controller:
         self.current_archtype.level_health = self.archtype_form.f1.elvlhealth.get()
 
         self.rollback_archtype = self.current_archtype.clone()
-        self.save_callback(current_archtype)
+        self.save_callback(self.current_archtype)
         self.archtype_form.set_view()
 
     def cancel_click(self):

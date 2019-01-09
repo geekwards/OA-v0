@@ -13,10 +13,10 @@ def create_archtype_form(parent):
     return archtype_form,archtype_window
 
 class GUI_archtype_form:
-    cancel_click
-    save_click
-    close_click
-    edit_click
+    cancel_click = None
+    save_click = None
+    close_click = None
+    edit_click = None
 
     def set_edit(self):
         self.left_button.config(text='Cancel')

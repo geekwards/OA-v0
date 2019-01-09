@@ -7,21 +7,14 @@ import GUI_Misc_List_Form
 import List_Object
 
 class GUI_misc_list_controller:
-    misc_list_form
-    misc_list_window
-    current_misc_list
-    rollback_misc_list
-    save_callback
-    close_callback
+    misc_list_form = None
+    misc_list_window = None
+    current_misc_list = None
+    rollback_misc_list = None
+    save_callback = None
+    close_callback = None
 
     def create_form(self,parent=None):
-        self.misc_list_form = None
-        self.misc_list_window = None
-        self.current_misc_list = None
-        self.rollback_misc_list = None
-        self.save_callback = None
-        self.close_callback = None
-
         self.misc_list_form,self.misc_list_window = GUI_Misc_List_Form.create_misc_list_form(parent)
 
     def load_data(self,loaded_misc_list,save_call,close_call,supress_gui=False):
@@ -40,10 +33,9 @@ class GUI_misc_list_controller:
     def refresh_data(self):
         self.misc_list_form.clear()
         index=0
-
         if len(self.current_misc_list) > 0:
             for list_item in self.current_misc_list.all_items:
-                misc_list_form.add_item(index,list_item)
+                self.misc_list_form.add_item(index,list_item)
                 index += 1
     
             self.misc_list_form.set_view()
@@ -51,33 +43,23 @@ class GUI_misc_list_controller:
             self.misc_list_form.set_edit(True)
 
     def new_click(self):
-        self.misc_list_form.add_item(len(misc_list_form.f1.winfo_children()),List_Object.List_object('',''))
+        self.misc_list_form.add_item(len(self.misc_list_form.f1.winfo_children()),List_Object.List_object('',''))
 
     def close_click(self):
-        global current_misc_list
-        global rollback_misc_list
-        global misc_list_form
-        global misc_list_window
-        global close_callback
-
-        if not rollback_misc_list.equals(current_misc_list):
+        if not self.rollback_misc_list.equals(self.current_misc_list):
             #confirm save
-            self.save_click()
+            self.save_click() 
         
-        misc_list_window.destroy()
-        misc_list_form = None
-        close_callback()
+        self.misc_list_window.destroy()
+        self.misc_list_form = None
+        self.close_callback()
 
     def edit_click(self):
-        global misc_list_form
-
-        misc_list_form.set_edit()
+        self.misc_list_form.set_edit()
 
     def save_click(self):
         new_misc_list = []
-
         index = 0
-
         for item in self.misc_list_form.f1.winfo_children():
             if index%2 == 0:
                 item_name = item.get()

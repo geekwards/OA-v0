@@ -13,10 +13,10 @@ import Misc_List
 import List_Object
 
 class Manage_misc_lists:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
+    current_set = None
+    loaded_set = None
+    list_controller = None
+    sup_gui = None
 
     def save_misc_list(self,misc_list,fullsave=False):
         self.current_set.update(misc_list)
@@ -24,7 +24,7 @@ class Manage_misc_lists:
             self.save_misc_lists
 
     def save_misc_lists(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(loaded_set):
+        if not self.current_set.equals(self.loaded_set):
             data=ET.Element('misc_lists')
             for mlist in self.current_set.all_lists:
                 l=ET.SubElement(data,'list')

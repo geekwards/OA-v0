@@ -13,12 +13,12 @@ def create_list_form(parent):
     return list_form, list_window
 
 class GUI_list_form:
-    new_click
-    close_click
-    edit_click
-    remove_click
+    new_click = None
+    close_click = None
+    edit_click = None
+    remove_click = None
 
-    def setup(self,list_title,new_call,edit_call,remove_call,close_call,set_edit):
+    def setup(self,list_title,new_call,edit_call,remove_call,close_call,set_edit=True):
         self.new_click = new_call
         self.close_click = close_call
         self.edit_click = edit_call
@@ -26,21 +26,21 @@ class GUI_list_form:
 
         self.parent.title("OA Manager - " + list_title)
         self.lbltitle.config(text=list_title)
-        self.left_button.config(command=close_click)
+        self.left_button.config(command=self.close_click)
         if set_edit:
-            self.right_button.config(command=new_click)
+            self.right_button.config(command=self.new_click)
         else:
             self.right_button.destroy()
 
         self.clear()
 
-    def add_item(self,idx,item_text,set_edit):
+    def add_item(self,idx,item_text,set_edit=True):
         self.f1.edit_list_item = tk.Button(self.f1,text ="View",command=lambda: self.edit_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
         self.f1.lbl_list_item = tk.Label(self.f1,text=item_text)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
         if set_edit:
-            self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: remove_click(idx))
+            self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: self.remove_click(idx))
             self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=2,padx=5,pady=5)
 
     def clear(self):
