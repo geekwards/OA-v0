@@ -20,17 +20,17 @@ class test_Misc_List(unittest.TestCase):
         self.assertTrue(test__data.test_misc_list1.all_items[2],'Testlist 1.3')
 
     def test_misc_list_equals(self):
-        self.assertTrue(test__data.test_misc_list1.equals(test__data.test_misc_list1b))
+        self.assertTrue(test__data.test_misc_list1 == test__data.test_misc_list1b)
 
     def test_misc_list_unequal(self):
-        self.assertFalse(test__data.test_misc_list1.equals(test__data.test_misc_list2))
+        self.assertFalse(test__data.test_misc_list1 == test__data.test_misc_list2)
 
     def test_misc_list_clone(self):
         clone = test__data.test_misc_list1.clone()
-        self.assertTrue(test__data.test_misc_list1.equals(clone))
+        self.assertTrue(test__data.test_misc_list1 == clone)
 
         clone.all_items[1].name = 'MODIFIED'
-        self.assertFalse(test__data.test_misc_list1.equals(clone))
+        self.assertFalse(test__data.test_misc_list1 == clone)
 
     def test_misc_list_add_new(self):
         test__data.test_misc_list2.add_new(List_Object.List_object('Testlist 2.4',''))

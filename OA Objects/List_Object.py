@@ -5,7 +5,7 @@ class List_object:
     short_description = ""
     list_text = ""
 
-    def equals(self,tocompare):
+    def __eq__(self,tocompare):
         return ((self.name == tocompare.name) and (self.short_description == tocompare.short_description))
 
     def __init__(self,name,short_description=''):

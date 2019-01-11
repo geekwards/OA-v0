@@ -61,7 +61,7 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
         misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)
@@ -71,7 +71,7 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
         misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)
@@ -86,7 +86,7 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
         misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)
@@ -99,19 +99,20 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)
         self.assertNotEqual(misc_controller.get_misc_list_form(),None)
 
         misc_controller.close_click()
         self.assertEqual(misc_controller.get_misc_list_form(),None)
-
+ 
     def test_misc_controller_edit(self):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
         misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)
@@ -129,7 +130,7 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
         misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)
@@ -140,7 +141,7 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
         item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
         item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1',[item1,item2,item3])
+        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
 
         misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
         misc_controller.load_data(test_misc_list,save_misc_list,close_misc_list,True)

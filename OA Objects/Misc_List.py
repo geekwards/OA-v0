@@ -1,59 +1,12 @@
-import List_Object
+import Base_Object
 import copy
 
-class Misc_lists:
-    list_of_lists = []
-    all_lists = []
+class Misc_lists(Base_Object.Set_of_Items):
+    pass
 
-    def add_new(self,misc_list):
-        self.all_lists.append(misc_list)
-        self.list_of_lists.append(List_Object.List_object(misc_list.name,''))
-
-    def remove(self,misc_list):
-        self.list_of_lists.remove(self.list_of_lists[self.all_lists.index(self.get_misc_list(misc_list.name))])
-        self.all_lists.remove(misc_list)
-
-    def equals(self,tocompare):
-        same = (len(self.all_lists) == len(tocompare.all_lists))
-        if same:
-            for idx,item in enumerate(tocompare.all_lists):
-                same = same and item.equals(self.all_lists[idx])
-
-        return same
-
-    def clone(self):
-        return copy.deepcopy(self)
-
-    def isempty(self):
-        return len(self.all_lists) == 0
-
-    def update(self,misc_list):
-        found = False
-        for item in self.all_lists:
-            if item.name == misc_list.name:
-                idx = self.all_lists.index(item)
-                self.all_lists[idx] = misc_list
-                self.list_of_lists[idx].name = misc_list.name
-                found = True
-                break
-        
-        if not found:
-            self.add_new(misc_list)
-
-    def get_misc_list(self,name):
-        for item in self.all_lists:
-            if item.name == name:
-                return item
-
-    def __len__(self):
-        return len(self.all_lists)
-
-    def __init__(self):
-        self.all_lists = []
-        self.list_of_lists = []
-
-class Misc_list:
+class Misc_list(Base_Object.Item):
     name = ''
+    short_description = ''
     all_items = []
     item_names = []
 
@@ -64,24 +17,21 @@ class Misc_list:
     def remove(self,list_item):
         self.all_items.remove(list_item)
 
-    def equals(self,tocompare):
-        same = (self.name == tocompare.name) and (len(self) == len(tocompare))
-        if same:
-            for idx,item in enumerate(self.all_items):
-                same = same and (tocompare.all_items[idx].equals(item))
-
-        return same
-
     def clone(self):
         return copy.deepcopy(self)
+
+    def __eq__(self, tocompare):
+        return self.__dict__ == tocompare.__dict__
 
     def __len__(self):
         return len(self.all_items)
 
-    def __init__(self,name,misc_list=[]):
+    def __init__(self,name,short_description='',misc_list=[]):
         self.name = name
+        self.short_description = short_description
         self.all_items = []
         self.item_names = []
 
         for idx,item in enumerate(misc_list):
             self.add_new(item)
+

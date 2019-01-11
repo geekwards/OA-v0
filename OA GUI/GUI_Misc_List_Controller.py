@@ -46,7 +46,7 @@ class GUI_misc_list_controller:
         self.misc_list_form.add_item(len(self.misc_list_form.f1.winfo_children()),List_Object.List_object('',''))
 
     def close_click(self):
-        if not self.rollback_misc_list.equals(self.current_misc_list):
+        if not self.rollback_misc_list == self.current_misc_list:
             #confirm save
             self.save_click() 
         
@@ -80,7 +80,7 @@ class GUI_misc_list_controller:
         self.misc_list_form.set_view()
 
     def cancel_click(self):
-        if not self.rollback_misc_list.equals(self.current_misc_list):
+        if not self.rollback_misc_list == self.current_misc_list:
             #confirm rollback
             self.current_misc_list = self.rollback_misc_list
             self.refresh_data()

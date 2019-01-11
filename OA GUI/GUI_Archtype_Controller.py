@@ -36,7 +36,7 @@ class GUI_archtype_controller:
             self.archtype_form.set_view()
 
     def close_click(self):
-        if not self.rollback_archtype.equals(self.current_archtype):
+        if not self.rollback_archtype == self.current_archtype:
             #confirm save
             self.save_click()
         
@@ -72,7 +72,7 @@ class GUI_archtype_controller:
         self.archtype_form.set_view()
 
     def cancel_click(self):
-        if self.rollback_archtype.equals(self.current_archtype):
+        if self.rollback_archtype == self.current_archtype:
             #confirm rollback
             self.current_archtype = self.rollback_archtype
             self.refresh_data()

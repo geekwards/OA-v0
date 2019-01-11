@@ -15,7 +15,7 @@ class test_List_Object(unittest.TestCase):
         self.assertEqual(test__data.test_object1.short_description,'Test description')
 
     def test_archtype_equal(self):
-        self.assertTrue(test__data.test_object1.equals(test__data.test_object2))
+        self.assertTrue(test__data.test_object1 == test__data.test_object2)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
