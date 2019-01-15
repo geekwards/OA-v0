@@ -29,7 +29,6 @@ class test_Races(unittest.TestCase):
         self.assertEqual(len(test__data.test_races),3)
         self.assertEqual(test__data.test_races.all_items[0].name,'test')
         self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
-
         test__data.test_races.update(test__data.test_race3)
         self.assertEqual(test__data.test_races.list_of_items[1].short_description,'TestDesc2')
         self.assertEqual(test__data.test_races.all_items[1].short_description,'TestDesc2')
@@ -38,7 +37,6 @@ class test_Races(unittest.TestCase):
         self.assertEqual(len(test__data.test_races),3)
         self.assertEqual(test__data.test_races.all_items[0].name,'test')
         self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
-
         test__data.test_races.update(test__data.test_race3)
         self.assertEqual(test__data.test_races.list_of_items[1].name,'Test2')
         self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
@@ -60,7 +58,6 @@ class test_Races(unittest.TestCase):
     def test_races_clone(self):
         clone = test__data.test_races.clone()
         self.assertTrue(test__data.test_races == clone)
-
         clone.get_item('Test2').description = 'modified short descr'
         self.assertFalse(test__data.test_races == clone)
 

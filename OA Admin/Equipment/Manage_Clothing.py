@@ -7,23 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Clothing
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_clothing:
-    current_set
-    loaded_set
-    sup_gui
-    list_controller
-
-    def save_garment(self,garment,fullsave=False):
-        self.current_set.update(garment)
-        if fullsave:
-            self.save_clothing()
-
-    def save_clothing(self,filename=None,backup_filename=None):
+class Manage_clothing(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('clothing')
             for mclothing in self.current_set.all_clothes:
@@ -48,13 +38,7 @@ class Manage_clothing:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_garment(self,garment):
-        self.current_set.remove(garment)
-
-    def close_edit_garment(self):
-        self.launch_clothing_list(self.sup_gui)
-
-    def launch_edit_garment(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         clothing_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -67,17 +51,8 @@ class Manage_clothing:
             return clothing_controller
         else:
             clothing_controller.load_data('Clothing',garment,self.save_garment,self.close_edit_garment)
-    
-    def launch_clothing_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Clothing',self.current_set.list_of_clothing,self.launch_edit_garment,self.remove_garment,self.save_clothing)
 
-    def load_clothing(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Clothing.Clothing()   
 
         if filename == None:
@@ -100,13 +75,9 @@ class Manage_clothing:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Clothing'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_clothing()

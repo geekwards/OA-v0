@@ -6,7 +6,7 @@ except ImportError:
 import tkinter.ttk as ttk
 import easygui
 
-def create_select_set_form(parent):
+def create_form(parent):
     if parent == None:
         select_set_window = tk.Tk()
     else:
@@ -16,13 +16,10 @@ def create_select_set_form(parent):
     return select_set_form,select_set_window
 
 class GUI_select_set_form:
-    include_score
-
     def move_rt(self):
         sel = self.f1.lstsource.curselection()
         list_item = self.f1.lstsource.get(sel[0])
-    
-        if include_score:
+        if self.include_score:
             score = easygui.enterbox('Enter a score for ' + list_item + '.')
             list_item = list_item + ': ' + score
 
@@ -32,8 +29,7 @@ class GUI_select_set_form:
 
     def move_lt(self):
         sel = self.f1.lstselected.curselection()
-        
-        if include_score:
+        if self.include_score:
             list_item,score = self.f1.lstselected.get(sel[0]).split(":",1)
         else:   
             list_item = self.f1.lstselected.get(sel[0])
@@ -42,9 +38,8 @@ class GUI_select_set_form:
         self.f1.lstselected.delete(sel[0])
         return False
     
-    def add_lists(self,title,source_list,selected_list,cancel_call,save_call,score=False):
+    def add_lists(self,title,source_list,selected_list,save_call,cancel_call,score=False):
         self.include_score = score
-
         self.parent.title(title)
         self.lbltitle.config(text=title)
         self.left_button.config(command=cancel_call)
@@ -55,10 +50,11 @@ class GUI_select_set_form:
         for sel in selected_list:
             self.f1.lstselected.insert(0,sel)
 
-    def __init__(self,parent):
-        self.parent = parent
-        self.lbltitle = tk.Label(self.parent,text='SET NOT LOADED')
-        self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)
+    def clear_frame(self):
+        self.f1.destroy()
+        self.build_frame()
+
+    def build_frame(self):
         self.f1 = tk.Frame(self.parent)
         self.f1.grid(sticky='nsew',row=2,column=0,padx=20,pady=20)
         self.f1.lblsource = tk.Label(self.f1,text='Source Set')
@@ -80,6 +76,12 @@ class GUI_select_set_form:
         self.f1.grid_columnconfigure(0,weight=3)
         self.f1.grid_columnconfigure(1,weight=1)
         self.f1.grid_columnconfigure(2,weight=3)
+
+    def __init__(self,parent):
+        self.parent = parent
+        self.lbltitle = tk.Label(self.parent,text='SET NOT LOADED')
+        self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)
+        self.build_frame()
         self.left_button = tk.Button(self.parent,text='Cancel')
         self.left_button.config(width=10,height=2)
         self.left_button.grid(sticky='w',row=6,column=0,pady=5,padx=5)

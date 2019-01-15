@@ -7,23 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Container
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_containers:
-    current_set
-    loaded_set
-    sup_gui
-    list_controller
-
-    def save_container(self,container,fullsave=False):
-        self.current_set.update(container)
-        if fullsave:
-            self.save_containers()
-
-    def save_containers(self,filename=None,backup_filename=None):
+class Manage_containers(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('containers')
             for mcontainer in self.current_set.all_clothes:
@@ -48,13 +38,7 @@ class Manage_containers:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_container(self,container):
-        self.current_set.remove(container)
-
-    def close_edit_container(self):
-        self.launch_container_list(self.sup_gui)
-
-    def launch_edit_container(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         container_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -67,17 +51,8 @@ class Manage_containers:
             return container_controller
         else:
             container_controller.load_data('Container',container,self.save_container,self.close_edit_container)
-    
-    def launch_container_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Containers',self.current_set.list_of_containers,self.launch_edit_container,self.remove_container,self.save_containers)
 
-    def load_containers(self,filename=None):
+    def load_all(self,filename=None):
         self.current_set = Container.Containers()   
 
         if filename == None:
@@ -100,13 +75,9 @@ class Manage_containers:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Containers'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_containers()

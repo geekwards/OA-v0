@@ -1,12 +1,18 @@
 <races>
     <race>
-        <name>Test Race</name>
-        <shortDescription>Test Short Desc</shortDescription>
-        <description>Test Description</description>
+        <name>Test1</name>
+        <shortDescription>TestShortDesc1</shortDescription>
+        <description>very pointy ears</description>
         <size>Medium</size>
         <body>Slim</body>
-        <foci>Elf Focus</foci>
-        <feats>Elf Feats</feats>
+        <foci>
+            <focus>Focus 1.1</focus>
+            <focus>Focus 1.2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 1.1</feat>
+            <feat>Feat 1.2</feat>
+        </feats>
         <strBonus>0</strBonus>
         <perBonus>1</perBonus>
         <intBonus>2</intBonus>
@@ -17,16 +23,25 @@
         <willBonus>7</willBonus>
         <fortitudeBonus>8</fortitudeBonus>
         <reflexBonus>9</reflexBonus>
-        <languagesBonus>Elvish</languagesBonus>
+        <languagesBonus>
+            <language name="Elvish">+1.2</language>
+            <language name="Common">+1.3</language>
+        </languagesBonus>
     </race>
     <race>
-        <name>Test Race 2</name>
-        <shortDescription>test 2 short descr</shortDescription>
-        <description>test 2 descr</description>
+        <name>Test2</name>
+        <shortDescription>TestShortDesc2</shortDescription>
+        <description>More human than the human man</description>
         <size>Medium</size>
         <body>Average</body>
-        <foci>Human Focus</foci>
-        <feats>Human feats</feats>
+        <foci>
+            <focus>Focus 2.1</focus>
+            <focus>Focus 2.2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 2.1</feat>
+            <feat>Feat 2.2</feat>
+        </feats>
         <strBonus>9</strBonus>
         <perBonus>8</perBonus>
         <intBonus>7</intBonus>
@@ -37,6 +52,67 @@
         <willBonus>2</willBonus>
         <fortitudeBonus>1</fortitudeBonus>
         <reflexBonus>0</reflexBonus>
-        <languagesBonus>None</languagesBonus>
+        <languagesBonus>
+            <language name="Elvish">+2.2</language>
+            <language name="Common">+2.3</language>
+        </languagesBonus>
+    </race>
+    <race>
+        <name>Test3</name>
+        <shortDescription>TestShortDesc3</shortDescription>
+        <description>very pointy ears</description>
+        <size>Medium</size>
+        <body>Slim</body>
+        <foci>
+            <focus>Focus 3.1</focus>
+            <focus>Focus 3.2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 3.1</feat>
+            <feat>Feat 3.2</feat>
+        </feats>
+        <strBonus>0</strBonus>
+        <perBonus>1</perBonus>
+        <intBonus>2</intBonus>
+        <dexBonus>3</dexBonus>
+        <chaBonus>4</chaBonus>
+        <vitBonus>5</vitBonus>
+        <magBonus>6</magBonus>
+        <willBonus>7</willBonus>
+        <fortitudeBonus>8</fortitudeBonus>
+        <reflexBonus>9</reflexBonus>
+        <languagesBonus>
+            <language name="Elvish">+3.2</language>
+            <language name="Common">+3.3</language>
+        </languagesBonus>
+    </race>
+    <race>
+        <name>Test4</name>
+        <shortDescription>TestShortDesc4</shortDescription>
+        <description>More human than the human man</description>
+        <size>Medium</size>
+        <body>Average</body>
+        <foci>
+            <focus>Focus 4.1</focus>
+            <focus>Focus 4.2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 4.1</feat>
+            <feat>Feat 4.2</feat>
+        </feats>
+        <strBonus>9</strBonus>
+        <perBonus>8</perBonus>
+        <intBonus>7</intBonus>
+        <dexBonus>6</dexBonus>
+        <chaBonus>5</chaBonus>
+        <vitBonus>4</vitBonus>
+        <magBonus>3</magBonus>
+        <willBonus>2</willBonus>
+        <fortitudeBonus>1</fortitudeBonus>
+        <reflexBonus>0</reflexBonus>
+        <languagesBonus>
+            <language name="Elvish">+4.2</language>
+            <language name="Common">+4.3</language>
+        </languagesBonus>
     </race>
 </races>

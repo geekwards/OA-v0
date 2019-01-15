@@ -28,7 +28,6 @@ class test_Misc_List(unittest.TestCase):
     def test_misc_list_clone(self):
         clone = test__data.test_misc_list1.clone()
         self.assertTrue(test__data.test_misc_list1 == clone)
-
         clone.all_items[1].name = 'MODIFIED'
         self.assertFalse(test__data.test_misc_list1 == clone)
 

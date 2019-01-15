@@ -7,23 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Misc_Equipment
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_misc_equipment:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
-
-    def save_stuff(self,stuff,fullsave=False):
-        self.current_set.update(stuff)
-        if fullsave:
-            self.save_misc_equipment()
-
-    def save_misc_equipment(self,filename=None,backup_filename=None):
+class Manage_misc_equipment(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('miscEquipment')
             for mequip in self.current_set.all_clothes:
@@ -48,13 +38,7 @@ class Manage_misc_equipment:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_stuff(self,stuff):
-        self.current_set.remove(stuff)
-
-    def close_edit_stuff(self):
-        self.launch_misc_equipment_list(self.sup_gui)
-
-    def launch_edit_stuff(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         misc_equipment_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -67,17 +51,8 @@ class Manage_misc_equipment:
             return misc_equipment_controller
         else:
             misc_equipment_controller.load_data('Misc Equipment',stuff,self.save_stuff,self.close_edit_stuff)
-    
-    def launch_misc_equipment_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Misc Equipment',self.current_set.list_of_misc_equipment,self.launch_edit_stuff,self.remove_stuff,self.save_misc_equipment)
 
-    def load_misc_equipment(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Misc_Equipment.Misc_equipment()   
 
         if filename == None:
@@ -100,13 +75,9 @@ class Manage_misc_equipment:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Misc Equipment'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_misc_equipment()

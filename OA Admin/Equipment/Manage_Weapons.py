@@ -7,23 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Weapon
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_weapons:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
-
-    def save_weapon(self,weapon,fullsave=False):
-        self.current_set.update(weapon)
-        if fullsave:
-            self.save_weapons()
-
-    def save_weapons(self,filename=None,backup_filename=None):
+class Manage_weapons(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('weapon')
             for mweapon in self.current_set.all_weapons:
@@ -55,13 +45,7 @@ class Manage_weapons:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_weapon(self,weapon):
-        self.current_set.remove(weapon)
-
-    def close_edit_weapon(self):
-        self.launch_weapon_list(self.sup_gui)
-
-    def launch_edit_weapon(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         weapon_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -74,17 +58,8 @@ class Manage_weapons:
             return weapon_controller
         else:
             weapon_controller.load_data('Weapon',weapon,self.save_weapon,self.close_edit_weapon)
-    
-    def launch_weapon_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Weapons',self.current_set.list_of_weapons,self.launch_edit_weapon,self.remove_weapon,self.save_weapons)
 
-    def load_weapons(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Weapon.Weapons()   
 
         if filename == None:
@@ -114,13 +89,9 @@ class Manage_weapons:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Weapons'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_weapons()

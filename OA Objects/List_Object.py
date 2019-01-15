@@ -1,9 +1,9 @@
 import copy
 
 class List_object:
-    name = ""
-    short_description = ""
-    list_text = ""
+    name = ''
+    short_description = ''
+    list_text = ''
 
     def __eq__(self,tocompare):
         return ((self.name == tocompare.name) and (self.short_description == tocompare.short_description))

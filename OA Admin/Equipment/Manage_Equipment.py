@@ -58,7 +58,6 @@ class Manage_equipment:
             self.list_controller = GUI_List_Controller.GUI_list_controller()
         
         self.list_controller.set_edit(False)
-
         if supress_gui:
             return self.list_controller
         else:

@@ -7,23 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Food
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_food:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
-
-    def save_food(self,food,fullsave=False):
-        self.current_set.update(food)
-        if fullsave:
-            self.save_foods()
-
-    def save_foods(self,filename=None,backup_filename=None):
+class Manage_food(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('food')
             for mfood in self.current_set.all_food:
@@ -45,13 +35,7 @@ class Manage_food:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_food(self,food):
-        self.current_set.remove(food)
-
-    def close_edit_food(self):
-        self.launch_food_list(self.sup_gui)
-
-    def launch_edit_food(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         food_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -65,16 +49,7 @@ class Manage_food:
         else:
             food_controller.load_data('Food',food,self.save_food,self.close_edit_food)
     
-    def launch_food_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('food Types',self.current_set.list_of_food,self.launch_edit_food,self.remove_food,self.save_foods)
-
-    def load_food(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Food.Foods()   
 
         if filename == None:
@@ -94,13 +69,9 @@ class Manage_food:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Food'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_food()

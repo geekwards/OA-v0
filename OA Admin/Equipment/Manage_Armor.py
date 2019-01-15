@@ -7,23 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Armor
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_armor:
-    current_set
-    loaded_set
-    sup_gui
-    list_controller
-
-    def save_armor(self,armor,fullsave=False):
-        self.current_set.update(armor)
-        if fullsave:
-            self.save_armors()
-
-    def save_armors(self,filename=None,backup_filename=None):
+class Manage_armor(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('armor')
             for marmor in self.current_set.all_armors:
@@ -51,13 +41,7 @@ class Manage_armor:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_armor(self,armor):
-        self.current_set.remove(armor)
-
-    def close_edit_armor(self):
-        self.launch_armor_list(self.sup_gui)
-
-    def launch_edit_armor(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         armor_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -70,17 +54,8 @@ class Manage_armor:
             return armor_controller
         else:
             armor_controller.load_data('Armor',armor,self.save_armor,self.close_edit_armor)
-    
-    def launch_armor_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Armors',self.current_set.list_of_armors,self.launch_edit_armor,self.remove_armor,self.save_armors)
 
-    def load_armors(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Armor.Armors()   
 
         if filename == None:
@@ -106,13 +81,9 @@ class Manage_armor:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Armor'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_armor()

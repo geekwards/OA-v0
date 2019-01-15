@@ -1,15 +1,8 @@
-import Base_Object
+import Base_Equipment
 
-class Containers(Base_Object.Set_of_Items):
+class Containers(Base_Equipment.Base_equipment):
     pass
 
-class Container(Base_Object.Item):
-    name = ''
-    short_description = ''
-    description = ''
-    value = 0
-    weight = 0
-    health = 0
-    capacity = 0
-    special = ''
+class Container(Base_Equipment.Equip):
+    pass
 

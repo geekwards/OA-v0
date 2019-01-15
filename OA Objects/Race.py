@@ -22,3 +22,9 @@ class Race(Base_Object.Item):
     fortitude_bonus = 0
     reflex_bonus = 0
     languages_bonus = []
+
+    def __init__(self,name,short_description=''):
+        self.foci=[]
+        self.feats=[]
+        self.languages_bonus=[]
+        super().__init__(name,short_description)

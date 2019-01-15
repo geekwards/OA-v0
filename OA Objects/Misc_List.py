@@ -17,12 +17,6 @@ class Misc_list(Base_Object.Item):
     def remove(self,list_item):
         self.all_items.remove(list_item)
 
-    def clone(self):
-        return copy.deepcopy(self)
-
-    def __eq__(self, tocompare):
-        return self.__dict__ == tocompare.__dict__
-
     def __len__(self):
         return len(self.all_items)
 

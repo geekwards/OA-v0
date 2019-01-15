@@ -5,7 +5,7 @@ except ImportError:
 
 import tkinter.ttk as ttk
 
-def create_race_form(parent):
+def create_form(parent):
     if parent == None:
         race_window = tk.Tk()
     else:
@@ -15,59 +15,6 @@ def create_race_form(parent):
     return race_form,race_window
 
 class GUI_race_form:
-    cancel_click
-    save_click
-    close_click
-    edit_click
-
-    def set_edit(self):
-        self.left_button.config(text='Cancel')
-        self.left_button.config(command=self.cancel_click)
-        self.right_button.config(text='Save')
-        self.right_button.config(command=self.save_click)
-        self.enable_form()
-
-    def set_view(self):
-        self.left_button.config(text='Close')
-        self.left_button.config(command=self.close_click)
-        self.right_button.config(text='Edit')
-        self.right_button.config(command=self.edit_click)
-        self.disable_form()
-
-    def clear(self):
-        self.f1.ename.delete(0,'end')
-        self.f1.eshortdescr.delete(0,'end')
-        self.f1.txtdescription.delete("1.0",'end')
-        self.f1.cbosize.set(0)
-        self.f1.cbobody.set(0)
-        self.f1.lstfoci.delete(0,'end')
-        self.f1.lstfeats.delete(0,'end')
-        self.f1.lstlangs.delete(0,'end')
-        self.f1.estr.delete(0,'end')
-        self.f1.eper.delete(0,'end')
-        self.f1.eint.delete(0,'end')
-        self.f1.edex.delete(0,'end')
-        self.f1.echa.delete(0,'end')
-        self.f1.evit.delete(0,'end')
-        self.f1.emag.delete(0,'end')
-        self.f1.ewill.delete(0,'end')
-        self.f1.efortitude.delete(0,'end')
-        self.f1.ereflex.delete(0,'end')
-
-    def enable_form(self):
-        for item in self.f1.winfo_children():
-            if item.winfo_class() != 'Frame':
-                item.config(state='normal')
-
-    def disable_form(self):
-        for item in self.f1.winfo_children():
-            if item.winfo_class() != 'Frame':
-                item.config(state='disabled')
-
-    def add_lists(self,sizes,bodies):
-        self.f1.cbosize.config(values=sizes)
-        self.f1.cbobody.config(values=bodies)
-
     def add_item(self,race,close_call,cancel_call,edit_call,save_call,list_call):
         self.close_click = close_call
         self.cancel_click = cancel_call
@@ -77,7 +24,7 @@ class GUI_race_form:
         self.enable_form()
         self.parent.title("Race - " + race.name)
         self.lbltitle.config(text="Race - " + race.name)
-        self.clear()
+        self.clear_frame()
         self.f1.ename.insert(0,race.name)
         self.f1.eshortdescr.insert(0,race.short_description)
         self.f1.txtdescription.insert('end',race.description)
@@ -105,10 +52,35 @@ class GUI_race_form:
         
         self.disable_form()
 
-    def __init__(self,parent):
-        self.parent = parent
-        self.lbltitle = tk.Label(self.parent,text='RACE NOT LOADED')
-        self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)
+    def set_edit(self):
+        self.left_button.config(text='Cancel')
+        self.left_button.config(command=self.cancel_click)
+        self.right_button.config(text='Save')
+        self.right_button.config(command=self.save_click)
+        self.enable_form()
+
+    def set_view(self):
+        self.left_button.config(text='Close')
+        self.left_button.config(command=self.close_click)
+        self.right_button.config(text='Edit')
+        self.right_button.config(command=self.edit_click)
+        self.disable_form()
+
+    def enable_form(self):
+        for item in self.f1.winfo_children():
+            if item.winfo_class() != 'Frame':
+                item.config(state='normal')
+
+    def disable_form(self):
+        for item in self.f1.winfo_children():
+            if item.winfo_class() != 'Frame':
+                item.config(state='disabled')
+
+    def clear_frame(self):
+        self.f1.destroy()
+        self.build_frame()
+
+    def build_frame(self):
         self.f1 = tk.Frame(self.parent)
         self.f1.grid(sticky='nsew',row=2,column=0,padx=20,pady=20)
         self.f1.lblname = tk.Label(self.f1,text='Name')
@@ -202,6 +174,16 @@ class GUI_race_form:
         self.f1.grid_columnconfigure(4,weight=3)
         self.f1.grid_columnconfigure(5,weight=3)
         self.f1.grid_columnconfigure(6,weight=1)
+
+    def add_lists(self,sizes,bodies):
+        self.f1.cbosize.config(values=sizes)
+        self.f1.cbobody.config(values=bodies)
+
+    def __init__(self,parent):
+        self.parent = parent
+        self.lbltitle = tk.Label(self.parent,text='RACE NOT LOADED')
+        self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)
+        self.build_frame()
         self.left_button = tk.Button(self.parent,text='Close')
         self.left_button.config(width=10,height=2)
         self.left_button.grid(sticky='w',row=16,column=2,pady=10)

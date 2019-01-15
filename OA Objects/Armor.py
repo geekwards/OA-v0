@@ -1,15 +1,7 @@
-import Base_Object
+import Base_Equipment
 
-class Armors(Base_Object.Set_of_Items):
+class Armors(Base_Equipment.Base_equipment):
     pass
 
-class Armor(Base_Object.Item):
-    name = ''
-    short_description = ''
-    description = ''
-    value = 0
-    weight = 0
-    health = 0
-    capacity = 0
-    special = ''
+class Armor(Base_Equipment.Equip):
     damage_types = []

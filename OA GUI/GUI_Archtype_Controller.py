@@ -5,49 +5,32 @@ import app_config
 import GUI_Archtype_Form
 
 class GUI_archtype_controller:
-    archtype_form = None
-    archtype_window = None
-    current_archtype = None
-    rollback_archtype = None
-    save_callback = None
-    close_callback = None
-
     def create_form(self,parent=None):
-        self.archtype_form,self.archtype_window = GUI_Archtype_Form.create_archtype_form(parent)
+        self.archtype_form,self.archtype_window = GUI_Archtype_Form.create_form(parent)
 
-    def load_data(self,loaded_archtype,save_call,close_call,supress_gui=False):
+    def load_data(self,loaded_archtype,save_call,close_call):
         self.save_callback = save_call
         self.close_callback = close_call
 
         self.current_archtype = loaded_archtype
         self.rollback_archtype = loaded_archtype.clone()
-        self.refresh_data()
-        if supress_gui:
-            return self.archtype_form
-        else:
-            self.archtype_window.mainloop()
-
-    def refresh_data(self):
-        self.archtype_form.clear()
-        self.archtype_form.add_item(self.current_archtype,self.close_click,self.cancel_click,self.edit_click,self.save_click)
+        self.archtype_form.clear_frame()
+        self.archtype_form.add_item(self.current_archtype,self.save_call,self.edit_call,self.close_call,self.cancel_call)
         if self.current_archtype.isempty():
             self.archtype_form.set_edit()
         else:
             self.archtype_form.set_view()
 
-    def close_click(self):
-        if not self.rollback_archtype == self.current_archtype:
-            #confirm save
-            self.save_click()
-        
-        self.archtype_window.destroy()
-        self.archtype_form = None
-        self.close_callback()
+    def launch_form(self):
+        self.archtype_window.mainloop()
 
-    def edit_click(self):
+    def new_call(self):
+        raise NotImplementedError
+
+    def edit_call(self):
         self.archtype_form.set_edit()
 
-    def save_click(self):
+    def save_call(self):
         self.current_archtype.name = self.archtype_form.f1.ename.get()
         self.current_archtype.short_description = self.archtype_form.f1.eshortdescription.get()
         self.current_archtype.description = self.archtype_form.f1.txtdescription.get("1.0",'end-1c')
@@ -71,18 +54,27 @@ class GUI_archtype_controller:
         self.save_callback(self.current_archtype)
         self.archtype_form.set_view()
 
-    def cancel_click(self):
+    def close_call(self):
+        if not self.rollback_archtype == self.current_archtype:
+            #confirm save
+            self.save_call()
+        
+        self.archtype_window.destroy()
+        self.archtype_form = None
+        self.close_callback()
+
+    def cancel_call(self):
         if self.rollback_archtype == self.current_archtype:
             #confirm rollback
             self.current_archtype = self.rollback_archtype
-            self.refresh_data()
+            self.load_data(self.current_archtype,self.save_callback,self.close_callback)
 
         self.archtype_form.set_view()
 
-    def get_current_archtype(self):
+    def get_current_set(self):
         return self.current_archtype
 
-    def get_archtype_form(self):
+    def get_form(self):
         return self.archtype_form
 
     def __init__(self):

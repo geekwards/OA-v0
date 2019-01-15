@@ -7,29 +7,19 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import GUI_Race_Controller
 import Manage_Misc_Lists
 import Race
 import List_Object
 import Misc_List
 import Manage_Foci
-
-class Manage_races:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
-
-    def save_race(self,race,fullsave=False):
-        self.current_set.update(race)
-        if fullsave:
-            self.save_races()
-
-    def save_races(self,filename=None,backup_filename=None):
-        if not(self.loaded_set.equals(self.current_set)):
+ 
+class Manage_races(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
+        if not(self.loaded_set == self.current_set):
             data=ET.Element('races')
-            for item in self.current_set.all_races:
+            for item in self.current_set.all_items:
                 r=ET.SubElement(data,'race')
                 ET.SubElement(r,'name').text = item.name
                 ET.SubElement(r,'shortDescription').text = item.short_description
@@ -67,32 +57,17 @@ class Manage_races:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_race(self,race):
-        self.current_set.remove(race)
-
-    def close_edit_race(self):
-        self.launch_race_list(self.sup_gui)
-
-    def launch_edit_race(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         race_controller = GUI_Race_Controller.GUI_race_controller()
 
         if supress_gui:
             return race_controller
         else:
-            race_controller.load_lookups(sizes,bodies,languages,foci,feats)
+            race_controller.load_lookups(self.sizes,self.bodies,self.languages,self.foci,self.feats)
             race_controller.load_data(self.current_set.get_race(name),self.save_race,self.close_edit_race)
 
-    def launch_race_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Races',self.current_set.list_of_races,self.launch_edit_race,self.remove_race,self.save_races)
-
-    def load_races(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Race.Races()
 
         if filename == None:
@@ -131,28 +106,24 @@ class Manage_races:
 
     def load_combo_data(self):
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
-        misc_lists.load_misc_lists()
+        misc_lists.load_set()
         foci_list = Manage_Foci.Manage_foci()
-        foci_list.load_foci()
-        sizes = misc_lists.get_current_set().get_misc_list('Creature Sizes').item_names
-        bodies = misc_lists.get_current_set().get_misc_list('Creature Body Types').item_names
-        languages = Misc_List.Misc_lists()
-        languages.add_new(misc_lists.get_current_set().get_misc_list('Languages').clone())
-        foci = Misc_List.Misc_lists()
-        foci.add_new(Misc_List.Misc_list('Foci',foci_list.get_current_set().list_of_foci))
-        feat_types = misc_lists.get_current_set().get_misc_list('Feat Types').item_names
-        feats = Misc_List.Misc_lists()
+        foci_list.load_set()
+        self.sizes = misc_lists.get_current_set().get_item('Creature Sizes').item_names
+        self.bodies = misc_lists.get_current_set().get_item('Creature Body Types').item_names
+        self.languages = Misc_List.Misc_lists()
+        self.languages.add_new(misc_lists.get_current_set().get_item('Languages').clone())
+        self.foci = Misc_List.Misc_lists()
+        self.foci.add_new(Misc_List.Misc_list('Foci','',foci_list.get_current_set().all_items))
+        feat_types = misc_lists.get_current_set().get_item('Feat Types').item_names
+        self.feats = Misc_List.Misc_lists()
         for feat_type in feat_types:
-            feats.add_new(misc_lists.get_current_set().get_misc_list(feat_type).clone())
-
-    def get_current_set(self):
-        return self.current_set
+            self.feats.add_new(misc_lists.get_current_set().get_item(feat_type).clone())
 
     def __init__(self):
-        list_controller = None        
-        current_set = None
-        loaded_set = None
+        self.name = 'Races'
         self.load_combo_data()
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_races()

@@ -7,49 +7,28 @@ import List_Object
 import GUI_List_Form
 
 class GUI_list_controller:
-    list_form = None
-    list_window = None
-    current_list = None
-    edit_callback = None
-    remove_callback = None
-    close_callback = None
-    set_edit = None
-
     def create_form(self,parent=None):
         self.list_form, self.list_window = GUI_List_Form.create_list_form(parent)
-        self.set_edit(True)
         
-    def load_data(self,title,loaded_list,edit_call,remove_call,close_call,supress_gui=False):
+    def load_data(self,title,loaded_list,edit_call,remove_call,close_call,set_edit):
         self.current_list = loaded_list
         self.edit_callback = edit_call
         self.remove_callback = remove_call
         self.close_callback = close_call
-
-        if self.list_form != None:
-            self.list_form.setup(title,self.new_click,self.edit_click,self.remove_click,self.close_click,self.set_edit)
-            self.refresh_data()
-            if supress_gui:
-                return self.list_form
-            else:
-                self.list_window.mainloop()
-
-    def refresh_data(self):
-        self.list_form.clear()
+        self.list_form.setup_form(title,self.new_call,self.edit_call,self.remove_call,self.close_call,set_edit)
+        self.list_form.clear_frame()
         index=0
         for item in self.current_list:
-            self.list_form.add_item(index,item.list_text,self.set_edit)
+            self.list_form.add_item(index,item.list_text,set_edit)
             index += 1
 
-    def close_click(self):
-        if self.close_callback != None:
-            self.close_callback()
-        self.list_window.destroy()
-        self.list_form = None
+    def launch_form(self):
+        self.list_window.mainloop()
 
-    def new_click(self):
-        self.edit_click(None)
+    def new_call(self):
+        self.edit_call(None)
 
-    def edit_click(self,idx):
+    def edit_call(self,idx):
         if idx==None:
             name = ''
         else:
@@ -57,19 +36,29 @@ class GUI_list_controller:
 
         self.edit_callback(self.list_window,name)
 
-    def remove_click(self,idx):
-        #todo: confirm remove item
-        self.remove_callback(self.current_list[idx])
-        self.refresh_data()
+    def save_call(self):
+        raise NotImplementedError
 
-    def set_edit(self,value):
-        self.set_edit = value
+    def close_call(self):
+        if self.close_callback != None:
+            self.close_callback()
+        self.list_window.destroy()
+        self.list_form = None
 
-    def get_list_form(self):
+    def cancel_call(self):
+        raise NotImplementedError
+
+    def get_current_set(self):
+        return self.current_list
+
+    def get_form(self):
         return self.list_form
 
-    def get_current_list(self):
-        return self.current_list
+    def remove_call(self,idx):
+        #todo: confirm remove item
+        self.remove_callback(self.current_list[idx])
+        self.list_form.clear_frame()
+        self.list_form.build_frame()
 
     def __init__(self):
         self.create_form()

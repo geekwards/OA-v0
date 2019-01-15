@@ -1,12 +1,18 @@
 <races>
     <race>
-        <name>Test Race</name>
-        <shortDescription>Test Short Desc</shortDescription>
-        <description>Test Description</description>
+        <name>Elf</name>
+        <shortDescription>Pointed Ears</shortDescription>
+        <description>very pointy ears</description>
         <size>Medium</size>
         <body>Slim</body>
-        <foci>Elf Focus</foci>
-        <feats>Elf Feats</feats>
+        <foci>
+            <focus>Focus 1</focus>
+            <focus>Focus 2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 1</feat>
+            <feat>Feat 2</feat>
+        </feats>
         <strBonus>0</strBonus>
         <perBonus>1</perBonus>
         <intBonus>2</intBonus>
@@ -17,16 +23,25 @@
         <willBonus>7</willBonus>
         <fortitudeBonus>8</fortitudeBonus>
         <reflexBonus>9</reflexBonus>
-        <languagesBonus>Elvish</languagesBonus>
+        <languagesBonus>
+            <language name="Elvish">+2</language>
+            <language name="Common">+3</language>
+        </languagesBonus>
     </race>
     <race>
-        <name>Test Race 2</name>
-        <shortDescription>test 2 short descr</shortDescription>
-        <description>test 2 descr</description>
+        <name>Human</name>
+        <shortDescription>us</shortDescription>
+        <description>More human than the human man</description>
         <size>Medium</size>
         <body>Average</body>
-        <foci>Human Focus</foci>
-        <feats>Human feats</feats>
+        <foci>
+            <focus>Focus 1</focus>
+            <focus>Focus 2</focus>
+        </foci>
+        <feats>
+            <feat>Feat 1</feat>
+            <feat>Feat 2</feat>
+        </feats>
         <strBonus>9</strBonus>
         <perBonus>8</perBonus>
         <intBonus>7</intBonus>
@@ -37,6 +52,9 @@
         <willBonus>2</willBonus>
         <fortitudeBonus>1</fortitudeBonus>
         <reflexBonus>0</reflexBonus>
-        <languagesBonus>None</languagesBonus>
+        <languagesBonus>
+            <language name="Elvish">+2</language>
+            <language name="Common">+3</language>
+        </languagesBonus>
     </race>
 </races>

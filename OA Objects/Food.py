@@ -1,11 +1,7 @@
-import Base_Object
+import Base_Equipment
 
-class Foods(Base_Object.Set_of_Items):
+class Foods(Base_Equipment.Base_equipment):
     pass
 
-class Food(Base_Object.Item):
-    name = ''
-    short_description = ''
-    description = ''
-    value = 0
-    weight = 0
+class Food(Base_Equipment.Equip):
+    pass

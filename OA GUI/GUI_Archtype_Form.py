@@ -3,7 +3,7 @@ try:
 except ImportError:
     import tkinter as tk
 
-def create_archtype_form(parent):
+def create_form(parent):
     if parent == None:
         archtype_window = tk.Tk()
     else:
@@ -13,54 +13,7 @@ def create_archtype_form(parent):
     return archtype_form,archtype_window
 
 class GUI_archtype_form:
-    cancel_click = None
-    save_click = None
-    close_click = None
-    edit_click = None
-
-    def set_edit(self):
-        self.left_button.config(text='Cancel')
-        self.left_button.config(command=self.cancel_click)
-        self.right_button.config(text='Save')
-        self.right_button.config(command=self.save_click)
-        self.enable_form()
-
-    def set_view(self):
-        self.left_button.config(text='Close')
-        self.left_button.config(command=self.close_click)
-        self.right_button.config(text='Edit')
-        self.right_button.config(command=self.edit_click)
-        self.disable_form()
-
-    def clear(self):
-        self.f1.ename.delete(0,'end')
-        self.f1.eshortdescription.delete(0,'end')
-        self.f1.txtdescription.delete("1.0",'end')
-        self.f1.eproficiency.delete(0,'end')
-        self.f1.estr.delete(0,'end')
-        self.f1.eper.delete(0,'end')
-        self.f1.eint.delete(0,'end')
-        self.f1.edex.delete(0,'end')
-        self.f1.echa.delete(0,'end')
-        self.f1.evit.delete(0,'end')
-        self.f1.emag.delete(0,'end')
-        self.f1.estamina.delete(0,'end')
-        self.f1.eattack.delete(0,'end')
-        self.f1.ereflex.delete(0,'end')
-        self.f1.efeats.delete(0,'end')
-        self.f1.emvmt.delete(0,'end')
-        self.f1.eskillpts.delete(0,'end')
-        self.f1.elvlhealth.delete(0,'end')
-
-    def enable_form(self):
-        for item in self.f1.winfo_children():
-            item.config(state='normal')
-
-    def disable_form(self):
-        for item in self.f1.winfo_children():
-            item.config(state='disabled')
-
-    def add_item(self,archtype,close_call,cancel_call,edit_call,save_call):
+    def add_item(self,archtype,save_call,edit_call,close_call,cancel_call):
         self.close_click = close_call
         self.cancel_click = cancel_call
         self.edit_click = edit_call
@@ -69,7 +22,7 @@ class GUI_archtype_form:
         self.enable_form()
         self.parent.title("Archtype - " + archtype.name)
         self.lbltitle.config(text="Archtype - " + archtype.name)
-        self.clear()
+        self.clear_frame()
         self.f1.ename.insert(0,archtype.name)
         self.f1.eshortdescription.insert(0,archtype.short_description)
         self.f1.txtdescription.insert('end',archtype.description)
@@ -90,10 +43,33 @@ class GUI_archtype_form:
         self.f1.elvlhealth.insert(0,archtype.level_health)
         self.disable_form()
 
-    def __init__(self,parent):
-        self.parent = parent
-        self.lbltitle = tk.Label(self.parent,text='ARCHTYPE NOT LOADED')
-        self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)
+    def set_edit(self):
+        self.left_button.config(text='Cancel')
+        self.left_button.config(command=self.cancel_click)
+        self.right_button.config(text='Save')
+        self.right_button.config(command=self.save_click)
+        self.enable_form()
+
+    def set_view(self):
+        self.left_button.config(text='Close')
+        self.left_button.config(command=self.close_click)
+        self.right_button.config(text='Edit')
+        self.right_button.config(command=self.edit_click)
+        self.disable_form()
+
+    def enable_form(self):
+        for item in self.f1.winfo_children():
+            item.config(state='normal')
+
+    def disable_form(self):
+        for item in self.f1.winfo_children():
+            item.config(state='disabled')
+
+    def clear_frame(self):
+        self.f1.destroy()
+        self.build_frame()
+
+    def build_frame(self):
         self.f1 = tk.Frame(self.parent)
         self.f1.grid(sticky='nsew',row=2,column=0,padx=20,pady=20)
         self.f1.lblname = tk.Label(self.f1,text='Name')
@@ -178,6 +154,12 @@ class GUI_archtype_form:
         self.f1.grid_columnconfigure(4,weight=3)
         self.f1.grid_columnconfigure(5,weight=3)
         self.f1.grid_columnconfigure(6,weight=1)
+
+    def __init__(self,parent):
+        self.parent = parent
+        self.lbltitle = tk.Label(self.parent,text='ARCHTYPE NOT LOADED')
+        self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)
+        self.build_frame()
         self.left_button = tk.Button(self.parent,text='Close')
         self.left_button.config(width=10,height=2)
         self.left_button.grid(sticky='w',row=16,column=2,pady=10)

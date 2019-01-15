@@ -7,82 +7,94 @@ sys.path.append(datapath)
 import app_config
 import GUI_Archtype_Controller
 import Archtype
+import test__data
 
-arch_save = False
-arch_close = False
-incomingarch = Archtype.Archtype('','')
+new_called = False
+edit_called = False
+save_called = False
+close_called = False
+cancel_called = False
+remove_called = False
+call_name = ''
 index = 0
-test_archtype = Archtype.Archtype('Testing','TestDesc')
 
-def save_archtype(arch):
-    global arch_save
+def new_call():
+    global new_called
+    new_called = True
 
-    arch_save = True
+def save_call(arg):
+    global save_called
+    save_called = True
 
-def close_archtype():
-    global arch_close
+def edit_call(list_window,name):
+    global edit_called
+    global call_name
+    edit_called = True
+    call_name = name
 
-    arch_close = True
+def close_call():
+    global close_called
+    close_called = True
+
+def cancel_call():
+    global cancel_called
+    cancel_called = True
+
+def remove_call(list_item):
+    global remove_called
+    remove_called = True
 
 class test_GUI_Archtype(unittest.TestCase):
-
     def test_archtype_controller_create(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        self.assertNotEqual(arch_controller.get_archtype_form(),None)
+        self.assertNotEqual(arch_controller.get_form(),None)
 
     def test_archtype_controller_load(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        arch_controller.load_data(test_archtype,save_archtype,close_archtype,True)
-        self.assertEqual(arch_controller.get_current_archtype(),test_archtype)
+        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        self.assertEqual(arch_controller.get_current_set(),test__data.test_archtype1)
 
     def test_archtype_controller_refresh(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        test_archtype.proficiency = 'test prof'
-        arch_controller.load_data(test_archtype,save_archtype,close_archtype,True)
-        arch_form = arch_controller.get_archtype_form()
+        test__data.test_archtype1.proficiency = 'test prof'
+        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        arch_form = arch_controller.get_form()
         self.assertEqual(arch_form.f1.eproficiency.get(),'test prof')
-
-        clone = test_archtype.clone()
+        clone = test__data.test_archtype1.clone()
         clone.proficiency = 'MODIFIED PROF'
-
-        arch_controller.load_data(clone,save_archtype,close_archtype,True)
-        self.assertEqual(arch_controller.get_current_archtype(),clone)
+        arch_controller.load_data(clone,save_call,close_call)
+        self.assertEqual(arch_controller.get_current_set(),clone)
 
     def test_archtype_controller_close(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        arch_controller.load_data(test_archtype,save_archtype,close_archtype,True)
-        self.assertNotEqual(arch_controller.get_archtype_form(),None)
-
-        arch_controller.close_click()
-        self.assertEqual(arch_controller.get_archtype_form(),None)
+        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        self.assertNotEqual(arch_controller.get_form(),None)
+        arch_controller.close_call()
+        self.assertEqual(arch_controller.get_form(),None)
 
     def test_load_form_edit(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        arch_controller.load_data(test_archtype,save_archtype,close_archtype,True)
-        arch_form = arch_controller.get_archtype_form()
-
-        arch_controller.edit_click()
+        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        arch_form = arch_controller.get_form()
+        arch_controller.edit_call()
         for item in arch_form.f1.winfo_children():
             self.assertEqual(item.cget('state'),'normal')
 
     def test_edit_form_cancel(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        arch_controller.load_data(test_archtype,save_archtype,close_archtype,True)
-        arch_form = arch_controller.get_archtype_form()
-
-        arch_controller.cancel_click()
+        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        arch_form = arch_controller.get_form()
+        arch_controller.cancel_call()
         for item in arch_form.f1.winfo_children():
             self.assertEqual(item.cget('state'),'disabled')
 
     def test_edit_form_save(self):
-        global arch_save
-    
-        arch_save = False
-
+        global save_called
+        save_called = False
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        arch_controller.load_data(test_archtype,save_archtype,close_archtype,True)
-        arch_controller.save_click()
-        self.assertTrue(arch_save)
+        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        arch_controller.save_call()
+        self.assertTrue(save_called)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -1,0 +1,54 @@
+<foci>
+    <focus>
+        <name>Test1</name>
+        <shortDescription>TestShrtDesc1</shortDescription>
+        <description>TestDesc1</description>
+        <strBonus>0</strBonus>
+        <perBonus>1</perBonus>
+        <intBonus>2</intBonus>
+        <dexBonus>3</dexBonus>
+        <chaBonus>4</chaBonus>
+        <vitBonus>5</vitBonus>
+        <magBonus>6</magBonus>
+        <strSkill>0</strSkill>
+        <perSkill>1</perSkill>
+        <intSkill>2</intSkill>
+        <dexSkill>3</dexSkill>
+        <chaSkill>4</chaSkill>
+        <vitSkill>5</vitSkill>
+        <magSkill>6</magSkill>
+        <willBonus>7</willBonus>
+        <fortitudeBonus>8</fortitudeBonus>
+        <reflexBonus>9</reflexBonus>
+        <languagesBonus>
+            <language name="Elvish">+2</language>
+            <language name="Common">+3</language>
+        </languagesBonus>
+    </focus>
+    <focus>
+        <name>Test2</name>
+        <shortDescription>TestShrtDesc2</shortDescription>
+        <description>TestDesc2</description>
+        <strBonus>0</strBonus>
+        <perBonus>1</perBonus>
+        <intBonus>2</intBonus>
+        <dexBonus>3</dexBonus>
+        <chaBonus>4</chaBonus>
+        <vitBonus>5</vitBonus>
+        <magBonus>6</magBonus>
+        <strSkill>0</strSkill>
+        <perSkill>1</perSkill>
+        <intSkill>2</intSkill>
+        <dexSkill>3</dexSkill>
+        <chaSkill>4</chaSkill>
+        <vitSkill>5</vitSkill>
+        <magSkill>6</magSkill>
+        <willBonus>7</willBonus>
+        <fortitudeBonus>8</fortitudeBonus>
+        <reflexBonus>9</reflexBonus>
+        <languagesBonus>
+            <language name="Elvish">+2</language>
+            <language name="Common">+3</language>
+        </languagesBonus>
+    </focus>
+</foci>

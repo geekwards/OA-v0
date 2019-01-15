@@ -1,11 +1,7 @@
-import Base_Object
+import Base_Equipment
 
-class Monies(Base_Object.Set_of_Items):
+class Monies(Base_Equipment.Base_equipment):
     pass
 
-class Money(Base_Object.Item):
-    name = ''
-    short_description = ''
-    description = ''
-    value = 0
-    weight = 0
+class Money(Base_Equipment.Equip):
+    pass

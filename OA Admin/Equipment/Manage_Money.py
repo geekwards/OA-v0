@@ -7,25 +7,13 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import Money
 import List_Object
 import GUI_Equipment_Controller
 
-class Manage_money:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
-
-    def save_money(self,money,fullsave=False):
-        global self.current_set
-
-        self.current_set.update(money)
-        if fullsave:
-            self.save_monies()
-
-    def save_monies(self,filename=None,backup_filename=None):
+class Manage_money(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not self.current_set.equals(self.loaded_set):
             data=ET.Element('money')
             for mmoney in self.current_set.all_lists:
@@ -47,13 +35,7 @@ class Manage_money:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_money(self,money):
-        self.current_set.remove(money)
-
-    def close_edit_money(self):
-        self.launch_money_list(self.sup_gui)
-
-    def launch_edit_money(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         money_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
@@ -67,16 +49,7 @@ class Manage_money:
         else:
             money_controller.load_data('Money',money,self.save_money,self.close_edit_money)
     
-    def launch_money_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Money Types',self.current_set.list_of_money,self.launch_edit_money,self.remove_money,self.save_monies)
-
-    def load_money(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Money.Monies()   
 
         if filename == None:
@@ -96,13 +69,9 @@ class Manage_money:
 
         self.loaded_set = self.current_set.clone()
 
-    def get_current_set(self):
-        return self.current_set
-
     def __init__(self):
-        self.list_controller = None
-        self.current_set = None
-        self.loaded_set = None
+        self.name = 'Money'
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_money()

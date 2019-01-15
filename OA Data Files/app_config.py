@@ -53,8 +53,6 @@ test_race_filename = "/Races_test.xml"
 test_backup_race_filename = "/RacesBackup_test.xml"
 test_misc_list_filename = "/MiscLists_test.xml"
 test_backup_misc_list_filename = "/MiscListsBackup_test.xml"
-test_race_filename = "/Foci_test.xml"
-test_backup_race_filename = "/FociBackup_test.xml"
 
 title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
     " -underline 0 -overstrike 0"

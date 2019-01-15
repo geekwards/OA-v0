@@ -7,25 +7,15 @@ sys.path.append(datapath)
 
 import app_config
 
-import GUI_List_Controller
+import Base_Manage_Data
 import GUI_Focus_Controller
 import Manage_Misc_Lists
 import Focus
 import List_Object
 import Misc_List
 
-class Manage_foci:
-    current_set
-    loaded_set
-    list_controller
-    sup_gui
-
-    def save_focus(self,focus,fullsave=False):
-        self.current_set.update(focus)
-        if fullsave:
-            self.save_foci()
-
-    def save_foci(self,filename=None,backup_filename=None):
+class Manage_foci(Base_Manage_Data.Manage_data):
+    def save_all(self,filename=None,backup_filename=None):
         if not(self.loaded_set.equals(self.current_set)):
             data=ET.Element('foci')
             for item in self.current_set.all_foci:
@@ -65,13 +55,7 @@ class Manage_foci:
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def remove_focus(self,focus):
-        self.current_set.remove(focus)
-
-    def close_edit_focus(self):
-        self.launch_focus_list(self.sup_gui)
-
-    def launch_edit_focus(self,parent,name,supress_gui=False):
+    def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         focus_controller = GUI_Focus_Controller.GUI_focus_controller()
 
@@ -81,16 +65,7 @@ class Manage_foci:
             focus_controller.load_lookups(languages)
             focus_controller.load_data(self.current_set.get_focus(name),self.save_focus,self.close_edit_focus)
 
-    def launch_focus_list(self,supress_gui=False):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data('Foci',self.current_set.list_of_foci,self.launch_edit_focus,self.remove_focus,self.save_foci)
-
-    def load_foci(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Focus.Foci()
 
         if filename == None:
@@ -130,18 +105,14 @@ class Manage_foci:
 
     def load_combo_data(self):
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
-        misc_lists.load_misc_lists()
+        misc_lists.load_set()
         languages = Misc_List.Misc_lists()
-        languages.add_new(misc_lists.get_current_set().get_misc_list('Languages').clone())
-
-    def get_current_set(self):
-        return self.current_set
+        languages.add_new(misc_lists.get_current_set().get_item('Languages').clone())
 
     def __init__(self):
-        list_controller = None        
-        current_set = None
-        loaded_set = None
+        self.name = 'Foci'
         self.load_combo_data()
+        Base_Manage_Data.Manage_data.__init__(self)
 
 if __name__ == '__main__':
     manager = Manage_foci()
