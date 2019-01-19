@@ -46,10 +46,10 @@ class test_Clothing(unittest.TestCase):
         self.assertEqual(test__data.test_clothing.all_items[1].name,'test3')
 
     def test_clothing_equals(self):
-        self.assertTrue(test__data.test_clothing == test__data.test_base_equipment2)
+        self.assertTrue(test__data.test_clothing == test__data.test_clothing2)
 
     def test_clothing_notequals(self):
-        self.assertFalse(test__data.test_clothing == test__data.test_base_equipment3)
+        self.assertFalse(test__data.test_clothing == test__data.test_clothing3)
 
     def test_clothing_clone(self):
         clone = test__data.test_clothing.clone()

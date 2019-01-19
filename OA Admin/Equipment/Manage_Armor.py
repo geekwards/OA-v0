@@ -14,9 +14,9 @@ import GUI_Equipment_Controller
 
 class Manage_armor(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
+        if not self.current_set == self.loaded_set:
             data=ET.Element('armor')
-            for marmor in self.current_set.all_armors:
+            for marmor in self.current_set.all_items:
                 l=ET.SubElement(data,'armorType')
                 ET.SubElement(l,'name').text = marmor.name
                 ET.SubElement(l,'shortDescription').text = marmor.short_description
@@ -46,7 +46,7 @@ class Manage_armor(Base_Manage_Data.Manage_data):
         armor_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            armor = self.current_set.get_armor(name)
+            armor = self.current_set.get_item(name)
         else:
             armor = Armor.Armor('','')
 

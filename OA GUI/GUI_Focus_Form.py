@@ -24,7 +24,7 @@ class GUI_focus_form:
         self.enable_form()
         self.parent.title("Focus - " + focus.name)
         self.lbltitle.config(text="Focus - " + focus.name)
-        self.clear()
+        self.clear_frame()
         self.f1.ename.insert(0,focus.name)
         self.f1.eshortdescr.insert(0,focus.short_description)
         self.f1.txtdescription.insert('end',focus.description)
@@ -79,7 +79,7 @@ class GUI_focus_form:
         self.f1.destroy()
         self.build_frame()
     
-    def build_frame():
+    def build_frame(self):
         self.f1 = tk.Frame(self.parent)
         self.f1.grid(sticky='nsew',row=2,column=0,padx=20,pady=20)
         self.f1.lblname = tk.Label(self.f1,text='Name')

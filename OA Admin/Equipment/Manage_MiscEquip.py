@@ -14,9 +14,9 @@ import GUI_Equipment_Controller
 
 class Manage_misc_equipment(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
+        if not self.current_set == self.loaded_set:
             data=ET.Element('miscEquipment')
-            for mequip in self.current_set.all_clothes:
+            for mequip in self.current_set.all_items:
                 l=ET.SubElement(data,'equip')
                 ET.SubElement(l,'name').text = mequip.name
                 ET.SubElement(l,'shortDescription').text = mequip.short_description
@@ -43,7 +43,7 @@ class Manage_misc_equipment(Base_Manage_Data.Manage_data):
         misc_equipment_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            stuff = self.current_set.get_stuff(name)
+            stuff = self.current_set.get_item(name)
         else:
             stuff = Misc_Equipment.Stuff('','')
 

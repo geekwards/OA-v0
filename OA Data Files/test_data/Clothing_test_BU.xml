@@ -1,0 +1,32 @@
+<clothing>
+	<clothingType>
+		<name>Test1</name>
+		<shortDescription>testshrtdesc1</shortDescription>
+		<description>testdesc1</description>
+		<cost>1</cost>
+		<weight>0.5</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>daper</special>
+	</clothingType>
+	<clothingType>
+		<name>Test2</name>
+		<shortDescription>testshrtdesc2</shortDescription>
+		<description>testdesc2</description>
+		<cost>1</cost>
+		<weight>0.5</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>daper</special>
+	</clothingType>
+	<clothingType>
+		<name>Test3</name>
+		<shortDescription>testshrtdesc3</shortDescription>
+		<description>testdesc3</description>
+		<cost>1</cost>
+		<weight>0.5</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>daper</special>
+	</clothingType>
+</clothing>

@@ -1,0 +1,44 @@
+<armor>
+	<armorType>
+		<name>test1</name>
+		<shortDescription>testshrtdesc1</shortDescription>
+		<description>testdesc1</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+	</armorType>
+	<armorType>
+		<name>test2</name>
+		<shortDescription>testshrtdesc2</shortDescription>
+		<description>testdesc2</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+	</armorType>
+	<armorType>
+		<name>test3</name>
+		<shortDescription>testshrtdesc3</shortDescription>
+		<description>testdesc3</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+	</armorType>
+</armor>

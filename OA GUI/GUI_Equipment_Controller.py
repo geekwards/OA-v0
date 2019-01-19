@@ -8,21 +8,20 @@ class GUI_equipment_controller:
     def create_form(self,parent=None):
         self.equipment_form,self.equipment_window = GUI_Equipment_Form.create_form(parent)
 
-    def load_data(self,equip_type,loaded_equipment,save_call,close_call,supress_gui=False):
+    def load_data(self,equip_type,loaded_equipment,save_call,close_call):
         self.save_callback = save_call
         self.close_callback = close_call
         self.current_equipment = loaded_equipment
         self.rollback_equipment = loaded_equipment.clone()
         self.equipment_type = equip_type
-        self.equipment_form.configure_form(self.equipment_type)
-        self.equipment_form.clear()
+        self.equipment_form.clear_frame()
         self.equipment_form.add_item(self.equipment_type,self.current_equipment,self.edit_call,self.save_call,self.close_call,self.cancel_call)
         if self.current_equipment.isempty():
             self.equipment_form.set_edit()
         else:
             self.equipment_form.set_view()
 
-    def launch_form():
+    def launch_form(self):
         self.equipment_window.mainloop()
 
     def new_call(self):
@@ -39,23 +38,23 @@ class GUI_equipment_controller:
         self.current_equipment.weight = self.equipment_form.f1.eweight.get()
 
         self.rollback_equipment = self.current_equipment.clone()
-        self.save_callback(current_equipment)
+        self.save_callback(self.current_equipment)
         self.equipment_form.set_view()
 
     def close_call(self):
-        if not self.rollback_equipment.equals(self.current_equipment):
+        if not self.rollback_equipment == self.current_equipment:
             #confirm save
             self.save_click()
         
         self.equipment_window.destroy()
         self.equipment_form = None
-        close_callback()
+        self.close_callback()
 
     def cancel_call(self):
-        if self.rollback_equipment.equals(self.current_equipment):
+        if self.rollback_equipment == self.current_equipment:
             #confirm rollback
             self.current_equipment = self.rollback_equipment
-            self.refresh_data()
+            self.load_data(self.equipment_type,self.current_equipment,self.save_call,self.close_call)
 
         self.equipment_form.set_view()
 
@@ -63,7 +62,7 @@ class GUI_equipment_controller:
         return self.current_equipment
 
     def get_form(self):
-]       return self.equipment_form
+        return self.equipment_form
 
     def __init__(self):
         self.create_form()

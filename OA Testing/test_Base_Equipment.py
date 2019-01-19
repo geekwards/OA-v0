@@ -15,8 +15,8 @@ class test_Base_equipment(unittest.TestCase):
 
     def test_equip_add_and_get_and_len(self):
         self.assertEqual(len(test__data.test_base_equipment),3)
-        self.assertEqual(test__data.test_base_equipment.get_item('test1').short_description,'testdesc1')
-        self.assertEqual(test__data.test_base_equipment.get_item('test3').short_description,'testdesc3')
+        self.assertEqual(test__data.test_base_equipment.get_item('test1').short_description,'testshortdesc1')
+        self.assertEqual(test__data.test_base_equipment.get_item('test3').short_description,'testshortdesc3')
 
     def test_equip_get_list(self):
         self.assertEqual(len(test__data.test_base_equipment),3)
@@ -28,8 +28,8 @@ class test_Base_equipment(unittest.TestCase):
         self.assertEqual(test__data.test_base_equipment.all_items[0].name,'test1')
         self.assertEqual(test__data.test_base_equipment.all_items[1].name,'test3')
         test__data.test_base_equipment.update(test__data.test_base_equip3)
-        self.assertEqual(test__data.test_base_equipment.list_of_items[1].short_description,'testdesc3')
-        self.assertEqual(test__data.test_base_equipment.all_items[1].short_description,'testdesc3')
+        self.assertEqual(test__data.test_base_equipment.list_of_items[1].short_description,'testshortdesc3')
+        self.assertEqual(test__data.test_base_equipment.all_items[1].short_description,'testshortdesc3')
 
     def test_equip_update_new(self):
         self.assertEqual(len(test__data.test_base_equipment),2)

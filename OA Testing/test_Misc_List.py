@@ -43,5 +43,9 @@ class test_Misc_List(unittest.TestCase):
         self.assertTrue(test__data.test_misc_list1.all_items[0],'Testlist 1.1')
         self.assertTrue(test__data.test_misc_list1.all_items[1],'Testlist 1.3')
 
+    def test_misc_list_empty(self):
+        self.assertTrue(test__data.test_misc_list_empty.isempty())
+        self.assertFalse(test__data.test_misc_list2.isempty())
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

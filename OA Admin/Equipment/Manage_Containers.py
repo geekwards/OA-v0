@@ -14,9 +14,9 @@ import GUI_Equipment_Controller
 
 class Manage_containers(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
+        if not self.current_set == self.loaded_set:
             data=ET.Element('containers')
-            for mcontainer in self.current_set.all_clothes:
+            for mcontainer in self.current_set.all_items:
                 l=ET.SubElement(data,'container')
                 ET.SubElement(l,'name').text = mcontainer.name
                 ET.SubElement(l,'shortDescription').text = mcontainer.short_description
@@ -43,7 +43,7 @@ class Manage_containers(Base_Manage_Data.Manage_data):
         container_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            container = self.current_set.get_container(name)
+            container = self.current_set.get_item(name)
         else:
             container = Container.Container('','')
 
@@ -52,7 +52,7 @@ class Manage_containers(Base_Manage_Data.Manage_data):
         else:
             container_controller.load_data('Container',container,self.save_container,self.close_edit_container)
 
-    def load_all(self,filename=None):
+    def load_set(self,filename=None):
         self.current_set = Container.Containers()   
 
         if filename == None:

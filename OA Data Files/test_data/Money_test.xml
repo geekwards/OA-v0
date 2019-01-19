@@ -1,0 +1,23 @@
+<money>
+	<moneyType>
+		<name>test1</name>
+		<shortDescription>testshortdescr1</shortDescription>
+		<description>testdescr1</description>
+		<cost>0.1</cost>
+		<weight>0.0625</weight>
+	</moneyType>
+	<moneyType>
+		<name>test2</name>
+		<shortDescription>testshortdescr2</shortDescription>
+		<description>testdescr2</description>
+		<cost>0.1</cost>
+		<weight>0.0625</weight>
+	</moneyType>
+	<moneyType>
+		<name>test3</name>
+		<shortDescription>testshortdescr3</shortDescription>
+		<description>testdescr3</description>
+		<cost>0.1</cost>
+		<weight>0.0625</weight>
+	</moneyType>
+</money>

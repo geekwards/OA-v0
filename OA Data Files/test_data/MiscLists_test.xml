@@ -104,4 +104,25 @@
       </item>
     </items>
   </list>
+  <list>
+    <listname>Equipment Types</listname>
+    <items>
+      <item>
+        <name>ItemET-1</name>
+        <description>ItemET-1Desc</description>
+      </item>
+      <item>
+        <name>ItemET-2</name>
+        <description>ItemET-2Desc</description>
+      </item>
+      <item>
+        <name>ItemET-3</name>
+        <description>ItemET-3Desc</description>
+      </item>
+      <item>
+        <name>ItemET-4</name>
+        <description>ItemET-4Desc</description>
+      </item>
+    </items>
+  </list>
 </misclists>

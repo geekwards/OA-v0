@@ -42,7 +42,7 @@ class test_Manage_Races(unittest.TestCase):
         loaded2 = race_manager.get_current_set()
         self.assertEqual(loaded2.all_items[4].name,'MODIFIED TEST')
         self.assertEqual(loaded2.all_items[4].short_description,'TestShortDesc2')
-        self.assertEqual(len(loaded),num_race + 1)
+        self.assertEqual(len(loaded2),num_race + 1)
 
     def test_races_save(self):
         race_manager = Manage_Races.Manage_races()

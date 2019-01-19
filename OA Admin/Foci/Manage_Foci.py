@@ -16,9 +16,9 @@ import Misc_List
 
 class Manage_foci(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not(self.loaded_set.equals(self.current_set)):
+        if not(self.loaded_set == self.current_set):
             data=ET.Element('foci')
-            for item in self.current_set.all_foci:
+            for item in self.current_set.all_items:
                 r=ET.SubElement(data,'focus')
                 ET.SubElement(r,'name').text = item.name
                 ET.SubElement(r,'shortDescription').text = item.short_description

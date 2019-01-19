@@ -14,9 +14,9 @@ import GUI_Equipment_Controller
 
 class Manage_clothing(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
+        if not self.current_set == self.loaded_set:
             data=ET.Element('clothing')
-            for mclothing in self.current_set.all_clothes:
+            for mclothing in self.current_set.all_items:
                 l=ET.SubElement(data,'clothingType')
                 ET.SubElement(l,'name').text = mclothing.name
                 ET.SubElement(l,'shortDescription').text = mclothing.short_description
@@ -43,7 +43,7 @@ class Manage_clothing(Base_Manage_Data.Manage_data):
         clothing_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            garment = self.current_set.get_garment(name)
+            garment = self.current_set.get_item(name)
         else:
             garment = Clothing.Garment('','')
 

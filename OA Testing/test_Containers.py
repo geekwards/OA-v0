@@ -28,8 +28,8 @@ class test_Containers(unittest.TestCase):
         self.assertEqual(test__data.test_containers.all_items[0].name,'test1')
         self.assertEqual(test__data.test_containers.all_items[1].name,'test3')
         test__data.test_containers.update(test__data.test_base_equip3)
-        self.assertEqual(test__data.test_containers.list_of_items[1].short_description,'testdesc3')
-        self.assertEqual(test__data.test_containers.all_items[1].short_description,'testdesc3')
+        self.assertEqual(test__data.test_containers.list_of_items[1].short_description,'testshortdesc3')
+        self.assertEqual(test__data.test_containers.all_items[1].short_description,'testshortdesc3')
 
     def test_container_update_new(self):
         self.assertEqual(len(test__data.test_containers),2)
@@ -46,10 +46,10 @@ class test_Containers(unittest.TestCase):
         self.assertEqual(test__data.test_containers.all_items[1].name,'test3')
 
     def test_container_equals(self):
-        self.assertTrue(test__data.test_containers == test__data.test_base_equipment2)
+        self.assertTrue(test__data.test_containers == test__data.test_containers2)
 
     def test_container_notequals(self):
-        self.assertFalse(test__data.test_containers == test__data.test_base_equipment3)
+        self.assertFalse(test__data.test_containers == test__data.test_containers3)
 
     def test_container_clone(self):
         clone = test__data.test_containers.clone()

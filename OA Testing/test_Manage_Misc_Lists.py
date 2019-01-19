@@ -40,7 +40,7 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         clone.name = 'MODIFIED TEST'
         misc_manager.save_one(clone)
         loaded2 = misc_manager.get_current_set()
-        self.assertEqual(loaded2.all_items[5].name,'MODIFIED TEST')
+        self.assertEqual(loaded2.all_items[6].name,'MODIFIED TEST')
         self.assertEqual(len(loaded),num_list + 1)
 
     def test_misc_lists_save(self):

@@ -9,6 +9,9 @@ import Container
 import Focus
 import Food
 import Misc_Equipment
+import Money
+import Weapon
+import Base_Equipment
 
 #Base_Object
 test_base_obj1 = Base_Object.Item('test1','testdesc1')
@@ -33,24 +36,24 @@ test_base_obj_set3.add_new(test_base_obj3)
 test_base_obj_set3.add_new(test_base_obj4)
 
 #Base_equip
-test_base_equip1 = Base_Object.Item('test1','testdesc1')
-test_base_equip2 = Base_Object.Item('test1','testdesc1')
-test_base_equip3 = Base_Object.Item('test3','testdesc3')
-test_base_equip4 = Base_Object.Item('test4','testdesc4')
-test_base_equip_empty = Base_Object.Item('','')
+test_base_equip1 = Base_Equipment.Equip('test1','testshortdesc1')
+test_base_equip2 = Base_Equipment.Equip('test1','testshortdesc1')
+test_base_equip3 = Base_Equipment.Equip('test3','testshortdesc3')
+test_base_equip4 = Base_Equipment.Equip('test4','testshortdesc4')
+test_base_equip_empty = Base_Equipment.Equip('','')
 
 #Base_equipment
-test_base_equipment = Base_Object.Set_of_Items()
+test_base_equipment = Base_Equipment.Base_equipment()
 test_base_equipment.add_new(test_base_equip1)
 test_base_equipment.add_new(test_base_equip2)
 test_base_equipment.add_new(test_base_equip3)
 
-test_base_equipment2 = Base_Object.Set_of_Items()
+test_base_equipment2 = Base_Equipment.Base_equipment()
 test_base_equipment2.add_new(test_base_equip1)
 test_base_equipment2.add_new(test_base_equip2)
 test_base_equipment2.add_new(test_base_equip3)
 
-test_base_equipment3 = Base_Object.Set_of_Items()
+test_base_equipment3 = Base_Equipment.Base_equipment()
 test_base_equipment3.add_new(test_base_equip3)
 test_base_equipment3.add_new(test_base_equip4)
 
@@ -141,6 +144,50 @@ test_foods2.add_new(test_food3)
 test_foods3 = Food.Foods()
 test_foods3.add_new(test_food3)
 test_foods3.add_new(test_food4)
+
+#Weapon
+test_weapon1 = Weapon.Weapon('test1','testdesc1')
+test_weapon2 = Weapon.Weapon('test1','testdesc1')
+test_weapon3 = Weapon.Weapon('test3','testdesc3')
+test_weapon4 = Weapon.Weapon('test4','testdesc4')
+test_weapon_empty = Weapon.Weapon('','')
+
+#Foods
+test_weapons = Weapon.Weapons()
+test_weapons.add_new(test_weapon1)
+test_weapons.add_new(test_weapon2)
+test_weapons.add_new(test_weapon3)
+
+test_weapons2 = Weapon.Weapons()
+test_weapons2.add_new(test_weapon1)
+test_weapons2.add_new(test_weapon2)
+test_weapons2.add_new(test_weapon3)
+
+test_weapons3 = Weapon.Weapons()
+test_weapons3.add_new(test_weapon3)
+test_weapons3.add_new(test_weapon4)
+
+#Money
+test_money1 = Money.Money('test1','testdesc1')
+test_money2 = Money.Money('test1','testdesc1')
+test_money3 = Money.Money('test3','testdesc3')
+test_money4 = Money.Money('test4','testdesc4')
+test_money_empty = Money.Money('','')
+
+#Foods
+test_monies = Money.Monies()
+test_monies.add_new(test_money1)
+test_monies.add_new(test_money2)
+test_monies.add_new(test_money3)
+
+test_monies2 = Money.Monies()
+test_monies2.add_new(test_money1)
+test_monies2.add_new(test_money2)
+test_monies2.add_new(test_money3)
+
+test_monies3 = Money.Monies()
+test_monies3.add_new(test_money3)
+test_monies3.add_new(test_money4)
 
 #Focus
 test_focus1 = Focus.Focus('test1','testdesc1')
@@ -258,6 +305,7 @@ test_object2 = List_Object.List_object('Testing','Test description')
 test_misc_list1 = Misc_List.Misc_list('Test1','desc1',[List_Object.List_object('Testlist 1.1',''),List_Object.List_object('Testlist 1.2',''),List_Object.List_object('Testlist 1.3','')])
 test_misc_list1b = Misc_List.Misc_list('Test1','desc1',[List_Object.List_object('Testlist 1.1',''),List_Object.List_object('Testlist 1.2',''),List_Object.List_object('Testlist 1.3','')])
 test_misc_list2 = Misc_List.Misc_list('Test2','desc2',[List_Object.List_object('Testlist 2.1',''),List_Object.List_object('Testlist 2.2',''),List_Object.List_object('Testlist 2.3','')])
+test_misc_list_empty = Misc_List.Misc_list('','',[])
 
 #Misc_Lists
 test_misc_lists1 = Misc_List.Misc_lists()
@@ -283,9 +331,9 @@ test_misc_lists3.add_new(test_misc_list2)
 test_misc_lists3.add_new(test_misc_list3)
 
 #Race
-test_race1 = Race.Race('test')
-test_race1.short_description = 'test short descr'
-test_race1.description = 'This is a test description.'
+test_race1 = Race.Race('test1')
+test_race1.short_description = 'test short descr1'
+test_race1.description = 'This is a test description 1.'
 test_race1.size = 'size'
 test_race1.body = 'body'
 test_race1.foci.append(List_Object.List_object('foci1','focidesc1'))
@@ -305,9 +353,31 @@ test_race1.reflex_bonus = 9
 test_race1.languages_bonus.append(List_Object.List_object('testlang1','+5'))
 test_race1.languages_bonus.append(List_Object.List_object('testlang2','+3'))
 
-test_race2 = Race.Race('test')
-test_race2.short_description = 'test short descr'
-test_race2.description = 'This is a test description.'
+test_race1b = Race.Race('test1')
+test_race1b.short_description = 'test short descr1'
+test_race1b.description = 'This is a test description 1.'
+test_race1b.size = 'size'
+test_race1b.body = 'body'
+test_race1b.foci.append(List_Object.List_object('foci1','focidesc1'))
+test_race1b.foci.append(List_Object.List_object('foci2','focidesc2'))
+test_race1b.feats.append(List_Object.List_object('feat1','featdesc1'))
+test_race1b.feats.append(List_Object.List_object('feat2','featdesc2'))
+test_race1b.str_bonus = 0
+test_race1b.per_bonus = 1
+test_race1b.int_bonus = 2
+test_race1b.dex_bonus = 3
+test_race1b.cha_bonus = 4
+test_race1b.vit_bonus = 5
+test_race1b.mag_bonus = 6
+test_race1b.will_bonus = 7
+test_race1b.fortitude_bonus = 8
+test_race1b.reflex_bonus = 9
+test_race1b.languages_bonus.append(List_Object.List_object('testlang1','+5'))
+test_race1b.languages_bonus.append(List_Object.List_object('testlang2','+3'))
+
+test_race2 = Race.Race('test2')
+test_race2.short_description = 'test short descr2'
+test_race2.description = 'This is a test description 2.'
 test_race2.size = 'size'
 test_race2.body = 'body'
 test_race2.foci.append(List_Object.List_object('foci1','focidesc1'))
@@ -359,3 +429,7 @@ test_list_item3 = List_Object.List_object('Testing3','TestDesc3')
 
 test_set = [test_list_item0,test_list_item1,test_list_item2,test_list_item3]
 
+#picklist
+test_picklist1 = ['test1.1','test1.2','test1.3','test1.4']
+test_picklist2 = [test_set,test_set,test_set]
+test_picklist3 = ['test3.1','test3.2','test1.3','test1.4']

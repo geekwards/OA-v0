@@ -1,0 +1,23 @@
+<food>
+	<foodType>
+		<name>test1</name>
+		<shortDescription>testshrdesc1</shortDescription>
+		<description>testdesc1</description>
+		<cost>0.1</cost>
+		<weight>0.5</weight>
+	</foodType>
+	<foodType>
+		<name>test2</name>
+		<shortDescription>testshrdesc2</shortDescription>
+		<description>testdesc2</description>
+		<cost>0.1</cost>
+		<weight>0.5</weight>
+	</foodType>
+	<foodType>
+		<name>test3</name>
+		<shortDescription>testshrdesc3</shortDescription>
+		<description>testdesc3</description>
+		<cost>0.1</cost>
+		<weight>0.5</weight>
+	</foodType>
+</food>

@@ -1,0 +1,59 @@
+<weapons>
+	<weapon>
+		<name>test1</name>
+		<shortDescription>testshortdescr1</shortDescription>
+		<description>testdescr1</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<damage>5</damage>
+		<handsNeeded>2</handsNeeded>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+		<weaponType>melee</weaponType>
+		<health>5</health>
+		<range>0</range>
+		<ammoType>N/A</ammoType>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+	</weapon>
+	<weapon>
+		<name>test2</name>
+		<shortDescription>testshortdescr2</shortDescription>
+		<description>testdescr2</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<damage>5</damage>
+		<handsNeeded>2</handsNeeded>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+		<weaponType>melee</weaponType>
+		<health>5</health>
+		<range>0</range>
+		<ammoType>N/A</ammoType>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+	</weapon>
+	<weapon>
+		<name>test3</name>
+		<shortDescription>testshortdescr3</shortDescription>
+		<description>testdescr3</description>
+		<cost>50</cost>
+		<weight>10</weight>
+		<damage>5</damage>
+		<handsNeeded>2</handsNeeded>
+		<damageTypes>
+			<damageType name="slashing">3</damageType>
+			<damageType name="bludgeoning">1</damageType>
+		</damageTypes>
+		<weaponType>melee</weaponType>
+		<health>5</health>
+		<range>0</range>
+		<ammoType>N/A</ammoType>
+		<capacity>0</capacity>
+		<special>looks cool</special>
+	</weapon>
+</weapons>

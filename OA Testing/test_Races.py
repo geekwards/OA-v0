@@ -17,17 +17,17 @@ class test_Races(unittest.TestCase):
 
     def test_races_add_and_get_and_len(self):
         self.assertEqual(len(test__data.test_races),4)
-        self.assertEqual(test__data.test_races.get_item('test').short_description,'test short descr')
+        self.assertEqual(test__data.test_races.get_item('test1').short_description,'test short descr1')
         self.assertEqual(test__data.test_races.get_item('Test2').short_description,'TestDesc2')
 
     def test_races_get_list(self):
         self.assertEqual(len(test__data.test_races),4)
-        self.assertEqual(test__data.test_races.list_of_items[0].name,'test')
-        self.assertEqual(test__data.test_races.list_of_items[1].name,'test')
+        self.assertEqual(test__data.test_races.list_of_items[0].name,'test1')
+        self.assertEqual(test__data.test_races.list_of_items[1].name,'test2')
 
     def test_races_update(self):
         self.assertEqual(len(test__data.test_races),3)
-        self.assertEqual(test__data.test_races.all_items[0].name,'test')
+        self.assertEqual(test__data.test_races.all_items[0].name,'test1')
         self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
         test__data.test_races.update(test__data.test_race3)
         self.assertEqual(test__data.test_races.list_of_items[1].short_description,'TestDesc2')
@@ -35,7 +35,7 @@ class test_Races(unittest.TestCase):
 
     def test_races_update_new(self):
         self.assertEqual(len(test__data.test_races),3)
-        self.assertEqual(test__data.test_races.all_items[0].name,'test')
+        self.assertEqual(test__data.test_races.all_items[0].name,'test1')
         self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
         test__data.test_races.update(test__data.test_race3)
         self.assertEqual(test__data.test_races.list_of_items[1].name,'Test2')

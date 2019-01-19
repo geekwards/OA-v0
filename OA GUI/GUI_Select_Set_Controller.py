@@ -8,10 +8,10 @@ class GUI_select_set_controller:
     def create_form(self,parent=None):
         self.select_set_form,self.select_set_window = GUI_Select_Set_Form.create_form(parent)
 
-    def load_data(self,title,full_list,selected,save_call,score=False,supress_gui=False):
+    def load_data(self,title,full_list,selected,save_call,score=False):
         self.save_callback = save_call
         self.sel_list = selected
-        self.select_set_form.add_lists(title,full_list,selected,self.cancel_click,self.save_click,score)
+        self.select_set_form.add_lists(title,full_list,selected,self.cancel_call,self.save_call,score)
 
     def launch_form(self):
         self.select_set_window.mainloop()
@@ -30,12 +30,18 @@ class GUI_select_set_controller:
     def cancel_call(self):
         self.destroy_select_set()
 
+    def set_selected(self,sel_set):
+        self.sel_list = sel_set
+
+    def get_selected(self):
+        return self.sel_list
+
     def get_form(self):
         return self.select_set_form
 
     def destroy_select_set(self):
-        self.select_set_window.destroy()
         self.select_set_form = None
+        self.select_set_window.destroy()
 
     def __init__(self):
         self.create_form()

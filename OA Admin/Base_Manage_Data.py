@@ -34,6 +34,9 @@ class Manage_data:
         else:
             self.list_controller.load_data(name,self.current_set.list_of_items,self.launch_edit,self.remove_item,self.save_all)
 
+    def set_set(self,input):
+        self.current_set = input
+
     def load_set(self,filename=None):
         raise NotImplementedError("Please Implement this method")
 

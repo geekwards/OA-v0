@@ -14,15 +14,15 @@ import GUI_Equipment_Controller
 
 class Manage_food(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
+        if not self.current_set == self.loaded_set:
             data=ET.Element('food')
-            for mfood in self.current_set.all_food:
+            for mfood in self.current_set.all_items:
                 l=ET.SubElement(data,'foodType')
                 ET.SubElement(l,'name').text = mfood.name
-                ET.SubElement(l,'shortDescription').text = mfood.name
-                ET.SubElement(l,'description').text = mfood.name
-                ET.SubElement(l,'cost').text = mfood.name
-                ET.SubElement(l,'weight').text = mfood.name
+                ET.SubElement(l,'shortDescription').text = mfood.short_description
+                ET.SubElement(l,'description').text = mfood.description
+                ET.SubElement(l,'cost').text = mfood.value
+                ET.SubElement(l,'weight').text = mfood.weight
  
             if filename == None:
                 filename = app_config.file_path + app_config.food_filename
@@ -40,7 +40,7 @@ class Manage_food(Base_Manage_Data.Manage_data):
         food_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            food = self.current_set.get_food(name)
+            food = self.current_set.get_item(name)
         else:
             food = Food.Food('','')
 

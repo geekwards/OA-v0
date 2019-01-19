@@ -64,7 +64,7 @@ class test_GUI_Race_Form(unittest.TestCase):
     def test_race_form_setup(self):
         race_form,race_window = GUI_Race_Form.create_form(None)
         race_form.add_item(test__data.test_race1,edit_call,save_call,close_call,cancel_call,picklist_call)
-        self.assertEqual(race_form.lbltitle.cget('text'),'Race - test')
+        self.assertEqual(race_form.lbltitle.cget('text'),'Race - test1')
 
     def test_race_form_set_edit(self):
         race_form,race_window = GUI_Race_Form.create_form(None)
@@ -81,12 +81,12 @@ class test_GUI_Race_Form(unittest.TestCase):
     def test_race_form_add_item(self):
         race_form,race_window = GUI_Race_Form.create_form(None)
         race_form.add_item(test__data.test_race1,edit_call,save_call,close_call,cancel_call,picklist_call)
-        self.assertEqual(race_form.f1.ename.get(),'test')
+        self.assertEqual(race_form.f1.ename.get(),'test1')
 
     def test_race_form_clear(self):
         race_form,race_window = GUI_Race_Form.create_form(None)
         race_form.add_item(test__data.test_race1,edit_call,save_call,close_call,cancel_call,picklist_call)
-        self.assertEqual(race_form.f1.ename.get(),'test')
+        self.assertEqual(race_form.f1.ename.get(),'test1')
         race_form.enable_form()
         race_form.clear_frame()
         self.assertEqual(race_form.f1.ename.get(),'')

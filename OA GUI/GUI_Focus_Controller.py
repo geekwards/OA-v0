@@ -10,14 +10,13 @@ class GUI_focus_controller:
     def create_form(self,parent=None):
         self.focus_form,self.focus_window = GUI_Focus_Form.create_form(parent)
 
-    def load_data(self,loaded_focus,save_call,close_call,supress_gui=False):
+    def load_data(self,loaded_focus,save_call,close_call):
         self.save_callback = save_call
         self.close_callback = close_call
         self.current_focus = loaded_focus
         self.rollback_focus = loaded_focus.clone()
-        self.refresh_data()
-        self.focus_form.clear()
-        self.focus_form.add_item(current_focus,self.edit_click,self.save_call,self.close_call,self.cancel_call,self.edit_list)
+        self.focus_form.clear_frame()
+        self.focus_form.add_item(self.current_focus,self.edit_call,self.save_call,self.close_call,self.cancel_call,self.edit_picklist)
         if self.current_focus.isempty():
             self.focus_form.set_edit()
         else:
@@ -63,19 +62,19 @@ class GUI_focus_controller:
         self.focus_form.set_view()
 
     def close_call(self):
-        if not self.rollback_focus.equals(self.current_focus):
+        if not self.rollback_focus == self.current_focus:
             #confirm save
-            self.save_click()
+            self.save_call()
         
         self.focus_window.destroy()
         self.focus_form = None
         self.close_callback()
 
     def cancel_call(self):
-        if self.rollback_focus.equals(self.current_focus):
+        if self.rollback_focus == self.current_focus:
             #confirm rollback
             self.current_focus = self.rollback_focus
-            self.refresh_data()
+            self.load_data(self.current_focus,self.save_call,self.close_call)
 
         self.focus_form.set_view()
 
@@ -94,9 +93,9 @@ class GUI_focus_controller:
         include_score = False
         source = []
         if type == 'Languages':
-            for list in languages.all_lists:
+            for list in self.languages.all_lists:
                 source.append([e for e in list.all_items if e.name not in [a.name for index,a in enumerate(current_focus.languages_bonus)]])
-            for lang in current_focus.languages_bonus:
+            for lang in self.current_focus.languages_bonus:
                 self.current_list.append(lang.name.strip() + ': ' + lang.short_description.strip())
             include_score = True
 

@@ -1,0 +1,32 @@
+<miscEquipment>
+	<equip>
+		<name>test1</name>
+		<shortDescription>testshrtdesc1</shortDescription>
+		<description>testdesc1</description>
+		<cost>1</cost>
+		<weight>0.25</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>take notes</special>
+	</equip>
+	<equip>
+		<name>test2</name>
+		<shortDescription>testshrtdesc2</shortDescription>
+		<description>testdesc2</description>
+		<cost>1</cost>
+		<weight>0.25</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>take notes</special>
+	</equip>
+	<equip>
+		<name>test3</name>
+		<shortDescription>testshrtdesc3</shortDescription>
+		<description>testdesc3</description>
+		<cost>1</cost>
+		<weight>0.25</weight>
+		<health>5</health>
+		<capacity>0</capacity>
+		<special>take notes</special>
+	</equip>
+</miscEquipment>

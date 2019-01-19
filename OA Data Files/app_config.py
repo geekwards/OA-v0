@@ -8,6 +8,7 @@ admin_archtypes_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "
 admin_races_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA ADMIN/Races')
 admin_misc_list_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA ADMIN/Misc Lists')
 admin_foci_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA ADMIN/Foci')
+admin_equip_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA ADMIN/Equipment')
 
 sys.path.append(gui_path)
 sys.path.append(object_path)
@@ -17,6 +18,7 @@ sys.path.append(admin_archtypes_path)
 sys.path.append(admin_races_path)
 sys.path.append(admin_misc_list_path)
 sys.path.append(admin_foci_path)
+sys.path.append(admin_equip_path)
 
 file_path = data_path
 backup_file_path = data_path
@@ -53,6 +55,22 @@ test_race_filename = "/Races_test.xml"
 test_backup_race_filename = "/RacesBackup_test.xml"
 test_misc_list_filename = "/MiscLists_test.xml"
 test_backup_misc_list_filename = "/MiscListsBackup_test.xml"
+test_armor_filename = "/Armor_test.xml"
+test_backup_armor_filename = "/ArmorBackup_test.xml"
+test_clothing_filename = "/Clothing_test.xml"
+test_backup_clothing_filename = "/ClothingBackup_test.xml"
+test_container_filename = "/Containers_test.xml"
+test_backup_container_filename = "/ContainersBackup_test.xml"
+test_foci_filename = "/Foci_test.xml"
+test_backup_foci_filename = "/FociBackup_test.xml"
+test_food_filename = "/Food_test.xml"
+test_backup_food_filename = "/FoodBackup_test.xml"
+test_misc_equip_filename = "/MiscEquipment_test.xml"
+test_backup_misc_equip_filename = "/MiscEquipmentBackup_test.xml"
+test_money_filename = "/Money_test.xml"
+test_backup_money_filename = "/MoneyBackup_test.xml"
+test_weapons_filename = "/Weapons_test.xml"
+test_backup_weapons_filename = "/WeaponsBackup_test.xml"
 
 title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
     " -underline 0 -overstrike 0"

@@ -3,10 +3,6 @@ try:
 except ImportError:
     import tkinter as tk
 
-weapon = ['Weapon']
-armor = ['Armor']
-extended = armor + weapon + ['Clothing','Misc Equipment','Container']
-
 def create_form(parent):
     if parent == None:
         equipment_window = tk.Tk()
@@ -17,6 +13,10 @@ def create_form(parent):
     return equipment_form,equipment_window
 
 class GUI_equipment_form:
+    weapon = ['Weapon']
+    armor = ['Armor']
+    extended = armor + weapon + ['Clothing','Misc Equipment','Container']
+
     def add_item(self,equipment_type,equipment,edit_call,save_call,close_call,cancel_call):
         self.close_click = close_call
         self.cancel_click = cancel_call
@@ -27,20 +27,21 @@ class GUI_equipment_form:
         self.enable_form()
         self.parent.title(equipment_type + ' - ' + equipment.name)
         self.lbltitle.config(text=equipment_type + ' - ' + equipment.name)
-        self.clear()
+        self.clear_frame()
+        self.build_frame()
         self.f1.ename.insert(0,equipment.name)
         self.f1.eshortdescription.insert(0,equipment.short_description)
         self.f1.txtdescription.insert('end',equipment.description)
-        self.f1.ecost.insert(0,equipment.cost)
+        self.f1.ecost.insert(0,equipment.value)
         self.f1.eweight.insert(0,equipment.weight)
-        if self.equipment_type in self.extended:
+        if self.equip_type in self.extended:
             self.f1.ehealth.insert('end',equipment.health)
             self.f1.ecapacity.insert('end',equipment.capacity)
             self.f1.especial.insert('end',equipment.special)
-        if self.equipment_type in self.armor:
+        if self.equip_type in self.armor:
             for d in equipment.damage_types:
                 self.f1.lstdefensetype.insert(0,d.name.strip() + ': ' + d.short_description.strip())
-        if self.equipment_type in self.weapon:
+        if self.equip_type in self.weapon:
             self.f1.ehands.insert('end',equipment.hands)
             self.f1.eweapontype.insert('end',equipment.weapon_type)
             self.f1.erange.insert('end',equipment.range)
@@ -99,7 +100,7 @@ class GUI_equipment_form:
         self.f1.ecost.grid(sticky='w',row=5,column=2)
         self.f1.eweight = tk.Entry(self.f1)
         self.f1.eweight.grid(sticky='w',row=6,column=2)
-        if self.equipment_type in self.extended:
+        if self.equip_type in self.extended:
             self.f1.lblhealth = tk.Label(self.f1,text='Item Health')
             self.f1.lblhealth.grid(sticky='e',row=7,column=1,padx=5)
             self.f1.ehealth = tk.Entry(self.f1)
@@ -148,6 +149,7 @@ class GUI_equipment_form:
         self.f1.grid_columnconfigure(6,weight=1)
 
     def __init__(self,parent):
+        self.equip_type = 'UNK'
         self.parent = parent
         self.lbltitle = tk.Label(self.parent,text='EQUIPMENT NOT LOADED')
         self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)

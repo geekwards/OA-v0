@@ -41,7 +41,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         loaded2 = arch_manager.get_current_set()
         self.assertEqual(loaded2.all_items[4].name,'MODIFIED TEST')
         self.assertEqual(loaded2.all_items[4].short_description,'TestShortDesc2')
-        self.assertEqual(len(loaded),num_Arch + 1)
+        self.assertEqual(len(loaded2),num_Arch + 1)
 
     def test_archtypes_save(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()

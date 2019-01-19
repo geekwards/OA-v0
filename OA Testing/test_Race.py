@@ -15,7 +15,7 @@ class test_Race(unittest.TestCase):
         self.assertTrue(test_race.isempty())
 
     def test_race_equal(self):
-        self.assertTrue(test__data.test_race1 == test__data.test_race2)
+        self.assertTrue(test__data.test_race1 == test__data.test_race1b)
 
     def test_race_inequality(self):
         self.assertFalse(test__data.test_race1 == test__data.test_race3)

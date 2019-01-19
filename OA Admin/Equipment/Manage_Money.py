@@ -14,15 +14,15 @@ import GUI_Equipment_Controller
 
 class Manage_money(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
+        if not self.current_set == self.loaded_set:
             data=ET.Element('money')
-            for mmoney in self.current_set.all_lists:
+            for mmoney in self.current_set.all_items:
                 l=ET.SubElement(data,'moneyType')
                 ET.SubElement(l,'name').text = mmoney.name
-                ET.SubElement(l,'shortDescription').text = mmoney.name
-                ET.SubElement(l,'description').text = mmoney.name
-                ET.SubElement(l,'cost').text = mmoney.name
-                ET.SubElement(l,'weight').text = mmoney.name
+                ET.SubElement(l,'shortDescription').text = mmoney.short_description
+                ET.SubElement(l,'description').text = mmoney.description
+                ET.SubElement(l,'cost').text = mmoney.value
+                ET.SubElement(l,'weight').text = mmoney.weight
  
             if filename == None:
                 filename = app_config.file_path + app_config.money_filename
@@ -40,7 +40,7 @@ class Manage_money(Base_Manage_Data.Manage_data):
         money_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            money = self.current_set.get_money(name)
+            money = self.current_set.get_item(name)
         else:
             money = Money.Money('','')
 

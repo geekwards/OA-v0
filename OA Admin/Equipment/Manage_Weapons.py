@@ -14,9 +14,9 @@ import GUI_Equipment_Controller
 
 class Manage_weapons(Base_Manage_Data.Manage_data):
     def save_all(self,filename=None,backup_filename=None):
-        if not self.current_set.equals(self.loaded_set):
-            data=ET.Element('weapon')
-            for mweapon in self.current_set.all_weapons:
+        if not self.current_set == self.loaded_set:
+            data=ET.Element('weapons')
+            for mweapon in self.current_set.all_items:
                 l=ET.SubElement(data,'weapon')
                 ET.SubElement(l,'name').text = mweapon.name
                 ET.SubElement(l,'shortDescription').text = mweapon.short_description
@@ -50,7 +50,7 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
         weapon_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
 
         if len(name) > 0:
-            weapon = self.current_set.get_weapon(name)
+            weapon = self.current_set.get_item(name)
         else:
             weapon = Weapon.Weapon('','')
 
