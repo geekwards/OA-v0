@@ -4,7 +4,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/O
 import app_config
 import GUI_Race_Form
 import List_Object
-import GUI_Select_Set_Controller
+import GUI_Picklist_Controller
 
 class GUI_race_controller:
     def create_form(self,parent=None):
@@ -51,6 +51,7 @@ class GUI_race_controller:
         for lang in self.race_form.f1.lstlangs.get(0,'end'):
             lang_name,lang_score = lang.split(":",1)
             self.current_race.languages_bonus.append(List_Object.List_object(lang_name,lang_score))
+            self.current_race.languages_bonus.sort()
         self.current_race.foci = self.race_form.f1.lstfoci.get(0,'end')
         self.current_race.feats = self.race_form.f1.lstfeats.get(0,'end')
 
@@ -83,47 +84,56 @@ class GUI_race_controller:
         self.foci = foc
         self.feats = fea
         self.languages = langs
+        self.sizes = sizes
+        self.bodies = bodies
         self.race_form.add_lists(sizes,bodies)
 
-    def edit_picklist(self,type):
-        select_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
-        current_list = []
+    def edit_picklist(self,listtype):
+        self.select_controller = GUI_Picklist_Controller.GUI_picklist_controller()
+        self.current_list = []
         include_score = False
-        source = []
-        if type == 'Languages':
-            for list in self.languages.all_lists:
-                source.append([e for e in list.all_items if e.name not in [a.name for index,a in enumerate(self.current_race.languages_bonus)]])
-            for lang in self.current_race.languages_bonus:
-                current_list.append(lang.name.strip() + ': ' + lang.short_description.strip())
+        self.source = []
+        if listtype == 'Languages':
+            picklist = self.languages
+            self.source = [e.name.strip() + ': ' + e.short_description.strip() for e in picklist.all_items if e.name not in [a.name for index,a in enumerate(self.current_race.languages_bonus)]]
+            self.current_list = self.current_race.languages_bonus
             include_score = True
-        elif type == 'Feats':
-            for list in feats.all_lists:
-                source.append([e for e in list.all_items if e.name not in self.current_race.feats])
-            for feat in self.current_race.feats:
-                current_list.append(feat)
-        elif type == 'Foci':
-            for list in foci.all_lists:
-                source.append([e for e in list.all_items if e.name not in self.current_race.foci])
-            for foc in self.current_race.foci:
-                current_list.append(foc)
+        elif listtype == 'Feats':
+            picklist = self.feats
+            self.source = [e for e in picklist if e not in self.current_race.feats]
+            self.current_list = self.current_race.feats
+            include_score = False
+        elif listtype == 'Foci':
+            picklist = self.foci
+            self.source = [e.name.strip() + ': ' + e.short_description.strip() for e in picklist.all_items if e.name not in self.current_race.foci]
+            self.current_list = self.current_race.foci
+            include_score = False
+        self.select_controller.load_data(listtype,self.source,self.current_list,self.save_picklist,include_score)
 
-        select_controller.load_sets(type,source,current_list,self.save_list,include_score)
-
-    def save_picklist(self,type,list):
+    def save_picklist(self,listtype,picklist):
         lst = None
-        if type=='Languages':
+        if listtype=='Languages':
             lst = self.race_form.f1.lstlangs
-        elif type=='Feats':
+            listval = []
+            for lang in picklist.all_items:
+                listval.append(lang.name + ': ' + lang.short_description)
+            picklist = listval
+        elif listtype=='Feats':
             lst = self.race_form.f1.lstfeats
-        elif type=='Foci':
+        elif listtype=='Foci':
             lst = self.race_form.f1.lstfoci
+            listval = []
+            for foc in picklist.all_items:
+                listval.append(foc.name + ': ' + foc.short_description)
+            picklist = listval
 
         if lst != None:
             lst.delete(0,'end')
-            for item in list:
+            for item in picklist:
                 lst.insert(0,item)
 
-        select_controller.destroy_select_set()
+        self.select_controller.destroy_picklist()
 
     def __init__(self):
+        self.source = []
         self.create_form()

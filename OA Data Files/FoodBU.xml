@@ -1,23 +1,32 @@
 <food>
 	<foodType>
 		<name>Bread</name>
-		<shortDecription>Bread</shortDecription>
+		<shortDescription>Bread</shortDescription>
 		<description>1 loaf of carbs</description>
-		<cost>0.1</cost>
+		<value>0.1</value>
 		<weight>0.5</weight>
+		<health>2.3</health>
+		<capacity>2.4</capacity>
+		<special>testspec2</special>
 	</foodType>
 	<foodType>
 		<name>Meat</name>
-		<shortDecription>Meat</shortDecription>
+		<shortDescription>Meat</shortDescription>
 		<description>1 roast of protien</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>1</weight>
+		<health>2.3</health>
+		<capacity>2.4</capacity>
+		<special>testspec2</special>
 	</foodType>
 	<foodType>
 		<name>Ale</name>
-		<shortDecription>Ale</shortDecription>
+		<shortDescription>Ale</shortDescription>
 		<description>1 flagon of beer</description>
-		<cost>2</cost>
+		<value>2</value>
 		<weight>1</weight>
+		<health>2.3</health>
+		<capacity>2.4</capacity>
+		<special>testspec2</special>
 	</foodType>
 </food>

@@ -9,57 +9,95 @@ import Race
 import test__data
 
 class test_Races(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(test__data.test_races1.list_of_items,test__data.test_races1_listofitems_add)
+        self.assertEqual(test__data.test_races1.all_items,test__data.test_races1_allitems_add)
 
-    def test_races_create_and_isempty(self):
-        test_races = Race.Races()
+    def test_add_neg(self):
+        clone = test__data.test_races1.clone()
+        try:
+            clone.add_new(test__data.test_weapon1)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
-        self.assertTrue(test_races.isempty())
+    def test_add_empty(self):
+        clone = test__data.test_races1.clone()
+        try:
+            clone.add_new(test__data.test_race_empty)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
-    def test_races_add_and_get_and_len(self):
-        self.assertEqual(len(test__data.test_races),4)
-        self.assertEqual(test__data.test_races.get_item('test1').short_description,'test short descr1')
-        self.assertEqual(test__data.test_races.get_item('Test2').short_description,'TestDesc2')
+    def test_remove(self):
+        clone = test__data.test_races1.clone()
+        self.assertEqual(len(clone),3)
+        clone.add_new(test__data.test_race4)
+        self.assertEqual(len(clone),4)
+        clone.remove(test__data.test_race3)
+        self.assertEqual(len(clone),3)
+        self.assertEqual(clone.list_of_items,test__data.test_races1_listofitems_remove)
+        self.assertEqual(clone.all_items,test__data.test_races1_allitems_remove)
 
-    def test_races_get_list(self):
-        self.assertEqual(len(test__data.test_races),4)
-        self.assertEqual(test__data.test_races.list_of_items[0].name,'test1')
-        self.assertEqual(test__data.test_races.list_of_items[1].name,'test2')
+    def test_remove_dne(self):
+        clone = test__data.test_races1.clone()
+        self.assertEqual(len(clone),3)
+        try:
+            clone.remove(test__data.test_weapon4)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
-    def test_races_update(self):
-        self.assertEqual(len(test__data.test_races),3)
-        self.assertEqual(test__data.test_races.all_items[0].name,'test1')
-        self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
-        test__data.test_races.update(test__data.test_race3)
-        self.assertEqual(test__data.test_races.list_of_items[1].short_description,'TestDesc2')
-        self.assertEqual(test__data.test_races.all_items[1].short_description,'TestDesc2')
+    def test_clone(self):
+        clone = test__data.test_races1.clone()
+        self.assertEqual(clone,test__data.test_races1)
 
-    def test_races_update_new(self):
-        self.assertEqual(len(test__data.test_races),3)
-        self.assertEqual(test__data.test_races.all_items[0].name,'test1')
-        self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
-        test__data.test_races.update(test__data.test_race3)
-        self.assertEqual(test__data.test_races.list_of_items[1].name,'Test2')
-        self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
-        self.assertEqual(test__data.test_races.list_of_items[2].name,'Test3')
-        self.assertEqual(test__data.test_races.all_items[2].name,'Test3')
+    def test_isempty(self):
+        self.assertEqual(len(test__data.test_monies_empty),0)
+        self.assertTrue(test__data.test_races_empty.isempty())
+        clone = test__data.test_races_empty.clone()
+        clone.add_new(test__data.test_race1)
+        self.assertFalse(clone.isempty())
 
-    def test_races_remove(self):
-        self.assertEqual(len(test__data.test_races),4)
-        test__data.test_races.remove(test__data.test_races.all_items[1])
-        self.assertEqual(len(test__data.test_races),3)
-        self.assertEqual(test__data.test_races.all_items[1].name,'Test2')
+    def test_update(self):
+        clone = test__data.test_races1.clone()
+        self.assertTrue(len(clone),3)
+        self.assertTrue(clone.get_item('test1').short_description,'testshortdesc1')
+        clone.update(test__data.test_race1c)
+        self.assertTrue(len(clone),3)
+        self.assertTrue(clone.get_item('test1').short_description,'MODIFIED')
 
-    def test_races_equals(self):
-        self.assertTrue(test__data.test_races == test__data.test_races2)
+    def test_update_DNE(self):
+        clone = test__data.test_races1.clone()
+        self.assertTrue(len(clone),3)
+        self.assertTrue(clone.get_item('test1').short_description,'testshortdesc1')
+        clone.update(test__data.test_race4)
+        self.assertTrue(len(clone),4)
+        self.assertTrue(clone.get_item('test4').short_description,'testshortdesc4')
 
-    def test_races_notequals(self):
-        self.assertFalse(test__data.test_races == test__data.test_races3)
+    def test_get_item_DNE(self):
+        self.assertTrue(len(test__data.test_races1),3)
+        value = test__data.test_races1.get_item('test4')
+        self.assertTrue(value,None)
 
-    def test_races_clone(self):
-        clone = test__data.test_races.clone()
-        self.assertTrue(test__data.test_races == clone)
-        clone.get_item('Test2').description = 'modified short descr'
-        self.assertFalse(test__data.test_races == clone)
+    def test_equal_diff_obj(self):
+        try:
+            self.assertFalse(test__data.test_races1 == test__data.test_weapons1)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

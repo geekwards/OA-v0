@@ -3,7 +3,7 @@
 		<name>pencil</name>
 		<shortDescription>pencil</shortDescription>
 		<description>writing instrument</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>0.25</weight>
 		<health>5</health>
 		<capacity>0</capacity>
@@ -13,7 +13,7 @@
 		<name>notebook</name>
 		<shortDescription>pad of paper</shortDescription>
 		<description>100 pages</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>1</weight>
 		<health>5</health>
 		<capacity>0</capacity>
@@ -23,7 +23,7 @@
 		<name>cup</name>
 		<shortDescription>cup o water</shortDescription>
 		<description>drinking vessel</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>0.25</weight>
 		<health>5</health>
 		<capacity>1</capacity>

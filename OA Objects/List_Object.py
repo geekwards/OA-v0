@@ -8,6 +8,9 @@ class List_object:
     def __eq__(self,tocompare):
         return ((self.name == tocompare.name) and (self.short_description == tocompare.short_description))
 
+    def __lt__(self,tocompare):
+        return (self.name<tocompare.name)
+
     def __init__(self,name,short_description=''):
         self.name = name
         self.short_description = short_description

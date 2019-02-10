@@ -1,0 +1,36 @@
+<misc_lists>
+	<list>
+		<listname>Equipment Types</listname> 
+		<listdesc>Equipment Types</listdesc> 
+		<items>
+			<item>
+				<name>Armor</name>
+				<description>Armor</description>
+			</item>
+			<item>
+				<name>Clothing</name>
+				<description>Clothing</description>
+			</item>
+			<item>
+				<name>Container</name>
+				<description>Container</description>
+			</item>
+			<item>
+				<name>Food</name>
+				<description>Food</description>
+			</item>
+			<item>
+				<name>Misc Equipment</name>
+				<description>Misc Equipment</description>
+			</item>
+			<item>
+				<name>Money</name>
+				<description>Money</description>
+			</item>
+			<item>
+				<name>Weapon</name>
+				<description>Weapon</description>
+			</item>
+		</items>
+	</list>
+</misc_lists>

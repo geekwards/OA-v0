@@ -11,11 +11,11 @@ import test__data
 class test_List_Object(unittest.TestCase):
 
     def test_create_list_object(self):
-        self.assertEqual(test__data.test_object1.name,'Testing')
-        self.assertEqual(test__data.test_object1.short_description,'Test description')
+        self.assertEqual(test__data.test_listobject1.name,'test1')
+        self.assertEqual(test__data.test_listobject1.short_description,'testshortdesc1')
 
     def test_archtype_equal(self):
-        self.assertTrue(test__data.test_object1 == test__data.test_object2)
+        self.assertTrue(test__data.test_listobject1 == test__data.test_listobject1b)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

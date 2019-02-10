@@ -6,6 +6,7 @@ sys.path.append(datapath)
 
 import app_config
 import GUI_Misc_List_Controller
+import GUI_Misc_List_Form
 import List_Object
 import Misc_List
 import test__data
@@ -46,77 +47,57 @@ def remove_call(list_item):
     remove_called = True
 
 class test_GUI_Misc_List_Controller(unittest.TestCase):
-    def test_misc_controller_create_form(self):
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        self.assertNotEqual(misc_controller.get_form(),None)
+    def test_misclist_controller_create(self):
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        self.assertEqual(type(misclist_controller.get_form()),GUI_Misc_List_Form.GUI_misc_list_form)
 
-    def test_misc_controller_load(self):
-        item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
-        item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
-        item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        misc_controller.load_data(test_misc_list,save_call,close_call,True)
-        self.assertEqual(misc_controller.get_current_set(),test_misc_list)
+    def test_misclist_controller_load(self):
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
+        self.assertEqual(misclist_controller.get_current_set(),test__data.test_misclist1)
 
-    def test_misc_controller_new(self):
-        item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
-        item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
-        item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        misc_controller.load_data(test_misc_list,save_call,close_call,True)
-        misc_form = misc_controller.get_form()
-        misc_controller.new_call()
-        self.assertEqual(len(misc_form.f1.winfo_children()),8)
+    def test_misclist_controller_refresh(self):
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        clone = test__data.test_misclist1.clone()
+        clone.all_items[0].short_description = 'test prof'
+        misclist_controller.load_data(clone,save_call,close_call)
+        misclist_form = misclist_controller.get_form()
+        self.assertEqual(misclist_form.f1.winfo_children()[1].get('1.0','end-1c'),'test prof')
+        clone = test__data.test_misclist1.clone()
+        clone.all_items[0].short_description = 'MODIFIED PROF'
+        misclist_controller.load_data(clone,save_call,close_call)
+        self.assertEqual(misclist_controller.get_current_set(),clone)
 
-    def test_misc_controller_close(self):
-        item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
-        item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
-        item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        misc_controller.load_data(test_misc_list,save_call,close_call,True)
-        self.assertNotEqual(misc_controller.get_form(),None)
-        misc_controller.close_call()
-        self.assertEqual(misc_controller.get_form(),None)
- 
-    def test_misc_controller_edit(self):
-        item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
-        item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
-        item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        misc_controller.load_data(test_misc_list,save_call,close_call,True)
-        misc_form = misc_controller.get_form()
-        self.assertEqual(len(misc_form.f1.winfo_children()),6)
-        misc_controller.edit_call()
-        for item in misc_form.f1.winfo_children():
+    def test_misclist_controller_close(self):
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
+        self.assertNotEqual(misclist_controller.get_form(),None)
+        misclist_controller.close_call()
+        self.assertEqual(misclist_controller.get_form(),None)
+
+    def test_load_form_edit(self):
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
+        misclist_form = misclist_controller.get_form()
+        misclist_controller.edit_call()
+        for item in misclist_form.f1.winfo_children():
             self.assertEqual(item.cget('state'),'normal')
 
-    def test_misc_controller_save(self):
+    def test_edit_form_cancel(self):
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
+        misclist_form = misclist_controller.get_form()
+        misclist_controller.cancel_call()
+        for item in misclist_form.f1.winfo_children():
+            self.assertEqual(item.cget('state'),'disabled')
+
+    def test_edit_form_save(self):
         global save_called
         save_called = False
-        item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
-        item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
-        item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        misc_controller.load_data(test_misc_list,save_call,close_call,True)
-        misc_controller.save_call()
+        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
+        misclist_controller.save_call()
         self.assertTrue(save_called)
-
-    def test_misc_controller_cancel(self):
-        item1 = List_Object.List_object('Testlist 1.1','desc 1.1')
-        item2 = List_Object.List_object('Testlist 1.2','desc 1.2')
-        item3 = List_Object.List_object('Testlist 1.3','desc 1.3')
-        test_misc_list = Misc_List.Misc_list('Test1','',[item1,item2,item3])
-        misc_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        misc_controller.load_data(test_misc_list,save_call,close_call,True)
-        misc_form = misc_controller.get_form()
-        misc_controller.cancel_call()
-        for item in misc_form.f1.winfo_children():
-            self.assertEqual(item.cget('state'),'disabled')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

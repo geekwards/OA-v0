@@ -9,55 +9,95 @@ import Archtype
 import test__data
 
 class test_Archtypes(unittest.TestCase):
-    def test_archtypes_create_and_isempty(self):
-        test_archtypes = Archtype.Archtypes()
-        self.assertTrue(test_archtypes.isempty())
+    def test_add(self):
+        self.assertEqual(test__data.test_archtypes1.list_of_items,test__data.test_archtypes1_listofitems_add)
+        self.assertEqual(test__data.test_archtypes1.all_items,test__data.test_archtypes1_allitems_add)
 
-    def test_archtypes_add_and_get_and_len(self):
-        self.assertEqual(len(test__data.test_archtypes),4)
-        self.assertEqual(test__data.test_archtypes.get_item('test').short_description,'testdesc')
-        self.assertEqual(test__data.test_archtypes.get_item('Test2').short_description,'TestDesc2b')
+    def test_add_neg(self):
+        clone = test__data.test_archtypes1.clone()
+        try:
+            clone.add_new(test__data.test_armor1)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
-    def test_archtypes_get_list(self):
-        self.assertEqual(len(test__data.test_archtypes),4)
-        self.assertEqual(test__data.test_archtypes.list_of_items[0].name,'test')
-        self.assertEqual(test__data.test_archtypes.list_of_items[1].name,'test')
+    def test_add_empty(self):
+        clone = test__data.test_archtypes1.clone()
+        try:
+            clone.add_new(test__data.test_archtype_empty)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
-    def test_archtypes_update(self):
-        self.assertEqual(len(test__data.test_archtypes),3)
-        self.assertEqual(test__data.test_archtypes.all_items[0].name,'test')
-        self.assertEqual(test__data.test_archtypes.all_items[1].name,'Test2')
-        test__data.test_archtypes.update(test__data.test_archtype3)
-        self.assertEqual(test__data.test_archtypes.list_of_items[1].short_description,'TestDesc2b')
-        self.assertEqual(test__data.test_archtypes.all_items[1].short_description,'TestDesc2b')
+    def test_remove(self):
+        clone = test__data.test_archtypes1.clone()
+        self.assertEqual(len(clone),3)
+        clone.add_new(test__data.test_archtype4)
+        self.assertEqual(len(clone),4)
+        clone.remove(test__data.test_archtype3)
+        self.assertEqual(len(clone),3)
+        self.assertEqual(clone.list_of_items,test__data.test_archtypes1_listofitems_remove)
+        self.assertEqual(clone.all_items,test__data.test_archtypes1_allitems_remove)
 
-    def test_archtypes_update_new(self):
-        self.assertEqual(len(test__data.test_archtypes),3)
-        self.assertEqual(test__data.test_archtypes.all_items[0].name,'test')
-        self.assertEqual(test__data.test_archtypes.all_items[1].name,'Test2')
-        test__data.test_archtypes.update(test__data.test_archtype3)
-        self.assertEqual(test__data.test_archtypes.list_of_items[1].name,'Test2')
-        self.assertEqual(test__data.test_archtypes.all_items[1].name,'Test2')
-        self.assertEqual(test__data.test_archtypes.list_of_items[2].name,'Test3')
-        self.assertEqual(test__data.test_archtypes.all_items[2].name,'Test3')
+    def test_remove_dne(self):
+        clone = test__data.test_archtypes1.clone()
+        self.assertEqual(len(clone),3)
+        try:
+            clone.remove(test__data.test_archtype4)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
-    def test_archtypes_remove(self):
-        self.assertEqual(len(test__data.test_archtypes),4)
-        test__data.test_archtypes.remove(test__data.test_archtype2)
-        self.assertEqual(len(test__data.test_archtypes),3)
-        self.assertEqual(test__data.test_archtypes.all_items[1].name,'Test2')
+    def test_clone(self):
+        clone = test__data.test_archtypes1.clone()
+        self.assertEqual(clone,test__data.test_archtypes1)
 
-    def test_archtypes_equals(self):
-        self.assertTrue(test__data.test_archtypes == test__data.test_archtypes2)
+    def test_isempty(self):
+        self.assertEqual(len(test__data.test_archtypes_empty),0)
+        self.assertTrue(test__data.test_archtypes_empty.isempty())
+        clone = test__data.test_archtypes_empty.clone()
+        clone.add_new(test__data.test_archtype1)
+        self.assertFalse(clone.isempty())
 
-    def test_archtypes_notequals(self):
-        self.assertFalse(test__data.test_archtypes == test__data.test_archtypes3)
+    def test_update(self):
+        clone = test__data.test_archtypes1.clone()
+        self.assertTrue(len(clone),3)
+        self.assertTrue(clone.get_item('test1').proficiency,'prof1')
+        clone.update(test__data.test_archtype1c)
+        self.assertTrue(len(clone),3)
+        self.assertTrue(clone.get_item('test1').proficiency,'MODIFIED')
 
-    def test_archtypes_clone(self):
-        clone = test__data.test_archtypes.clone()
-        self.assertTrue(test__data.test_archtypes == clone)
-        clone.get_item('Test2').short_description = 'modified short descr'
-        self.assertFalse(test__data.test_archtypes == clone)
+    def test_update_DNE(self):
+        clone = test__data.test_archtypes1.clone()
+        self.assertTrue(len(clone),3)
+        self.assertTrue(clone.get_item('test1').proficiency,'prof1')
+        clone.update(test__data.test_archtype4)
+        self.assertTrue(len(clone),4)
+        self.assertTrue(clone.get_item('test4').proficiency,'prof4')
+
+    def test_get_item_DNE(self):
+        self.assertTrue(len(test__data.test_archtypes1),3)
+        value = test__data.test_archtypes1.get_item('test4')
+        self.assertTrue(value,None)
+
+    def test_equal_diff_obj(self):
+        try:
+            self.assertFalse(test__data.test_archtypes1 == test__data.test_armor1)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

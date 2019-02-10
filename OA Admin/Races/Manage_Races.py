@@ -16,6 +16,18 @@ import Misc_List
 import Manage_Foci
  
 class Manage_races(Base_Manage_Data.Manage_data):
+    def save_one(self,item,filename=None,backup_filename=None):
+        if type(item) == Race.Race and not(item.isempty()):
+            super().save_one(item,filename,backup_filename)
+        else:
+            raise ValueError('expected Race object, instead got ' + str(type(item)))
+
+    def remove_item(self,item):
+        if type(item) == Race.Race and not(item.isempty()):
+            super().remove_item(item)
+        else:
+            raise ValueError('expected Race object, instead got ' + str(type(item)))
+
     def save_all(self,filename=None,backup_filename=None):
         if not(self.loaded_set == self.current_set):
             data=ET.Element('races')
@@ -45,13 +57,10 @@ class Manage_races(Base_Manage_Data.Manage_data):
                 l=ET.SubElement(r,'languagesBonus')
                 for lang in item.languages_bonus:
                     ET.SubElement(l,'language',name=lang.name).text = lang.short_description
-
             if filename == None:
                 filename = app_config.file_path + app_config.race_filename
-
             if backup_filename == None:
                 backup_filename = app_config.backup_file_path + app_config.backup_race_filename
-
             copy2(filename,backup_filename)
             f = open(filename,'w')
             f.write(ET.tostring(data, encoding="unicode"))
@@ -60,22 +69,19 @@ class Manage_races(Base_Manage_Data.Manage_data):
     def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         race_controller = GUI_Race_Controller.GUI_race_controller()
-
         if supress_gui:
             return race_controller
         else:
+            self.load_combo_data()
             race_controller.load_lookups(self.sizes,self.bodies,self.languages,self.foci,self.feats)
             race_controller.load_data(self.current_set.get_race(name),self.save_race,self.close_edit_race)
 
     def load_set(self,filename=None):
         self.current_set = Race.Races()
-
         if filename == None:
             filename = app_config.file_path + app_config.race_filename
-
         tree = ET.parse(filename)
         data_root = tree.getroot()
-
         for race in data_root:
             name = race.find('name').text or 'UNKNOWN'
             current_race = Race.Race(name)
@@ -101,20 +107,17 @@ class Manage_races(Base_Manage_Data.Manage_data):
             for focus in race.findall('foci/focus'):
                 current_race.foci.append(focus.text)
             self.current_set.add_new(current_race)
-
         self.loaded_set = self.current_set.clone()
 
-    def load_combo_data(self):
+    def load_combo_data(self,miscfilename=None,focifilename=None):
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
-        misc_lists.load_set()
+        misc_lists.load_set(miscfilename)
         foci_list = Manage_Foci.Manage_foci()
-        foci_list.load_set()
+        foci_list.load_set(focifilename)
         self.sizes = misc_lists.get_current_set().get_item('Creature Sizes').item_names
         self.bodies = misc_lists.get_current_set().get_item('Creature Body Types').item_names
-        self.languages = Misc_List.Misc_lists()
-        self.languages.add_new(misc_lists.get_current_set().get_item('Languages').clone())
-        self.foci = Misc_List.Misc_lists()
-        self.foci.add_new(Misc_List.Misc_list('Foci','',foci_list.get_current_set().all_items))
+        self.languages = misc_lists.get_current_set().get_item('Languages').clone()
+        self.foci = foci_list.get_current_set().all_items
         feat_types = misc_lists.get_current_set().get_item('Feat Types').item_names
         self.feats = Misc_List.Misc_lists()
         for feat_type in feat_types:
@@ -122,11 +125,9 @@ class Manage_races(Base_Manage_Data.Manage_data):
 
     def __init__(self):
         self.name = 'Races'
-        self.load_combo_data()
-        Base_Manage_Data.Manage_data.__init__(self)
+        super().__init__()
 
 if __name__ == '__main__':
     manager = Manage_races()
-
     manager.load_races()
     manager.launch_race_list()

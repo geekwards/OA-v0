@@ -6,6 +6,7 @@ sys.path.append(datapath)
 
 import app_config
 import GUI_Archtype_Controller
+import GUI_Archtype_Form
 import Archtype
 import test__data
 
@@ -47,7 +48,7 @@ def remove_call(list_item):
 class test_GUI_Archtype(unittest.TestCase):
     def test_archtype_controller_create(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        self.assertNotEqual(arch_controller.get_form(),None)
+        self.assertEqual(type(arch_controller.get_form()),GUI_Archtype_Form.GUI_archtype_form)
 
     def test_archtype_controller_load(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
@@ -56,8 +57,9 @@ class test_GUI_Archtype(unittest.TestCase):
 
     def test_archtype_controller_refresh(self):
         arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        test__data.test_archtype1.proficiency = 'test prof'
-        arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
+        clone2 = test__data.test_archtype1.clone()
+        clone2.proficiency = 'test prof'
+        arch_controller.load_data(clone2,save_call,close_call)
         arch_form = arch_controller.get_form()
         self.assertEqual(arch_form.f1.eproficiency.get(),'test prof')
         clone = test__data.test_archtype1.clone()

@@ -8,6 +8,8 @@ sys.path.append(datapath)
 import app_config
 
 import GUI_List_Controller
+import GUI_Equipment_Controller
+import Base_Manage_Data
 import Manage_Misc_Lists
 import Manage_Armor
 import Manage_Clothing
@@ -17,46 +19,39 @@ import Manage_MiscEquip
 import Manage_Money
 import Manage_Weapons
 
-
 class Manage_equipment:
     def launch_edit(self,parent,name,supress_gui=False):
+        equip_manage = Base_Manage_Data.Manage_data()
         if name == 'Money':
             equip_manage = Manage_Money.Manage_money()
-            equip_manage.load_money()
-            equip_manage.launch_money_list()
         elif name == 'Food':
             equip_manage = Manage_Food.Manage_food()
-            equip_manage.load_food()
-            equip_manage.launch_food_list()
         elif name == 'Clothing':
             equip_manage = Manage_Clothing.Manage_clothing()
-            equip_manage.load_clothing()
-            equip_manage.launch_clothing_list()
         elif name == 'Misc Equipment':
             equip_manage = Manage_MiscEquip.Manage_misc_equipment()
-            equip_manage.load_misc_equipment()
-            equip_manage.launch_misc_equipment_list()
         elif name == 'Container':
-            container_manage = Manage_Containers.Manage_containers()
-            container_manage.load_containers()
-            container_manage.launch_container_list()
+            equip_manage = Manage_Containers.Manage_containers()
         elif name == 'Armor':
-            armor_manage = Manage_Armor.Manage_armor()
-            armor_manage.load_armors()
-            armor_manage.launch_armor_list()
+            equip_manage = Manage_Armor.Manage_armor()
         elif name == 'Weapon':
-            weapon_manage = Manage_Weapons.Manage_weapons()
-            weapon_manage.load_weapons()
-            weapon_manage.launch_weapon_list()
+            equip_manage = Manage_Weapons.Manage_weapons()
+        equip_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
+        equip_manage.load_set() 
+        equip_data = equip_manage.get_current_set()
+        if supress_gui:
+            return equip_controller
+        else:
+            equip_controller.load_data(name,equip_data,self.save_container,self.close_edit_container)
+
 
     def launch_list(self,supress_gui=False):
         if self.list_controller == None:
             self.list_controller = GUI_List_Controller.GUI_list_controller()
-        
+        self.list_controller.load_data('Equipment',self.current_set.all_items,self.launch_edit,None,None,False)
         if supress_gui:
             return self.list_controller
         else:
-            self.list_controller.load_data('Equipment',self.current_set.all_items,self.launch_edit,None,None,False)
             self.list_controller.launch_form()
 
     def load_set(self,filename=None):

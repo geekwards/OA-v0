@@ -11,41 +11,30 @@ import List_Object
 
 
 class test_Misc_List(unittest.TestCase):
+    def test_clone(self):
+        clone = test__data.test_misclist1.clone()
+        self.assertEqual(clone,test__data.test_misclist1)
 
-    def test_create_misc_list(self):
-        self.assertEqual(len(test__data.test_misc_list1),3)
-        self.assertEqual(test__data.test_misc_list1.name,'Test1')
-        self.assertTrue(test__data.test_misc_list1.all_items[0],'Testlist 1.1')
-        self.assertTrue(test__data.test_misc_list1.all_items[1],'Testlist 1.2')
-        self.assertTrue(test__data.test_misc_list1.all_items[2],'Testlist 1.3')
+    def test_isempty(self):
+        self.assertTrue(test__data.test_misclist_empty.isempty())
+        clone = test__data.test_misclist_empty.clone()
+        clone.name = 'Modified'
+        clone.short_description = 'Modified'
+        self.assertFalse(clone.isempty())
 
-    def test_misc_list_equals(self):
-        self.assertTrue(test__data.test_misc_list1 == test__data.test_misc_list1b)
+    def test_equals(self):
+        self.assertTrue(test__data.test_misclist1 == test__data.test_misclist1b)
+        self.assertFalse(test__data.test_misclist1 == test__data.test_misclist2)
 
-    def test_misc_list_unequal(self):
-        self.assertFalse(test__data.test_misc_list1 == test__data.test_misc_list2)
-
-    def test_misc_list_clone(self):
-        clone = test__data.test_misc_list1.clone()
-        self.assertTrue(test__data.test_misc_list1 == clone)
-        clone.all_items[1].name = 'MODIFIED'
-        self.assertFalse(test__data.test_misc_list1 == clone)
-
-    def test_misc_list_add_new(self):
-        test__data.test_misc_list2.add_new(List_Object.List_object('Testlist 2.4',''))
-        self.assertTrue(test__data.test_misc_list2.all_items[0],'Testlist 2.1')
-        self.assertTrue(test__data.test_misc_list2.all_items[1],'Testlist 2.2')
-        self.assertTrue(test__data.test_misc_list2.all_items[2],'Testlist 2.3')
-        self.assertTrue(test__data.test_misc_list2.all_items[3],'Testlist 2.4')
-
-    def test_misc_list_remove(self):
-        test__data.test_misc_list1.remove(test__data.test_misc_list1.all_items[1])
-        self.assertTrue(test__data.test_misc_list1.all_items[0],'Testlist 1.1')
-        self.assertTrue(test__data.test_misc_list1.all_items[1],'Testlist 1.3')
-
-    def test_misc_list_empty(self):
-        self.assertTrue(test__data.test_misc_list_empty.isempty())
-        self.assertFalse(test__data.test_misc_list2.isempty())
+    def test_equal_bad_data(self):
+        try:
+            self.assertFalse(test__data.test_misclist1 == test__data.test_weapon1)
+        except ValueError:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception raised:' + str(e))
+        else:
+            self.fail('ExpectedException not raised')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

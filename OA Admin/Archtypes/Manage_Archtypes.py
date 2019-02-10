@@ -12,6 +12,18 @@ import GUI_Archtype_Controller
 import Archtype
 
 class Manage_archtypes(Base_Manage_Data.Manage_data):
+    def save_one(self,item,filename=None,backup_filename=None):
+        if type(item) == Archtype.Archtype and not(item.isempty()):
+            super().save_one(item,filename,backup_filename)
+        else:
+            raise ValueError('expected Archtype object, instead got ' + str(type(item)))
+
+    def remove_item(self,item):
+        if type(item) == Archtype.Archtype and not(item.isempty()):
+            super().remove_item(item)
+        else:
+            raise ValueError('expected Archtype object, instead got ' + str(type(item)))
+
     def save_all(self,filename=None,backup_filename=None):
         if not(self.loaded_set == self.current_set):
             data=ET.Element('archtypes')
@@ -42,7 +54,10 @@ class Manage_archtypes(Base_Manage_Data.Manage_data):
             if backup_filename == None:
                 backup_filename = app_config.backup_file_path + app_config.backup_archtype_filename
 
-            copy2(filename,backup_filename)
+            try:
+                copy2(filename,backup_filename)
+            except:
+                pass
             f = open(filename,'w')
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
@@ -54,7 +69,7 @@ class Manage_archtypes(Base_Manage_Data.Manage_data):
         if supress_gui:
             return archtype_controller
         else:
-            archtype_controller.load_data(self.current_set.get_archtype(name),self.save_archtype,self.close_edit_archtype)
+            archtype_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Archtype.Archtypes()
@@ -91,10 +106,10 @@ class Manage_archtypes(Base_Manage_Data.Manage_data):
 
     def __init__(self):
         self.name = 'Archtypes'
-        Base_Manage_Data.Manage_data.__init__(self)
+        super().__init__()
 
 if __name__ == '__main__':
     manager = Manage_archtypes()
 
-    manager.load_archtypes()
-    manager.launch_archtype_list()
+    manager.load_set()
+    manager.launch_list('Archtypes')

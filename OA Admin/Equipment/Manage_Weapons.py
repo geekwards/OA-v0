@@ -13,6 +13,18 @@ import List_Object
 import GUI_Equipment_Controller
 
 class Manage_weapons(Base_Manage_Data.Manage_data):
+    def save_one(self,item,filename=None,backup_filename=None):
+        if type(item) == Weapon.Weapon and not(item.isempty()):
+            super().save_one(item,filename,backup_filename)
+        else:
+            raise ValueError('expected Weapon object, instead got ' + str(type(item)))
+
+    def remove_item(self,item):
+        if type(item) == Weapon.Weapon and not(item.isempty()):
+            super().remove_item(item)
+        else:
+            raise ValueError('expected Weapon object, instead got ' + str(type(item)))
+            
     def save_all(self,filename=None,backup_filename=None):
         if not self.current_set == self.loaded_set:
             data=ET.Element('weapons')
@@ -21,11 +33,11 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
                 ET.SubElement(l,'name').text = mweapon.name
                 ET.SubElement(l,'shortDescription').text = mweapon.short_description
                 ET.SubElement(l,'description').text = mweapon.description
-                ET.SubElement(l,'cost').text = mweapon.cost
+                ET.SubElement(l,'value').text = mweapon.value
                 ET.SubElement(l,'weight').text = mweapon.weight
                 ET.SubElement(l,'health').text = mweapon.health
                 ET.SubElement(l,'capacity').text = mweapon.capacity
-                ET.SubElement(l,'handsNeeded').text = mweapon.hands
+                ET.SubElement(l,'hands').text = mweapon.hands
                 ET.SubElement(l,'weaponType').text = mweapon.weapon_type
                 ET.SubElement(l,'range').text = mweapon.range
                 ET.SubElement(l,'ammoType').text = mweapon.ammo_type
@@ -73,11 +85,11 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
             new_weapon_short_description = weapon.find('shortDescription').text or 'UNKNOWN'
             new_weapon = Weapon.Weapon(new_weapon_name,new_weapon_short_description)
             new_weapon.description = weapon.find('description').text or 'UNKNOWN'
-            new_weapon.cost = weapon.find('cost').text or 0
+            new_weapon.value = weapon.find('value').text or 0
             new_weapon.weight = weapon.find('weight').text or 0
             new_weapon.health = weapon.find('health').text or 0
             new_weapon.capacity = weapon.find('capacity').text or 0
-            new_weapon.hands = weapon.find('handsNeeded').text or 0
+            new_weapon.hands = weapon.find('hands').text or 0
             new_weapon.weapon_type = weapon.find('weaponType').text or ''
             new_weapon.range = weapon.find('range').text or 0
             new_weapon.ammo_type = weapon.find('ammoType').text or ''

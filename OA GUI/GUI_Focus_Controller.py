@@ -4,7 +4,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/O
 import app_config
 import GUI_Focus_Form
 import List_Object
-import GUI_Select_Set_Controller
+import GUI_Picklist_Controller
 
 class GUI_focus_controller:
     def create_form(self,parent=None):
@@ -24,9 +24,6 @@ class GUI_focus_controller:
 
     def launch_form(self):
         self.focus_window.mainloop()
-
-    def new_call(self):
-        raise NotImplementedError
 
     def edit_call(self):
         self.focus_form.set_edit()
@@ -56,7 +53,7 @@ class GUI_focus_controller:
         for lang in self.focus_form.f1.lstlangs.get(0,'end'):
             lang_name,lang_score = lang.split(":",1)
             self.current_focus.languages_bonus.append(List_Object.List_object(lang_name,lang_score))
-
+            self.current_focus.languages_bonus.sort()
         self.rollback_focus = self.current_focus.clone()
         self.save_callback(self.current_focus)
         self.focus_form.set_view()
@@ -65,7 +62,6 @@ class GUI_focus_controller:
         if not self.rollback_focus == self.current_focus:
             #confirm save
             self.save_call()
-        
         self.focus_window.destroy()
         self.focus_form = None
         self.close_callback()
@@ -75,7 +71,6 @@ class GUI_focus_controller:
             #confirm rollback
             self.current_focus = self.rollback_focus
             self.load_data(self.current_focus,self.save_call,self.close_call)
-
         self.focus_form.set_view()
 
     def get_current_set(self):
@@ -84,34 +79,35 @@ class GUI_focus_controller:
     def get_form(self):
         return self.focus_form
 
-    def load_picklists(self,langs):
-        self.languages = langs
+    def load_picklists(self,picklist):
+        self.pick_list = picklist
 
-    def edit_picklist(self,type):
-        select_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
+    def edit_picklist(self,listtype):
+        self.select_controller = GUI_Picklist_Controller.GUI_picklist_controller()
         self.current_list = []
+        self.source = []
         include_score = False
-        source = []
-        if type == 'Languages':
-            for list in self.languages.all_lists:
-                source.append([e for e in list.all_items if e.name not in [a.name for index,a in enumerate(current_focus.languages_bonus)]])
-            for lang in self.current_focus.languages_bonus:
-                self.current_list.append(lang.name.strip() + ': ' + lang.short_description.strip())
+        if listtype == 'Languages':
+            picklist = self.pick_list
+            self.source = [e.name.strip() + ': ' + e.short_description.strip() for e in picklist.all_items if e.name not in [a.name for index,a in enumerate(self.current_focus.languages_bonus)]]
+            self.current_list = self.current_focus.languages_bonus
             include_score = True
-
-        select_controller.load_sets(type,source,self.current_list,self.save_list,include_score)
-
-    def save_picklist(self,type,list):
+        self.select_controller.load_data(listtype,self.source,self.current_list,self.save_picklist,include_score)
+ 
+    def save_picklist(self,listtype,picklist):
         lst = None
-        if type=='Languages':
+        if listtype=='Languages':
             lst = self.focus_form.f1.lstlangs
-
         if lst != None:
             lst.delete(0,'end')
-            for item in list:
-                lst.insert(0,item)
-
-        self.select_controller.destroy_select_set()
+            for item in picklist.all_items:
+                lst.insert('end',item)
+        self.select_controller.destroy_picklist()
 
     def __init__(self):
         self.create_form()
+        self.current_focus = None
+        self.current_list = []
+        self.source = []
+        self.pick_list = []
+        self.select_controller = None

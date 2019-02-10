@@ -3,7 +3,7 @@
 		<name>backpack</name>
 		<shortDescription>jansport</shortDescription>
 		<description>backpack backpack</description>
-		<cost>5</cost>
+		<value>5</value>
 		<weight>1</weight>
 		<health>5</health>
 		<capacity>10</capacity>
@@ -13,7 +13,7 @@
 		<name>sack</name>
 		<shortDescription>sack</shortDescription>
 		<description>bag</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>1</weight>
 		<health>5</health>
 		<capacity>4</capacity>
@@ -23,7 +23,7 @@
 		<name>magic hole</name>
 		<shortDescription>magic hole</shortDescription>
 		<description>hole in anything</description>
-		<cost>500</cost>
+		<value>500</value>
 		<weight>1</weight>
 		<health>5</health>
 		<capacity>1000</capacity>

@@ -1,23 +1,32 @@
 <money>
 	<moneyType>
 		<name>Copper</name>
-		<shortDecription>Copper coins</shortDecription>
+		<shortDescription>Copper coins</shortDescription>
 		<description>1 oz of copper</description>
-		<cost>0.1</cost>
+		<value>0.1</value>
 		<weight>0.0625</weight>
+		<health>4.3</health>
+		<capacity>4.4</capacity>
+		<special>testspec4</special>
 	</moneyType>
 	<moneyType>
 		<name>Silver</name>
-		<shortDecription>Silver coins</shortDecription>
+		<shortDescription>Silver coins</shortDescription>
 		<description>1 oz of Silver</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>0.0625</weight>
+		<health>4.3</health>
+		<capacity>4.4</capacity>
+		<special>testspec4</special>
 	</moneyType>
 	<moneyType>
 		<name>Gold</name>
-		<shortDecription>Gold coins</shortDecription>
+		<shortDescription>Gold coins</shortDescription>
 		<description>1 oz of Gold</description>
-		<cost>10</cost>
+		<value>10</value>
 		<weight>0.0625</weight>
+		<health>4.3</health>
+		<capacity>4.4</capacity>
+		<special>testspec4</special>
 	</moneyType>
 </money>

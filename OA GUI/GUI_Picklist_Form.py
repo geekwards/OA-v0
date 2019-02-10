@@ -8,14 +8,14 @@ import easygui
 
 def create_form(parent):
     if parent == None:
-        select_set_window = tk.Tk()
+        picklist_window = tk.Tk()
     else:
-        select_set_window = tk.Toplevel(parent)
+        picklist_window = tk.Toplevel(parent)
     
-    select_set_form = GUI_select_set_form(select_set_window)
-    return select_set_form,select_set_window
+    picklist_form = GUI_picklist_form(picklist_window)
+    return picklist_form,picklist_window
 
-class GUI_select_set_form:
+class GUI_picklist_form:
     def move_rt(self):
         sel = self.f1.lstsource.curselection()
         list_item = self.f1.lstsource.get(sel[0])
@@ -44,9 +44,9 @@ class GUI_select_set_form:
         self.lbltitle.config(text=title)
         self.left_button.config(command=cancel_call)
         self.right_button.config(command=save_call)
-        for src in source_list:
-            for item in src:
-                self.f1.lstsource.insert(0,item.name)
+        self.clear_frame()
+        for item in source_list:
+            self.f1.lstsource.insert(0,item)
         for sel in selected_list:
             self.f1.lstselected.insert(0,sel)
 

@@ -24,9 +24,6 @@ class GUI_equipment_controller:
     def launch_form(self):
         self.equipment_window.mainloop()
 
-    def new_call(self):
-        raise NotImplementedError
-
     def edit_call(self):
         self.equipment_form.set_edit()
 

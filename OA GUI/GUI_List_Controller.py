@@ -10,7 +10,7 @@ class GUI_list_controller:
     def create_form(self,parent=None):
         self.list_form, self.list_window = GUI_List_Form.create_list_form(parent)
         
-    def load_data(self,title,loaded_list,edit_call,remove_call,close_call,set_edit):
+    def load_data(self,title,loaded_list,edit_call,remove_call,close_call,set_edit=True):
         self.current_list = loaded_list
         self.edit_callback = edit_call
         self.remove_callback = remove_call

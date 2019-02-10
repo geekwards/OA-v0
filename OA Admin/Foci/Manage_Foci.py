@@ -15,6 +15,18 @@ import List_Object
 import Misc_List
 
 class Manage_foci(Base_Manage_Data.Manage_data):
+    def save_one(self,item,filename=None,backup_filename=None):
+        if type(item) == Focus.Focus and not(item.isempty()):
+            super().save_one(item,filename,backup_filename)
+        else:
+            raise ValueError('expected Focus object, instead got ' + str(type(item)))
+
+    def remove_item(self,item):
+        if type(item) == Focus.Focus and not(item.isempty()):
+            super().remove_item(item)
+        else:
+            raise ValueError('expected Focus object, instead got ' + str(type(item)))
+
     def save_all(self,filename=None,backup_filename=None):
         if not(self.loaded_set == self.current_set):
             data=ET.Element('foci')
@@ -43,13 +55,10 @@ class Manage_foci(Base_Manage_Data.Manage_data):
                 l=ET.SubElement(r,'languagesBonus')
                 for lang in item.languages_bonus:
                     ET.SubElement(l,'language',name=lang.name).text = lang.short_description
-
             if filename == None:
                 filename = app_config.file_path + app_config.focus_filename
-
             if backup_filename == None:
                 backup_filename = app_config.backup_file_path + app_config.backup_focus_filename
-
             copy2(filename,backup_filename)
             f = open(filename,'w')
             f.write(ET.tostring(data, encoding="unicode"))
@@ -58,22 +67,18 @@ class Manage_foci(Base_Manage_Data.Manage_data):
     def launch_edit(self,parent,name,supress_gui=False):
         self.sup_gui = supress_gui
         focus_controller = GUI_Focus_Controller.GUI_focus_controller()
-
         if supress_gui:
             return focus_controller
         else:
-            focus_controller.load_lookups(languages)
+            focus_controller.load_picklists(self.languages)
             focus_controller.load_data(self.current_set.get_focus(name),self.save_focus,self.close_edit_focus)
 
     def load_set(self,filename=None):
         self.current_set = Focus.Foci()
-
         if filename == None:
             filename = app_config.file_path + app_config.focus_filename
-
         tree = ET.parse(filename)
         data_root = tree.getroot()
-
         for focus in data_root:
             name = focus.find('name').text or 'UNKNOWN'
             current_focus = Focus.Focus(name)
@@ -100,22 +105,19 @@ class Manage_foci(Base_Manage_Data.Manage_data):
                 lang = List_Object.List_object(language.attrib.get('name'),language.text)
                 current_focus.languages_bonus.append(lang)
             self.current_set.add_new(current_focus)
-
         self.loaded_set = self.current_set.clone()
 
-    def load_combo_data(self):
+    def load_combo_data(self,filename=None):
         misc_lists = Manage_Misc_Lists.Manage_misc_lists()
-        misc_lists.load_set()
-        languages = Misc_List.Misc_lists()
-        languages.add_new(misc_lists.get_current_set().get_item('Languages').clone())
-
+        misc_lists.load_set(filename)
+        self.languages = misc_lists.get_current_set().get_item('Languages').clone()
+ 
     def __init__(self):
         self.name = 'Foci'
         self.load_combo_data()
-        Base_Manage_Data.Manage_data.__init__(self)
+        super().__init__()
 
 if __name__ == '__main__':
     manager = Manage_foci()
-
     manager.load_foci()
     manager.launch_focus_list()

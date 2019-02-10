@@ -61,6 +61,8 @@ test_clothing_filename = "/Clothing_test.xml"
 test_backup_clothing_filename = "/ClothingBackup_test.xml"
 test_container_filename = "/Containers_test.xml"
 test_backup_container_filename = "/ContainersBackup_test.xml"
+test_equipmenttype_filename = "/Equipment_Types_test.xml"
+test_backup_equipmenttype_filename = "/Equipment_TypesBackup_test.xml"
 test_foci_filename = "/Foci_test.xml"
 test_backup_foci_filename = "/FociBackup_test.xml"
 test_food_filename = "/Food_test.xml"
@@ -71,6 +73,8 @@ test_money_filename = "/Money_test.xml"
 test_backup_money_filename = "/MoneyBackup_test.xml"
 test_weapons_filename = "/Weapons_test.xml"
 test_backup_weapons_filename = "/WeaponsBackup_test.xml"
+test_lookups_misc_filename = '/lookups_misc_test.xml'
+test_lookups_foci_filename = '/lookups_foci_test.xml'
 
 title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
     " -underline 0 -overstrike 0"

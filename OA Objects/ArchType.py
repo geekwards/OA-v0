@@ -1,7 +1,17 @@
 import Base_Object
 
 class Archtypes(Base_Object.Set_of_Items):
-    pass
+    def add_new(self,item):
+        if type(item) == Archtype and not(item.isempty()):
+            super().add_new(item)
+        else:
+            raise ValueError('expected Archtype object, instead got ' + str(type(item)))
+
+    def __eq__(self,tocompare):
+        if type(tocompare) == Archtypes and not(tocompare.isempty()):
+            return super().__eq__(tocompare)
+        else:
+            raise ValueError('expected Archtypes object, instead got ' + str(type(tocompare)))
 
 class Archtype(Base_Object.Item):
     name = ''
@@ -22,3 +32,9 @@ class Archtype(Base_Object.Item):
     movement = 0
     skill_points = 0
     level_health = ''
+
+    def __eq__(self,tocompare):
+        if type(tocompare) == Archtype and not(tocompare.isempty()):
+            return super().__eq__(tocompare)
+        else:
+            raise ValueError('expected Archtype object, instead got ' + str(type(tocompare)))

@@ -5,7 +5,8 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_Select_Set_Controller
+import test__gui_picklist_controller
+import GUI_Picklist_Form
 import test__data
 
 new_called = False
@@ -49,26 +50,37 @@ def remove_call(arg):
 
 class test_GUI_Picklist(unittest.TestCase):
     def test_picklist_controller_create(self):
-        picklist_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
-        self.assertNotEqual(picklist_controller.get_form(),None)
+        picklist_controller = test__gui_picklist_controller.GUI_controller()
+        self.assertEqual(type(picklist_controller.get_form()),GUI_Picklist_Form.GUI_picklist_form)
 
     def test_picklist_controller_load(self):
-        picklist_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
-        picklist_controller.load_data('misc',test__data.test_picklist2,test__data.test_picklist1,save_call)
-        self.assertEqual(picklist_controller.get_selected(),test__data.test_picklist1)
+        picklist_controller = test__gui_picklist_controller.GUI_controller()
+        picklist_controller.load_data('TEST',test__data.test_picklist1,test__data.test_picklist2,save_call)
+        self.assertEqual(picklist_controller.get_selected(),test__data.test_picklist4)
+
+    def test_picklist_controller_refresh(self):
+        picklist_controller = test__gui_picklist_controller.GUI_controller()
+        clone = test__data.test_picklist1
+        clone2 = test__data.test_picklist2
+        picklist_controller.load_data('TEST',clone,clone2,save_call)
+        picklist_form = picklist_controller.get_form()
+        self.assertEqual(picklist_form.f1.winfo_children()[1].get(0,'end'),('test1.4', 'test1.3', 'test1.2', 'test1.1'))
+        clone[0] = 'MODIFIED PROF'
+        picklist_controller.load_data('TEST',clone,clone2,save_call)
+        self.assertEqual(picklist_form.f1.winfo_children()[1].get(0,'end'),('test1.4', 'test1.3', 'test1.2', 'MODIFIED PROF'))
 
     def test_edit_form_cancel(self):
-        picklist_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
-        picklist_controller.load_data('misc',test__data.test_picklist2,test__data.test_picklist1,save_call)
+        picklist_controller = test__gui_picklist_controller.GUI_controller()
+        picklist_controller.load_data('TEST',test__data.test_picklist1,test__data.test_picklist2,save_call)
+        picklist_form = picklist_controller.get_form()
         picklist_controller.cancel_call()
-        self.assertEqual(picklist_controller.get_form(),None)
+        self.assertEqual(type(picklist_form),GUI_Picklist_Form.GUI_picklist_form)
 
     def test_edit_form_save(self):
         global save_called
         save_called = False
-        picklist_controller = GUI_Select_Set_Controller.GUI_select_set_controller()
-        picklist_controller.load_data('misc',test__data.test_picklist2,test__data.test_picklist1,save_call)
-        picklist_controller.set_selected(test__data.test_picklist3)
+        picklist_controller = test__gui_picklist_controller.GUI_controller()
+        picklist_controller.load_data('TEST',test__data.test_picklist1,test__data.test_picklist2,save_call)
         picklist_controller.save_call()
         self.assertTrue(save_called)
 

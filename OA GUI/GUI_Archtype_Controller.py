@@ -24,9 +24,6 @@ class GUI_archtype_controller:
     def launch_form(self):
         self.archtype_window.mainloop()
 
-    def new_call(self):
-        raise NotImplementedError
-
     def edit_call(self):
         self.archtype_form.set_edit()
 

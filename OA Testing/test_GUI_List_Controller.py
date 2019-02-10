@@ -6,6 +6,7 @@ sys.path.append(datapath)
 
 import app_config
 import GUI_List_Controller
+import GUI_List_Form
 import List_Object
 import test__data
 
@@ -46,50 +47,38 @@ def remove_call(list_item):
     remove_called = True
     call_item = list_item
 
-
 class test_GUI_List_Controller(unittest.TestCase):
-    def test_list_controller_create_form(self):
+    def test_list_controller_create(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        self.assertNotEqual(list_controller.get_form(),None)
+        self.assertEqual(type(list_controller.get_form()),GUI_List_Form.GUI_list_form)
 
     def test_list_controller_load(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test__data.test_set,edit_call,remove_call,close_call,True)
-        self.assertEqual(list_controller.get_current_set(),test__data.test_set)
-
-    def test_list_controller_new(self):
-        list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test__data.test_set,edit_call,remove_call,close_call,True)
-        self.assertEqual(list_controller.get_current_set()[1].name,'Testing1')
-        self.assertEqual(len(list_controller.get_current_set()),4)        
-        list_controller.edit_call(None)
-        self.assertTrue(edit_call)
-        self.assertEqual(call_item,'')  
+        list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
+        self.assertEqual(list_controller.get_current_set(),test__data.test_set1)
 
     def test_list_controller_close(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test__data.test_set,edit_call,remove_call,close_call,True)
+        list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
         self.assertNotEqual(list_controller.get_form(),None)
         list_controller.close_call()
         self.assertEqual(list_controller.get_form(),None)
 
-    def test_list_controller_edit(self):
+    def test_load_form_edit(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test__data.test_set,edit_call,remove_call,close_call,True)
-        self.assertEqual(list_controller.get_current_set()[1].name,'Testing1')
-        self.assertEqual(len(list_controller.get_current_set()),4)        
+        list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
+        list_form = list_controller.get_form()
         list_controller.edit_call(1)
-        self.assertTrue(edit_called)
-        self.assertEqual(call_item,'Testing1')    
+        for item in list_form.f1.winfo_children():
+            self.assertEqual(item.cget('state'),'normal')
 
-    def test_list_controller_remove(self):
+    def test_remove(self):
         list_controller = GUI_List_Controller.GUI_list_controller()
-        list_controller.load_data('list_title',test__data.test_set,edit_call,remove_call,close_call,True)
-        self.assertEqual(list_controller.get_current_set()[1].name,'Testing1')
-        self.assertEqual(len(list_controller.get_current_set()),4)        
+        list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
+        self.remove_called = False
         list_controller.remove_call(1)
         self.assertTrue(remove_called)
-        self.assertEqual(call_item.name,'Testing1')        
+        self.assertEqual(call_item.name,'test2')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

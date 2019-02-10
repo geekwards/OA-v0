@@ -1,7 +1,17 @@
 import Base_Object
 
 class Races(Base_Object.Set_of_Items):
-    pass
+    def add_new(self,item):
+        if type(item) == Race and not(item.isempty()):
+            super().add_new(item)
+        else:
+            raise ValueError('expected Race object, instead got ' + str(type(item)))
+
+    def __eq__(self,tocompare):
+        if type(tocompare) == Races and not(tocompare.isempty()):
+            return super().__eq__(tocompare)
+        else:
+            raise ValueError('expected Races object, instead got ' + str(type(tocompare)))
 
 class Race(Base_Object.Item):
     name = ''
@@ -22,6 +32,12 @@ class Race(Base_Object.Item):
     fortitude_bonus = 0
     reflex_bonus = 0
     languages_bonus = []
+
+    def __eq__(self,tocompare):
+        if type(tocompare) == Race and not(tocompare.isempty()):
+            return super().__eq__(tocompare)
+        else:
+            raise ValueError('expected Race object, instead got ' + str(type(tocompare)))
 
     def __init__(self,name,short_description=''):
         self.foci=[]

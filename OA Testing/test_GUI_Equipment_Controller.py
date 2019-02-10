@@ -55,10 +55,11 @@ class test_GUI_Equipment(unittest.TestCase):
 
     def test_equipment_controller_refresh(self):
         equip_controller = GUI_Equipment_Controller.GUI_equipment_controller()
-        test__data.test_base_equip1.description = 'test prof'
-        equip_controller.load_data('equip',test__data.test_base_equip1,save_call,close_call)
+        clone2 = test__data.test_base_equip1.clone()
+        clone2.description = 'test prof'
+        equip_controller.load_data('equip',clone2,save_call,close_call)
         arch_form = equip_controller.get_form()
-        self.assertEqual(arch_form.f1.eweight.get(),'0')
+        self.assertEqual(arch_form.f1.eweight.get(),'1.2')
         clone = test__data.test_base_equip1.clone()
         clone.description = 'MODIFIED PROF'
         equip_controller.load_data('equip',clone,save_call,close_call)

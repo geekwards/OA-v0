@@ -1,9 +1,9 @@
 <clothing>
 	<clothingType>
 		<name>Bowler</name>
-		<shortDecription>hat</shortDecription>
+		<shortDescription>hat</shortDescription>
 		<description>head cover</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>0.5</weight>
 		<health>5</health>
 		<capacity>0</capacity>
@@ -11,9 +11,9 @@
 	</clothingType>
 	<clothingType>
 		<name>Blue jeans</name>
-		<shortDecription>pants</shortDecription>
+		<shortDescription>pants</shortDescription>
 		<description>denim jeans</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>1</weight>
 		<health>5</health>
 		<capacity>1</capacity>
@@ -21,9 +21,9 @@
 	</clothingType>
 	<clothingType>
 		<name>Cargo Shorts</name>
-		<shortDecription>shorts</shortDecription>
+		<shortDescription>shorts</shortDescription>
 		<description>short pants with lots of pockets</description>
-		<cost>1</cost>
+		<value>1</value>
 		<weight>0.5</weight>
 		<health>5</health>
 		<capacity>3</capacity>

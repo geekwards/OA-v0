@@ -1,59 +1,78 @@
 <weapons>
 	<weapon>
 		<name>test1</name>
-		<shortDescription>testshortdescr1</shortDescription>
-		<description>testdescr1</description>
-		<cost>50</cost>
-		<weight>10</weight>
-		<damage>5</damage>
-		<handsNeeded>2</handsNeeded>
+		<shortDescription>testshortdesc1</shortDescription>
+		<description>testdesc1</description>
+		<value>1.1</value>
+		<weight>1.2</weight>
+		<health>1.3</health>
+		<capacity>1.4</capacity>
+		<special>testspec1</special>
+		<hands>1.5</hands>
+		<weaponType>testtype1</weaponType>
+		<range>1.6</range>
+		<ammoType>testammo1</ammoType>
 		<damageTypes>
-			<damageType name="slashing">3</damageType>
-			<damageType name="bludgeoning">1</damageType>
+			<damageType name="dt1.1">dtscore1.1</damageType>
+			<damageType name="dt1.2">dtscore1.2</damageType>
+			<damageType name="dt1.3">dtscore1.2</damageType>
 		</damageTypes>
-		<weaponType>melee</weaponType>
-		<health>5</health>
-		<range>0</range>
-		<ammoType>N/A</ammoType>
-		<capacity>0</capacity>
-		<special>looks cool</special>
 	</weapon>
 	<weapon>
 		<name>test2</name>
-		<shortDescription>testshortdescr2</shortDescription>
-		<description>testdescr2</description>
-		<cost>50</cost>
-		<weight>10</weight>
-		<damage>5</damage>
-		<handsNeeded>2</handsNeeded>
+		<shortDescription>testshortdesc2</shortDescription>
+		<description>testdesc2</description>
+		<value>2.1</value>
+		<weight>2.2</weight>
+		<health>2.3</health>
+		<capacity>2.4</capacity>
+		<special>testspec2</special>
+		<hands>2.5</hands>
+		<weaponType>testtype2</weaponType>
+		<range>2.6</range>
+		<ammoType>testammo2</ammoType>
 		<damageTypes>
-			<damageType name="slashing">3</damageType>
-			<damageType name="bludgeoning">1</damageType>
+			<damageType name="dt2.1">dtscore2.1</damageType>
+			<damageType name="dt2.2">dtscore2.2</damageType>
+			<damageType name="dt2.3">dtscore2.2</damageType>
 		</damageTypes>
-		<weaponType>melee</weaponType>
-		<health>5</health>
-		<range>0</range>
-		<ammoType>N/A</ammoType>
-		<capacity>0</capacity>
-		<special>looks cool</special>
 	</weapon>
 	<weapon>
 		<name>test3</name>
-		<shortDescription>testshortdescr3</shortDescription>
-		<description>testdescr3</description>
-		<cost>50</cost>
-		<weight>10</weight>
-		<damage>5</damage>
-		<handsNeeded>2</handsNeeded>
+		<shortDescription>testshortdesc3</shortDescription>
+		<description>testdesc3</description>
+		<value>3.1</value>
+		<weight>3.2</weight>
+		<health>3.3</health>
+		<capacity>3.4</capacity>
+		<special>testspec3</special>
+		<hands>3.5</hands>
+		<weaponType>testtype3</weaponType>
+		<range>3.6</range>
+		<ammoType>testammo3</ammoType>
 		<damageTypes>
-			<damageType name="slashing">3</damageType>
-			<damageType name="bludgeoning">1</damageType>
+			<damageType name="dt3.1">dtscore3.1</damageType>
+			<damageType name="dt3.2">dtscore3.2</damageType>
+			<damageType name="dt3.3">dtscore3.2</damageType>
 		</damageTypes>
-		<weaponType>melee</weaponType>
-		<health>5</health>
-		<range>0</range>
-		<ammoType>N/A</ammoType>
-		<capacity>0</capacity>
-		<special>looks cool</special>
+	</weapon>
+	<weapon>
+		<name>test4</name>
+		<shortDescription>testshortdesc4</shortDescription>
+		<description>testdesc4</description>
+		<value>4.1</value>
+		<weight>4.2</weight>
+		<health>4.3</health>
+		<capacity>4.4</capacity>
+		<special>testspec4</special>
+		<hands>4.5</hands>
+		<weaponType>testtype4</weaponType>
+		<range>4.6</range>
+		<ammoType>testammo4</ammoType>
+		<damageTypes>
+			<damageType name="dt4.1">dtscore4.1</damageType>
+			<damageType name="dt4.2">dtscore4.2</damageType>
+			<damageType name="dt4.3">dtscore4.2</damageType>
+		</damageTypes>
 	</weapon>
 </weapons>

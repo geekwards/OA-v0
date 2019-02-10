@@ -1,9 +1,9 @@
 <armor>
 	<armorType>
 		<name>leather</name>
-		<shortDecription>leather armor</shortDecription>
+		<shortDescription>leather armor</shortDescription>
 		<description>ranger special</description>
-		<cost>50</cost>
+		<value>50</value>
 		<weight>10</weight>
 		<damageTypes>
 			<damageType name="slashing">3</damageType>
@@ -15,9 +15,9 @@
 	</armorType>
 	<armorType>
 		<name>plate</name>
-		<shortDecription>full plate</shortDecription>
+		<shortDescription>full plate</shortDescription>
 		<description>knight special</description>
-		<cost>500</cost>
+		<value>500</value>
 		<weight>100</weight>
 		<damageTypes>
 			<damageType name="slashing">5</damageType>

@@ -5,7 +5,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_Select_Set_Form
+import GUI_Picklist_Form
 import test__data
 
 new_called = False
@@ -49,21 +49,21 @@ def remove_call(arg):
 
 class test_GUI_List_Form(unittest.TestCase):
     def test_list_form_create(self):
-        list_form,list_window = GUI_Select_Set_Form.create_form(None)
+        list_form,list_window = GUI_Picklist_Form.create_form(None)
         self.assertNotEqual(list_form,None)
 
     def test_list_form_setup(self):
-        list_form,list_window = GUI_Select_Set_Form.create_form(None)
+        list_form,list_window = GUI_Picklist_Form.create_form(None)
         list_form.add_lists('misc',test__data.test_picklist2,test__data.test_picklist1,save_call,cancel_call)
         self.assertEqual(list_form.lbltitle.cget('text'),'misc')
 
     def test_list_form_add_item(self):
-        list_form,list_window = GUI_Select_Set_Form.create_form(None)
+        list_form,list_window = GUI_Picklist_Form.create_form(None)
         list_form.add_lists('misc',test__data.test_picklist2,test__data.test_picklist1,save_call,cancel_call)
         self.assertEqual(len(list_form.f1.winfo_children()),6)
 
     def test_list_form_clear(self):
-        list_form,list_window = GUI_Select_Set_Form.create_form(None)
+        list_form,list_window = GUI_Picklist_Form.create_form(None)
         list_form.add_lists('misc',test__data.test_picklist2,test__data.test_picklist1,save_call,cancel_call)
         self.assertEqual(len(list_form.f1.winfo_children()),6)
         list_form.clear_frame()

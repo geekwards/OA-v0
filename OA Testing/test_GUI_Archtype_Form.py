@@ -55,7 +55,7 @@ class test_GUI_Archtype_Form(unittest.TestCase):
     def test_arch_form_setup(self):
         arch_form,arch_window = GUI_Archtype_Form.create_form(None)
         arch_form.add_item(test__data.test_archtype1,close_call,cancel_call,edit_call,save_call)
-        self.assertEqual(arch_form.lbltitle.cget('text'),'Archtype - test')
+        self.assertEqual(arch_form.lbltitle.cget('text'),'Archtype - test1')
 
     def test_arch_form_set_edit(self):
         arch_form,arch_window = GUI_Archtype_Form.create_form(None)
@@ -72,12 +72,12 @@ class test_GUI_Archtype_Form(unittest.TestCase):
     def test_arch_form_add_item(self):
         arch_form,arch_window = GUI_Archtype_Form.create_form(None)
         arch_form.add_item(test__data.test_archtype1,close_call,cancel_call,edit_call,save_call)
-        self.assertEqual(arch_form.f1.ename.get(),'test')
+        self.assertEqual(arch_form.f1.ename.get(),'test1')
 
     def test_arch_form_clear(self):
         arch_form,arch_window = GUI_Archtype_Form.create_form(None)
         arch_form.add_item(test__data.test_archtype1,close_call,cancel_call,edit_call,save_call)
-        self.assertEqual(arch_form.f1.ename.get(),'test')
+        self.assertEqual(arch_form.f1.ename.get(),'test1')
         arch_form.enable_form()
         arch_form.clear_frame()
         self.assertEqual(arch_form.f1.ename.get(),'')
