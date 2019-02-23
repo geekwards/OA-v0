@@ -47,17 +47,13 @@ class Manage_money(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
+    def launch_edit(self,name,parent=None):
         money_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
         if len(name) > 0:
             money = self.current_set.get_item(name)
         else:
             money = Money.Money('','')
-        if supress_gui:
-            return money_controller
-        else:
-            money_controller.load_data('Money',money,self.save_money,self.close_edit_money)
+        money_controller.load_data('Money',money,self.save_one,self.close_edit_item)
     
     def load_set(self,filename=None):
         self.current_set = Money.Monies()   

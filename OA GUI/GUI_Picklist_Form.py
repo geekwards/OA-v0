@@ -6,7 +6,7 @@ except ImportError:
 import tkinter.ttk as ttk
 import easygui
 
-def create_form(parent):
+def create_form(parent=None):
     if parent == None:
         picklist_window = tk.Tk()
     else:
@@ -77,7 +77,7 @@ class GUI_picklist_form:
         self.f1.grid_columnconfigure(1,weight=1)
         self.f1.grid_columnconfigure(2,weight=3)
 
-    def __init__(self,parent):
+    def __init__(self,parent=None):
         self.parent = parent
         self.lbltitle = tk.Label(self.parent,text='SET NOT LOADED')
         self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)

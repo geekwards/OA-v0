@@ -3,7 +3,7 @@ try:
 except ImportError:
     import tkinter as tk
 
-def create_form(parent):
+def create_form(parent=None):
     if parent == None:
         equipment_window = tk.Tk()
     else:
@@ -148,7 +148,7 @@ class GUI_equipment_form:
         self.f1.grid_columnconfigure(5,weight=3)
         self.f1.grid_columnconfigure(6,weight=1)
 
-    def __init__(self,parent):
+    def __init__(self,parent=None):
         self.equip_type = 'UNK'
         self.parent = parent
         self.lbltitle = tk.Label(self.parent,text='EQUIPMENT NOT LOADED')

@@ -30,7 +30,7 @@ def save_call(arg):
     save_called = True
     call_item = arg
 
-def edit_call(list_window,arg):
+def edit_call(name,list_window):
     global edit_called
     global call_item
     edit_called = True

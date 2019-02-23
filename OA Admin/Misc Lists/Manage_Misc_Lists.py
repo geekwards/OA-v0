@@ -37,31 +37,22 @@ class Manage_misc_lists(Base_Manage_Data.Manage_data):
                     i=ET.SubElement(c,'item')
                     ET.SubElement(i,'name').text = item.name
                     ET.SubElement(i,'description').text = item.short_description
-
             if filename == None:
                 filename = app_config.file_path + app_config.misc_list_filename
-
             if backup_filename == None:
                 backup_filename = app_config.backup_file_path + app_config.backup_misc_list_filename
-
             copy2(filename,backup_filename)
             f = open(filename,'w')
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
-        misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()            
-
+    def launch_edit(self,name,parent=None):
+        misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller(parent)            
         if len(name) > 0:
             misc_list = self.current_set.get_item(name)
         else:
             misc_list = Misc_List.Misc_list('',[])
-
-        if supress_gui:
-            return misc_list_controller
-        else:
-            misc_list_controller.load_data(misc_list,self.save_misc_list,self.close_edit_misc_list)
+        misc_list_controller.load_data(misc_list,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Misc_List.Misc_lists()   
@@ -81,12 +72,12 @@ class Manage_misc_lists(Base_Manage_Data.Manage_data):
             self.current_set.add_new(new_list)
         self.loaded_set = self.current_set.clone()
 
-    def __init__(self):
+    def __init__(self,parent=None):
+        self.parent = parent
         self.name = 'Misc Lists'
         super().__init__()
 
 if __name__ == '__main__':
     manager = Manage_misc_lists()
-
     manager.load_misc_lists()
     manager.launch_misc_list_list()

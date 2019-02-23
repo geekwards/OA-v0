@@ -171,32 +171,32 @@ class test_Manage_Races(unittest.TestCase):
     def test_launch_edit(self):
         race_manager = test__manage_races.Manage_data()
         race_manager.load_set(app_config.test_file_path + app_config.test_race_filename)
-        gui = race_manager.launch_edit(None,1,True)
+        gui = race_manager.launch_edit(1,None,True)
         self.assertEqual(type(gui),GUI_Race_Controller.GUI_race_controller)
 
     def test_close_edit(self):
         race_manager = test__manage_races.Manage_data()
         race_manager.load_set(app_config.test_file_path + app_config.test_race_filename)
-        gui = race_manager.launch_edit(None,'test1',True)
+        gui = race_manager.launch_edit('test1',None,True)
         gui = race_manager.close_edit_item(True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_edit_DNE(self):
         race_manager = test__manage_races.Manage_data()
         race_manager.load_set(app_config.test_file_path + app_config.test_race_filename)
-        gui = race_manager.launch_edit(None,'DNE',True)
+        gui = race_manager.launch_edit('DNE',None,True)
         self.assertEqual(type(gui),GUI_Race_Controller.GUI_race_controller)
 
     def test_launch_list(self):
         race_manager = test__manage_races.Manage_data()
         race_manager.load_set(app_config.test_file_path + app_config.test_race_filename)
-        gui = race_manager.launch_list('Foci',True)
+        gui = race_manager.launch_list('Foci',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_list_DNE(self):
         race_manager = test__manage_races.Manage_data()
         race_manager.load_set(app_config.test_file_path + app_config.test_race_filename)
-        gui = race_manager.launch_list('NOTFOUND',True)
+        gui = race_manager.launch_list('NOTFOUND',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_lookup_data(self):

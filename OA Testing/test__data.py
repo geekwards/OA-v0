@@ -521,16 +521,23 @@ test_containers1_allitems_add = [test_container1,test_container2,test_container3
 
 test_containers1_listofitems_remove = [List_Object.List_object(test_container1.name,test_container1.short_description),List_Object.List_object(test_container2.name,test_container2.short_description),List_Object.List_object(test_container4.name,test_container4.short_description)]
 test_containers1_allitems_remove = [test_container1,test_container2,test_container4]
-
+ 
 #Equipment Types
 test_equip_types = []
-test_equip_types.append(List_Object.List_object('Armor','Armor'))
-test_equip_types.append(List_Object.List_object('Clothing','Clothing'))
-test_equip_types.append(List_Object.List_object('Container','Container'))
-test_equip_types.append(List_Object.List_object('Food','Food'))
-test_equip_types.append(List_Object.List_object('Misc Equipment','Misc Equipment'))
-test_equip_types.append(List_Object.List_object('Money','Money'))
-test_equip_types.append(List_Object.List_object('Weapon','Weapon'))
+import Manage_Money
+import Manage_Food
+import Manage_Clothing
+import Manage_MiscEquip
+import Manage_Containers
+import Manage_Armor
+import Manage_Weapons
+test_equip_types.append(['Armor','Item designed to protect from harm',Manage_Armor.Manage_armor])
+test_equip_types.append(['Food','Sustenance',Manage_Food.Manage_food])
+test_equip_types.append(['Money','Currency',Manage_Money.Manage_money])
+test_equip_types.append(['Clothing','Wearable items that are not armor',Manage_Clothing.Manage_clothing])
+test_equip_types.append(['Misc Equipment','Other Stuff',Manage_MiscEquip.Manage_misc_equipment])
+test_equip_types.append(['Container','Item designed to hold other things',Manage_Containers.Manage_containers])
+test_equip_types.append(['Weapon','Item designed and constructed to do harm',Manage_Weapons.Manage_weapons])
 
 
 #Focus

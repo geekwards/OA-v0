@@ -3,7 +3,7 @@ try:
 except ImportError:
     import tkinter as tk
 
-def create_form(parent):
+def create_form(parent=None):
     if parent == None:
         archtype_window = tk.Tk()
     else:
@@ -155,7 +155,7 @@ class GUI_archtype_form:
         self.f1.grid_columnconfigure(5,weight=3)
         self.f1.grid_columnconfigure(6,weight=1)
 
-    def __init__(self,parent):
+    def __init__(self,parent=None):
         self.parent = parent
         self.lbltitle = tk.Label(self.parent,text='ARCHTYPE NOT LOADED')
         self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)

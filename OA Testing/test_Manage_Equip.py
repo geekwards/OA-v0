@@ -10,29 +10,30 @@ import app_config
 import Manage_Equipment
 import GUI_List_Controller
 import GUI_Equipment_Controller
+import Base_Manage_Data
 import test__data
  
 class test_Manage_Equip(unittest.TestCase):
     def test_equip_load_get(self):
         equip_manager = Manage_Equipment.Manage_equipment()
-        equip_manager.load_set(app_config.test_file_path + app_config.test_equipmenttype_filename)
+        equip_manager.load_set()
         loaded = equip_manager.get_current_set()
         self.assertEqual(len(loaded),7)
         self.assertEqual(sorted(loaded),sorted(test__data.test_equip_types))
 
     def test_equip_launch_list(self):
         equip_manager = Manage_Equipment.Manage_equipment()
-        equip_manager.load_set(app_config.test_file_path + app_config.test_equipmenttype_filename)
-        gui = equip_manager.launch_list(True)
+        equip_manager.load_set()
+        gui = equip_manager.launch_list(None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
+ 
     def test_equip_launch_edit(self):
         equip_manager = Manage_Equipment.Manage_equipment()
-        equip_manager.load_set(app_config.test_file_path + app_config.test_equipmenttype_filename)
+        equip_manager.load_set()
         for equip_type in equip_manager.get_current_set():
-            name = equip_type.name
-            gui = equip_manager.launch_edit(None,name,True)
-            self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
+            name = equip_type[0]
+            gui = equip_manager.launch_edit(name,None,True)
+            self.assertTrue(isinstance(gui,Base_Manage_Data.Manage_data))
  
 if __name__ == '__main__':
     unittest.main(verbosity=2)

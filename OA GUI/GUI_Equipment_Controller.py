@@ -20,8 +20,6 @@ class GUI_equipment_controller:
             self.equipment_form.set_edit()
         else:
             self.equipment_form.set_view()
-
-    def launch_form(self):
         self.equipment_window.mainloop()
 
     def edit_call(self):
@@ -61,5 +59,5 @@ class GUI_equipment_controller:
     def get_form(self):
         return self.equipment_form
 
-    def __init__(self):
-        self.create_form()
+    def __init__(self,parent=None):
+        self.create_form(parent)

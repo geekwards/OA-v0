@@ -21,20 +21,18 @@ class GUI_list_controller:
         for item in self.current_list:
             self.list_form.add_item(index,item.list_text,set_edit)
             index += 1
-
-    def launch_form(self):
         self.list_window.mainloop()
 
     def new_call(self):
         self.edit_call(None)
 
-    def edit_call(self,idx):
+    def edit_call(self,idx=None):
         if idx==None:
             name = ''
         else:
             name = self.current_list[idx].name
 
-        self.edit_callback(self.list_window,name)
+        self.edit_callback(name,self.list_window)
 
     def save_call(self):
         raise NotImplementedError
@@ -54,11 +52,15 @@ class GUI_list_controller:
     def get_form(self):
         return self.list_form
 
-    def remove_call(self,idx):
-        #todo: confirm remove item
-        self.remove_callback(self.current_list[idx])
-        self.list_form.clear_frame()
-        self.list_form.build_frame()
+    def get_window(self):
+        return self.list_window
 
-    def __init__(self):
-        self.create_form()
+    def remove_call(self,idx=None):
+        #todo: confirm remove item
+        if idx != None:
+            self.remove_callback(self.current_list[idx])
+            self.list_form.clear_frame()
+            self.list_form.build_frame()
+
+    def __init__(self,parent=None):
+        self.create_form(parent)

@@ -10,7 +10,7 @@ class GUI_misc_list_controller:
     def create_form(self,parent=None):
         self.misc_list_form,self.misc_list_window = GUI_Misc_List_Form.create_form(parent)
 
-    def load_data(self,loaded_misc_list,save_call,close_call,supress_gui=False):
+    def load_data(self,loaded_misc_list,save_call,close_call):
         self.save_callback = save_call
         self.close_callback = close_call
         self.current_misc_list = loaded_misc_list
@@ -22,12 +22,9 @@ class GUI_misc_list_controller:
             for list_item in self.current_misc_list.all_items:
                 self.misc_list_form.add_item(index,list_item)
                 index += 1
-    
             self.misc_list_form.set_view()
         else:
             self.misc_list_form.set_edit(True)
-
-    def launch_form(self):
         self.misc_list_window.mainloop()
 
     def new_call(self):
@@ -45,14 +42,11 @@ class GUI_misc_list_controller:
             else:
                 item_desc = item.get("1.0",'end-1c')
                 new_misc_list.append(List_Object.List_object(item_name,item_desc))
-
             index += 1
-
         if len(self.current_misc_list.name) > 0:
             list_name = self.current_misc_list.name
         else:
             list_name = self.misc_list_form.etitle.get()
-
         self.current_misc_list = Misc_List.Misc_list(list_name,new_misc_list)
         self.rollback_misc_list = self.current_misc_list.clone()
         self.save_callback(self.current_misc_list)
@@ -61,8 +55,7 @@ class GUI_misc_list_controller:
     def close_call(self):
         if not self.rollback_misc_list == self.current_misc_list:
             #confirm save
-            self.save_click() 
-        
+            self.save_call() 
         self.misc_list_window.destroy()
         self.misc_list_form = None
         self.close_callback()
@@ -72,7 +65,6 @@ class GUI_misc_list_controller:
             #confirm rollback
             self.current_misc_list = self.rollback_misc_list
             self.refresh_data()
-
         self.misc_list_form.set_view()
 
     def get_current_set(self):
@@ -81,5 +73,5 @@ class GUI_misc_list_controller:
     def get_form(self):
         return self.misc_list_form
 
-    def __init__(self):
-        self.create_form()
+    def __init__(self,parent=None):
+        self.create_form(parent)

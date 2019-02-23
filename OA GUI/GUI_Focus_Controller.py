@@ -21,8 +21,6 @@ class GUI_focus_controller:
             self.focus_form.set_edit()
         else:
             self.focus_form.set_view()
-
-    def launch_form(self):
         self.focus_window.mainloop()
 
     def edit_call(self):
@@ -104,8 +102,8 @@ class GUI_focus_controller:
                 lst.insert('end',item)
         self.select_controller.destroy_picklist()
 
-    def __init__(self):
-        self.create_form()
+    def __init__(self,parent):
+        self.create_form(parent)
         self.current_focus = None
         self.current_list = []
         self.source = []

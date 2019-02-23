@@ -47,17 +47,13 @@ class Manage_food(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
+    def launch_edit(self,name,parent=None):
         food_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
         if len(name) > 0:
             food = self.current_set.get_item(name)
         else:
             food = Food.Food('','')
-        if supress_gui:
-            return food_controller
-        else:
-            food_controller.load_data('Food',food,self.save_food,self.close_edit_food)
+        food_controller.load_data('Food',food,self.save_one,self.close_edit_item)
     
     def load_set(self,filename=None):
         self.current_set = Food.Foods()   

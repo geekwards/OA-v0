@@ -66,15 +66,11 @@ class Manage_races(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
-        race_controller = GUI_Race_Controller.GUI_race_controller()
-        if supress_gui:
-            return race_controller
-        else:
-            self.load_combo_data()
-            race_controller.load_lookups(self.sizes,self.bodies,self.languages,self.foci,self.feats)
-            race_controller.load_data(self.current_set.get_race(name),self.save_race,self.close_edit_race)
+    def launch_edit(self,name,parent=None):
+        race_controller = GUI_Race_Controller.GUI_race_controller(parent)
+        self.load_combo_data()
+        race_controller.load_picklists(self.sizes,self.bodies,self.languages,self.foci,self.feats)
+        race_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Race.Races()
@@ -123,11 +119,12 @@ class Manage_races(Base_Manage_Data.Manage_data):
         for feat_type in feat_types:
             self.feats.add_new(misc_lists.get_current_set().get_item(feat_type).clone())
 
-    def __init__(self):
+    def __init__(self,parent=None):
+        self.parent = parent
         self.name = 'Races'
         super().__init__()
 
 if __name__ == '__main__':
     manager = Manage_races()
-    manager.load_races()
-    manager.launch_race_list()
+    manager.load_set()
+    manager.launch_list('Races')

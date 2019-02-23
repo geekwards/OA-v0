@@ -45,41 +45,29 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
                 dt=ET.SubElement(l,'damageTypes')
                 for dmgtype in mweapon.damage_types:
                     ET.SubElement(dt,'damageType',name=dmgtype.name).text = dmgtype.short_description
- 
             if filename == None:
                 filename = app_config.file_path + app_config.weapon_filename
-
             if backup_filename == None:
                 backup_filename = app_config.backup_file_path + app_config.backup_weapon_filename
-
             copy2(filename,backup_filename)
             f = open(filename,'w')
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
+    def launch_edit(self,name,parent=None):
         weapon_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
-
         if len(name) > 0:
             weapon = self.current_set.get_item(name)
         else:
             weapon = Weapon.Weapon('','')
-
-        if supress_gui:
-            return weapon_controller
-        else:
-            weapon_controller.load_data('Weapon',weapon,self.save_weapon,self.close_edit_weapon)
+        weapon_controller.load_data('Weapon',weapon,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Weapon.Weapons()   
-
         if filename == None:
             filename = app_config.file_path + app_config.weapon_filename
-
         tree = ET.parse(filename)
         data_root = tree.getroot()
-
         for weapon in data_root:
             new_weapon_name = weapon.find('name').text or 'UNKNOWN'
             new_weapon_short_description = weapon.find('shortDescription').text or 'UNKNOWN'
@@ -98,7 +86,6 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
                 dmgtype = List_Object.List_object(dt.attrib.get('name'),dt.text)
                 new_weapon.damage_types.append(dmgtype)
             self.current_set.add_new(new_weapon)
-
         self.loaded_set = self.current_set.clone()
 
     def __init__(self):
@@ -107,6 +94,5 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
 
 if __name__ == '__main__':
     manager = Manage_weapons()
-
     manager.load_weapons()
     manager.launch_weapon_list()

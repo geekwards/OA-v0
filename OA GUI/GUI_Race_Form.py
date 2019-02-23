@@ -5,7 +5,7 @@ except ImportError:
 
 import tkinter.ttk as ttk
 
-def create_form(parent):
+def create_form(parent=None):
     if parent == None:
         race_window = tk.Tk()
     else:
@@ -15,7 +15,7 @@ def create_form(parent):
     return race_form,race_window
 
 class GUI_race_form:
-    def add_item(self,race,close_call,cancel_call,edit_call,save_call,list_call):
+    def add_item(self,race,edit_call,save_call,close_call,cancel_call,list_call):
         self.close_click = close_call
         self.cancel_click = cancel_call
         self.edit_click = edit_call
@@ -179,7 +179,7 @@ class GUI_race_form:
         self.f1.cbosize.config(values=sizes)
         self.f1.cbobody.config(values=bodies)
 
-    def __init__(self,parent):
+    def __init__(self,parent=None):
         self.parent = parent
         self.lbltitle = tk.Label(self.parent,text='RACE NOT LOADED')
         self.lbltitle.grid(sticky='nsew',row=0,column=0,columnspan=6,rowspan=2,pady=20)

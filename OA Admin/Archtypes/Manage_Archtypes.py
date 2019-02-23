@@ -47,13 +47,10 @@ class Manage_archtypes(Base_Manage_Data.Manage_data):
                 ET.SubElement(arch,'movement').text = item.movement
                 ET.SubElement(arch,'skillPoints').text = item.skill_points
                 ET.SubElement(arch,'levelHealth').text = item.level_health
-
             if filename == None:
                 filename = app_config.file_path + app_config.archtype_filename
-
             if backup_filename == None:
                 backup_filename = app_config.backup_file_path + app_config.backup_archtype_filename
-
             try:
                 copy2(filename,backup_filename)
             except:
@@ -61,25 +58,17 @@ class Manage_archtypes(Base_Manage_Data.Manage_data):
             f = open(filename,'w')
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
-
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
-        archtype_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-
-        if supress_gui:
-            return archtype_controller
-        else:
-            archtype_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
+ 
+    def launch_edit(self,name,parent=None):
+        self.edit_controller = GUI_Archtype_Controller.GUI_archtype_controller(parent)
+        self.edit_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Archtype.Archtypes()
-
         if filename == None:
             filename = app_config.file_path + app_config.archtype_filename
-
         tree = ET.parse(filename)
         data_root = tree.getroot()
-
         for archtype in data_root:
             name = archtype.find('name').text or 'UNKNOWN'
             short_descrp = archtype.find('shortDescription').text or ' '
@@ -101,15 +90,14 @@ class Manage_archtypes(Base_Manage_Data.Manage_data):
             current_archtype.skill_points = archtype.find('skillPoints').text or 0
             current_archtype.level_health = archtype.find('levelHealth').text or ' '
             self.current_set.add_new(current_archtype)
-
         self.loaded_set = self.current_set.clone()
 
-    def __init__(self):
+    def __init__(self,parent=None):
+        self.parent = parent
         self.name = 'Archtypes'
         super().__init__()
 
 if __name__ == '__main__':
     manager = Manage_archtypes()
-
     manager.load_set()
     manager.launch_list('Archtypes')

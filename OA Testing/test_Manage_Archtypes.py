@@ -168,32 +168,32 @@ class test_Manage_Archtypes(unittest.TestCase):
     def test_launch_edit(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_edit(None,1,True)
+        gui = arch_manager.launch_edit(1,None,True)
         self.assertEqual(type(gui),GUI_Archtype_Controller.GUI_archtype_controller)
 
     def test_close_edit(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_edit(None,'test1',True)
+        gui = arch_manager.launch_edit('test1',None,True)
         gui = arch_manager.close_edit_item(True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_edit_DNE(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_edit(None,'DNE',True)
+        gui = arch_manager.launch_edit('DNE',None,True)
         self.assertEqual(type(gui),GUI_Archtype_Controller.GUI_archtype_controller)
 
     def test_launch_list(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_list('Archtypes',True)
+        gui = arch_manager.launch_list('Archtypes',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_list_DNE(self):
         arch_manager = Manage_Archtypes.Manage_archtypes()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_list('NOTFOUND',True)
+        gui = arch_manager.launch_list('NOTFOUND',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
 if __name__ == '__main__':

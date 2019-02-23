@@ -1,12 +1,9 @@
-import xml.etree.ElementTree as ET
-from shutil import copy2
-
 import sys, os.path
 datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..") + '/OA Data Files')
 sys.path.append(datapath)
 
 import app_config
-
+import List_Object
 import GUI_List_Controller
 import GUI_Equipment_Controller
 import Base_Manage_Data
@@ -20,7 +17,7 @@ import Manage_Money
 import Manage_Weapons
 
 class Manage_equipment:
-    def launch_edit(self,parent,name,supress_gui=False):
+    def launch_edit(self,name,parent=None):
         equip_manage = Base_Manage_Data.Manage_data()
         if name == 'Money':
             equip_manage = Manage_Money.Manage_money()
@@ -36,38 +33,29 @@ class Manage_equipment:
             equip_manage = Manage_Armor.Manage_armor()
         elif name == 'Weapon':
             equip_manage = Manage_Weapons.Manage_weapons()
-        equip_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
         equip_manage.load_set() 
-        equip_data = equip_manage.get_current_set()
-        if supress_gui:
-            return equip_controller
-        else:
-            equip_controller.load_data(name,equip_data,self.save_container,self.close_edit_container)
+        equip_manage.launch_list(name,parent)
 
-
-    def launch_list(self,supress_gui=False):
+    def launch_list(self,name,parent=None):
         if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-        self.list_controller.load_data('Equipment',self.current_set.all_items,self.launch_edit,None,None,False)
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.launch_form()
+            self.list_controller = GUI_List_Controller.GUI_list_controller(parent)
+        self.list_controller.load_data('Equipment',self.select_list,self.launch_edit,None,None,False)
 
-    def load_set(self,filename=None):
-        data_load = Manage_Misc_Lists.Manage_misc_lists()
-        data_load.load_set(filename)
-        self.current_set = data_load.get_current_set().get_item('Equipment Types')
+    def load_set(self):
+        self.current_set = app_config.equipment_Types
+        self.select_list = []
+        for sel_set in self.current_set:
+            self.select_list.append(List_Object.List_object(sel_set[0],sel_set[1]))
 
     def get_current_set(self):
-        return self.current_set.all_items
+        return self.current_set
 
-    def __init__(self):
+    def __init__(self,parent=None):
+        self.parent = parent
         self.list_controller = None
         self.current_set = None
 
 if __name__ == '__main__':
     manager = Manage_equipment()
-
     manager.load_set()
     manager.launch_list()

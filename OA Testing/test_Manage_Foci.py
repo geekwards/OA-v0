@@ -172,32 +172,32 @@ class test_Manage_Foci(unittest.TestCase):
     def test_launch_edit(self):
         foci_manager = test__manage_foci.Manage_data()
         foci_manager.load_set(app_config.test_file_path + app_config.test_foci_filename)
-        gui = foci_manager.launch_edit(None,1,True)
+        gui = foci_manager.launch_edit(1,None,True)
         self.assertEqual(type(gui),GUI_Focus_Controller.GUI_focus_controller)
 
     def test_close_edit(self):
         foci_manager = test__manage_foci.Manage_data()
         foci_manager.load_set(app_config.test_file_path + app_config.test_foci_filename)
-        gui = foci_manager.launch_edit(None,'test1',True)
+        gui = foci_manager.launch_edit('test1',None,True)
         gui = foci_manager.close_edit_item(True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_edit_DNE(self):
         foci_manager = test__manage_foci.Manage_data()
         foci_manager.load_set(app_config.test_file_path + app_config.test_foci_filename)
-        gui = foci_manager.launch_edit(None,'DNE',True)
+        gui = foci_manager.launch_edit('DNE',None,True)
         self.assertEqual(type(gui),GUI_Focus_Controller.GUI_focus_controller)
 
     def test_launch_list(self):
         foci_manager = test__manage_foci.Manage_data()
         foci_manager.load_set(app_config.test_file_path + app_config.test_foci_filename)
-        gui = foci_manager.launch_list('Foci',True)
+        gui = foci_manager.launch_list('Foci',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_list_DNE(self):
         foci_manager = test__manage_foci.Manage_data()
         foci_manager.load_set(app_config.test_file_path + app_config.test_foci_filename)
-        gui = foci_manager.launch_list('NOTFOUND',True)
+        gui = foci_manager.launch_list('NOTFOUND',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
  
     def test_lookup_data(self):

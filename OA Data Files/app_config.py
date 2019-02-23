@@ -78,3 +78,32 @@ test_lookups_foci_filename = '/lookups_foci_test.xml'
 
 title_font = "-family {Segoe UI} -size 20 -weight bold -slant roman"  \
     " -underline 0 -overstrike 0"
+
+ 
+
+equipment_Types = []
+import Manage_Money
+import Manage_Food
+import Manage_Clothing
+import Manage_MiscEquip
+import Manage_Containers
+import Manage_Armor
+import Manage_Weapons
+equipment_Types.append(['Armor','Item designed to protect from harm',Manage_Armor.Manage_armor])
+equipment_Types.append(['Food','Sustenance',Manage_Food.Manage_food])
+equipment_Types.append(['Money','Currency',Manage_Money.Manage_money])
+equipment_Types.append(['Clothing','Wearable items that are not armor',Manage_Clothing.Manage_clothing])
+equipment_Types.append(['Misc Equipment','Other Stuff',Manage_MiscEquip.Manage_misc_equipment])
+equipment_Types.append(['Container','Item designed to hold other things',Manage_Containers.Manage_containers])
+equipment_Types.append(['Weapon','Item designed and constructed to do harm',Manage_Weapons.Manage_weapons])
+admin_Types = []
+import Manage_Archtypes
+import Manage_Equipment
+import Manage_Foci
+import Manage_Misc_Lists
+import Manage_Races
+admin_Types.append(['Archtypes',Manage_Archtypes.Manage_archtypes])
+admin_Types.append(['Equipment',Manage_Equipment.Manage_equipment])
+admin_Types.append(['Foci',Manage_Foci.Manage_foci])
+admin_Types.append(['Misc Lists',Manage_Misc_Lists.Manage_misc_lists])
+admin_Types.append(['Races',Manage_Races.Manage_races])

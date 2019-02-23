@@ -3,7 +3,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__),"../..") + '/O
 
 import app_config
 import GUI_Archtype_Form
-
+ 
 class GUI_archtype_controller:
     def create_form(self,parent=None):
         self.archtype_form,self.archtype_window = GUI_Archtype_Form.create_form(parent)
@@ -20,9 +20,6 @@ class GUI_archtype_controller:
             self.archtype_form.set_edit()
         else:
             self.archtype_form.set_view()
-
-    def launch_form(self):
-        self.archtype_window.mainloop()
 
     def edit_call(self):
         self.archtype_form.set_edit()
@@ -59,7 +56,7 @@ class GUI_archtype_controller:
         self.archtype_window.destroy()
         self.archtype_form = None
         self.close_callback()
-
+ 
     def cancel_call(self):
         if self.rollback_archtype == self.current_archtype:
             #confirm rollback
@@ -74,5 +71,5 @@ class GUI_archtype_controller:
     def get_form(self):
         return self.archtype_form
 
-    def __init__(self):
-        self.create_form()
+    def __init__(self,parent=None):
+        self.create_form(parent)

@@ -3,7 +3,7 @@ try:
 except ImportError:
     import tkinter as tk
 
-def create_list_form(parent):
+def create_list_form(parent=None):
     if parent == None:
         list_window = tk.Tk()
     else:
@@ -14,12 +14,12 @@ def create_list_form(parent):
 
 class GUI_list_form:
     def add_item(self,idx,item_text,set_edit=True):
-        self.f1.edit_list_item = tk.Button(self.f1,text ="View",command=lambda: self.edit_click(idx))
+        self.f1.edit_list_item = tk.Button(self.f1,text="View",command=lambda: self.edit_click(idx))
         self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=0,padx=5,pady=5)
         self.f1.lbl_list_item = tk.Label(self.f1,text=item_text)
         self.f1.lbl_list_item.grid(sticky='w',row=idx+2,column=1,padx=5,pady=5)
         if set_edit:
-            self.f1.edit_list_item = tk.Button(self.f1,text ="Remove",command=lambda: self.remove_click(idx))
+            self.f1.edit_list_item = tk.Button(self.f1,text="Remove",command=lambda: self.remove_click(idx))
             self.f1.edit_list_item.grid(sticky='nsew',row=idx+2,column=2,padx=5,pady=5)
 
     def setup_form(self,list_title,new_call,edit_call,remove_call,close_call,set_edit=True):
@@ -49,7 +49,7 @@ class GUI_list_form:
         self.f1.grid_columnconfigure(1,weight=3)
         self.f1.grid_columnconfigure(2,weight=1)
 
-    def __init__(self, parent):
+    def __init__(self,parent=None):
         self.parent = parent
         self.parent.title("LIST NOT LOADED")
         self.build_frame()

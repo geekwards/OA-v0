@@ -50,17 +50,13 @@ class Manage_armor(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
+    def launch_edit(self,name,parent=None):
         armor_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
         if len(name) > 0:
             armor = self.current_set.get_item(name)
         else:
             armor = Armor.Armor('','')
-        if supress_gui:
-            return armor_controller
-        else:
-            armor_controller.load_data('Armor',armor,self.save_armor,self.close_edit_armor)
+        armor_controller.load_data('Armor',armor,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Armor.Armors()   

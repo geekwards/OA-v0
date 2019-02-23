@@ -21,8 +21,6 @@ class GUI_race_controller:
             self.race_form.set_edit()
         else:
             self.race_form.set_view()
-
-    def launch_form(self):
         self.race_window.mainloop()
 
     def new_call(self):
@@ -134,6 +132,6 @@ class GUI_race_controller:
 
         self.select_controller.destroy_picklist()
 
-    def __init__(self):
+    def __init__(self,parent=None):
         self.source = []
-        self.create_form()
+        self.create_form(parent)

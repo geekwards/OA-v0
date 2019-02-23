@@ -47,17 +47,13 @@ class Manage_containers(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
-    def launch_edit(self,parent,name,supress_gui=False):
-        self.sup_gui = supress_gui
+    def launch_edit(self,name,parent=None):
         container_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
         if len(name) > 0:
             container = self.current_set.get_item(name)
         else:
             container = Container.Container('','')
-        if supress_gui:
-            return container_controller
-        else:
-            container_controller.load_data('Container',container,self.save_container,self.close_edit_container)
+        container_controller.load_data('Container',container,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Container.Containers()   

@@ -109,7 +109,7 @@ class test_Manage_Base(unittest.TestCase):
         base_manager = test__base_manage_data.Manage_data()
         base_manager.load_set2(test__data.test_armors4.clone())
         try:
-            gui = base_manager.launch_edit(None,'test1',True)
+            gui = base_manager.launch_edit('test1',None,True)
         except NotImplementedError:
             pass
         except Exception as e:
@@ -120,7 +120,7 @@ class test_Manage_Base(unittest.TestCase):
     def test_close_edit(self):
         base_manager = test__base_manage_data.Manage_data()
         base_manager.load_set2(test__data.test_armors4.clone())
-        gui = base_manager.launch_list('TEST',True)
+        gui = base_manager.launch_list('TEST',None,True)
         gui = base_manager.close_edit_item(True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
@@ -128,7 +128,7 @@ class test_Manage_Base(unittest.TestCase):
         base_manager = test__base_manage_data.Manage_data()
         base_manager.load_set2(test__data.test_armors4.clone())
         try:
-            gui = base_manager.launch_edit(None,'test1',True)
+            gui = base_manager.launch_edit('test1',None,True)
         except NotImplementedError:
             pass
         except Exception as e:
@@ -139,7 +139,7 @@ class test_Manage_Base(unittest.TestCase):
     def test_launch_list(self):
         base_manager = test__base_manage_data.Manage_data()
         base_manager.load_set2(test__data.test_armors4.clone())
-        gui = base_manager.launch_list('TEST',True)
+        gui = base_manager.launch_list('TEST',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
 if __name__ == '__main__':

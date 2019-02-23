@@ -90,40 +90,6 @@
 		</items>
 	</list>
 	<list>
-		<listname>Equipment Types</listname>
-		<listdesc>Equipment Types</listdesc>
-		<items>
-			<item>
-				<name>Weapon</name>
-				<description>Item designed and constructed to do damage in combat</description>
-			</item>
-			<item>
-				<name>Armor</name>
-				<description>Item designed to protect the wearer from damage in combat</description>
-			</item>
-			<item>
-				<name>Food</name>
-				<description>Food</description>
-			</item>
-			<item>
-				<name>Money</name>
-				<description>Dolla Dolla Bills</description>
-			</item>
-			<item>
-				<name>Clothing</name>
-				<description>threads</description>
-			</item>
-			<item>
-				<name>Misc Equipment</name>
-				<description>Other Stuff</description>
-			</item>
-			<item>
-				<name>Container</name>
-				<description>holds stuff</description>
-			</item>
-		</items>
-	</list>
-	<list>
 		<listname>Money</listname>
 		<listdesc>Money</listdesc>
 		<items>

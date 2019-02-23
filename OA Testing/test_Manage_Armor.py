@@ -170,32 +170,32 @@ class test_Manage_Armor(unittest.TestCase):
     def test_launch_edit(self):
         armor_manager = Manage_Armor.Manage_armor()
         armor_manager.load_set(app_config.test_file_path + app_config.test_armor_filename)
-        gui = armor_manager.launch_edit(None,'test1',True)
+        gui = armor_manager.launch_edit('test1',None,True)
         self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
 
     def test_close_edit(self):
         armor_manager = Manage_Armor.Manage_armor()
         armor_manager.load_set(app_config.test_file_path + app_config.test_armor_filename)
-        gui = armor_manager.launch_edit(None,'test1',True)
+        gui = armor_manager.launch_edit('test1',None,True)
         gui = armor_manager.close_edit_item(True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_edit_DNE(self):
         armor_manager = Manage_Armor.Manage_armor()
         armor_manager.load_set(app_config.test_file_path + app_config.test_armor_filename)
-        gui = armor_manager.launch_edit(None,'DNE',True)
+        gui = armor_manager.launch_edit('DNE',None,True)
         self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
 
     def test_launch_list(self):
         armor_manager = Manage_Armor.Manage_armor()
         armor_manager.load_set(app_config.test_file_path + app_config.test_armor_filename)
-        gui = armor_manager.launch_list('Armor',True)
+        gui = armor_manager.launch_list('Armor',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_list_DNE(self):
         armor_manager = Manage_Armor.Manage_armor()
         armor_manager.load_set(app_config.test_file_path + app_config.test_armor_filename)
-        gui = armor_manager.launch_list('NOTFOUND',True)
+        gui = armor_manager.launch_list('NOTFOUND',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
 if __name__ == '__main__':

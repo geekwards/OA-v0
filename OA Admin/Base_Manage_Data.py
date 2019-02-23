@@ -18,23 +18,17 @@ class Manage_data:
     def remove_item(self,item):
         self.current_set.remove(item)
 
-    def close_edit_item(self,supress_gui=False):
-        return self.launch_list(self.name,self.sup_gui)
+    def close_edit_item(self):
+        return self.launch_list(self.name,None)
 
-    def launch_edit(self,parent,name,supress_gui=False):
+    def launch_edit(self,name,parent=None):
         raise NotImplementedError("Please Implement this method")
 
-    def launch_list(self,name,supress_gui=False):
-        self.sup_gui = supress_gui
+    def launch_list(self,name,parent=None):
         self.name = name
         if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller()
-
-        if supress_gui:
-            return self.list_controller
-        else:
-            self.list_controller.load_data(name,self.current_set.list_of_items,self.launch_edit,self.remove_item,self.save_all)
-            self.list_controller.launch_form()
+            self.list_controller = GUI_List_Controller.GUI_list_controller(parent)
+        self.list_controller.load_data(name,self.current_set.list_of_items,self.launch_edit,self.remove_item,self.save_all)
 
     def load_set(self,filename=None):
         raise NotImplementedError("Please Implement this method")

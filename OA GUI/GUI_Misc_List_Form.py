@@ -3,7 +3,7 @@ try:
 except ImportError:
     import tkinter as tk
 
-def create_form(parent):
+def create_form(parent=None):
     if parent == None:
         misc_list_window = tk.Tk()
     else:
@@ -75,7 +75,7 @@ class GUI_misc_list_form:
         self.f1.grid_columnconfigure(1,weight=3)
         self.f1.grid_columnconfigure(2,weight=1)
 
-    def __init__(self,parent):
+    def __init__(self,parent=None):
         self.parent = parent
         self.parent.title("LIST NOT LOADED")
         self.build_frame()

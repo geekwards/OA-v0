@@ -170,32 +170,32 @@ class test_Manage_Weapons(unittest.TestCase):
     def test_launch_edit(self):
         weapon_manager = Manage_Weapons.Manage_weapons()
         weapon_manager.load_set(app_config.test_file_path + app_config.test_weapons_filename)
-        gui = weapon_manager.launch_edit(None,'test1',True)
+        gui = weapon_manager.launch_edit('test1',None,True)
         self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
 
     def test_close_edit(self):
         weapon_manager = Manage_Weapons.Manage_weapons()
         weapon_manager.load_set(app_config.test_file_path + app_config.test_weapons_filename)
-        gui = weapon_manager.launch_edit(None,'test1',True)
+        gui = weapon_manager.launch_edit('test1',None,True)
         gui = weapon_manager.close_edit_item(True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_edit_DNE(self):
         weapon_manager = Manage_Weapons.Manage_weapons()
         weapon_manager.load_set(app_config.test_file_path + app_config.test_weapons_filename)
-        gui = weapon_manager.launch_edit(None,'DNE',True)
+        gui = weapon_manager.launch_edit('DNE',None,True)
         self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
 
     def test_launch_list(self):
         weapon_manager = Manage_Weapons.Manage_weapons()
         weapon_manager.load_set(app_config.test_file_path + app_config.test_weapons_filename)
-        gui = weapon_manager.launch_list('Food',True)
+        gui = weapon_manager.launch_list('Food',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
     def test_launch_list_DNE(self):
         weapon_manager = Manage_Weapons.Manage_weapons()
         weapon_manager.load_set(app_config.test_file_path + app_config.test_weapons_filename)
-        gui = weapon_manager.launch_list('NOTFOUND',True)
+        gui = weapon_manager.launch_list('NOTFOUND',None,True)
         self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
 if __name__ == '__main__':

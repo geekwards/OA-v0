@@ -18,8 +18,6 @@ class GUI_picklist_controller:
         else:
             self.sel_list = selected
         self.picklist_form.add_lists(title,full_list,self.sel_list,self.cancel_call,self.save_call,score)
-
-    def launch_form(self):
         self.picklist_window.mainloop()
  
     def save_call(self):
