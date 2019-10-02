@@ -6,9 +6,9 @@
         "-p",
         "test_*.py"
     ],
-    "python.testing.pytestEnabled": false,
+    "python.testing.pytestEnabled": true,
     "python.testing.nosetestsEnabled": false,
-    "python.testing.unittestEnabled": true,
+    "python.testing.unittestEnabled": false,
     "python.pythonPath": "C:\\Users\\geekw\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
     "python.testing.pytestArgs": [
         "OA Testing"
