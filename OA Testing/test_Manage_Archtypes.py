@@ -6,21 +6,21 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import Manage_Archtypes
+import test__manage_archtypes
 import GUI_Archtype_Controller
-import GUI_List_Controller
+import test__gui_list_controller
 import test__data
 
 class test_Manage_Archtypes(unittest.TestCase):
     def test_load_and_get(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
         self.assertEqual(loaded,test__data.test_archtypes4)
 
     def test_load_file_DNE(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         try:
             arch_manager.load_set('no filename')
         except FileNotFoundError:
@@ -31,12 +31,12 @@ class test_Manage_Archtypes(unittest.TestCase):
             self.fail('ExpectedException not raised')      
 
     def test_get_empty(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         loaded = arch_manager.get_current_set()
         self.assertEqual(loaded,None)
 
     def test_save_update(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
@@ -47,7 +47,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         self.assertEqual(loaded.all_items[1].short_description,'MODIFIED TEST')
 
     def test_save_new(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
@@ -59,7 +59,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         self.assertEqual(loaded.all_items[4].name,'MODIFIED TEST')
 
     def test_save_update_withfull(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
@@ -68,7 +68,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         arch_manager.save_one(clone,app_config.test_file_path + app_config.test_archive_filename + '3',app_config.test_file_path + app_config.test_backup_archive_filename)
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
-        arch_manager2 = Manage_Archtypes.Manage_archtypes()
+        arch_manager2 = test__manage_archtypes.Manage_data()
         arch_manager2.load_set(app_config.test_file_path + app_config.test_archive_filename + '3')
         loaded2 = arch_manager2.get_current_set()
         self.assertEqual(len(loaded2),4)
@@ -77,21 +77,21 @@ class test_Manage_Archtypes(unittest.TestCase):
         self.assertEqual(loaded2.all_items[1].short_description,'MODIFIED TEST')
 
     def test_save_new_withfull(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
         clone = loaded.all_items[1].clone()
         clone.name = 'MODIFIED TEST'
         arch_manager.save_one(clone,app_config.test_file_path + app_config.test_archive_filename + '3',app_config.test_file_path + app_config.test_backup_archive_filename)
-        arch_manager2 = Manage_Archtypes.Manage_archtypes()
+        arch_manager2 = test__manage_archtypes.Manage_data()
         arch_manager2.load_set(app_config.test_file_path + app_config.test_archive_filename + '3')
         loaded2 = arch_manager2.get_current_set()
         self.assertEqual(len(loaded2),5)
         self.assertEqual(loaded.all_items[4].name,'MODIFIED TEST')
 
     def test_save_wrongtype(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         try:
             arch_manager.save_one(test__data.test_armor1)
@@ -103,7 +103,7 @@ class test_Manage_Archtypes(unittest.TestCase):
             self.fail('ExpectedException not raised')  
 
     def test_save_wrongtype_withfull(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         try:
             arch_manager.save_one(test__data.test_armor1,app_config.test_file_path + app_config.test_archive_filename + '4',app_config.test_file_path + app_config.test_backup_archive_filename)
@@ -115,7 +115,7 @@ class test_Manage_Archtypes(unittest.TestCase):
             self.fail('ExpectedException not raised')  
 
     def test_big_save(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         copy2(app_config.test_file_path + app_config.test_archive_filename,app_config.test_file_path + app_config.test_archive_filename + '2')
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename + '2')
         loaded = arch_manager.get_current_set().clone()
@@ -132,7 +132,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         arch_manager.save_one(loaded.all_items[3])
         arch_manager.save_one(clone)
         arch_manager.save_all(app_config.test_file_path + app_config.test_archive_filename + '2',app_config.test_file_path + app_config.test_backup_archive_filename)
-        arch_manager2 = Manage_Archtypes.Manage_archtypes()
+        arch_manager2 = test__manage_archtypes.Manage_data()
         arch_manager2.load_set(app_config.test_file_path + app_config.test_archive_filename + '2')
         loaded2 = arch_manager2.get_current_set()
         self.assertEqual(loaded2.all_items[0].short_description,'updated name 1')
@@ -141,7 +141,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         self.assertEqual(loaded2.all_items[3].short_description,'updated name 4')
 
     def test_remove(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
@@ -151,7 +151,7 @@ class test_Manage_Archtypes(unittest.TestCase):
         self.assertEqual(loaded,test__data.test_archtypes3)
 
     def test_remove_DNE(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
         loaded = arch_manager.get_current_set()
         self.assertEqual(len(loaded),4)
@@ -166,35 +166,20 @@ class test_Manage_Archtypes(unittest.TestCase):
             self.fail('ExpectedException not raised')  
 
     def test_launch_edit(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_edit(1,None,True)
-        self.assertEqual(type(gui),GUI_Archtype_Controller.GUI_archtype_controller)
-
-    def test_close_edit(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
-        arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_edit('test1',None,True)
-        gui = arch_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_edit_DNE(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
-        arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_edit('DNE',None,True)
-        self.assertEqual(type(gui),GUI_Archtype_Controller.GUI_archtype_controller)
+        arch_manager.launch_edit('test1',None) 
+        self.assertEqual(arch_manager.get_edit_controller().get_form().get_frame().ename.get(),'test1')
 
     def test_launch_list(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_list('Archtypes',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
+        self.assertEqual(type(arch_manager.get_list_controller()),test__gui_list_controller.GUI_controller)
 
     def test_launch_list_DNE(self):
-        arch_manager = Manage_Archtypes.Manage_archtypes()
+        arch_manager = test__manage_archtypes.Manage_data()
         arch_manager.load_set(app_config.test_file_path + app_config.test_archive_filename)
-        gui = arch_manager.launch_list('NOTFOUND',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
+        self.assertEqual(type(arch_manager.get_list_controller()),test__gui_list_controller.GUI_controller)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

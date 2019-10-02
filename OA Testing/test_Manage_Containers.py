@@ -167,36 +167,5 @@ class test_Manage_Containers(unittest.TestCase):
         else:
             self.fail('ExpectedException not raised')  
 
-    def test_launch_edit(self):
-        container_manager = Manage_Containers.Manage_containers()
-        container_manager.load_set(app_config.test_file_path + app_config.test_container_filename)
-        gui = container_manager.launch_edit('test1',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_close_edit(self):
-        container_manager = Manage_Containers.Manage_containers()
-        container_manager.load_set(app_config.test_file_path + app_config.test_container_filename)
-        gui = container_manager.launch_edit('test1',None,True)
-        gui = container_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_edit_DNE(self):
-        container_manager = Manage_Containers.Manage_containers()
-        container_manager.load_set(app_config.test_file_path + app_config.test_container_filename)
-        gui = container_manager.launch_edit('DNE',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_launch_list(self):
-        container_manager = Manage_Containers.Manage_containers()
-        container_manager.load_set(app_config.test_file_path + app_config.test_container_filename)
-        gui = container_manager.launch_list('Containers',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_list_DNE(self):
-        container_manager = Manage_Containers.Manage_containers()
-        container_manager.load_set(app_config.test_file_path + app_config.test_container_filename)
-        gui = container_manager.launch_list('NOTFOUND',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)

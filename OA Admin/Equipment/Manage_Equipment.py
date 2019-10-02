@@ -33,13 +33,16 @@ class Manage_equipment:
             equip_manage = Manage_Armor.Manage_armor()
         elif name == 'Weapon':
             equip_manage = Manage_Weapons.Manage_weapons()
-        equip_manage.load_set() 
+        equip_manage.set_controller()
+        equip_manage.load_set()
         equip_manage.launch_list(name,parent)
 
+    def set_controller(self,parent=None):
+        self.list_controller = GUI_List_Controller.GUI_list_controller(parent)
+
     def launch_list(self,name,parent=None):
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller(parent)
-        self.list_controller.load_data('Equipment',self.select_list,self.launch_edit,None,None,False)
+        self.list_controller.create_form()
+        self.list_controller.load_data(name,self.select_list,self.launch_edit,None,None,False)
 
     def load_set(self):
         self.current_set = app_config.equipment_Types
@@ -52,10 +55,11 @@ class Manage_equipment:
 
     def __init__(self,parent=None):
         self.parent = parent
-        self.list_controller = None
-        self.current_set = None
+        self.name = 'Equipment'
+        super().__init__()
+        self.set_controller(parent)
 
 if __name__ == '__main__':
     manager = Manage_equipment()
     manager.load_set()
-    manager.launch_list()
+    manager.launch_list('Equipment')

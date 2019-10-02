@@ -5,8 +5,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_Archtype_Controller
-import GUI_Archtype_Form
+import test__gui_archtype_controller
 import Archtype
 import test__data
 
@@ -47,16 +46,19 @@ def remove_call(list_item):
 
 class test_GUI_Archtype(unittest.TestCase):
     def test_archtype_controller_create(self):
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
-        self.assertEqual(type(arch_controller.get_form()),GUI_Archtype_Form.GUI_archtype_form)
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
+        self.assertNotEqual(arch_controller.get_form(),None)
 
     def test_archtype_controller_load(self):
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
         arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
         self.assertEqual(arch_controller.get_current_set(),test__data.test_archtype1)
 
     def test_archtype_controller_refresh(self):
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
         clone2 = test__data.test_archtype1.clone()
         clone2.proficiency = 'test prof'
         arch_controller.load_data(clone2,save_call,close_call)
@@ -68,14 +70,16 @@ class test_GUI_Archtype(unittest.TestCase):
         self.assertEqual(arch_controller.get_current_set(),clone)
 
     def test_archtype_controller_close(self):
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
         arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
         self.assertNotEqual(arch_controller.get_form(),None)
         arch_controller.close_call()
         self.assertEqual(arch_controller.get_form(),None)
 
     def test_load_form_edit(self):
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
         arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
         arch_form = arch_controller.get_form()
         arch_controller.edit_call()
@@ -83,7 +87,8 @@ class test_GUI_Archtype(unittest.TestCase):
             self.assertEqual(item.cget('state'),'normal')
 
     def test_edit_form_cancel(self):
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
         arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
         arch_form = arch_controller.get_form()
         arch_controller.cancel_call()
@@ -93,7 +98,8 @@ class test_GUI_Archtype(unittest.TestCase):
     def test_edit_form_save(self):
         global save_called
         save_called = False
-        arch_controller = GUI_Archtype_Controller.GUI_archtype_controller()
+        arch_controller = test__gui_archtype_controller.GUI_controller()
+        arch_controller.create_form()
         arch_controller.load_data(test__data.test_archtype1,save_call,close_call)
         arch_controller.save_call()
         self.assertTrue(save_called)

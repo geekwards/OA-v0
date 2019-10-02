@@ -167,36 +167,5 @@ class test_Manage_Money(unittest.TestCase):
         else:
             self.fail('ExpectedException not raised')  
 
-    def test_launch_edit(self):
-        money_manager = Manage_Money.Manage_money()
-        money_manager.load_set(app_config.test_file_path + app_config.test_money_filename)
-        gui = money_manager.launch_edit('test1',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_close_edit(self):
-        money_manager = Manage_Money.Manage_money()
-        money_manager.load_set(app_config.test_file_path + app_config.test_money_filename)
-        gui = money_manager.launch_edit('test1',None,True)
-        gui = money_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_edit_DNE(self):
-        money_manager = Manage_Money.Manage_money()
-        money_manager.load_set(app_config.test_file_path + app_config.test_money_filename)
-        gui = money_manager.launch_edit('DNE',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_launch_list(self):
-        money_manager = Manage_Money.Manage_money()
-        money_manager.load_set(app_config.test_file_path + app_config.test_money_filename)
-        gui = money_manager.launch_list('Food',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_list_DNE(self):
-        money_manager = Manage_Money.Manage_money()
-        money_manager.load_set(app_config.test_file_path + app_config.test_money_filename)
-        gui = money_manager.launch_list('NOTFOUND',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)

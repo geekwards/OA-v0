@@ -72,4 +72,4 @@ class GUI_archtype_controller:
         return self.archtype_form
 
     def __init__(self,parent=None):
-        self.create_form(parent)
+        pass

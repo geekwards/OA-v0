@@ -11,7 +11,7 @@ import GUI_List_Controller
 import test__data
 
 class test_Manage_Base(unittest.TestCase):
-    def test_load_(self):
+    def test_load_and_get(self):
         base_manager = test__base_manage_data.Manage_data()
         try:
             base_manager.load_set('filename')
@@ -109,7 +109,7 @@ class test_Manage_Base(unittest.TestCase):
         base_manager = test__base_manage_data.Manage_data()
         base_manager.load_set2(test__data.test_armors4.clone())
         try:
-            gui = base_manager.launch_edit('test1',None,True)
+            gui = base_manager.launch_edit('test1',None)
         except NotImplementedError:
             pass
         except Exception as e:
@@ -117,30 +117,17 @@ class test_Manage_Base(unittest.TestCase):
         else:
             self.fail('ExpectedException not raised')  
 
-    def test_close_edit(self):
-        base_manager = test__base_manage_data.Manage_data()
-        base_manager.load_set2(test__data.test_armors4.clone())
-        gui = base_manager.launch_list('TEST',None,True)
-        gui = base_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
     def test_launch_edit_DNE(self):
         base_manager = test__base_manage_data.Manage_data()
         base_manager.load_set2(test__data.test_armors4.clone())
         try:
-            gui = base_manager.launch_edit('test1',None,True)
+            gui = base_manager.launch_edit('test1',None)
         except NotImplementedError:
             pass
         except Exception as e:
             self.fail('Unexpected exception raised:' + str(e))
         else:
             self.fail('ExpectedException not raised') 
-    
-    def test_launch_list(self):
-        base_manager = test__base_manage_data.Manage_data()
-        base_manager.load_set2(test__data.test_armors4.clone())
-        gui = base_manager.launch_list('TEST',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

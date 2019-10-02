@@ -47,13 +47,16 @@ class Manage_food(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self,parent=None):
+        self.edit_controller = GUI_Equipment_Controller.GUI_equipment_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        food_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
+        self.edit_controller.create_form(parent)
         if len(name) > 0:
             food = self.current_set.get_item(name)
         else:
             food = Food.Food('','')
-        food_controller.load_data('Food',food,self.save_one,self.close_edit_item)
+        self.edit_controller.load_data('Food',food,self.save_one,self.close_edit_item)
     
     def load_set(self,filename=None):
         self.current_set = Food.Foods()   

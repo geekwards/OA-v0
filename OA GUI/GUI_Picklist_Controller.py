@@ -47,5 +47,5 @@ class GUI_picklist_controller:
         self.picklist_form = None
         self.picklist_window.destroy()
 
-    def __init__(self):
-        self.create_form()
+    def __init__(self,parent=None):
+        pass

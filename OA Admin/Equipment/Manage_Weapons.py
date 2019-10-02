@@ -54,13 +54,16 @@ class Manage_weapons(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self,parent=None):
+        self.edit_controller = GUI_Equipment_Controller.GUI_equipment_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        weapon_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
+        self.edit_controller.create_form(parent)
         if len(name) > 0:
             weapon = self.current_set.get_item(name)
         else:
             weapon = Weapon.Weapon('','')
-        weapon_controller.load_data('Weapon',weapon,self.save_one,self.close_edit_item)
+        self.edit_controller.load_data('Weapon',weapon,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Weapon.Weapons()   

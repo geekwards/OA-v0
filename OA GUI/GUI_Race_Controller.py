@@ -85,7 +85,7 @@ class GUI_race_controller:
         self.sizes = sizes
         self.bodies = bodies
         self.race_form.add_lists(sizes,bodies)
-
+ 
     def edit_picklist(self,listtype):
         self.select_controller = GUI_Picklist_Controller.GUI_picklist_controller()
         self.current_list = []
@@ -134,4 +134,3 @@ class GUI_race_controller:
 
     def __init__(self,parent=None):
         self.source = []
-        self.create_form(parent)

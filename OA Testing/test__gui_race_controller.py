@@ -4,13 +4,14 @@ sys.path.append(datapath)
 
 import app_config
 import GUI_Race_Controller
+import test__gui_race_form
 import List_Object
 import Misc_List
 
 class GUI_controller(GUI_Race_Controller.GUI_race_controller):
     def get_langs(self):
         return self.languages
-
+ 
     def get_sizes(self):
         self.sizes.sort()
         return self.sizes
@@ -50,4 +51,18 @@ class GUI_controller(GUI_Race_Controller.GUI_race_controller):
 
     def save_picklist(self,listtype,picklist):
         self.saved_picklist = picklist
-        super().save_picklist(listtype,picklist)
+
+    def create_form(self,parent=None):
+        self.race_form = test__gui_race_form.GUI_race_form()
+        self.race_window = test__gui_race_form.GUI_race_window()
+
+    def edit_picklist(self,pickname):
+        if pickname == 'Languages':
+            self.source = ['testlang1.1: langscore1.1', 'testlang1.2: langscore1.2', 'testlang1.3: langscore1.3']
+            self.current_list = self.current_race.languages_bonus
+        elif pickname == 'Feats':
+            self.source = ['feat1.1', 'feat1.2', 'feat1.3']
+            self.current_list = self.current_race.feats
+        elif pickname == 'Foci':
+            self.source = ['foci1.1', 'foci1.2', 'foci1.3']
+            self.current_list = self.current_race.foci

@@ -38,6 +38,7 @@ class Manage_all:
     def launch_list(self,parent=None):
         if self.list_controller == None:
             self.list_controller = GUI_List_Controller.GUI_list_controller()
+            self.list_controller.create_form()
         self.list_controller.load_data('Manage Data',self.select_list,self.launch_edit,None,None,False)
 
     def load_set(self,filename=None):
@@ -56,6 +57,5 @@ class Manage_all:
 
 if __name__ == '__main__':
     manager = Manage_all()
-
     manager.load_set()
     manager.launch_list()

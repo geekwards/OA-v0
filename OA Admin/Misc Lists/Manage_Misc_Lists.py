@@ -46,13 +46,16 @@ class Manage_misc_lists(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self):
+        self.edit_controller = GUI_Misc_List_Controller.GUI_misc_list_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        misc_list_controller = GUI_Misc_List_Controller.GUI_misc_list_controller(parent)            
+        self.edit_controller.create_form(parent)
         if len(name) > 0:
             misc_list = self.current_set.get_item(name)
         else:
             misc_list = Misc_List.Misc_list('',[])
-        misc_list_controller.load_data(misc_list,self.save_one,self.close_edit_item)
+        self.edit_controller.load_data(misc_list,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Misc_List.Misc_lists()   

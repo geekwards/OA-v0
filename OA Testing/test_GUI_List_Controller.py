@@ -5,8 +5,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_List_Controller
-import GUI_List_Form
+import test__gui_list_controller
 import List_Object
 import test__data
 
@@ -49,23 +48,27 @@ def remove_call(list_item):
 
 class test_GUI_List_Controller(unittest.TestCase):
     def test_list_controller_create(self):
-        list_controller = GUI_List_Controller.GUI_list_controller()
-        self.assertEqual(type(list_controller.get_form()),GUI_List_Form.GUI_list_form)
+        list_controller = test__gui_list_controller.GUI_controller()
+        list_controller.create_form()
+        self.assertNotEqual(list_controller.get_form(),None)
 
     def test_list_controller_load(self):
-        list_controller = GUI_List_Controller.GUI_list_controller()
+        list_controller = test__gui_list_controller.GUI_controller()
+        list_controller.create_form()
         list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
         self.assertEqual(list_controller.get_current_set(),test__data.test_set1)
 
     def test_list_controller_close(self):
-        list_controller = GUI_List_Controller.GUI_list_controller()
+        list_controller = test__gui_list_controller.GUI_controller()
+        list_controller.create_form()
         list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
         self.assertNotEqual(list_controller.get_form(),None)
         list_controller.close_call()
         self.assertEqual(list_controller.get_form(),None)
 
     def test_load_form_edit(self):
-        list_controller = GUI_List_Controller.GUI_list_controller()
+        list_controller = test__gui_list_controller.GUI_controller()
+        list_controller.create_form()
         list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
         list_form = list_controller.get_form()
         list_controller.edit_call(1)
@@ -73,7 +76,8 @@ class test_GUI_List_Controller(unittest.TestCase):
             self.assertEqual(item.cget('state'),'normal')
 
     def test_remove(self):
-        list_controller = GUI_List_Controller.GUI_list_controller()
+        list_controller = test__gui_list_controller.GUI_controller()
+        list_controller.create_form()
         list_controller.load_data('TEST',test__data.test_set1,edit_call,remove_call,close_call)
         self.remove_called = False
         list_controller.remove_call(1)

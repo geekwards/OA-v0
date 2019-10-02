@@ -39,7 +39,7 @@ class GUI_equipment_controller:
     def close_call(self):
         if not self.rollback_equipment == self.current_equipment:
             #confirm save
-            self.save_click()
+            self.save_call()
         
         self.equipment_window.destroy()
         self.equipment_form = None
@@ -60,4 +60,4 @@ class GUI_equipment_controller:
         return self.equipment_form
 
     def __init__(self,parent=None):
-        self.create_form(parent)
+        pass

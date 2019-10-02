@@ -74,4 +74,4 @@ class GUI_misc_list_controller:
         return self.misc_list_form
 
     def __init__(self,parent=None):
-        self.create_form(parent)
+        pass

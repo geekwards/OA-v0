@@ -63,4 +63,4 @@ class GUI_list_controller:
             self.list_form.build_frame()
 
     def __init__(self,parent=None):
-        self.create_form(parent)
+        pass

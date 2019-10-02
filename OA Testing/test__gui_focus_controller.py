@@ -4,13 +4,14 @@ sys.path.append(datapath)
 
 import app_config
 import GUI_Focus_Controller
+import test__gui_focus_form
 import List_Object
 import Misc_List
 
 class GUI_controller(GUI_Focus_Controller.GUI_focus_controller):
     def get_langs(self):
         return self.pick_list
-
+ 
     def get_current_picklist(self):
         if type(self.current_list[0]) == List_Object.List_object:
             plist = []
@@ -35,4 +36,12 @@ class GUI_controller(GUI_Focus_Controller.GUI_focus_controller):
 
     def save_picklist(self,listtype,picklist):
         self.saved_picklist = picklist
-        super().save_picklist(listtype,picklist)
+
+    def create_form(self,parent=None):
+        self.focus_form = test__gui_focus_form.GUI_focus_form()
+        self.focus_window = test__gui_focus_form.GUI_focus_window()
+
+    def edit_picklist(self,pickname):
+        picklist = self.pick_list
+        self.source = [e.name.strip() + ': ' + e.short_description.strip() for e in picklist.all_items if e.name not in [a.name for index,a in enumerate(self.current_focus.languages_bonus)]]
+        self.current_list = self.current_focus.languages_bonus

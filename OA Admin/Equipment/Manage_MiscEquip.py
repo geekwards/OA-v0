@@ -47,13 +47,16 @@ class Manage_misc_equipment(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self,parent=None):
+        self.edit_controller = GUI_Equipment_Controller.GUI_equipment_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        misc_equipment_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
+        self.edit_controller.create_form(parent)
         if len(name) > 0:
             stuff = self.current_set.get_item(name)
         else:
             stuff = Misc_Equipment.Stuff('','')
-        misc_equipment_controller.load_data('Misc Equipment',stuff,self.save_one,self.close_edit_item)
+        self.edit_controller.load_data('Misc Equipment',stuff,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Misc_Equipment.Misc_equipment()   

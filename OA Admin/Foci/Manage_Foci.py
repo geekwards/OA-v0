@@ -64,10 +64,13 @@ class Manage_foci(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self):
+        self.edit_controller = GUI_Focus_Controller.GUI_focus_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        focus_controller = GUI_Focus_Controller.GUI_focus_controller(parent)
-        focus_controller.load_picklists(self.languages)
-        focus_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
+        self.edit_controller.create_form(parent)
+        self.edit_controller.load_picklists(self.languages)
+        self.edit_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Focus.Foci()

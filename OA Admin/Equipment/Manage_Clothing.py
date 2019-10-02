@@ -47,13 +47,16 @@ class Manage_clothing(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self,parent=None):
+        self.edit_controller = GUI_Equipment_Controller.GUI_equipment_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        clothing_controller = GUI_Equipment_Controller.GUI_equipment_controller()            
+        self.edit_controller.create_form(parent)
         if len(name) > 0:
             garment = self.current_set.get_item(name)
         else:
             garment = Clothing.Garment('','')
-        clothing_controller.load_data('Clothing',garment,self.save_one,self.close_edit_item)
+        self.edit_controller.load_data('Clothing',garment,self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Clothing.Clothing()   

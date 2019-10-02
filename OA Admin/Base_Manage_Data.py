@@ -26,12 +26,15 @@ class Manage_data:
 
     def launch_list(self,name,parent=None):
         self.name = name
-        if self.list_controller == None:
-            self.list_controller = GUI_List_Controller.GUI_list_controller(parent)
+        self.list_controller.create_form(parent)
         self.list_controller.load_data(name,self.current_set.list_of_items,self.launch_edit,self.remove_item,self.save_all)
 
     def load_set(self,filename=None):
         raise NotImplementedError("Please Implement this method")
+
+    def set_controller(self):
+        if self.list_controller == None:
+            self.list_controller = GUI_List_Controller.GUI_list_controller()
 
     def get_current_set(self):
         return self.current_set

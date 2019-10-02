@@ -66,11 +66,14 @@ class Manage_races(Base_Manage_Data.Manage_data):
             f.write(ET.tostring(data, encoding="unicode"))
             f.close()
 
+    def set_controller(self):
+        self.edit_controller = GUI_Race_Controller.GUI_race_controller(parent)
+
     def launch_edit(self,name,parent=None):
-        race_controller = GUI_Race_Controller.GUI_race_controller(parent)
+        self.edit_controller.create_form(parent)
         self.load_combo_data()
-        race_controller.load_picklists(self.sizes,self.bodies,self.languages,self.foci,self.feats)
-        race_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
+        self.edit_controller.load_picklists(self.sizes,self.bodies,self.languages,self.foci,self.feats)
+        self.edit_controller.load_data(self.current_set.get_item(name),self.save_one,self.close_edit_item)
 
     def load_set(self,filename=None):
         self.current_set = Race.Races()

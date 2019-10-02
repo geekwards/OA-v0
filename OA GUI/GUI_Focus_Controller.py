@@ -102,8 +102,7 @@ class GUI_focus_controller:
                 lst.insert('end',item)
         self.select_controller.destroy_picklist()
 
-    def __init__(self,parent):
-        self.create_form(parent)
+    def __init__(self,parent=None):
         self.current_focus = None
         self.current_list = []
         self.source = []

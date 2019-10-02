@@ -5,8 +5,7 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import GUI_Misc_List_Controller
-import GUI_Misc_List_Form
+import test__gui_misc_list_controller
 import List_Object
 import Misc_List
 import test__data
@@ -48,18 +47,21 @@ def remove_call(list_item):
 
 class test_GUI_Misc_List_Controller(unittest.TestCase):
     def test_misclist_controller_create(self):
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
-        self.assertEqual(type(misclist_controller.get_form()),GUI_Misc_List_Form.GUI_misc_list_form)
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
+        misclist_controller.create_form()
+        self.assertNotEqual(misclist_controller.get_form(),None)
 
     def test_misclist_controller_load(self):
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
+        misclist_controller.create_form()
         misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
         self.assertEqual(misclist_controller.get_current_set(),test__data.test_misclist1)
 
     def test_misclist_controller_refresh(self):
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
         clone = test__data.test_misclist1.clone()
         clone.all_items[0].short_description = 'test prof'
+        misclist_controller.create_form()
         misclist_controller.load_data(clone,save_call,close_call)
         misclist_form = misclist_controller.get_form()
         self.assertEqual(misclist_form.f1.winfo_children()[1].get('1.0','end-1c'),'test prof')
@@ -69,14 +71,16 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
         self.assertEqual(misclist_controller.get_current_set(),clone)
 
     def test_misclist_controller_close(self):
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
+        misclist_controller.create_form()
         misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
         self.assertNotEqual(misclist_controller.get_form(),None)
         misclist_controller.close_call()
         self.assertEqual(misclist_controller.get_form(),None)
 
     def test_load_form_edit(self):
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
+        misclist_controller.create_form()
         misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
         misclist_form = misclist_controller.get_form()
         misclist_controller.edit_call()
@@ -84,7 +88,8 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
             self.assertEqual(item.cget('state'),'normal')
 
     def test_edit_form_cancel(self):
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
+        misclist_controller.create_form()
         misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
         misclist_form = misclist_controller.get_form()
         misclist_controller.cancel_call()
@@ -94,7 +99,8 @@ class test_GUI_Misc_List_Controller(unittest.TestCase):
     def test_edit_form_save(self):
         global save_called
         save_called = False
-        misclist_controller = GUI_Misc_List_Controller.GUI_misc_list_controller()
+        misclist_controller = test__gui_misc_list_controller.GUI_controller()
+        misclist_controller.create_form()
         misclist_controller.load_data(test__data.test_misclist1,save_call,close_call)
         misclist_controller.save_call()
         self.assertTrue(save_called)

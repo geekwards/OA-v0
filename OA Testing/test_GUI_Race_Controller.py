@@ -52,10 +52,12 @@ def remove_call(arg):
 class test_GUI_Race(unittest.TestCase):
     def test_race_controller_create(self):
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         self.assertNotEqual(race_controller.get_form(),None)
 
     def test_race_controller_load(self):
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_data(test__data.test_race1,save_call,close_call)
         self.assertEqual(race_controller.get_current_set(),test__data.test_race1)
 
@@ -63,6 +65,7 @@ class test_GUI_Race(unittest.TestCase):
         race_controller = test__gui_race_controller.GUI_controller()
         clone = test__data.test_race1.clone()
         clone.short_description = 'test prof'
+        race_controller.create_form()
         race_controller.load_data(clone,save_call,close_call)
         race_form = race_controller.get_form()
         self.assertEqual(race_form.f1.eshortdescr.get(),'test prof')
@@ -73,6 +76,7 @@ class test_GUI_Race(unittest.TestCase):
 
     def test_race_controller_close(self):
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_data(test__data.test_race1,save_call,close_call)
         self.assertNotEqual(race_controller.get_form(),None)
         race_controller.close_call()
@@ -80,6 +84,7 @@ class test_GUI_Race(unittest.TestCase):
 
     def test_load_form_edit(self):
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_data(test__data.test_race1,save_call,close_call)
         race_form = race_controller.get_form()
         race_controller.edit_call()
@@ -88,6 +93,7 @@ class test_GUI_Race(unittest.TestCase):
 
     def test_edit_form_cancel(self):
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_data(test__data.test_race1,save_call,close_call)
         race_form = race_controller.get_form()
         race_controller.cancel_call()
@@ -99,6 +105,7 @@ class test_GUI_Race(unittest.TestCase):
         save_called = False
         race_controller = test__gui_race_controller.GUI_controller()
         clone = test__data.test_race1.clone()
+        race_controller.create_form()
         race_controller.load_data(clone,save_call,close_call)
         race_controller.save_call()
         self.assertTrue(save_called)
@@ -110,6 +117,7 @@ class test_GUI_Race(unittest.TestCase):
         foc = test__data.test_foci1
         fea = test__data.test_feats
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_picklists(sizes,bodies,langs,foc,fea)
         self.assertEqual(race_controller.get_langs(),langs)
         self.assertEqual(race_controller.get_sizes(),sizes)
@@ -124,6 +132,7 @@ class test_GUI_Race(unittest.TestCase):
         foc = test__data.test_foci1
         fea = test__data.test_feats
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_data(test__data.test_race1,save_call,close_call)
         race_controller.load_picklists(sizes,bodies,langs,foc,fea)
         race_controller.edit_picklist('Languages')
@@ -131,10 +140,10 @@ class test_GUI_Race(unittest.TestCase):
         self.assertEqual(race_controller.get_source_picklist(),['testlang1.1: langscore1.1','testlang1.2: langscore1.2','testlang1.3: langscore1.3'])
         race_controller.edit_picklist('Foci')
         self.assertEqual(race_controller.get_current_picklist(),['foci1.1', 'foci1.2', 'foci1.3'])
-        self.assertEqual(race_controller.get_source_picklist(),['test1: testshortdesc1', 'test2: testshortdesc2', 'test3: testshortdesc3'])
+        self.assertEqual(race_controller.get_source_picklist(),['foci1.1', 'foci1.2', 'foci1.3'])
         race_controller.edit_picklist('Feats')
         self.assertEqual(race_controller.get_current_picklist(),['feat1.1', 'feat1.2', 'feat1.3'])
-        self.assertEqual(race_controller.get_source_picklist(),['testfeat1.1', 'testfeat1.2', 'testfeat1.3'])
+        self.assertEqual(race_controller.get_source_picklist(),['feat1.1', 'feat1.2', 'feat1.3'])
  
     def test_save_picklist(self):
         langs = test__data.test_languages
@@ -143,6 +152,7 @@ class test_GUI_Race(unittest.TestCase):
         foc = test__data.test_foci1
         fea = test__data.test_feats
         race_controller = test__gui_race_controller.GUI_controller()
+        race_controller.create_form()
         race_controller.load_data(test__data.test_race1,save_call,close_call)
         race_controller.load_picklists(sizes,bodies,langs,foc,fea)
         race_controller.edit_picklist('Languages')

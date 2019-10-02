@@ -167,36 +167,5 @@ class test_Manage_Food(unittest.TestCase):
         else:
             self.fail('ExpectedException not raised')  
 
-    def test_launch_edit(self):
-        food_manager = Manage_Food.Manage_food()
-        food_manager.load_set(app_config.test_file_path + app_config.test_food_filename)
-        gui = food_manager.launch_edit('test1',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_close_edit(self):
-        food_manager = Manage_Food.Manage_food()
-        food_manager.load_set(app_config.test_file_path + app_config.test_food_filename)
-        gui = food_manager.launch_edit('test1',None,True)
-        gui = food_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_edit_DNE(self):
-        food_manager = Manage_Food.Manage_food()
-        food_manager.load_set(app_config.test_file_path + app_config.test_food_filename)
-        gui = food_manager.launch_edit('DNE',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_launch_list(self):
-        food_manager = Manage_Food.Manage_food()
-        food_manager.load_set(app_config.test_file_path + app_config.test_food_filename)
-        gui = food_manager.launch_list('Food',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_list_DNE(self):
-        food_manager = Manage_Food.Manage_food()
-        food_manager.load_set(app_config.test_file_path + app_config.test_food_filename)
-        gui = food_manager.launch_list('NOTFOUND',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)

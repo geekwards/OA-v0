@@ -169,36 +169,5 @@ class test_Manage_Misc_Lists(unittest.TestCase):
         else:
             self.fail('ExpectedException not raised')  
 
-    def test_launch_edit(self):
-        misclist_manager = Manage_Misc_Lists.Manage_misc_lists()
-        misclist_manager.load_set(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = misclist_manager.launch_edit('test1',None,True)
-        self.assertEqual(type(gui),GUI_Misc_List_Controller.GUI_misc_list_controller)
-
-    def test_close_edit(self):
-        misclist_manager = Manage_Misc_Lists.Manage_misc_lists()
-        misclist_manager.load_set(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = misclist_manager.launch_edit('test1',None,True)
-        gui = misclist_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_edit_DNE(self):
-        misclist_manager = Manage_Misc_Lists.Manage_misc_lists()
-        misclist_manager.load_set(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = misclist_manager.launch_edit('DNE',None,True)
-        self.assertEqual(type(gui),GUI_Misc_List_Controller.GUI_misc_list_controller)
-
-    def test_launch_list(self):
-        misclist_manager = Manage_Misc_Lists.Manage_misc_lists()
-        misclist_manager.load_set(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = misclist_manager.launch_list('Archtypes',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_list_DNE(self):
-        misclist_manager = Manage_Misc_Lists.Manage_misc_lists()
-        misclist_manager.load_set(app_config.test_file_path + app_config.test_misc_list_filename)
-        gui = misclist_manager.launch_list('NOTFOUND',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)

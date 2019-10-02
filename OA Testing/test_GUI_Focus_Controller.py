@@ -47,15 +47,18 @@ def remove_call(list_item):
 class test_GUI_Focus(unittest.TestCase):
     def test_focus_controller_create(self):
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         self.assertNotEqual(focus_controller.get_form(),None)
 
     def test_focus_controller_load(self):
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         focus_controller.load_data(test__data.test_focus1,save_call,close_call)
         self.assertEqual(focus_controller.get_current_set(),test__data.test_focus1)
 
     def test_focus_controller_refresh(self):
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         clone2 = test__data.test_focus1.clone()
         clone2.short_description = 'test prof'
         focus_controller.load_data(clone2,save_call,close_call)
@@ -68,6 +71,7 @@ class test_GUI_Focus(unittest.TestCase):
 
     def test_focus_controller_close(self):
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         focus_controller.load_data(test__data.test_focus1,save_call,close_call)
         self.assertNotEqual(focus_controller.get_form(),None)
         focus_controller.close_call()
@@ -75,24 +79,18 @@ class test_GUI_Focus(unittest.TestCase):
 
     def test_load_form_edit(self):
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         focus_controller.load_data(test__data.test_focus1,save_call,close_call)
         focus_form = focus_controller.get_form()
         focus_controller.edit_call()
         for item in focus_form.f1.winfo_children():
             self.assertEqual(item.cget('state'),'normal')
 
-    def test_edit_form_cancel(self):
-        focus_controller = test__gui_focus_controller.GUI_controller()
-        focus_controller.load_data(test__data.test_focus1,save_call,close_call)
-        focus_form = focus_controller.get_form()
-        focus_controller.cancel_call()
-        for item in focus_form.f1.winfo_children():
-            self.assertEqual(item.cget('state'),'disabled')
-
     def test_edit_form_save(self):
         global save_called
         save_called = False
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         clone = test__data.test_focus1.clone()
         focus_controller.load_data(clone,save_call,close_call)
         focus_controller.save_call()
@@ -101,6 +99,7 @@ class test_GUI_Focus(unittest.TestCase):
     def test_load_picklist(self):
         langs = test__data.test_languages
         focus_controller = test__gui_focus_controller.GUI_controller()
+        focus_controller.create_form()
         focus_controller.load_picklists(langs)
         self.assertEqual(focus_controller.get_langs(),langs)
 
@@ -108,6 +107,7 @@ class test_GUI_Focus(unittest.TestCase):
         langs = test__data.test_languages
         focus_controller = test__gui_focus_controller.GUI_controller()
         clone = test__data.test_focus1.clone()
+        focus_controller.create_form()
         focus_controller.load_data(clone,save_call,close_call)
         focus_controller.load_picklists(langs)
         focus_controller.edit_picklist('Languages')
@@ -119,6 +119,7 @@ class test_GUI_Focus(unittest.TestCase):
         langs = test__data.test_languages
         focus_controller = test__gui_focus_controller.GUI_controller()
         clone = test__data.test_focus1.clone()
+        focus_controller.create_form()
         focus_controller.load_data(clone,save_call,close_call)
         focus_controller.load_picklists(langs)
         focus_controller.edit_picklist('Languages')

@@ -167,36 +167,5 @@ class test_Manage_Clothing(unittest.TestCase):
         else:
             self.fail('ExpectedException not raised')  
 
-    def test_launch_edit(self):
-        clothing_manager = Manage_Clothing.Manage_clothing()
-        clothing_manager.load_set(app_config.test_file_path + app_config.test_clothing_filename)
-        gui = clothing_manager.launch_edit('test1',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_close_edit(self):
-        clothing_manager = Manage_Clothing.Manage_clothing()
-        clothing_manager.load_set(app_config.test_file_path + app_config.test_clothing_filename)
-        gui = clothing_manager.launch_edit('test1',None,True)
-        gui = clothing_manager.close_edit_item(True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_edit_DNE(self):
-        clothing_manager = Manage_Clothing.Manage_clothing()
-        clothing_manager.load_set(app_config.test_file_path + app_config.test_clothing_filename)
-        gui = clothing_manager.launch_edit('DNE',None,True)
-        self.assertEqual(type(gui),GUI_Equipment_Controller.GUI_equipment_controller)
-
-    def test_launch_list(self):
-        clothing_manager = Manage_Clothing.Manage_clothing()
-        clothing_manager.load_set(app_config.test_file_path + app_config.test_clothing_filename)
-        gui = clothing_manager.launch_list('Clothing',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
-    def test_launch_list_DNE(self):
-        clothing_manager = Manage_Clothing.Manage_clothing()
-        clothing_manager.load_set(app_config.test_file_path + app_config.test_clothing_filename)
-        gui = clothing_manager.launch_list('NOTFOUND',None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
-
 if __name__ == '__main__':
     unittest.main(verbosity=2)

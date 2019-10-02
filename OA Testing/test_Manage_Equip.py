@@ -7,33 +7,24 @@ datapath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..") + '/OA 
 sys.path.append(datapath)
 
 import app_config
-import Manage_Equipment
-import GUI_List_Controller
+import test__manage_equipment
 import GUI_Equipment_Controller
 import Base_Manage_Data
+import test__gui_list_controller
 import test__data
  
 class test_Manage_Equip(unittest.TestCase):
     def test_equip_load_get(self):
-        equip_manager = Manage_Equipment.Manage_equipment()
+        equip_manager = test__manage_equipment.Manage_data()
         equip_manager.load_set()
         loaded = equip_manager.get_current_set()
         self.assertEqual(len(loaded),7)
         self.assertEqual(sorted(loaded),sorted(test__data.test_equip_types))
 
-    def test_equip_launch_list(self):
-        equip_manager = Manage_Equipment.Manage_equipment()
+    def test_launch_list(self):
+        equip_manager = test__manage_equipment.Manage_data()
         equip_manager.load_set()
-        gui = equip_manager.launch_list(None,True)
-        self.assertEqual(type(gui),GUI_List_Controller.GUI_list_controller)
- 
-    def test_equip_launch_edit(self):
-        equip_manager = Manage_Equipment.Manage_equipment()
-        equip_manager.load_set()
-        for equip_type in equip_manager.get_current_set():
-            name = equip_type[0]
-            gui = equip_manager.launch_edit(name,None,True)
-            self.assertTrue(isinstance(gui,Base_Manage_Data.Manage_data))
+        self.assertEqual(type(equip_manager.get_list_controller()),test__gui_list_controller.GUI_controller)
  
 if __name__ == '__main__':
     unittest.main(verbosity=2)
