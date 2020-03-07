@@ -65,7 +65,8 @@ class Manage_foci(Base_Manage_Data.Manage_data):
             f.close()
 
     def set_controller(self):
-        self.edit_controller = GUI_Focus_Controller.GUI_focus_controller(parent)
+        self.edit_controller = GUI_Focus_Controller.GUI_focus_controller(self.parent)
+        super().set_controller()
 
     def launch_edit(self,name,parent=None):
         self.edit_controller.create_form(parent)
@@ -111,10 +112,12 @@ class Manage_foci(Base_Manage_Data.Manage_data):
         misc_lists.load_set(filename)
         self.languages = misc_lists.get_current_set().get_item('Languages').clone()
  
-    def __init__(self):
+    def __init__(self,parent=None):
+        self.parent = parent
         self.name = 'Foci'
         self.load_combo_data()
         super().__init__()
+        self.set_controller()
 
 if __name__ == '__main__':
     manager = Manage_foci()
